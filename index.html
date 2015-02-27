@@ -215,63 +215,24 @@ usage. The <a href="#domhighrestimestamp"><code>DOMHighResTimeStamp</code></a> t
 
 <p>This section is non-normative.</p>
 
-<p>
-A developer may wish to construct a timeline of their entire application, including workers. With a dedicated
-<a href="http://www.w3.org/TR/workers/#worker">worker</a>, this is easy. All
-<a href="#domhighrestimestamp"><code>DOMHighResTimeStamps</code></a> recorded in the worker use the same
-<i><a href="#time-origin">time origin</a></i> as the document.
-</p>
+<p>A developer may wish to construct a timeline of their entire application, including events from <a href="http://www.w3.org/TR/workers/#worker">dedicated</a> or <a href="http://www.w3.org/TR/workers/#sharedworker">shared workers</a>, which have a different <i><a href="#time-origin">time origin</a></i>. To display such events on the same timeline, the application can adjust the <a href="#domhighrestimestamp"><code>DOMHighResTimeStamps</code></a> from the worker with the <a href="#dom-worker-start" title="workerStart">workerStart</a> attribute.</p>
 
-Worker:
 <div class="example">
 	<pre>
-var mark_start = performance.now();
-doTaskInWorker(); // Some task
-var mark_end = performance.now();
-postMessage({'task': 'Some worker task',
-             'start_time': mark_start,
-             'end_time': mark_end});
-	</pre>
-</div>
-
-Document:
-<div class="example">
-	<pre>
+&lt;!-- Timing task in document --&gt;
 var mark_start = performance.now();
 doTaskInDocument(); // Some other task
 var mark_end = performance.now();
 var document_entry = {'task': 'Some document task',
                       'start_time': mark_start,
                       'end_time': mark_end};
-var worker = new Worker('js');
-worker.onmessage = function (event) {
-  var worker_entry = event.data;
-  plotTimeline([worker_entry, document_entry]);
-}
-	</pre>
-</div>
 
-<p>
-Constructing a timeline with <a href="http://www.w3.org/TR/workers/#sharedworker">SharedWorkers</a>
-is slightly more difficult. The <i><a href="#time-origin">time origin</a></i> is different,
-because a worker may be shared across multiple documents. In that case, a developer must adjust
-<a href="#domhighrestimestamp"><code>DOMHighResTimeStamps</code></a> before displaying them on
-the same timeline. This can be done with the
-<a href="#dom-worker-start" title="workerStart">workerStart</a> attribute.
-</p>
-
-Document:
-<div class="example">
-	<pre>
-var mark_start = performance.now();
-doTaskInDocument(); // Some other task
-var mark_end = performance.now();
-var document_entry = {'task': 'Some document task',
-                      'start_time': mark_start,
-                      'end_time': mark_end};
+&lt;!-- Timing task in dedicated or shared worker --&gt;
 var worker = new SharedWorker('js');
 worker.port.onmessage = function (event) {
   var worker_entry = event.data;
+
+  // adjust timestamps to account for different time-origin
   worker_entry.start_time -= worker.workerStart;
   worker_entry.end_time -= worker.workerStart;
   plotTimeline([worker_entry, document_entry]);
@@ -279,11 +240,7 @@ worker.port.onmessage = function (event) {
 	</pre>
 </div>
 
-<p>
-Note that the <a href="http://www.w3.org/TR/workers/#sharedworkerglobalscope">SharedWorkerGlobalScope</a>
-doesn't have access to its workers' workerStart values. If needed, the document can send a message to
-the worker containing its <a href="#dom-worker-start" title="workerStart">workerStart</a> value.
-</p>
+<p>Note that the <a href="http://www.w3.org/TR/workers/#workerglobalscope">WorkerGlobalScope</a> doesn't have access to its workers' workerStart values. If needed, the document can send a message to the worker containing its <a href="#dom-worker-start" title="workerStart">workerStart</a> value.</p>
 
 <h2 id="conformance-requirements"><span class="secno">2 </span>Conformance
 requirements</h2>
@@ -329,10 +286,13 @@ rather than the official term ECMAScript, since the term JavaScript is more wide
 </p>
 
 <h3 id="sec-time-origin"><span class="secno">4.2 </span>Time Origin</h3>
-<p>
-	The <i id="time-origin">time origin</i> is the time value from which time is measured. The <i>time origin</i> must be equal to the time of the start of 
-  <a href="http://www.w3.org/TR/html5/browsers.html#navigate">navigation</a> of the current document.
-</p>
+<p>The <i id="time-origin">time origin</i> is the time value from which time is measured.</p>
+
+<ul>
+  <li>The <i>time origin</i> must be equal to the time of the start of
+  <a href="http://www.w3.org/TR/html5/browsers.html#navigate">navigation</a> of the current document.</li>
+  <li>The <i>time origin</i> for <a href="http://www.w3.org/TR/workers/#dedicated-workers-and-the-dedicatedworkerglobalscope-interface">dedicated</a> and <a href="http://www.w3.org/TR/workers/#shared-workers-and-the-sharedworkerglobalscope-interface">shared</a> workers must be equal to the time of <a href="http://dev.w3.org/html5/workers/#official-moment-of-creation">creation</a> of the worker context.</li>
+</ul>
 
 <div class="note"><div class="noteHeader">Note</div>
 <p>
@@ -403,27 +363,22 @@ partial interface <dfn id="WorkerGlobalScope"><a href="http://www.w3.org/TR/2012
 
 <h4 id='now-section'><code>now</code> method</h4>
 
-<p>The <dfn id="dom-performance-now"><code>now</code></dfn> method MUST 
-	return a <a href="#sec-DOMHighResTimeStamp"><code>DOMHighResTimeStamp</code></a> representing the time in milliseconds 
+<p>The <dfn id="dom-performance-now"><code>now</code></dfn> method MUST
+	return a <a href="#sec-DOMHighResTimeStamp"><code>DOMHighResTimeStamp</code></a> representing the time in milliseconds
 	from the <i><a href="#time-origin">time origin</a></i> to the occurrence of the call to the <a href="#dom-performance-now"><code>now</code></a> method.
 </p>
 
 <h3 id="sec-worker-start"><span class="secno">4.5 </span>The <code>workerStart</code> attribute</h3>
+
 <pre class="idl">
-partial interface <dfn id="SharedWorker">SharedWorker</dfn> {
+partial interface <dfn id="AbstractWorker">AbstractWorker</dfn> {
   readonly attribute <a href="#sec-DOMHighResTimeStamp">DOMHighResTimeStamp</a> <a href="#dom-worker-start" title="workerStart">workerStart</a>;
 };
 </pre>
 
 <h4 id='worker-start-section'><code>workerStart</code> attribute</h4>
 
-<p>The <dfn id="dom-worker-start"><code>workerStart</code></dfn> attribute MUST 
-	return a <a href="#sec-DOMHighResTimeStamp"><code>DOMHighResTimeStamp</code></a> representing the difference between
-        the <i><a href="#time-origin">time origin</a></i> of the
-        <a href="http://www.w3.org/TR/workers/#sharedworkerglobalscope">SharedWorkerGlobalScope</a>
-        associated with the <a href="http://www.w3.org/TR/workers/#sharedworker">SharedWorker</a>
-        and the <i><a href="#time-origin">time origin</a></i> of the current document.
-</p>
+<p>The <dfn id="dom-worker-start"><code>workerStart</code></dfn> attribute MUST return a <a href="#sec-DOMHighResTimeStamp"><code>DOMHighResTimeStamp</code></a> representing the difference between the <i><a href="#time-origin">time origin</a></i> of <a href="http://dev.w3.org/html5/workers/#workerglobalscope">WorkerGlobalScope</a> and the <i><a href="#time-origin">time origin</a></i> of the current document.</p>
 
 <div class="note"><div class="noteHeader">Note</div>
 <p>
