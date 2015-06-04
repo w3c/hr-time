@@ -52,6 +52,9 @@
     <dd><a
       href="https://w3c.github.io/hr-time/">https://w3c.github.io/hr-time/</a></dd>
   <dt>Editor:</dt>
+    <dd class="vcard"><span class="fn">Ilya Grigorik</span>, <span
+      class="org">Google Inc.</span>, &lt;<a
+      class="email" href="mailto:igrigorik@gmail.com">igrigorik@gmail.com</a>&gt; </dd>
     <dd class="vcard"><span class="fn">Jatinder Mann</span>, <span
       class="org">Microsoft Corp.</span>, &lt;<a
       class="email" href="mailto:jmann@microsoft.com">jmann@microsoft.com</a>&gt; </dd>
@@ -289,19 +292,10 @@ rather than the official term ECMAScript, since the term JavaScript is more wide
 <p>The <i id="time-origin">time origin</i> is the time value from which time is measured.</p>
 
 <ul>
-  <li>The <i>time origin</i> must be equal to the time of the start of
-  <a href="http://www.w3.org/TR/html5/browsers.html#navigate">navigation</a> of the current document.</li>
-  <li>The <i>time origin</i> for <a href="http://www.w3.org/TR/workers/#dedicated-workers-and-the-dedicatedworkerglobalscope-interface">dedicated</a> and <a href="http://www.w3.org/TR/workers/#shared-workers-and-the-sharedworkerglobalscope-interface">shared</a> workers must be equal to the time of <a href="http://dev.w3.org/html5/workers/#official-moment-of-creation">creation</a> of the worker context.</li>
+  <li>If the settings object specified by the incumbent settings object is a <code>Window</code> object, the <i>time origin</i> must be equal to the time of starting the <a href="http://www.w3.org/TR/html5/browsers.html#navigate">navigation</a> responsible for loading the current document, unless a confirmation dialog is displayed during the <a href="http://www.w3.org/TR/html5/browsers.html#prompt-to-unload-a-document">prompt to unload</a> algorithm, in which case the time of the user confirming the navigation must be used instead.</li>
+  <li>If the settings object specified by the incumbent settings object is a <code>WorkerGlobalScope</code> object, the <i>time origin</i> must be equal to the time <a href="http://dev.w3.org/html5/workers/#set-up-a-worker-script-settings-object">when the worker script settings object is set up</a>.</li>
+  <li>Otherwise, the <i>time origin</i> is undefined.</li>
 </ul>
-
-<div class="note"><div class="noteHeader">Note</div>
-<p>
-  The time value of the start of navigation of the document in an attribute of type <a href="#sec-DOMHighResTimeStamp"><code>DOMHighResTimeStamp</code></a> is equal to 0.
-  The same time value described with an attribute of type <a href="http://www.w3.org/TR/WebIDL/#common-DOMTimeStamp"><code>DOMTimeStamp</code></a>
-  is equal to the <a href="http://www.w3.org/TR/navigation-timing/#dom-performancetiming-navigationstart"><code>navigationStart</code></a>
-  attribute of the <a href="http://www.w3.org/TR/navigation-timing/#performancetiming"><code>PerformanceTiming</code></a> interface <a href='#NavigationTiming'>[NavigationTiming]</a>.
-</p>
-</div>
 
 <h3 id="sec-DOMHighResTimeStamp"><span class="secno">4.3 </span>The <code>DOMHighResTimeStamp</code> Type</h3>
 <p>
@@ -359,16 +353,7 @@ partial interface <dfn id="AbstractWorker">AbstractWorker</dfn> {
 
 <h4 id='worker-start-section'><code>workerStart</code> attribute</h4>
 
-<p>The <dfn id="dom-worker-start"><code>workerStart</code></dfn> attribute MUST return a <a href="#sec-DOMHighResTimeStamp"><code>DOMHighResTimeStamp</code></a> representing the difference between the <i><a href="#time-origin">time origin</a></i> of <a href="http://dev.w3.org/html5/workers/#workerglobalscope">WorkerGlobalScope</a> and the <i><a href="#time-origin">time origin</a></i> of the current document.</p>
-
-<div class="note"><div class="noteHeader">Note</div>
-<p>
-  The value returned by <a href="#dom-worker-start" title="workerStart">workerStart</a> may be negative if a
-  <a href="http://www.w3.org/TR/workers/#sharedworkerglobalscope">SharedWorkerGlobalScope</a> already existed for the
-  <a href="http://www.w3.org/TR/workers/#sharedworker">SharedWorker</a> prior to the document's
-  <i><a href="#time-origin">time origin</a></i>.
-</p>
-</div>
+<p>The <dfn id="dom-worker-start"><code>workerStart</code></dfn> attribute MUST return a <a href="#sec-DOMHighResTimeStamp"><code>DOMHighResTimeStamp</code></a> representing the difference between the worker's <i><a href="#time-origin">time origin</a></i> and the <i><a href="#time-origin">time origin</a></i> of the incumbent settings object. If the incumbent settings object's time origin is undefined, the attribute MUST return 0.</p>
 
 <h3 id="sec-monotonic-clock"><span class="secno">4.6 </span>Monotonic Clock</h3>
 <p>
