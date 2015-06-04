@@ -193,21 +193,12 @@ official term ECMAScript, since the term JavaScript is more widely known. [[ECMA
 <p>The <i><dfn id="time-origin">time origin</dfn></i> is the time value from which time is measured.</p>
 
 <ul>
-  <li>The <i>time origin</i> must be equal to the time of the start of
-  <a href="http://www.w3.org/TR/html5/browsers.html#navigate">navigation</a> of the current document. [[!HTML5]]</li>
-  <li>The <i>time origin</i> for <a href="http://www.w3.org/TR/workers/#dedicated-workers-and-the-dedicatedworkerglobalscope-interface">dedicated</a> and <a href="http://www.w3.org/TR/workers/#shared-workers-and-the-sharedworkerglobalscope-interface">shared</a> workers must be equal to the time of <a href="http://dev.w3.org/html5/workers/#official-moment-of-creation">creation</a> of the worker context. [[!WORKERS]]</li>
+  <li>If the settings object specified by the incumbent settings object is a <code>Window</code> object, the <i>time origin</i> must be equal to the time of starting the <a href="http://www.w3.org/TR/html5/browsers.html#navigate">navigation</a> responsible for loading the current document, unless a confirmation dialog is displayed during the <a href="http://www.w3.org/TR/html5/browsers.html#prompt-to-unload-a-document">prompt to unload</a> algorithm, in which case the time of the user confirming the navigation must be used instead.</li>
+  <li>If the settings object specified by the incumbent settings object is a <code>WorkerGlobalScope</code> object, the <i>time origin</i> must be equal to the time <a href="http://dev.w3.org/html5/workers/#set-up-a-worker-script-settings-object">when the worker script settings object is set up</a>.</li>
+  <li>Otherwise, the <i>time origin</i> is undefined.</li>
 </ul>
 
-<p class='note'>
-  The time value of the start of navigation of the document in an attribute of type <a>DOMHighResTimeStamp</a> is equal to 0.
-  The same time value described with an attribute of type <a href="http://www.w3.org/TR/WebIDL/#common-DOMTimeStamp"><code>DOMTimeStamp</code></a>
-  is equal to the <a href="http://www.w3.org/TR/navigation-timing/#dom-performancetiming-navigationstart"><code>navigationStart</code></a>
-  attribute of the <a href="http://www.w3.org/TR/navigation-timing/#performancetiming"><code>PerformanceTiming</code></a> interface [[NAVIGATION-TIMING]].
-</p>
-</section>
-
-<section id="DOMHighResTimeStamp">
-<h3>The <code>DOMHighResTimeStamp</code> Type</h3>
+<h3 id="sec-DOMHighResTimeStamp"><span class="secno">4.3 </span>The <code>DOMHighResTimeStamp</code> Type</h3>
 <p>
 	The <a><code>DOMHighResTimeStamp</code></a> type is used to store a time value measured relative from the
 	<i><a>time origin</a></i> or a time value that represents a duration
@@ -252,7 +243,7 @@ can represent a <a>DOMHighResTimeStamp</a> as a time in milliseconds accurate to
 
 <dt>readonly attribute DOMHighResTimeStamp workerStart</dt>
 <dd>
-<p>The <dfn id="dom-abstractworker-workerStart"><code>workerStart</code></dfn> attribute MUST return a <a>DOMHighResTimeStamp</a> representing the difference between the <a>time origin</a> of <a href="http://dev.w3.org/html5/workers/#workerglobalscope">WorkerGlobalScope</a> [[!WORKERS]] and the <a>time origin</a> of the current document.</p>
+<p>The <dfn id="dom-worker-start"><code>workerStart</code></dfn> attribute MUST return a <a href="#sec-DOMHighResTimeStamp"><code>DOMHighResTimeStamp</code></a> representing the difference between the worker's <i><a href="#time-origin">time origin</a></i> and the <i><a href="#time-origin">time origin</a></i> of the incumbent settings object. If the incumbent settings object's time origin is undefined, the attribute MUST return 0.</p>
 
 <p class='note'>
   The value returned by <a>workerStart</a> may be negative if a
