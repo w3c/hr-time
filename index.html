@@ -353,7 +353,7 @@ partial interface <dfn id="AbstractWorker">AbstractWorker</dfn> {
 
 <h4 id='worker-start-section'><code>workerStart</code> attribute</h4>
 
-<p>The <dfn id="dom-worker-start"><code>workerStart</code></dfn> attribute MUST return a <a href="#sec-DOMHighResTimeStamp"><code>DOMHighResTimeStamp</code></a> representing the difference between the worker's <i><a href="#time-origin">time origin</a></i> and the <i><a href="#time-origin">time origin</a></i> of the incumbent settings object. If the incumbent settings object's time origin is undefined, the attribute MUST return 0.</p>
+<p>The <dfn id="dom-worker-start"><code>workerStart</code></dfn> attribute MUST return a <a href="#sec-DOMHighResTimeStamp"><code>DOMHighResTimeStamp</code></a> that is the result of subtracting the <i><a href="#time-origin">time origin</a></i> of the incumbent settings object from the <i><a href="#time-origin">time origin</a></i> of the worker. If the incumbent settings object's time origin is undefined, the attribute MUST return 0.</p>
 
 <h3 id="sec-monotonic-clock"><span class="secno">4.6 </span>Monotonic Clock</h3>
 <p>
