@@ -13,6 +13,7 @@
       name: "James Simonsen",
       mailto: "simonjam@google.com",
       company: "Google Inc.",
+      note: "for version 1",
       w3cid: "45726"
     }, {
       name: "Jatinder Mann",
@@ -64,10 +65,11 @@
 notices. </p>
 
 <p>
-	High Resolution Time Level 2 builds on the first version of <a href='#HighResolutionTime'>High Resolution Time</a> and includes:
+	High Resolution Time Level 2 builds on the first version of High Resolution Time [[HR-TIME]] and includes:
 </p>
 <ul>
-<li>support for <code><a href="#widl-Performance-now-DOMHighResTimeStamp">performance.now()</a></code> in Web Workers.</li>
+<li>provides the base definition for the <a>Performance</a> interface, including support for the <a>now</a> method in Web Workers [[WORKERS]];</li>
+<li>introduces <a>workerStart</a> to represent the difference between the time origin of Web Workers and the time origin of the current document.</li>
 </ul>
 
 </section>
@@ -119,15 +121,15 @@ For certain tasks this definition of time may not be sufficient as it does not a
 </ul>
 
 <p>
-This specification does not propose changing the behavior of <code>Date.now()</code> as it is genuinely useful in determining the current value of the calendar time and has a long history of
-usage. The <a href="#domhighrestimestamp"><code>DOMHighResTimeStamp</code></a> type and the <a href="#widl-Performance-now-DOMHighResTimeStamp"><code>now</code></a> method of the
-<a href="#idl-def-Performance"><code>Performance</code></a> interface resolve the issues summarized in this section by providing a monotonically increasing time value in sub-millisecond resolution.
+This specification does not propose changing the behavior of <code>Date.now()</code> [[ECMA-262]] as it is genuinely useful in determining the current value of the calendar time and has a long history of
+usage. The <a>DOMHighResTimeStamp</a> type and the <a>now</a> method of the
+<a>Performance</a> interface resolve the issues summarized in this section by providing a monotonically increasing time value in sub-millisecond resolution.
 </p>
 
 <section id='examples' class='informative'>
 <h3>Examples</h3>
 
-<p>A developer may wish to construct a timeline of their entire application, including events from <a href="http://www.w3.org/TR/workers/#worker">dedicated</a> or <a href="http://www.w3.org/TR/workers/#sharedworker">shared workers</a>, which have a different <i><a href="#time-origin">time origin</a></i>. To display such events on the same timeline, the application can adjust the <a href="#domhighrestimestamp"><code>DOMHighResTimeStamps</code></a> from the worker with the <a href="#dom-worker-start" title="workerStart">workerStart</a> attribute.</p>
+<p>A developer may wish to construct a timeline of their entire application, including events from <a href="http://www.w3.org/TR/workers/#worker">dedicated</a> or <a href="http://www.w3.org/TR/workers/#sharedworker">shared workers</a>, which have a different <a>time origin</a>. To display such events on the same timeline, the application can adjust the <a title="DOMHighResTimeStamp"><code>DOMHighResTimeStamps</code></a> from the worker with the <a>workerStart</a> attribute.</p>
 
 <pre class='example highlight'>
 &lt;!-- Timing task in document --&gt;
@@ -150,7 +152,7 @@ worker.port.onmessage = function (event) {
 }
 </pre>
 
-<p>Note that the <a href="http://www.w3.org/TR/workers/#workerglobalscope">WorkerGlobalScope</a> doesn't have access to its workers' workerStart values. If needed, the document can send a message to the worker containing its <a href="#dom-worker-start" title="workerStart">workerStart</a> value.</p>
+<p>Note that the <a href="http://www.w3.org/TR/workers/#workerglobalscope">WorkerGlobalScope</a> doesn't have access to its workers' workerStart values. If needed, the document can send a message to the worker containing its <a>workerStart</a> value.</p>
 </section>
 
 </section>
@@ -167,10 +169,9 @@ on user agents. </p>
 
 <section id="terminology">
 <h2>Terminology</h2>
-  <p>The construction "a <code>Foo</code> object", where <code>Foo</code> is actually an interface, is sometimes used instead of the more accurate "an object implementing the interface <code>Foo</code>.</p>
-
 <p>The term "JavaScript" is used to refer to ECMA262, rather than the
 official term ECMAScript, since the term JavaScript is more widely known. [[ECMA-262]]</p>
+</section>
 </section>
 
 <section id='high-resolution-time'>
@@ -186,64 +187,64 @@ official term ECMAScript, since the term JavaScript is more widely known. [[ECMA
 
 </section>
 
-<section id="h-time-origin">
+<section>
 <h3>Time Origin</h3>
 
-<p>The <i id="time-origin">time origin</i> is the time value from which time is measured.</p>
+<p>The <i><dfn id="time-origin">time origin</dfn></i> is the time value from which time is measured.</p>
 
 <ul>
   <li>The <i>time origin</i> must be equal to the time of the start of
-  <a href="http://www.w3.org/TR/html5/browsers.html#navigate">navigation</a> of the current document. [[!html5]]</li>
-  <li>The <i>time origin</i> for <a href="http://www.w3.org/TR/workers/#dedicated-workers-and-the-dedicatedworkerglobalscope-interface">dedicated</a> and <a href="http://www.w3.org/TR/workers/#shared-workers-and-the-sharedworkerglobalscope-interface">shared</a> workers must be equal to the time of <a href="http://dev.w3.org/html5/workers/#official-moment-of-creation">creation</a> of the worker context. [[!workers]]</li>
+  <a href="http://www.w3.org/TR/html5/browsers.html#navigate">navigation</a> of the current document. [[!HTML5]]</li>
+  <li>The <i>time origin</i> for <a href="http://www.w3.org/TR/workers/#dedicated-workers-and-the-dedicatedworkerglobalscope-interface">dedicated</a> and <a href="http://www.w3.org/TR/workers/#shared-workers-and-the-sharedworkerglobalscope-interface">shared</a> workers must be equal to the time of <a href="http://dev.w3.org/html5/workers/#official-moment-of-creation">creation</a> of the worker context. [[!WORKERS]]</li>
 </ul>
 
 <p class='note'>
-  The time value of the start of navigation of the document in an attribute of type <a href="#h-domhighrestimestamp"><code>DOMHighResTimeStamp</code></a> is equal to 0.
+  The time value of the start of navigation of the document in an attribute of type <a>DOMHighResTimeStamp</a> is equal to 0.
   The same time value described with an attribute of type <a href="http://www.w3.org/TR/WebIDL/#common-DOMTimeStamp"><code>DOMTimeStamp</code></a>
   is equal to the <a href="http://www.w3.org/TR/navigation-timing/#dom-performancetiming-navigationstart"><code>navigationStart</code></a>
-  attribute of the <a href="http://www.w3.org/TR/navigation-timing/#performancetiming"><code>PerformanceTiming</code></a> interface [[navigation-timing]].
+  attribute of the <a href="http://www.w3.org/TR/navigation-timing/#performancetiming"><code>PerformanceTiming</code></a> interface [[NAVIGATION-TIMING]].
 </p>
 </section>
 
 <section id="DOMHighResTimeStamp">
 <h3>The <code>DOMHighResTimeStamp</code> Type</h3>
 <p>
-	The <a href="#h-domhighrestimestamp"><code>DOMHighResTimeStamp</code></a> type is used to store a time value measured relative from the
-	<i><a href="#time-origin">time origin</a></i> or a time value that represents a duration
-	between two  <a href="#h-domhighrestimestamp"><code>DOMHighResTimeStamps</code></a>.
+	The <a><code>DOMHighResTimeStamp</code></a> type is used to store a time value measured relative from the
+	<i><a>time origin</a></i> or a time value that represents a duration
+	between two  <a title="DOMHighResTimeStamp">DOMHighResTimeStamps</a>.
 </p>
 
 <pre class='idl'>
 typedef double DOMHighResTimeStamp;
 </pre>
 
-<p>A <a href="#h-domhighrestimestamp"><code>DOMHighResTimeStamp</code></a> SHOULD represent a time in milliseconds accurate to a microsecond.</p>
+<p>A <dfn id="dom-domhighrestimestamp"><code>DOMHighResTimeStamp</code></a></dfn> SHOULD represent a time in milliseconds accurate to a microsecond.</p>
 
 <p class='note'>
 If the User Agent is unable to provide a time value accurate to a microsecond due to hardware or software constraints, the User Agent
-can represent a <a href="#h-domhighrestimestamp"><code>DOMHighResTimeStamp</code></a> as a time in milliseconds accurate to a millisecond.
+can represent a <a>DOMHighResTimeStamp</a> as a time in milliseconds accurate to a millisecond.
 </p>
 
 </section>
 
-<section id="now-method">
+<section>
 
-<h3>The <code>performance.now()</code> method</h3>
+<h3>The <code>Performance</code> interface</h3>
 
 <dl title='[Exposed=(Window,Worker)] interface Performance : EventTarget' class='idl'>
 
 <dt>DOMHighResTimeStamp now()</dt>
 <dd>
 <p>The <dfn id="dom-performance-now"><code>now</code></dfn> method MUST
-	return a <a href="#h-domhighrestimestamp"><code>DOMHighResTimeStamp</code></a> representing the time in milliseconds
-	from the <i><a href="#time-origin">time origin</a></i> to the occurrence of the call to the <a href="#widl-Performance-now-DOMHighResTimeStamp"><code>now</code></a> method.
+	return a <a>DOMHighResTimeStamp</a> representing the time in milliseconds
+	from the <a>time origin</a> to the occurrence of the call to the <a>now</a> method.
 </p>
 </dd>
 </dl>
 
 </section>
 
-<section id="worker-start">
+<section>
 
 <h3>The <code>workerStart</code> attribute</h3>
 
@@ -251,13 +252,13 @@ can represent a <a href="#h-domhighrestimestamp"><code>DOMHighResTimeStamp</code
 
 <dt>readonly attribute DOMHighResTimeStamp workerStart</dt>
 <dd>
-<p>The <code>workerStart</code> attribute MUST return a <a href="#h-domhighrestimestamp"><code>DOMHighResTimeStamp</code></a> representing the difference between the <i><a href="#time-origin">time origin</a></i> of <a href="http://dev.w3.org/html5/workers/#workerglobalscope">WorkerGlobalScope</a> [[!workers]] and the <i><a href="#time-origin">time origin</a></i> of the current document.</p>
+<p>The <dfn id="dom-abstractworker-workerStart"><code>workerStart</code></dfn> attribute MUST return a <a>DOMHighResTimeStamp</a> representing the difference between the <a>time origin</a> of <a href="http://dev.w3.org/html5/workers/#workerglobalscope">WorkerGlobalScope</a> [[!WORKERS]] and the <a>time origin</a> of the current document.</p>
 
 <p class='note'>
-  The value returned by <a href="#dom-worker-start" title="workerStart">workerStart</a> may be negative if a
+  The value returned by <a>workerStart</a> may be negative if a
   <a href="http://www.w3.org/TR/workers/#sharedworkerglobalscope">SharedWorkerGlobalScope</a> already existed for the
   <a href="http://www.w3.org/TR/workers/#sharedworker">SharedWorker</a> prior to the document's
-  <i><a href="#time-origin">time origin</a></i>.
+  <a>time origin</a>.
 </p>
 </dd>
 </dl>
@@ -267,9 +268,9 @@ can represent a <a href="#h-domhighrestimestamp"><code>DOMHighResTimeStamp</code
 <h3>Monotonic Clock</h3>
 
 <p>
-The time values returned when calling the <a href="#widl-Performance-now-DOMHighResTimeStamp"><code>now</code></a> method MUST be monotonically increasing and not subject to system clock
+The time values returned when calling the <a>now</a> method MUST be monotonically increasing and not subject to system clock
 adjustments or system clock skew. The difference between any two chronologically recorded time values returned from the
-<a href="#widl-Performance-now-DOMHighResTimeStamp"><code>now</code></a> method MUST never be negative.
+<a>now</a> method MUST never be negative.
 </p>
 </section>
 
@@ -279,7 +280,7 @@ adjustments or system clock skew. The difference between any two chronologically
 <p>
 Statistical fingerprinting is a privacy concern where a malicious web site may determine whether a user has visited a
 third-party web site by measuring the timing of cache hits and misses of resources in the third-party web site.
-Though the <a href="#widl-Performance-now-DOMHighResTimeStamp"><code>now</code></a> method of the <a href="#idl-def-Performance"><code>Performance</code></a> interface
+Though the <a>now</a> method of the <a>Performance</a> interface
 returns time data to a greater accuracy than before, it does not make this privacy concern significantly worse than it was already.
 </p>
 
