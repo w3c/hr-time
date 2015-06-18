@@ -10,6 +10,12 @@
     specStatus: "ED",
     edDraftURI: "https://w3c.github.io/hr-time/",
     editors: [{
+      name: "Ilya Grigorik",
+      mailto: "igrgiroik@google.com",
+      company: "Google Inc.",
+      note: "for version 2",
+      w3cid: "56102"
+    }, {
       name: "James Simonsen",
       mailto: "simonjam@google.com",
       company: "Google Inc.",
@@ -67,9 +73,10 @@ notices. </p>
 <p>
 	High Resolution Time Level 2 builds on the first version of High Resolution Time [[HR-TIME]] and includes:
 </p>
+
 <ul>
-<li>provides the base definition for the <a>Performance</a> interface, including support for the <a>now</a> method in Web Workers [[WORKERS]];</li>
-<li>introduces <a>workerStart</a> to represent the difference between the time origin of Web Workers and the time origin of the current document.</li>
+  <li>provides the base definition for the <a>Performance</a> interface, including support for the <a>now</a> method in Web Workers [[WORKERS]];</li>
+  <li>introduces <a>translateTime</a> to translate timestamps between different time origins and deprecates <code>workerStart</code> attribute;</li>
 </ul>
 
 </section>
@@ -129,7 +136,7 @@ usage. The <a>DOMHighResTimeStamp</a> type and the <a>now</a> method of the
 <section id='examples' class='informative'>
 <h3>Examples</h3>
 
-<p>A developer may wish to construct a timeline of their entire application, including events from <a href="http://www.w3.org/TR/workers/#worker">dedicated</a> or <a href="http://www.w3.org/TR/workers/#sharedworker">shared workers</a>, which have a different <a>time origin</a>. To display such events on the same timeline, the application can adjust the <a title="DOMHighResTimeStamp"><code>DOMHighResTimeStamps</code></a> from the worker with the <a>workerStart</a> attribute.</p>
+<p>A developer may wish to construct a timeline of their entire application, including events from <a href="http://www.w3.org/TR/workers/#worker">dedicated</a> or <a href="http://www.w3.org/TR/workers/#sharedworker">shared workers</a>, which have a different <a>time origin</a>. To display such events on the same timeline, the application can translate the <a title="DOMHighResTimeStamp"><code>DOMHighResTimeStamps</code></a> from the worker with the <a>translateTime</a> method.</p>
 
 <pre class='example highlight'>
 &lt;!-- Timing task in document --&gt;
@@ -145,15 +152,16 @@ var worker = new SharedWorker('js');
 worker.port.onmessage = function (event) {
   var worker_entry = event.data;
 
-  // adjust timestamps to account for different time-origin
-  worker_entry.start_time -= worker.workerStart;
-  worker_entry.end_time -= worker.workerStart;
+  // adjust timestamps to account for different time origin
+  worker_entry.start_time = performance.translateTime(
+    worker_entry.start_time, worker);
+  worker_entry.end_time = performance.translateTime(
+    worker_entry.end_time, worker);
+
+  // plot the results on timeline
   plotTimeline([worker_entry, document_entry]);
 }
 </pre>
-
-<p>Note that the <a href="http://www.w3.org/TR/workers/#workerglobalscope">WorkerGlobalScope</a> doesn't have access to its workers' workerStart values. If needed, the document can send a message to the worker containing its <a>workerStart</a> value.</p>
-</section>
 
 </section>
 
@@ -231,28 +239,18 @@ can represent a <a>DOMHighResTimeStamp</a> as a time in milliseconds accurate to
 	from the <a>time origin</a> to the occurrence of the call to the <a>now</a> method.
 </p>
 </dd>
-</dl>
 
-</section>
-
-<section>
-
-<h3>The <code>workerStart</code> attribute</h3>
-
-<dl title='partial interface AbstractWorker' class='idl'>
-
-<dt>readonly attribute DOMHighResTimeStamp workerStart</dt>
+<dt>DOMHighResTimeStamp translateTime(DOMHighResTimeStamp time, (Windor or Worker) timeSource)</dt>
 <dd>
-<p>The <dfn id="dom-worker-start"><code>workerStart</code></dfn> attribute MUST return a <a href="#sec-DOMHighResTimeStamp"><code>DOMHighResTimeStamp</code></a> representing the difference between the worker's <i><a href="#time-origin">time origin</a></i> and the <i><a href="#time-origin">time origin</a></i> of the incumbent settings object. If the incumbent settings object's time origin is undefined, the attribute MUST return 0.</p>
+<p>The <dfn id="dom-performance-translateTime"><code>translateTime</code></dfn> method MUST return a <a>DOMHighResTimeStamp</a> that is the result of adding the provided <code>time</code>, and the difference between the <a>time origin</a> of the provided <code>timeSource</code> and the <a>time origin</a> of the global of the performance object that is the <code>this</code> value for the <a>translateTime</a> call.
+</p>
 
 <p class='note'>
-  The value returned by <a>workerStart</a> may be negative if a
-  <a href="http://www.w3.org/TR/workers/#sharedworkerglobalscope">SharedWorkerGlobalScope</a> already existed for the
-  <a href="http://www.w3.org/TR/workers/#sharedworker">SharedWorker</a> prior to the document's
-  <a>time origin</a>.
+  To translate the timestamp (<code>time</code>), the equation is: <code>time + ((time origin of timeSource) - (time origin for the <i>translateTime</i> call))</code>.
 </p>
 </dd>
 </dl>
+
 </section>
 
 <section id="monotonic-clock">
@@ -280,8 +278,7 @@ returns time data to a greater accuracy than before, it does not make this priva
 
 <section class="appendix">
 <h2>Acknowledgments</h2>
-<p>I would like to sincerely thank Karen Anderson, Nat Duca, Tony Gentilcore, Arvind Jain, and Jason Weber
- to acknowledge their contributions to this work.</p>
+<p>I would like to sincerely thank Karen Anderson, Nat Duca, Tony Gentilcore, Arvind Jain, Jason Weber, and Boris Zbarsky to acknowledge their contributions to this work.</p>
 </section>
 </body>
 </html>
