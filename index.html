@@ -249,7 +249,6 @@ can represent a <a>DOMHighResTimeStamp</a> as a time in milliseconds accurate to
 <section>
 
 <h3>The <code>Performance</code> interface</h3>
-
 <dl title='[Exposed=(Window,Worker)] interface Performance : EventTarget' class='idl'>
 
 <dt>DOMHighResTimeStamp now()</dt>
@@ -270,6 +269,16 @@ can represent a <a>DOMHighResTimeStamp</a> as a time in milliseconds accurate to
 </p>
 </dd>
 </dl>
+
+<dl class='idl' title='[NoInterfaceObject, Exposed=(Window,Worker)] interface GlobalPerformance'>
+<dt>[Replaceable] readonly attribute Performance performance</dt>
+<dd>This attribute allows access to performance related attributes and methods.</dd>
+</dl>
+
+<pre class='idl'>
+Window implements GlobalPerformance;
+WorkerGlobalScope implements GlobalPerformance;
+</pre>
 
 </section>
 
