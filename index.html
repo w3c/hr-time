@@ -265,17 +265,13 @@ can represent a <a>DOMHighResTimeStamp</a> as a time in milliseconds accurate to
 
 <dt>DOMHighResTimeStamp translateTime(DOMHighResTimeStamp time, (Window or Worker or SharedWorker or ServiceWorker) timeSource)</dt>
 <dd>
-<p>The <dfn id="dom-performance-translateTime"><code>translateTime</code></dfn> method MUST return a <a>DOMHighResTimeStamp</a> that is the result of adding the provided <code>time</code>, and the difference between the <a>time origin</a> of the provided <code>timeSource</code> and the <a>time origin</a> of the global of the performance object that is the <code>this</code> value for the <a>translateTime</a> call.
-</p>
-
-<div class='note'>
-  <p>
-    To translate the timestamp (<code>time</code>), the equation is:
-  </p>
-  <pre class='highlight'>
-    <code>time</code> + ((time origin of <code>timeSource</code>) - (time origin for the <code>translateTime</code> call))
-  </pre>
-</p>
+<p>The <dfn id="dom-performance-translateTime"><code>translateTime</code></dfn> method MUST return a <a>DOMHighResTimeStamp</a> as follows:</p>
+<ol>
+<li>Let <var>time</var> be the value of the provided <code>time</code> argument.
+<li>Let <var>originSource</var> be the <a>time origin</a> of the provided <code>timeSource</code> object.
+<li>Let <var>originTranslate</var> be the <a>time origin</a> of the <a href="http://www.w3.org/TR/html5/webappapis.html#global-object">global object</a> associated with the performance object that is the <code>this</code> value for the <a>translateTime</a> call.
+<li>Return <var>time</var> + (<var>originSource</var> - <var>originTranslate</var>)
+</ol>
 </dd>
 <dt>serializer = { attribute }</dt>
 </dl>
@@ -302,9 +298,9 @@ WorkerGlobalScope implements GlobalPerformance;
 <h3>Monotonic Clock</h3>
 
 <p>
-The time values returned when calling the <a>now</a> method MUST be monotonically increasing and not subject to system clock
+The time values returned when calling the <a>now</a> method on <a>Performance</a> objects with the same <a>time origin</a> MUST be monotonically increasing and not subject to system clock
 adjustments or system clock skew. The difference between any two chronologically recorded time values returned from the
-<a>now</a> method MUST never be negative.
+<a>now</a> method MUST never be negative if the two time values have the same <a>time origin</a>. <code>translateTime</code> MUST be used to compare two chronologically recorded time values of different <a>time origin</a>.
 </p>
 </section>
 
