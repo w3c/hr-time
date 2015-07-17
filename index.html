@@ -48,6 +48,20 @@
         href: 'https://github.com/w3c/web-platform-tests/tree/master/hr-time'
       }]
     }],
+    localBiblio:  {
+      'CACHE-ATTACKS': {
+        title: 'The Spy in the Sandbox - Practical Cache Attacks in Javascript',
+        href: 'http://arxiv.org/abs/1502.07373',
+        authors: [
+          'Yossef Oren',
+          'Vasileios P. Kemerlis',
+          'Simha Sethumadhavan',
+          'Angelos D. Keromytis',
+          'Mootaz Elnozahy'
+        ],
+        date: 'March 2015'
+      }
+    },
     wgPatentURI:  "http://www.w3.org/2004/01/pp-impl/45211/status"
   };
   </script>
@@ -302,14 +316,14 @@ adjustments or system clock skew. The difference between any two chronologically
 
 <h3>Privacy and Security</h3>
 <p>
-Statistical fingerprinting is a privacy concern where a malicious web site may use high resolution timing data of various browser or application-initiated operations to identify a particular user. To mitigate such attacks, the recommended minimum resolution of the <a>Performance</a> interface should be set to 5 microseconds.</p>
+Cache attacks and statistical fingerprinting is a privacy and security concern where a malicious web site may use high resolution timing data of various browser or application-initiated operations to identify a particular user - see [[CACHE-ATTACKS]]. To mitigate such attacks, the recommended minimum resolution of the <a>Performance</a> interface should be set to 5 microseconds.</p>
 
 </section>
 </section>
 
 <section class="appendix">
 <h2>Acknowledgments</h2>
-<p>I would like to sincerely thank Karen Anderson, Nat Duca, Tony Gentilcore, Arvind Jain, Jason Weber, and Boris Zbarsky to acknowledge their contributions to this work.</p>
+<p>The editors would like to thank the following people for contributing to this specification: Karen Anderson, Nat Duca, Tony Gentilcore, Arvind Jain, Jason Weber, Boris Zbarsky, Yossef Oren, Vasileios P. Kemerlis, Simha Sethumadhavan, and Angelos D. Keromytis to acknowledge their contributions to this work.</p>
 </section>
 </body>
 </html>
