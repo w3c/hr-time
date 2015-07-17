@@ -218,26 +218,30 @@ on user agents. </p>
 <section>
 <h3>Time Origin</h3>
 
-<p>The <i><dfn id="time-origin">time origin</dfn></i> is the time value from which time is measured.</p>
+<p>The <dfn id="time-origin">time origin</dfn> is the time value from which time is measured.</p>
 
 <ul>
-  <li>If the <a href="http://www.w3.org/TR/html5/webappapis.html#global-object">global object</a> is a <code>Window</code> object, the <i>time origin</i> must be equal to the time of starting the <a href="http://www.w3.org/TR/html5/browsers.html#navigate">navigation</a> responsible for loading the current document, unless a confirmation dialog is displayed during the <a href="http://www.w3.org/TR/html5/browsers.html#prompt-to-unload-a-document">prompt to unload</a> algorithm, in which case the time of the user confirming the navigation must be used instead. If there is no previous document, the time origin must be equal to the time when the <a href="https://html.spec.whatwg.org/multipage/browsers.html#creating-a-new-browsing-context">browsing context is first created</a>. [[!HTML5]]</li>
-  <li>If the <a href="http://www.w3.org/TR/html5/webappapis.html#global-object">global object</a> is a <a href="https://w3c.github.io/workers/#the-workerglobalscope-common-interface"><code>WorkerGlobalScope</code></a> object, the <i>time origin</i> must be equal to the <a href="https://w3c.github.io/workers/#official-moment-of-creation">official moment of creation</a> of the worker. [[!WORKERS]]</li>
-  <li>Otherwise, the <i>time origin</i> is undefined.</li>
+  <li>If the <a href="http://www.w3.org/TR/html5/webappapis.html#global-object">global object</a> is a <code>Window</code> object, the <a>time origin</a> must be equal to the time of starting the <a href="http://www.w3.org/TR/html5/browsers.html#navigate">navigation</a> responsible for loading the current document, unless a confirmation dialog is displayed during the <a href="http://www.w3.org/TR/html5/browsers.html#prompt-to-unload-a-document">prompt to unload</a> algorithm, in which case the time of the user confirming the navigation must be used instead. If there is no previous document, the time origin must be equal to the time when the <a href="http://www.w3.org/TR/html51/browsers.html#creating-a-new-browsing-context">browsing context is first created</a>. [[!HTML5]]</li>
+  <li>If the <a href="http://www.w3.org/TR/html5/webappapis.html#global-object">global object</a> is a <a href="https://w3c.github.io/workers/#the-workerglobalscope-common-interface"><code>WorkerGlobalScope</code></a> object, the <a>time origin</a> must be equal to the <a href="https://w3c.github.io/workers/#official-moment-of-creation">official moment of creation</a> of the worker. [[!WORKERS]]</li>
+  <li>Otherwise, the <a>time origin</a> is undefined.</li>
 </ul>
+</section>
+<section id="dom-domhighrestimestamp">
 
-<h3 id="sec-DOMHighResTimeStamp"><span class="secno">4.3 </span>The <code>DOMHighResTimeStamp</code> Type</h3>
+<h3>The <code>DOMHighResTimeStamp</code> Type</h3>
+
 <p>
-	The <a><code>DOMHighResTimeStamp</code></a> type is used to store a time value measured relative from the
-	<i><a>time origin</a></i> or a time value that represents a duration
-	between two  <a title="DOMHighResTimeStamp">DOMHighResTimeStamps</a>.
+	The <a>DOMHighResTimeStamp</a> type is used to store a time value measured relative from the
+	<a>time origin</a> or a time value that represents a duration
+	between two  <a>DOMHighResTimeStamp</a>s.
 </p>
 
 <pre class='idl'>
 typedef double DOMHighResTimeStamp;
+typedef double FooBar;
 </pre>
 
-<p>A <dfn id="dom-domhighrestimestamp"><code>DOMHighResTimeStamp</code></dfn> SHOULD represent a time in milliseconds accurate to a microsecond.</p>
+<p>A <a>DOMHighResTimeStamp</a> SHOULD represent a time in milliseconds accurate to a microsecond.</p>
 
 <p class='note'>
 If the User Agent is unable to provide a time value accurate to a microsecond due to hardware or software constraints, the User Agent
@@ -264,8 +268,13 @@ can represent a <a>DOMHighResTimeStamp</a> as a time in milliseconds accurate to
 <p>The <dfn id="dom-performance-translateTime"><code>translateTime</code></dfn> method MUST return a <a>DOMHighResTimeStamp</a> that is the result of adding the provided <code>time</code>, and the difference between the <a>time origin</a> of the provided <code>timeSource</code> and the <a>time origin</a> of the global of the performance object that is the <code>this</code> value for the <a>translateTime</a> call.
 </p>
 
-<p class='note'>
-  To translate the timestamp (<code>time</code>), the equation is: <code>time + ((time origin of timeSource) - (time origin for the <i>translateTime</i> call))</code>.
+<div class='note'>
+  <p>
+    To translate the timestamp (<code>time</code>), the equation is:
+  </p>
+  <pre class='highlight'>
+    <code>time</code> + ((time origin of <code>timeSource</code>) - (time origin for the <code>translateTime</code> call))
+  </pre>
 </p>
 </dd>
 <dt>serializer = { attribute }</dt>
