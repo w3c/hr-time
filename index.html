@@ -144,14 +144,14 @@ For certain tasks this definition of time may not be sufficient as it does not a
 
 <p>
 This specification does not propose changing the behavior of <code>Date.now()</code> [[ECMA-262]] as it is genuinely useful in determining the current value of the calendar time and has a long history of
-usage. The <a>DOMHighResTimeStamp</a> type and the <a>now</a> method of the
+usage. The <a>DOMHighResTimeStamp</a> type and the <a>Performance.now</a> method of the
 <a>Performance</a> interface resolve the issues summarized in this section by providing a monotonically increasing time value in sub-millisecond resolution.
 </p>
 
 <section id='examples' class='informative'>
 <h3>Examples</h3>
 
-<p>A developer may wish to construct a timeline of their entire application, including events from <a href="http://www.w3.org/TR/workers/#worker">dedicated</a> or <a href="http://www.w3.org/TR/workers/#sharedworker">shared workers</a>, which have a different <a>time origin</a>. To display such events on the same timeline, the application can translate the <a title="DOMHighResTimeStamp"><code>DOMHighResTimeStamps</code></a> from the worker with the <a>translateTime</a> method.</p>
+<p>A developer may wish to construct a timeline of their entire application, including events from <a href="http://www.w3.org/TR/workers/#worker">dedicated</a> or <a href="http://www.w3.org/TR/workers/#sharedworker">shared workers</a>, which have a different <a>time origin</a>. To display such events on the same timeline, the application can translate the <a data-lt="DOMHighResTimeStamp">DOMHighResTimeStamps</a> from the worker with the <a>Performance.translateTime</a> method.</p>
 
 <pre class="example highlight">
 
@@ -220,7 +220,7 @@ on user agents. </p>
 <section>
 <h3>Time Origin</h3>
 
-<p>The <dfn id="time-origin">time origin</dfn> is the time value from which time is measured.</p>
+<p>The <dfn id="time-origin">time origin</dfn> is the time value from which time is measured:</p>
 
 <ul>
   <li>If the <a href="http://www.w3.org/TR/html51/webappapis.html#global-object">global object</a> is a <code>Window</code> object, the <a>time origin</a> must be equal to the time of starting the <a href="http://www.w3.org/TR/html51/browsers.html#navigate">navigation</a> responsible for loading the current document, unless a confirmation dialog is displayed during the <a href="http://www.w3.org/TR/html51/browsers.html#prompt-to-unload-a-document">prompt to unload</a> algorithm, in which case the time of the user confirming the navigation must be used instead. If there is no previous document, the time origin must be equal to the time when the <a href="http://www.w3.org/TR/html51/browsers.html#creating-a-new-browsing-context">browsing context is first created</a>. [[!HTML51]]</li>
@@ -253,28 +253,28 @@ If the User Agent is unable to provide a time value accurate to 5 microseconds d
 <section>
 
 <h3>The <code>Performance</code> interface</h3>
-<dl title='[Exposed=(Window,Worker)] interface Performance : EventTarget' class='idl'>
+<pre class='idl'>
+[Exposed=(Window,Worker)]
+interface Performance : EventTarget {
+    DOMHighResTimeStamp now ();
+    DOMHighResTimeStamp translateTime (DOMHighResTimeStamp time, (Window or Worker or SharedWorker or ServiceWorker) timeSource);
+    serializer = {attribute};
+};
+</pre>
 
-<dt>DOMHighResTimeStamp now()</dt>
-<dd>
-<p>The <dfn id="dom-performance-now"><code>now</code></dfn> method MUST
+<p>The <a>Performance.now</a> method MUST
 	return a <a>DOMHighResTimeStamp</a> representing the time in milliseconds
-	from the <a>time origin</a> to the occurrence of the call to the <a>now</a> method.
+	from the <a>time origin</a> to the occurrence of the call to the <a>Performance.now</a> method.
 </p>
 </dd>
 
-<dt>DOMHighResTimeStamp translateTime(DOMHighResTimeStamp time, (Window or Worker or SharedWorker or ServiceWorker) timeSource)</dt>
-<dd>
-<p>The <dfn id="dom-performance-translateTime"><code>translateTime</code></dfn> method MUST return a <a>DOMHighResTimeStamp</a> as follows:</p>
+<p>The <a>Performance.translateTime</a> method MUST return a <a>DOMHighResTimeStamp</a> as follows:</p>
 <ol>
 <li>Let <var>time</var> be the value of the provided <code>time</code> argument.
 <li>Let <var>originSource</var> be the <a>time origin</a> of the provided <code>timeSource</code> object.
-<li>Let <var>originTranslate</var> be the <a>time origin</a> of the <a href="http://www.w3.org/TR/html51/webappapis.html#global-object">global object</a> associated with the performance object that is the <code>this</code> value for the <a>translateTime</a> call.
+<li>Let <var>originTranslate</var> be the <a>time origin</a> of the <a href="http://www.w3.org/TR/html51/webappapis.html#global-object">global object</a> associated with the performance object that is the <code>this</code> value for the <a>Performance.translateTime</a> call.
 <li>Return <var>time</var> + (<var>originSource</var> - <var>originTranslate</var>)
 </ol>
-</dd>
-<dt>serializer = { attribute }</dt>
-</dl>
 
 </section>
 
@@ -282,12 +282,16 @@ If the User Agent is unable to provide a time value accurate to 5 microseconds d
 
 <h3>The <code>performance</code> attribute</h3>
 
-<dl class='idl' title='[NoInterfaceObject, Exposed=(Window,Worker)] interface GlobalPerformance'>
-<dt>[Replaceable] readonly attribute Performance performance</dt>
-<dd>This attribute allows access to performance related attributes and methods.</dd>
-</dl>
-
+<p>
+  The <a>GlobalPerformance.performance</a> attribute allows access to performance related attributes and methods from the <a href="http://www.w3.org/TR/html51/webappapis.html#global-object">global object</a>.
+</p>
 <pre class='idl'>
+[NoInterfaceObject, Exposed=(Window,Worker)]
+interface GlobalPerformance {
+    [Replaceable]
+    readonly    attribute Performance performance;
+};
+
 Window implements GlobalPerformance;
 WorkerGlobalScope implements GlobalPerformance;
 </pre>
@@ -298,9 +302,9 @@ WorkerGlobalScope implements GlobalPerformance;
 <h3>Monotonic Clock</h3>
 
 <p>
-The time values returned when calling the <a>now</a> method on <a>Performance</a> objects with the same <a>time origin</a> MUST be monotonically increasing and not subject to system clock
+The time values returned when calling the <a>Performance.now</a> method on <a>Performance</a> objects with the same <a>time origin</a> MUST be monotonically increasing and not subject to system clock
 adjustments or system clock skew. The difference between any two chronologically recorded time values returned from the
-<a>now</a> method MUST never be negative if the two time values have the same <a>time origin</a>. <code>translateTime</code> MUST be used to compare two chronologically recorded time values of different <a>time origin</a>.
+<a>Performance.now</a> method MUST never be negative if the two time values have the same <a>time origin</a>. <a>Performance.translateTime</a> MUST be used to compare two chronologically recorded time values of different <a>time origin</a>.
 </p>
 </section>
 
