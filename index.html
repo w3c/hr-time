@@ -84,12 +84,14 @@
 notices. </p>
 
 <p>
-	High Resolution Time Level 2 builds on the first version of High Resolution Time [[HR-TIME]] and includes:
+	High Resolution Time Level 2 replaces on the first version of High Resolution Time [[HR-TIME]] and includes:
 </p>
 
 <ul>
   <li>provides the base definition for the <a>Performance</a> interface, including support for the <a>now</a> method in Web Workers [[WORKERS]];</li>
+  <li>To mitigate <a href='#privacy-security'>cache attacks</a>, the recommended minimum resolution of the Performance interface should be set to 5 microseconds.</li>
   <li>introduces <a>translateTime</a> to translate timestamps between different time origins and deprecates <code>workerStart</code> attribute;</li>
+
 </ul>
 
 </section>
