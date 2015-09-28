@@ -203,6 +203,8 @@ worker.port.onmessage = function (event) {
 
 </section>
 
+</section>
+
 <section  id="conformance">
 
 <p>Some conformance requirements are phrased as requirements on attributes,
@@ -212,21 +214,6 @@ on user agents. </p>
     <p>The IDL fragments in this specification must be interpreted as
     required for conforming IDL fragments, as described in the Web IDL
     specification. [[!WebIDL]]</p>
-
-</section>
-
-</section>
-
-<section id='high-resolution-time'>
-<h2>High Resolution Time</h2>
-
-<section id="high-resolution-introduction" class='informative'>
-<h3>Introduction</h3>
-
-<p>
-	This specification defines an interface that provides the current time
-	in sub-millisecond resolution and such that it is not subject to system clock skew or adjustments.
-</p>
 
 </section>
 
@@ -323,7 +310,6 @@ adjustments or system clock skew. The difference between any two chronologically
 <p>
 Cache attacks and statistical fingerprinting is a privacy and security concern where a malicious web site may use high resolution timing data of various browser or application-initiated operations to identify a particular user - see [[CACHE-ATTACKS]]. To mitigate such attacks, the recommended minimum resolution of the <a>Performance</a> interface should be set to 5 microseconds.</p>
 
-</section>
 </section>
 
 <section class="appendix">
