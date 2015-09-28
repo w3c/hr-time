@@ -260,16 +260,16 @@ interface Performance : EventTarget {
 };
 </pre>
 
-<p>The <a>Performance.now</a> method MUST
+<p>The <dfn for='Performance' data-lt='now'>now()</dfn> method MUST
 	return a <a>DOMHighResTimeStamp</a> representing the time in milliseconds
 	from the <a>time origin</a> to the occurrence of the call to the <a>Performance.now</a> method.
 </p>
 </dd>
 
-<p>The <a>Performance.translateTime</a> method MUST return a <a>DOMHighResTimeStamp</a> as follows:</p>
+<p>The <dfn for='Performance' data-lt='translateTime'>translateTime(time, timeSource)</dfn> method MUST return a <a>DOMHighResTimeStamp</a> as follows:</p>
 <ol>
 <li>Let <var>time</var> be the value of the provided <code>time</code> argument.
-<li>Let <var>originSource</var> be the <a>time origin</a> of the provided <code>timeSource</code> object.
+<li>Let <var>originSource</var> be the <a>time origin</a> of the <a href="http://www.w3.org/TR/html51/webappapis.html#global-object">global object</a> associated with the provided <code>timeSource</code> object.
 <li>Let <var>originTranslate</var> be the <a>time origin</a> of the <a href="http://www.w3.org/TR/html51/webappapis.html#global-object">global object</a> associated with the performance object that is the <code>this</code> value for the <a>Performance.translateTime</a> call.
 <li>Return <var>time</var> + (<var>originSource</var> - <var>originTranslate</var>)
 </ol>
