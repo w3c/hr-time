@@ -104,8 +104,13 @@ notices. </p>
 
 <ul>
   <li>provides the base definition for the <a>Performance</a> interface, including support for the <a>Performance.now</a> method in Web Workers [[WORKERS]];</li>
+  <li>Introduces the method <a>Performance.translateTime</a> to compare times between different time origins;</li>
   <li>To mitigate <a href='#privacy-security'>cache attacks</a>, the recommended minimum resolution of the Performance interface should be set to 5 microseconds.</li>
 </ul>
+
+<p>
+The method <a>Performance.translateTime</a> is marked as <a href='http://www.w3.org/2015/Process-20150901/#candidate-rec'>"at risk"</a> to the purpose of moving High Resolution Time 2 to W3C Recommendation due to its lack of implementation experience. It is expected to be deferred until the next release.
+</p>
 
 </section>
 
