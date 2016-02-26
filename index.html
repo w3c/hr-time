@@ -102,13 +102,9 @@
 <ul>
   <li>Defines a precise definition of <a>time origin</a> for the purpose of all performance timeline related specifications;</li>
   <li>Provides the base definition for the <a>Performance</a> interface, including support for the <a>Performance.now</a> method in Web Workers [[WORKERS]];</li>
-  <li>Introduces the method <a>Performance.translateTime</a> to compare times between different time origins;</li>
+  <li>Introduces new <a>Performance.transferable</a> method and <a>TransferableDOMHighResTimeStamp</a> interface to enable transfer and resolving of high-resolution timestamps across different time origins;
   <li>To mitigate <a href='#privacy-security'>cache attacks</a>, the recommended minimum resolution of the Performance interface should be set to 5 microseconds.</li>
 </ul>
-
-<p>
-The method <a>Performance.translateTime</a> is marked as <a href='http://www.w3.org/2015/Process-20150901/#candidate-rec'>"at risk"</a> to the purpose of moving High Resolution Time 2 to W3C Recommendation due to its lack of implementation experience. It is expected to be deferred until the next release.
-</p>
 
 </section>
 
@@ -167,7 +163,7 @@ usage. The <a>DOMHighResTimeStamp</a> type and the <a>Performance.now</a> method
 <section id='examples' class='informative'>
 <h3>Examples</h3>
 
-<p>A developer may wish to construct a timeline of their entire application, including events from <a href="http://www.w3.org/TR/workers/#worker">dedicated</a> or <a href="http://www.w3.org/TR/workers/#sharedworker">shared workers</a>, which have a different <a>time origin</a>. To display such events on the same timeline, the application can translate the <a data-lt="DOMHighResTimeStamp">DOMHighResTimeStamps</a> from the worker with the <a>Performance.translateTime</a> method.</p>
+<p>A developer may wish to construct a timeline of their entire application, including events from <a href="http://www.w3.org/TR/workers/#worker">dedicated</a> or <a href="http://www.w3.org/TR/workers/#sharedworker">shared workers</a>, which have a different <a>time origin</a>. To display such events on the same timeline, the application can obtain a <a>TransferableDOMHighResTimeStamp</a> and transfer it to another time origin, where it can then be resolved into a <a>DOMHighResTimeStamp</a> with respect to the receiver's time origin.</p>
 
 <pre class="example highlight">
 
@@ -182,10 +178,10 @@ onconnect = function(e) {
     var task_end = performance.now();
 
     port.postMessage({
-       'task': 'Some worker task',
-       'start_time': task_start,
-       'end_time': task_end,
-       'result': result
+       task: 'Some worker task',
+       task_start: performance.transferable(task_start),
+       task_end: performance.transferable(task_end),
+       result: result
     });
   }
 }
@@ -193,14 +189,14 @@ onconnect = function(e) {
 // ---- application.js ------------------------
 // Timing tasks in the document
 var task_start = performance.now();
-result = runSomeWorkerTask();
+result = runSomeDocumentTask();
 var task_end = performance.now();
 
 plotEventOnTimeline({
-  'task': 'Some document task',
-  'start_time': task_start,
-  'end_time': task_end,
-  'result': result
+  task: 'Some document task',
+  task_start: task_start,
+  task_end: task_end,
+  result: result
 });
 
 // Translating worker timestamps into document's time origin
@@ -208,12 +204,14 @@ var worker = new SharedWorker('worker.js');
 worker.port.onmessage = function (event) {
   var msg = event.data;
 
-  // translate timestamps into document's time origin
-  msg.start_time = performance.translateTime(msg.start_time, worker);
-  msg.end_time = performance.translateTime(msg.end_time, worker);
-
-  // plot the results on document's timeline
-  plotEventOnTimeline(msg);
+  // translate transferable timestamps into document's time origin
+  // and plot the results on document's timeline
+  plotEventOnTimeline({
+    task: msg.task,
+    task_start: msg.task_start.time(),
+    task_end: msg.task_end.time(),
+    result: msg.result
+  });
 }
 </pre>
 
@@ -252,7 +250,7 @@ on user agents. </p>
 </section>
 <section id="dom-domhighrestimestamp">
 
-<h3>The <code>DOMHighResTimeStamp</code> Type</h3>
+<h3>The <code>DOMHighResTimeStamp</code> type</h3>
 
 <p>
 	The <a>DOMHighResTimeStamp</a> type is used to store a time value measured relative from the
@@ -272,6 +270,28 @@ If the User Agent is unable to provide a time value accurate to 5 microseconds d
 
 </section>
 
+<section id="dom-transferabledomhighrestimestamp">
+<h3>The <code>TransferableDOMHighResTimeStamp</code> interface</h3>
+
+<p>
+  The <a>TransferableDOMHighResTimeStamp</a> interface is used to wrap a <a>DOMHighResTimeStamp</a> into an object that stores both the provided high-resolution time value (<a>wrappedTime</a>) and a reference to its <a>time origin</a> (<a>wrappedTimeOrigin</a>), such that it can be transfered to and resolved within a different <a>time origin</a>.
+</p>
+
+<pre class='idl'>
+[Exposed=(Window,Worker)]
+interface TransferableDOMHighResTimeStamp {
+    DOMHighResTimeStamp time ();
+};
+</pre>
+
+<p>The <dfn for='TransferableDOMHighResTimeStamp' data-lt='time'>time()</dfn> method MUST return a <a>DOMHighResTimeStamp</a> as follows:</p>
+<ol>
+  <li>Let <var>currentTimeOrigin</var> be the <a>time origin</a> of the <a href="http://www.w3.org/TR/html51/webappapis.html#global-object">global object</a></li>
+  <li>Return <var><a>wrappedTime</a></var> + (<var><a>wrappedTimeOrigin</a></var> - <var>currentTimeOrigin</var>)</li>
+</ol>
+
+</section>
+
 <section>
 
 <h3>The <code>Performance</code> interface</h3>
@@ -279,7 +299,7 @@ If the User Agent is unable to provide a time value accurate to 5 microseconds d
 [Exposed=(Window,Worker)]
 interface Performance : EventTarget {
     DOMHighResTimeStamp now ();
-    DOMHighResTimeStamp translateTime (DOMHighResTimeStamp time, (Window or Worker or SharedWorker or ServiceWorker) timeSource);
+    TransferableDOMHighResTimeStamp transferable (DOMHighResTimeStamp time);
     serializer = {attribute};
 };
 </pre>
@@ -288,15 +308,10 @@ interface Performance : EventTarget {
 	return a <a>DOMHighResTimeStamp</a> representing the time in milliseconds
 	from the <a>time origin</a> to the occurrence of the call to the <a>Performance.now</a> method.
 </p>
-</dd>
 
-<p>The <dfn for='Performance' data-lt='translateTime'>translateTime(time, timeSource)</dfn> method MUST return a <a>DOMHighResTimeStamp</a> as follows:</p>
-<ol>
-<li>Let <var>time</var> be the value of the provided <code>time</code> argument.
-<li>Let <var>originSource</var> be the <a>time origin</a> of the <a href="http://www.w3.org/TR/html51/webappapis.html#global-object">global object</a> associated with the provided <code>timeSource</code> object.
-<li>Let <var>originTranslate</var> be the <a>time origin</a> of the <a href="http://www.w3.org/TR/html51/webappapis.html#global-object">global object</a> associated with the performance object that is the <code>this</code> value for the <a>Performance.translateTime</a> call.
-<li>Return <var>time</var> + (<var>originSource</var> - <var>originTranslate</var>)
-</ol>
+<p>The <dfn for='Performance' data-lt='transferable'>transferable(DOMHighResTimestamp time)</dfn> method MUST
+  return a <a>TransferableDOMHighResTimeStamp</a> that stores the provided <var>time</var> (<dfn>wrappedTime</dfn>), and time origin (<dfn>wrappedTimeOrigin</dfn>) of the <a href="http://www.w3.org/TR/html51/webappapis.html#global-object">global object</a> associated with the performance object that is the <code>this</code> value for the <code>Performance.transferable</code> call.</p>
+</p>
 
 </section>
 
@@ -326,8 +341,9 @@ WorkerGlobalScope implements GlobalPerformance;
 <p>
 The time values returned when calling the <a>Performance.now</a> method on <a>Performance</a> objects with the same <a>time origin</a> MUST be monotonically increasing and not subject to system clock
 adjustments or system clock skew. The difference between any two chronologically recorded time values returned from the
-<a>Performance.now</a> method MUST never be negative if the two time values have the same <a>time origin</a>. <a>Performance.translateTime</a> MUST be used to compare two chronologically recorded time values of different <a>time origin</a>.
-</p>
+<a>Performance.now</a> method MUST never be negative if the two time values have the same <a>time origin</a>.</p>
+
+<p>The time values returned when calling the <a>Performance.now</a> method  SHOULD be initialized with respect to a global monotonic clock, such that chronologically recorded high-resolution time values originating in different <a>time origin</a>'s can be transfered and accurately resolved within the same time origin.</p>
 </section>
 
 <section id="privacy-security">
