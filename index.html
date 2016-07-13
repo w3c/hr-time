@@ -33,6 +33,7 @@
     wgURI: "https://www.w3.org/webperf/",
     wgPublicList: "public-web-perf",
     subjectPrefix: "[hr-time]",
+    format: "markdown",
     otherLinks: [{
       key: 'Repository',
       data: [{
@@ -94,6 +95,9 @@
       <li>Defines a precise definition of <a>time origin</a> for the purpose of
       all performance timeline related specifications;
       </li>
+      <li>Defines <a>performance.timeOrigin</a> attribute that provides the
+      global time of the zero time of <a>time origin</a>;
+      </li>
       <li>Provides the base definition for the <a>Performance</a> interface,
       including support for the <a>Performance.now</a> method in Web Workers
       [[WORKERS]];
@@ -110,21 +114,19 @@
     object as a time value representing time in milliseconds since 01 January,
     1970 UTC. For most purposes, this definition of time is sufficient as these
     values represent time to millisecond precision for any instant that is
-    within approximately 285,616 years from 01 January, 1970 UTC. The <a href=
-    "https://www.w3.org/TR/WebIDL/#common-DOMTimeStamp">DOMTimeStamp</a> is
-    defined similarly [[WebIDL]].</p>
+    within approximately 285,616 years from 01 January, 1970 UTC. The
+    [DOMTimeStamp] is defined similarly [[WebIDL]].</p>
     <p>In practice, these definitions of time are subject to both clock skew
     and adjustment of the system clock. The value of time may not always be
     monotonically increasing and subsequent values may either decrease or
     remain the same.</p>
-    <p>For example, the following script may log a positive number, negative
-    number, or zero.</p>
+    <p>For example, the following script may record a positive number, negative
+    number, or zero for computed `duration`:</p>
     <pre class='example highlight'>
 var mark_start = Date.now();
-runSomeApplicationTask();
-
-if (window.console)
-  window.console.log('Duration of task: ' + (Date.now() - mark_start));</pre>
+doTask(); // Some task
+var duration = Date.now() - mark_start;
+</pre>
     <p>For certain tasks this definition of time may not be sufficient as it
     does not allow for sub-millisecond resolution and is subject to system
     clock skew. For example,</p>
@@ -142,23 +144,54 @@ if (window.console)
       an animation is drawing at 60 FPS. Without sub-millisecond resolution, a
       developer can only determine if an animation is drawing at 58.8 FPS or
       62.5 FPS.</li>
-      <li>In order to cue audio to a specific point in an animation or ensure
-      that the audio is synchronized with the animation, developers will need
-      to accurately know the amount of time elapsed in the animation and
+      <li>When attempting to cue audio to a specific point in an animation or
+      ensure that the audio is synchronized with the animation, developers will
+      need to accurately know the amount of time elapsed in the animation and
       audio.</li>
+      <li>When multiple contexts need to synchronize work with sub-millisecond
+      resolution (e.g. when using [dedicated][dedicatedworker] or
+      [shared][sharedworker] workers to drive animation, audio, etc., in a
+      renderer context), or to create a unified view of the event
+      timeline.</li>
     </ul>
     <p>This specification does not propose changing the behavior of
     <code>Date.now()</code> [[ECMA-262]] as it is genuinely useful in
     determining the current value of the calendar time and has a long history
-    of usage. The <a>DOMHighResTimeStamp</a> type and the
-    <a>Performance.now</a> method of the <a>Performance</a> interface resolve
-    the issues summarized in this section by providing a monotonically
-    increasing time value in sub-millisecond resolution.</p>
+    of usage. The <a>DOMHighResTimeStamp</a> type, <a>performance.now</a>
+    method, and <a>performance.timeOrigin</a> attribute of the
+    <a>Performance</a> interface resolve above issues by providing
+    monotonically increasing time values with sub-millisecond resolution.</p>
     <section id='examples' class='informative'>
-      <h3>Example</h3>
-      <p>A developer can record and report a high-resolution timeline of their
-      application for further offline analysis.</p>
+      <h3>Examples</h3>
+      <p>A developer may wish to construct a timeline of their entire
+      application, including events from [dedicated][dedicatedworker] or
+      [shared workers][sharedworker], which have different <a>time
+      origin</a>'s. To display such events on the same timeline, the
+      application can translate the <a>DOMHighResTimeStamp</a>'s with the help
+      of the <a>performance.timeOrigin</a> attribute.</p>
       <pre class="example highlight">
+// ---- worker.js -----------------------------
+// Shared worker script
+onconnect = function(e) {
+  var port = e.ports[0];
+  port.onmessage = function(e) {
+    // Time execution in worker
+    var task_start = performance.now();
+    result = runSomeWorkerTask();
+    var task_end = performance.now();
+
+    port.postMessage({
+       'task': 'Some worker task',
+       'time_origin': performance.timeOrigin,
+       'start_time': task_start,
+       'end_time': task_end,
+       'result': result
+    });
+  }
+}
+
+// ---- application.js ------------------------
+// Timing tasks in the document
 var task_start = performance.now();
 runSomeApplicationTask();
 var task_end = performance.now();
@@ -169,7 +202,22 @@ reportEventToAnalytics({
   'start_time': task_start,
   'duration': task_end - task_start
 });
-</pre>
+
+// Translating worker timestamps into document's time origin
+var worker = new SharedWorker('worker.js');
+worker.port.onmessage = function (event) {
+  var msg = event.data;
+
+  // calculate time origin offset between document and sender context's
+  var offset = msg.time_origin - performance.timeOrigin;
+
+  // translate timestamps into document's time origin
+  msg.start_time = msg.start_time + offset;
+  msg.end_time = msg.end_time + offset;
+  msg.task = 'Some worker task'
+
+  reportEventToAnalytics(msg);
+}</pre>
     </section>
   </section>
   <section id="conformance">
@@ -188,7 +236,7 @@ reportEventToAnalytics({
       <li>If the <a href=
       "https://www.w3.org/TR/html51/webappapis.html#global-object">global
       object</a> [[!HTML51]] is a <code>Window</code> object, the <a>time
-      origin</a> must be equal to:
+      origin</a> MUST be equal to:
         <ul>
           <li>the time when the <a href=
           "https://www.w3.org/TR/html51/browsers.html#creating-a-new-browsing-context">
@@ -212,7 +260,7 @@ reportEventToAnalytics({
       "https://www.w3.org/TR/html51/webappapis.html#global-object">global
       object</a> is a <a href=
       "https://w3c.github.io/workers/#the-workerglobalscope-common-interface">
-        <code>WorkerGlobalScope</code></a> object, the <a>time origin</a> must
+        <code>WorkerGlobalScope</code></a> object, the <a>time origin</a> MUST
         be equal to the <a href=
         "https://w3c.github.io/workers/#official-moment-of-creation">official
         moment of creation</a> of the worker. [[!WORKERS]] [[!SERVICE-WORKERS]]
@@ -220,12 +268,29 @@ reportEventToAnalytics({
       <li>Otherwise, the <a>time origin</a> is undefined.
       </li>
     </ul>
+    <p>The <dfn id="time-origin-timestamp">time origin timestamp</dfn> is the
+    high resolution time value at which <a>time origin</a> is zero. On getting,
+    the `timeOrigin` attribute MUST return:</p>
+    <ul>
+      <li>If <a>time origin</a> is undefined, return `undefined`.
+      </li>
+      <li>Otherwise, the sum of the high resolution UTC epoch time at which the
+      <a>global monotonic clock</a> is zero and the time value of the <a>global
+      monotonic clock</a> at which the <a>time origin</a> is zero.
+      </li>
+    </ul>
+    <p class="note">The <a>time origin timestamp</a> and the value returned by
+    `Date.now()` executed at "zero time" can differ because the former is
+    recorded with respect to a global monotonic clock that is not subject to
+    system and user clock adjustments, clock skew, and so on—see <a href=
+    "#monotonic-clock"></a>.</p>
   </section>
   <section id="dom-domhighrestimestamp">
     <h3>The <code>DOMHighResTimeStamp</code> Type</h3>
     <p>The <a>DOMHighResTimeStamp</a> type is used to store a time value
-    measured relative from the <a>time origin</a> or a time value that
-    represents a duration between two <a>DOMHighResTimeStamp</a>s.</p>
+    measured relative from the <a>time origin</a>, <a>global monotonic
+    clock</a>, or a time value that represents a duration between two
+    <a>DOMHighResTimeStamp</a>'s.</p>
     <pre class='idl'>
 typedef double DOMHighResTimeStamp;
 </pre>
@@ -242,20 +307,23 @@ typedef double DOMHighResTimeStamp;
 [Exposed=(Window,Worker)]
 interface Performance : EventTarget {
     DOMHighResTimeStamp now ();
+    attribute DOMHighResTimeStamp timeOrigin;
     serializer = {attribute};
 };
 </pre>
     <p>The <dfn for='Performance' data-lt='now'>now()</dfn> method MUST return
-    a <a>DOMHighResTimeStamp</a> representing the time in milliseconds from the
+    a <a>DOMHighResTimeStamp</a> representing the high resolution time from the
     <a>time origin</a> to the occurrence of the call to the
     <a>Performance.now</a> method.</p>
+    <p>The <dfn for='Performance' data-lt=
+    'time-origin-timestamp'>timeOrigin</dfn> attribute MUST return a
+    <a>DOMHighResTimeStamp</a> representing the high resolution time of the
+    <a>time origin timestamp</a> of the [global object].</p>
   </section>
   <section>
     <h3>The <code>performance</code> attribute</h3>
     <p>The <a>GlobalPerformance.performance</a> attribute allows access to
-    performance related attributes and methods from the <a href=
-    "https://www.w3.org/TR/html51/webappapis.html#global-object">global
-    object</a>.</p>
+    performance related attributes and methods from the [global object].</p>
     <pre class='idl'>
 [NoInterfaceObject, Exposed=(Window,Worker)]
 interface GlobalPerformance {
@@ -270,11 +338,16 @@ WorkerGlobalScope implements GlobalPerformance;
   <section id="monotonic-clock">
     <h3>Monotonic Clock</h3>
     <p>The time values returned when calling the <a>Performance.now</a> method
-    on <a>Performance</a> objects with the same <a>time origin</a> MUST be
-    monotonically increasing and not subject to system clock adjustments or
-    system clock skew. The difference between any two chronologically recorded
-    time values returned from the <a>Performance.now</a> method MUST never be
-    negative if the two time values have the same <a>time origin</a>.
+    on <a>Performance</a> objects with the same <a>time origin</a> MUST use the
+    same <dfn>monotonic clock</dfn> that is monotonically increasing and not
+    subject to system clock adjustments or system clock skew. The difference
+    between any two chronologically recorded time values returned from the
+    <a>Performance.now</a> method MUST never be negative if the two time values
+    have the same <a>time origin</a>.</p>
+    <p>The time values returned when getting <a>performance.timeOrigin</a> MUST
+    use the same <dfn>global monotonic clock</dfn> that is shared by <a>time
+    origin</a>'s and is monotonically increasing and not subject to system
+    clock adjustments or system clock skew.</p>
   </section>
   <section id="privacy-security">
     <h3>Privacy and Security</h3>
@@ -294,20 +367,33 @@ WorkerGlobalScope implements GlobalPerformance;
     [[CACHE-ATTACKS]].</p>
     <p>This specification defines an API that provides sub-millisecond time
     resolution, which is more accurate than the previously available
-    millisecond resolution exposed by <a href=
-    "https://www.w3.org/TR/WebIDL/#common-DOMTimeStamp">DOMTimeStamp</a>.
-    However, even without this new API an attacker may be able to obtain
-    high-resolution estimates through repeat execution and statistical
-    analysis. To ensure that the new API does not significantly improve the
-    accuracy or speed of such attacks, the recommended minimum resolution of
-    the <a>Performance</a> interface should be set to 5 microseconds.</p>
-    <p>Mitigating such timing side channel attacks entirely is practically not
+    millisecond resolution exposed by [DOMTimeStamp]. However, even without
+    this new API an attacker may be able to obtain high-resolution estimates
+    through repeat execution and statistical analysis. To ensure that the new
+    API does not significantly improve the accuracy or speed of such attacks,
+    the recommended minimum resolution of the <a>Performance</a> interface
+    should be set to 5 microseconds.</p>
+    <p>Mitigating such timing side-channel attacks entirely is practically not
     possible: either all operations would have to execute in a time that does
     not vary based on the value of any confidential information, or, the
     application would need to be isolated from any time-related primitives
     (clock, timers, counters, etc). Neither is practical due to the associated
     complexity for the browser and application developers and the associated
     negative effects on performance and responsiveness of applications.</p>
+    <p>This specification also defines a mechanism to translate high resolution
+    timestamps across <a>time origin</a>'s, which requires a global monotonic
+    clock and may provide additional [clock drift] resolution. Today, the
+    attacker can timestamp the time-of-day and monotonic time values (via
+    `Date.now()` and `performance.now()`) at multiple points within the same
+    context and observe drift between them. With the
+    <a>performance.timeOrigin</a> attribute, the attacker can also compare the
+    time at which <a>time origin</a> is zero, as reported by the global monotic
+    clock, against the current time-of-day estimate of when it is zero (i.e.
+    difference between `Date.now()-performance.now()` and
+    `performance.timeOrigin`) and observe drift between the zero time of the
+    global monotic clock and the current time. To reduce accuracy of such
+    attacks the user agent is recommended to periodically update the zero time
+    time-of-day reference of its global monotonic clock.</p>
   </section>
   <section class="appendix">
     <h2>Acknowledgments</h2>
@@ -330,3 +416,10 @@ WorkerGlobalScope implements GlobalPerformance;
   </section>
 </body>
 </html>
+
+<!-- spec references. preserve before running tidy! -->
+[DOMTimeStamp]: http://www.w3.org/TR/WebIDL/#common-DOMTimeStamp
+[dedicatedworker]: http://www.w3.org/TR/workers/#worker
+[sharedworker]: http://www.w3.org/TR/workers/#sharedworker
+[global object]: http://www.w3.org/TR/html51/webappapis.html#global-object
+[clock drift]: https://en.wikipedia.org/wiki/Clock_drift
