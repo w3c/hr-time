@@ -3,7 +3,9 @@
 <head>
   <meta charset="utf-8">
   <title>High Resolution Time Level 2</title>
-  <script src='//www.w3.org/Tools/respec/respec-w3c-common' async class='remove'></script>
+  <script src='//www.w3.org/Tools/respec/respec-w3c-common' async class=
+  'remove'>
+  </script>
   <script class='remove'>
   var respecConfig = {
     shortName: "hr-time-2",
@@ -14,13 +16,12 @@
       name: "Ilya Grigorik",
       mailto: "igrigorik@gmail.com",
       company: "Google Inc.",
-      note: "for version 2",
       w3cid: "56102"
     }, {
       name: "James Simonsen",
       mailto: "simonjam@google.com",
       company: "Google Inc.",
-      note: "for version 1",
+      note: "Until January 2015",
       w3cid: "45726"
     }, {
       name: "Jatinder Mann",
@@ -81,95 +82,97 @@
   };
   </script>
 </head>
-
 <body>
-
-<section id="abstract">
-
-<p>
-	This specification defines an API that provides the current time
-	in sub-millisecond resolution and such that it is not subject to system clock skew or adjustments.
-</p>
-
-</section>
-
-<section id="sotd">
-
-<p>
-	High Resolution Time Level 2 replaces the first version of High Resolution Time [[HR-TIME]] and includes:
-</p>
-
-<ul>
-  <li>Defines a precise definition of <a>time origin</a> for the purpose of all performance timeline related specifications;</li>
-  <li>Provides the base definition for the <a>Performance</a> interface, including support for the <a>Performance.now</a> method in Web Workers [[WORKERS]];</li>
-  <li>Introduces the method <a>Performance.translateTime</a> to compare times between different time origins;</li>
-  <li>To mitigate <a href='#privacy-security'>cache attacks</a>, the recommended minimum resolution of the Performance interface should be set to 5 microseconds.</li>
-</ul>
-
-<p>
-The method <a>Performance.translateTime</a> is marked as <a href='http://www.w3.org/2015/Process-20150901/#candidate-rec'>"at risk"</a> to the purpose of moving High Resolution Time 2 to W3C Recommendation due to its lack of implementation experience. It is expected to be deferred until the next release.
-</p>
-
-</section>
-
-<section id="introduction" class='informative'>
-<h2>Introduction</h2>
-
-<p>
-The ECMAScript Language specification [[ECMA-262]] defines the Date object as a time value representing time in milliseconds since 01 January, 1970 UTC. For most purposes, this definition of time is sufficient as
-these values represent time to millisecond precision for any instant that is within approximately 285,616 years from
-01 January, 1970 UTC. The <a href="http://www.w3.org/TR/WebIDL/#common-DOMTimeStamp">DOMTimeStamp</a> is defined similarly [[WebIDL]].
-</p>
-
-<p>
-In practice, these definitions of time are subject to both clock skew and adjustment of the system clock. The value of time may not always be monotonically increasing and subsequent values may either decrease
-or remain the same.
-</p>
-
-<p>
-	For example, the following script may log a positive number, negative number, or zero.
-  </p>
-	<pre class='example highlight'>
+  <section id="abstract">
+    <p>This specification defines an API that provides the current time in
+    sub-millisecond resolution and such that it is not subject to system clock
+    skew or adjustments.</p>
+  </section>
+  <section id="sotd">
+    <p>High Resolution Time Level 2 replaces the first version of High
+    Resolution Time [[HR-TIME]] and includes:</p>
+    <ul>
+      <li>Defines a precise definition of <a>time origin</a> for the purpose of
+      all performance timeline related specifications;
+      </li>
+      <li>Provides the base definition for the <a>Performance</a> interface,
+      including support for the <a>Performance.now</a> method in Web Workers
+      [[WORKERS]];
+      </li>
+      <li>Introduces the method <a>Performance.translateTime</a> to compare
+      times between different time origins;
+      </li>
+      <li>To mitigate <a href='#privacy-security'>cache attacks</a>, the
+      recommended minimum resolution of the Performance interface should be set
+      to 5 microseconds.
+      </li>
+    </ul>
+    <p>The method <a>Performance.translateTime</a> is marked as <a href=
+    'http://www.w3.org/2015/Process-20150901/#candidate-rec'>"at risk"</a> to
+    the purpose of moving High Resolution Time 2 to W3C Recommendation due to
+    its lack of implementation experience. It is expected to be deferred until
+    the next release.</p>
+  </section>
+  <section id="introduction" class='informative'>
+    <h2>Introduction</h2>
+    <p>The ECMAScript Language specification [[ECMA-262]] defines the Date
+    object as a time value representing time in milliseconds since 01 January,
+    1970 UTC. For most purposes, this definition of time is sufficient as these
+    values represent time to millisecond precision for any instant that is
+    within approximately 285,616 years from 01 January, 1970 UTC. The <a href=
+    "http://www.w3.org/TR/WebIDL/#common-DOMTimeStamp">DOMTimeStamp</a> is
+    defined similarly [[WebIDL]].</p>
+    <p>In practice, these definitions of time are subject to both clock skew
+    and adjustment of the system clock. The value of time may not always be
+    monotonically increasing and subsequent values may either decrease or
+    remain the same.</p>
+    <p>For example, the following script may log a positive number, negative
+    number, or zero.</p>
+    <pre class='example highlight'>
 var mark_start = Date.now();
 doTask(); // Some task
 if (window.console) window.console.log('Duration of task: ' + (Date.now() - mark_start));
-	</pre>
-
-
-<p>
-For certain tasks this definition of time may not be sufficient as it does not allow for sub-millisecond resolution and is subject to system clock skew. For example,
-</p>
-<ul>
-	<li>
-		When attempting to accurately measure the elapsed time of navigating to a Document, fetching of resources or execution of script, a monotonically increasing clock
-		with sub-millisecond resolution is desired.
-	</li>
-	<li>
-		When calculating the animation state from script, developers will need to accurately know the amount of time that has elapsed in the animation in order to properly update the
-		next scene of the animation.
-	</li>
-	<li>
-		When calculating the frame rate of a script based animation, developers will need sub-millisecond resolution in order to determine if an animation is drawing at 60 FPS.
-		Without sub-millisecond resolution, a developer can only determine if an animation is drawing at 58.8 FPS or 62.5 FPS.
-	</li>
-	<li>
-		In order to cue audio to a specific point in an animation or ensure that the audio is synchronized with the animation,
-		developers will need to accurately know the amount of time elapsed in the animation and audio.
-	</li>
-</ul>
-
-<p>
-This specification does not propose changing the behavior of <code>Date.now()</code> [[ECMA-262]] as it is genuinely useful in determining the current value of the calendar time and has a long history of
-usage. The <a>DOMHighResTimeStamp</a> type and the <a>Performance.now</a> method of the
-<a>Performance</a> interface resolve the issues summarized in this section by providing a monotonically increasing time value in sub-millisecond resolution.
-</p>
-
-<section id='examples' class='informative'>
-<h3>Examples</h3>
-
-<p>A developer may wish to construct a timeline of their entire application, including events from <a href="http://www.w3.org/TR/workers/#worker">dedicated</a> or <a href="http://www.w3.org/TR/workers/#sharedworker">shared workers</a>, which have a different <a>time origin</a>. To display such events on the same timeline, the application can translate the <a data-lt="DOMHighResTimeStamp">DOMHighResTimeStamps</a> from the worker with the <a>Performance.translateTime</a> method.</p>
-
-<pre class="example highlight">
+        </pre>
+    <p>For certain tasks this definition of time may not be sufficient as it
+    does not allow for sub-millisecond resolution and is subject to system
+    clock skew. For example,</p>
+    <ul>
+      <li>When attempting to accurately measure the elapsed time of navigating
+      to a Document, fetching of resources or execution of script, a
+      monotonically increasing clock with sub-millisecond resolution is
+      desired.</li>
+      <li>When calculating the animation state from script, developers will
+      need to accurately know the amount of time that has elapsed in the
+      animation in order to properly update the next scene of the
+      animation.</li>
+      <li>When calculating the frame rate of a script based animation,
+      developers will need sub-millisecond resolution in order to determine if
+      an animation is drawing at 60 FPS. Without sub-millisecond resolution, a
+      developer can only determine if an animation is drawing at 58.8 FPS or
+      62.5 FPS.</li>
+      <li>In order to cue audio to a specific point in an animation or ensure
+      that the audio is synchronized with the animation, developers will need
+      to accurately know the amount of time elapsed in the animation and
+      audio.</li>
+    </ul>
+    <p>This specification does not propose changing the behavior of
+    <code>Date.now()</code> [[ECMA-262]] as it is genuinely useful in
+    determining the current value of the calendar time and has a long history
+    of usage. The <a>DOMHighResTimeStamp</a> type and the
+    <a>Performance.now</a> method of the <a>Performance</a> interface resolve
+    the issues summarized in this section by providing a monotonically
+    increasing time value in sub-millisecond resolution.</p>
+    <section id='examples' class='informative'>
+      <h3>Examples</h3>
+      <p>A developer may wish to construct a timeline of their entire
+      application, including events from <a href=
+      "http://www.w3.org/TR/workers/#worker">dedicated</a> or <a href=
+      "http://www.w3.org/TR/workers/#sharedworker">shared workers</a>, which
+      have a different <a>time origin</a>. To display such events on the same
+      timeline, the application can translate the <a data-lt=
+      "DOMHighResTimeStamp">DOMHighResTimeStamps</a> from the worker with the
+      <a>Performance.translateTime</a> method.</p>
+      <pre class="example highlight">
 
 // ---- worker.js -----------------------------
 // Shared worker script
@@ -216,66 +219,75 @@ worker.port.onmessage = function (event) {
   plotEventOnTimeline(msg);
 }
 </pre>
-
-</section>
-
-</section>
-
-<section  id="conformance">
-
-<p>Some conformance requirements are phrased as requirements on attributes,
-methods or objects. Such requirements are to be interpreted as requirements
-on user agents. </p>
-
-    <p>The IDL fragments in this specification must be interpreted as
-    required for conforming IDL fragments, as described in the Web IDL
-    specification. [[!WebIDL]]</p>
-
-</section>
-
-<section>
-<h3>Time Origin</h3>
-
-<p>The <dfn id="time-origin">time origin</dfn> is the time value from which time is measured:</p>
-
-<ul>
-  <li>If the <a href="http://www.w3.org/TR/html51/webappapis.html#global-object">global object</a> [[!HTML51]] is a <code>Window</code> object, the <a>time origin</a> must be equal to:
-  <ul>
-   <li>the time when the <a href="http://www.w3.org/TR/html51/browsers.html#creating-a-new-browsing-context">browsing context is first created</a> if there is no previous document; </li>
-   <li>otherwise, the time of the user confirming the navigation if a confirmation dialog is displayed during the <a href="http://www.w3.org/TR/html51/browsers.html#prompt-to-unload-a-document">prompt to unload</a> algorithm;</li>
-   <li>otherwise, the time of starting the <a href="http://www.w3.org/TR/html51/browsers.html#navigate">navigation</a> responsible for loading the <a href="http://www.w3.org/TR/html51/browsers.html#dom-document-2">Window object's newest Document object</a>.</li>
-   </ul>
-  </li>
-  <li>If the <a href="http://www.w3.org/TR/html51/webappapis.html#global-object">global object</a> is a <a href="https://w3c.github.io/workers/#the-workerglobalscope-common-interface"><code>WorkerGlobalScope</code></a> object, the <a>time origin</a> must be equal to the <a href="https://w3c.github.io/workers/#official-moment-of-creation">official moment of creation</a> of the worker. [[!WORKERS]] [[!SERVICE-WORKERS]]</li>
-  <li>Otherwise, the <a>time origin</a> is undefined.</li>
-</ul>
-</section>
-<section id="dom-domhighrestimestamp">
-
-<h3>The <code>DOMHighResTimeStamp</code> Type</h3>
-
-<p>
-	The <a>DOMHighResTimeStamp</a> type is used to store a time value measured relative from the
-	<a>time origin</a> or a time value that represents a duration
-	between two  <a>DOMHighResTimeStamp</a>s.
-</p>
-
-<pre class='idl'>
+    </section>
+  </section>
+  <section id="conformance">
+    <p>Some conformance requirements are phrased as requirements on attributes,
+    methods or objects. Such requirements are to be interpreted as requirements
+    on user agents.</p>
+    <p>The IDL fragments in this specification must be interpreted as required
+    for conforming IDL fragments, as described in the Web IDL specification.
+    [[!WebIDL]]</p>
+  </section>
+  <section>
+    <h3>Time Origin</h3>
+    <p>The <dfn id="time-origin">time origin</dfn> is the time value from which
+    time is measured:</p>
+    <ul>
+      <li>If the <a href=
+      "http://www.w3.org/TR/html51/webappapis.html#global-object">global
+      object</a> [[!HTML51]] is a <code>Window</code> object, the <a>time
+      origin</a> must be equal to:
+        <ul>
+          <li>the time when the <a href=
+          "http://www.w3.org/TR/html51/browsers.html#creating-a-new-browsing-context">
+            browsing context is first created</a> if there is no previous
+            document;
+          </li>
+          <li>otherwise, the time of the user confirming the navigation if a
+          confirmation dialog is displayed during the <a href=
+          "http://www.w3.org/TR/html51/browsers.html#prompt-to-unload-a-document">
+            prompt to unload</a> algorithm;
+          </li>
+          <li>otherwise, the time of starting the <a href=
+          "http://www.w3.org/TR/html51/browsers.html#navigate">navigation</a>
+          responsible for loading the <a href=
+          "http://www.w3.org/TR/html51/browsers.html#dom-document-2">Window
+          object's newest Document object</a>.
+          </li>
+        </ul>
+      </li>
+      <li>If the <a href=
+      "http://www.w3.org/TR/html51/webappapis.html#global-object">global
+      object</a> is a <a href=
+      "https://w3c.github.io/workers/#the-workerglobalscope-common-interface">
+        <code>WorkerGlobalScope</code></a> object, the <a>time origin</a> must
+        be equal to the <a href=
+        "https://w3c.github.io/workers/#official-moment-of-creation">official
+        moment of creation</a> of the worker. [[!WORKERS]] [[!SERVICE-WORKERS]]
+      </li>
+      <li>Otherwise, the <a>time origin</a> is undefined.
+      </li>
+    </ul>
+  </section>
+  <section id="dom-domhighrestimestamp">
+    <h3>The <code>DOMHighResTimeStamp</code> Type</h3>
+    <p>The <a>DOMHighResTimeStamp</a> type is used to store a time value
+    measured relative from the <a>time origin</a> or a time value that
+    represents a duration between two <a>DOMHighResTimeStamp</a>s.</p>
+    <pre class='idl'>
 typedef double DOMHighResTimeStamp;
 </pre>
-
-<p>A <a>DOMHighResTimeStamp</a> SHOULD represent a time in milliseconds accurate to 5 microseconds - see <a href="#privacy-security"></a>.</p>
-
-<p class='note'>
-If the User Agent is unable to provide a time value accurate to 5 microseconds due to hardware or software constraints, the User Agent can represent a <a>DOMHighResTimeStamp</a> as a time in milliseconds accurate to a millisecond.
-</p>
-
-</section>
-
-<section>
-
-<h3>The <code>Performance</code> interface</h3>
-<pre class='idl'>
+    <p>A <a>DOMHighResTimeStamp</a> SHOULD represent a time in milliseconds
+    accurate to 5 microseconds - see <a href="#privacy-security"></a>.</p>
+    <p class='note'>If the User Agent is unable to provide a time value
+    accurate to 5 microseconds due to hardware or software constraints, the
+    User Agent can represent a <a>DOMHighResTimeStamp</a> as a time in
+    milliseconds accurate to a millisecond.</p>
+  </section>
+  <section>
+    <h3>The <code>Performance</code> interface</h3>
+    <pre class='idl'>
 [Exposed=(Window,Worker)]
 interface Performance : EventTarget {
     DOMHighResTimeStamp now ();
@@ -283,31 +295,37 @@ interface Performance : EventTarget {
     serializer = {attribute};
 };
 </pre>
-
-<p>The <dfn for='Performance' data-lt='now'>now()</dfn> method MUST
-	return a <a>DOMHighResTimeStamp</a> representing the time in milliseconds
-	from the <a>time origin</a> to the occurrence of the call to the <a>Performance.now</a> method.
-</p>
-</dd>
-
-<p>The <dfn for='Performance' data-lt='translateTime'>translateTime(time, timeSource)</dfn> method MUST return a <a>DOMHighResTimeStamp</a> as follows:</p>
-<ol>
-<li>Let <var>time</var> be the value of the provided <code>time</code> argument.
-<li>Let <var>originSource</var> be the <a>time origin</a> of the <a href="http://www.w3.org/TR/html51/webappapis.html#global-object">global object</a> associated with the provided <code>timeSource</code> object.
-<li>Let <var>originTranslate</var> be the <a>time origin</a> of the <a href="http://www.w3.org/TR/html51/webappapis.html#global-object">global object</a> associated with the performance object that is the <code>this</code> value for the <a>Performance.translateTime</a> call.
-<li>Return <var>time</var> + (<var>originSource</var> - <var>originTranslate</var>)
-</ol>
-
-</section>
-
-<section>
-
-<h3>The <code>performance</code> attribute</h3>
-
-<p>
-  The <a>GlobalPerformance.performance</a> attribute allows access to performance related attributes and methods from the <a href="http://www.w3.org/TR/html51/webappapis.html#global-object">global object</a>.
-</p>
-<pre class='idl'>
+    <p>The <dfn for='Performance' data-lt='now'>now()</dfn> method MUST return
+    a <a>DOMHighResTimeStamp</a> representing the time in milliseconds from the
+    <a>time origin</a> to the occurrence of the call to the
+    <a>Performance.now</a> method.</p>
+    <p>The <dfn for='Performance' data-lt='translateTime'>translateTime(time,
+    timeSource)</dfn> method MUST return a <a>DOMHighResTimeStamp</a> as
+    follows:</p>
+    <ol>
+      <li>Let <var>time</var> be the value of the provided <code>time</code>
+      argument.</li>
+      <li>Let <var>originSource</var> be the <a>time origin</a> of the
+        <a href="http://www.w3.org/TR/html51/webappapis.html#global-object">global
+        object</a> associated with the provided <code>timeSource</code> object.
+      </li>
+      <li>Let <var>originTranslate</var> be the <a>time origin</a> of the
+      <a href=
+      "http://www.w3.org/TR/html51/webappapis.html#global-object">global
+      object</a> associated with the performance object that is the
+      <code>this</code> value for the <a>Performance.translateTime</a> call.
+      </li>
+      <li>Return <var>time</var> + (<var>originSource</var> -
+      <var>originTranslate</var>)</li>
+    </ol>
+  </section>
+  <section>
+    <h3>The <code>performance</code> attribute</h3>
+    <p>The <a>GlobalPerformance.performance</a> attribute allows access to
+    performance related attributes and methods from the <a href=
+    "http://www.w3.org/TR/html51/webappapis.html#global-object">global
+    object</a>.</p>
+    <pre class='idl'>
 [NoInterfaceObject, Exposed=(Window,Worker)]
 interface GlobalPerformance {
     [Replaceable]
@@ -317,30 +335,35 @@ interface GlobalPerformance {
 Window implements GlobalPerformance;
 WorkerGlobalScope implements GlobalPerformance;
 </pre>
-
-</section>
-
-<section id="monotonic-clock">
-<h3>Monotonic Clock</h3>
-
-<p>
-The time values returned when calling the <a>Performance.now</a> method on <a>Performance</a> objects with the same <a>time origin</a> MUST be monotonically increasing and not subject to system clock
-adjustments or system clock skew. The difference between any two chronologically recorded time values returned from the
-<a>Performance.now</a> method MUST never be negative if the two time values have the same <a>time origin</a>. <a>Performance.translateTime</a> MUST be used to compare two chronologically recorded time values of different <a>time origin</a>.
-</p>
-</section>
-
-<section id="privacy-security">
-
-<h3>Privacy and Security</h3>
-<p>
-Cache attacks and statistical fingerprinting is a privacy and security concern where a malicious web site may use high resolution timing data of various browser or application-initiated operations to differentiate between subset of users, and in some cases identify a particular user - see [[CACHE-ATTACKS]]. To mitigate such attacks, the recommended minimum resolution of the <a>Performance</a> interface should be set to 5 microseconds.</p>
-
-</section>
-
-<section class="appendix">
-<h2>Acknowledgments</h2>
-<p>The editors would like to thank the following people for contributing to this specification: Karen Anderson, Nat Duca, Tony Gentilcore, Arvind Jain, Jason Weber, Boris Zbarsky, Yossef Oren, Vasileios P. Kemerlis, Simha Sethumadhavan, and Angelos D. Keromytis to acknowledge their contributions to this work.</p>
-</section>
+  </section>
+  <section id="monotonic-clock">
+    <h3>Monotonic Clock</h3>
+    <p>The time values returned when calling the <a>Performance.now</a> method
+    on <a>Performance</a> objects with the same <a>time origin</a> MUST be
+    monotonically increasing and not subject to system clock adjustments or
+    system clock skew. The difference between any two chronologically recorded
+    time values returned from the <a>Performance.now</a> method MUST never be
+    negative if the two time values have the same <a>time origin</a>.
+    <a>Performance.translateTime</a> MUST be used to compare two
+    chronologically recorded time values of different <a>time origin</a>.</p>
+  </section>
+  <section id="privacy-security">
+    <h3>Privacy and Security</h3>
+    <p>Cache attacks and statistical fingerprinting is a privacy and security
+    concern where a malicious web site may use high resolution timing data of
+    various browser or application-initiated operations to differentiate
+    between subset of users, and in some cases identify a particular user - see
+    [[CACHE-ATTACKS]]. To mitigate such attacks, the recommended minimum
+    resolution of the <a>Performance</a> interface should be set to 5
+    microseconds.</p>
+  </section>
+  <section class="appendix">
+    <h2>Acknowledgments</h2>
+    <p>The editors would like to thank the following people for contributing to
+    this specification: Karen Anderson, Nat Duca, Tony Gentilcore, Arvind Jain,
+    Jason Weber, Boris Zbarsky, Yossef Oren, Vasileios P. Kemerlis, Simha
+    Sethumadhavan, and Angelos D. Keromytis to acknowledge their contributions
+    to this work.</p>
+  </section>
 </body>
 </html>
