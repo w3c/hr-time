@@ -2,13 +2,13 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <title>High Resolution Time Level 2</title>
+  <title>High Resolution Time Level 3</title>
   <script src='//www.w3.org/Tools/respec/respec-w3c-common' async class=
   'remove'>
   </script>
   <script class='remove'>
   var respecConfig = {
-    shortName: "hr-time-2",
+    shortName: "hr-time-3",
     specStatus: "ED",
     useExperimentalStyles: true,
     edDraftURI: "https://w3c.github.io/hr-time/",
@@ -90,22 +90,11 @@
     skew or adjustments.</p>
   </section>
   <section id="sotd">
-    <p>High Resolution Time Level 2 replaces the first version of High
+    <p>High Resolution Time Level 3 replaces the second version of High
     Resolution Time [[HR-TIME]] and includes:</p>
     <ul>
-      <li>Defines a precise definition of <a>time origin</a> for the purpose of
-      all performance timeline related specifications;
-      </li>
       <li>Defines <a>performance.timeOrigin</a> attribute that provides the
       global time of the zero time of <a>time origin</a>;
-      </li>
-      <li>Provides the base definition for the <a>Performance</a> interface,
-      including support for the <a>Performance.now</a> method in Web Workers
-      [[WORKERS]];
-      </li>
-      <li>To mitigate <a href='#privacy-security'>cache attacks</a>, the
-      recommended minimum resolution of the Performance interface should be set
-      to 5 microseconds.
       </li>
     </ul>
   </section>
@@ -159,7 +148,7 @@ var duration = Date.now() - mark_start;
     <code>Date.now()</code> [[ECMA-262]] as it is genuinely useful in
     determining the current value of the calendar time and has a long history
     of usage. The <a>DOMHighResTimeStamp</a> type, <a>performance.now</a>
-    method, and <a>performance.timeOrigin</a> attribute of the
+    method, and <a>performance.timeOrigin</a> attributes of the
     <a>Performance</a> interface resolve above issues by providing
     monotonically increasing time values with sub-millisecond resolution.</p>
     <section id='examples' class='informative'>
@@ -181,11 +170,11 @@ onconnect = function(e) {
     result = runSomeWorkerTask();
     var task_end = performance.now();
 
+    // Send results and epoch-relative timestamps to another context
     port.postMessage({
        'task': 'Some worker task',
-       'time_origin': performance.timeOrigin,
-       'start_time': task_start,
-       'end_time': task_end,
+       'start_time': task_start + performance.timeOrigin,
+       'end_time': task_end + performance.timeOrigin,
        'result': result
     });
   }
@@ -209,20 +198,13 @@ var worker = new SharedWorker('worker.js');
 worker.port.onmessage = function (event) {
   var msg = event.data;
 
-  // calculate time origin offset between document and sender context's
-  var offset = msg.time_origin - performance.timeOrigin;
-
-  // translate timestamps into document's time origin
-  msg.start_time = msg.start_time + offset;
-  msg.end_time = msg.end_time + offset;
+  // translate epoch-relative timestamps into document's time origin
+  msg.start_time = msg.start_time - performance.timeOrigin;
+  msg.end_time = msg.end_time - performance.timeOrigin;
 
   // plot the results on document's timeline
   plotEventOnTimeline(msg);
 }</pre>
-      <p>Alternatively, instead of the receiver performing the translation, the
-      sender context could also perform the offset calculation locally and
-      transmit the global times to the reciever. The application developer can
-      decide which is more preferrable based on their needs.</p>
     </section>
   </section>
   <section id="conformance">
@@ -279,7 +261,7 @@ worker.port.onmessage = function (event) {
     <ul>
       <li>If <a>time origin</a> is undefined, return `undefined`.
       </li>
-      <li>Otherwise, the sum of the high resolution UTC epoch time at which the
+      <li>Otherwise, the sum of the high resolution [Unix time] at which the
       <a>global monotonic clock</a> is zero and the time value of the <a>global
       monotonic clock</a> at which the <a>time origin</a> is zero.
       </li>
@@ -292,9 +274,9 @@ worker.port.onmessage = function (event) {
   </section>
   <section id="dom-domhighrestimestamp">
     <h3>The <code>DOMHighResTimeStamp</code> Type</h3>
-    <p>The <a>DOMHighResTimeStamp</a> type is used to store a time value
-    measured relative from the <a>time origin</a>, <a>global monotonic
-    clock</a>, or a time value that represents a duration between two
+    <p>The <a>DOMHighResTimeStamp</a> type is used to store a time value in
+    milliseconds, measured relative from the <a>time origin</a>, <a>global
+    monotonic clock</a>, or a time value that represents a duration between two
     <a>DOMHighResTimeStamp</a>'s.</p>
     <pre class='idl'>
 typedef double DOMHighResTimeStamp;
@@ -312,7 +294,7 @@ typedef double DOMHighResTimeStamp;
 [Exposed=(Window,Worker)]
 interface Performance : EventTarget {
     DOMHighResTimeStamp now ();
-    attribute DOMHighResTimeStamp timeOrigin;
+    readonly attribute DOMHighResTimeStamp timeOrigin;
     serializer = {attribute};
 };
 </pre>
@@ -351,54 +333,86 @@ WorkerGlobalScope implements GlobalPerformance;
     have the same <a>time origin</a>.</p>
     <p>The time values returned when getting <a>performance.timeOrigin</a> MUST
     use the same <dfn>global monotonic clock</dfn> that is shared by <a>time
-    origin</a>'s and is monotonically increasing and not subject to system
-    clock adjustments or system clock skew.</p>
+    origin</a>'s, is monotonically increasing and not subject to system clock
+    adjustments or system clock skew, and whose reference point is the Unix
+    time—see <a href="privacy-security"></a>.</p>
+    <p class="note">The user agent can reset its global monotonic clock across
+    browser restarts, or whenever starting an isolated browsing session—e.g.
+    incognito or similar browsing mode. As a result, developers should not use
+    global timestamps as absolute time that holds its monotonic properties
+    across all past, present, and future contexts; in practice, the monotonic
+    properties only apply for contexts that can reach other by exchanging
+    messages via one of the provided messaging mechanisms - e.g. `postMessage`,
+    `BroadcastChannel`, etc.</p>
   </section>
   <section id="privacy-security">
     <h3>Privacy and Security</h3>
-    <p>Access to accurate timing information, both for measurement and
-    scheduling purposes, is a common requirement for many applications. For
-    example, coordinating animations, sound, and other activity on the page
-    requires access to high-resolution time to provide a good user experience.
-    Similarly, measurement enables developers to track the performance of
-    critical code components, detect regressions, and so on.</p>
-    <p>However, access to the same accurate timing information can sometimes be
-    also used for malicious purposes by an attacker to guess and infer data
-    that they can't see or access otherwise. For example, cache attacks and
-    statistical fingerprinting is a privacy and security concern where a
-    malicious web site may use high resolution timing data of various browser
-    or application-initiated operations to differentiate between subset of
-    users, and in some cases identify a particular user - see
-    [[CACHE-ATTACKS]].</p>
-    <p>This specification defines an API that provides sub-millisecond time
-    resolution, which is more accurate than the previously available
-    millisecond resolution exposed by [DOMTimeStamp]. However, even without
-    this new API an attacker may be able to obtain high-resolution estimates
-    through repeat execution and statistical analysis. To ensure that the new
-    API does not significantly improve the accuracy or speed of such attacks,
-    the recommended minimum resolution of the <a>Performance</a> interface
-    should be set to 5 microseconds.</p>
-    <p>Mitigating such timing side-channel attacks entirely is practically not
-    possible: either all operations would have to execute in a time that does
-    not vary based on the value of any confidential information, or, the
-    application would need to be isolated from any time-related primitives
-    (clock, timers, counters, etc). Neither is practical due to the associated
-    complexity for the browser and application developers and the associated
-    negative effects on performance and responsiveness of applications.</p>
-    <p>This specification also defines a mechanism to translate high resolution
-    timestamps across <a>time origin</a>'s, which requires a global monotonic
-    clock and may provide additional [clock drift] resolution. Today, the
-    attacker can timestamp the time-of-day and monotonic time values (via
-    `Date.now()` and `performance.now()`) at multiple points within the same
-    context and observe drift between them. With the
-    <a>performance.timeOrigin</a> attribute, the attacker can also compare the
-    time at which <a>time origin</a> is zero, as reported by the global monotic
-    clock, against the current time-of-day estimate of when it is zero (i.e.
-    difference between `Date.now()-performance.now()` and
-    `performance.timeOrigin`) and observe drift between the zero time of the
-    global monotic clock and the current time. To reduce accuracy of such
-    attacks the user agent is recommended to periodically update the zero time
-    time-of-day reference of its global monotonic clock.</p>
+    <section>
+      <h3>Clock resolution</h3>
+      <p>Access to accurate timing information, both for measurement and
+      scheduling purposes, is a common requirement for many applications. For
+      example, coordinating animations, sound, and other activity on the page
+      requires access to high-resolution time to provide a good user
+      experience. Similarly, measurement enables developers to track the
+      performance of critical code components, detect regressions, and so
+      on.</p>
+      <p>However, access to the same accurate timing information can sometimes
+      be also used for malicious purposes by an attacker to guess and infer
+      data that they can't see or access otherwise. For example, cache attacks
+      and statistical fingerprinting is a privacy and security concern where a
+      malicious web site may use high resolution timing data of various browser
+      or application-initiated operations to differentiate between subset of
+      users, and in some cases identify a particular user - see
+      [[CACHE-ATTACKS]].</p>
+      <p>This specification defines an API that provides sub-millisecond time
+      resolution, which is more accurate than the previously available
+      millisecond resolution exposed by [DOMTimeStamp]. However, even without
+      this new API an attacker may be able to obtain high-resolution estimates
+      through repeat execution and statistical analysis. To ensure that the new
+      API does not significantly improve the accuracy or speed of such attacks,
+      the recommended minimum resolution of the <a>Performance</a> interface
+      should be set to 5 microseconds.</p>
+      <p>Mitigating such timing side-channel attacks entirely is practically
+      not possible: either all operations would have to execute in a time that
+      does not vary based on the value of any confidential information, or, the
+      application would need to be isolated from any time-related primitives
+      (clock, timers, counters, etc). Neither is practical due to the
+      associated complexity for the browser and application developers and the
+      associated negative effects on performance and responsiveness of
+      applications.</p>
+    </section>
+    <section>
+      <h3>Clock drift</h3>
+      <p>This specification also defines an API that provides sub-millisecond
+      time resolution of the zero time of the time origin, which requires and
+      exposes a <a>global monotonic clock</a> to the application, and that must
+      be shared across all the browser contexts. The <a>global monotonic
+      clock</a> does not need to be tied to physical time, but is recommended
+      to be set with respect to the [Unix time] to avoid exposing new
+      fingerprint entropy about the user—e.g. this time can already be easily
+      obtained by the application, whereas exposing a new logical clock
+      provides new information.</p>
+      <p>However, even with above mechanism in place, the <a>global monotonic
+      clock</a> may provide additional [clock drift] resolution. Today, the
+      application can timestamp the time-of-day and monotonic time values (via
+      `Date.now()` and `performance.now()`) at multiple points within the same
+      context and observe drift between them—e.g. due to automatic or user
+      clock adjustments. With the <a>performance.timeOrigin</a> attribute, the
+      attacker can also compare the time at which <a>time origin</a> is zero,
+      as reported by the <a>global monotonic clock</a>, against the current
+      time-of-day estimate of when it is zero (i.e. difference between
+      `Date.now()-performance.now()` and `performance.timeOrigin`) and
+      potentially observe clock drift between these clocks over a longer time
+      period.</p>
+      <p>In practice, the same time drift can be observed by an application
+      across multiple navigations: the application can record logical time in
+      each context and use a client or server time synchronization mechanism to
+      infer changes in the user's clock. Similarly, lower-layer mechanisms such
+      as TCP timestamps may reveal same high-resolution information to the
+      server without the need for multiple visits. As such, the information
+      provided by this API should not expose any significant or previously not
+      available entropy about the user.</p>
+    </section>
   </section>
   <section class="appendix">
     <h2>Acknowledgments</h2>
@@ -417,3 +431,4 @@ WorkerGlobalScope implements GlobalPerformance;
 [sharedworker]: http://www.w3.org/TR/workers/#sharedworker
 [global object]: http://www.w3.org/TR/html51/webappapis.html#global-object
 [clock drift]: https://en.wikipedia.org/wiki/Clock_drift
+[Unix time]: https://en.wikipedia.org/wiki/Unix_time
