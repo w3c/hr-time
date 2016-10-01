@@ -99,19 +99,11 @@
       including support for the <a>Performance.now</a> method in Web Workers
       [[WORKERS]];
       </li>
-      <li>Introduces the method <a>Performance.translateTime</a> to compare
-      times between different time origins;
-      </li>
       <li>To mitigate <a href='#privacy-security'>cache attacks</a>, the
       recommended minimum resolution of the Performance interface should be set
       to 5 microseconds.
       </li>
     </ul>
-    <p>The method <a>Performance.translateTime</a> is marked as <a href=
-    'http://www.w3.org/2015/Process-20150901/#candidate-rec'>"at risk"</a> to
-    the purpose of moving High Resolution Time 2 to W3C Recommendation due to
-    its lack of implementation experience. It is expected to be deferred until
-    the next release.</p>
   </section>
   <section id="introduction" class='informative'>
     <h2>Introduction</h2>
@@ -130,9 +122,10 @@
     number, or zero.</p>
     <pre class='example highlight'>
 var mark_start = Date.now();
-doTask(); // Some task
-if (window.console) window.console.log('Duration of task: ' + (Date.now() - mark_start));
-        </pre>
+runSomeApplicationTask();
+
+if (window.console)
+  window.console.log('Duration of task: ' + (Date.now() - mark_start));</pre>
     <p>For certain tasks this definition of time may not be sufficient as it
     does not allow for sub-millisecond resolution and is subject to system
     clock skew. For example,</p>
@@ -163,61 +156,20 @@ if (window.console) window.console.log('Duration of task: ' + (Date.now() - mark
     the issues summarized in this section by providing a monotonically
     increasing time value in sub-millisecond resolution.</p>
     <section id='examples' class='informative'>
-      <h3>Examples</h3>
-      <p>A developer may wish to construct a timeline of their entire
-      application, including events from <a href=
-      "http://www.w3.org/TR/workers/#worker">dedicated</a> or <a href=
-      "http://www.w3.org/TR/workers/#sharedworker">shared workers</a>, which
-      have a different <a>time origin</a>. To display such events on the same
-      timeline, the application can translate the <a data-lt=
-      "DOMHighResTimeStamp">DOMHighResTimeStamps</a> from the worker with the
-      <a>Performance.translateTime</a> method.</p>
+      <h3>Example</h3>
+      <p>A developer can record and report a high-resolution timeline of their
+      application for further offline analysis.</p>
       <pre class="example highlight">
-
-// ---- worker.js -----------------------------
-// Shared worker script
-onconnect = function(e) {
-  var port = e.ports[0];
-  port.onmessage = function(e) {
-    // Time execution in worker
-    var task_start = performance.now();
-    result = runSomeWorkerTask();
-    var task_end = performance.now();
-
-    port.postMessage({
-       'task': 'Some worker task',
-       'start_time': task_start,
-       'end_time': task_end,
-       'result': result
-    });
-  }
-}
-
-// ---- application.js ------------------------
-// Timing tasks in the document
 var task_start = performance.now();
-result = runSomeWorkerTask();
+runSomeApplicationTask();
 var task_end = performance.now();
 
-plotEventOnTimeline({
+// developer provided method to upload runtime performance data
+reportEventToAnalytics({
   'task': 'Some document task',
   'start_time': task_start,
-  'end_time': task_end,
-  'result': result
+  'duration': task_end - task_start
 });
-
-// Translating worker timestamps into document's time origin
-var worker = new SharedWorker('worker.js');
-worker.port.onmessage = function (event) {
-  var msg = event.data;
-
-  // translate timestamps into document's time origin
-  msg.start_time = performance.translateTime(msg.start_time, worker);
-  msg.end_time = performance.translateTime(msg.end_time, worker);
-
-  // plot the results on document's timeline
-  plotEventOnTimeline(msg);
-}
 </pre>
     </section>
   </section>
@@ -291,7 +243,6 @@ typedef double DOMHighResTimeStamp;
 [Exposed=(Window,Worker)]
 interface Performance : EventTarget {
     DOMHighResTimeStamp now ();
-    DOMHighResTimeStamp translateTime (DOMHighResTimeStamp time, (Window or Worker or SharedWorker or ServiceWorker) timeSource);
     serializer = {attribute};
 };
 </pre>
@@ -299,25 +250,6 @@ interface Performance : EventTarget {
     a <a>DOMHighResTimeStamp</a> representing the time in milliseconds from the
     <a>time origin</a> to the occurrence of the call to the
     <a>Performance.now</a> method.</p>
-    <p>The <dfn for='Performance' data-lt='translateTime'>translateTime(time,
-    timeSource)</dfn> method MUST return a <a>DOMHighResTimeStamp</a> as
-    follows:</p>
-    <ol>
-      <li>Let <var>time</var> be the value of the provided <code>time</code>
-      argument.</li>
-      <li>Let <var>originSource</var> be the <a>time origin</a> of the
-        <a href="http://www.w3.org/TR/html51/webappapis.html#global-object">global
-        object</a> associated with the provided <code>timeSource</code> object.
-      </li>
-      <li>Let <var>originTranslate</var> be the <a>time origin</a> of the
-      <a href=
-      "http://www.w3.org/TR/html51/webappapis.html#global-object">global
-      object</a> associated with the performance object that is the
-      <code>this</code> value for the <a>Performance.translateTime</a> call.
-      </li>
-      <li>Return <var>time</var> + (<var>originSource</var> -
-      <var>originTranslate</var>)</li>
-    </ol>
   </section>
   <section>
     <h3>The <code>performance</code> attribute</h3>
@@ -344,8 +276,6 @@ WorkerGlobalScope implements GlobalPerformance;
     system clock skew. The difference between any two chronologically recorded
     time values returned from the <a>Performance.now</a> method MUST never be
     negative if the two time values have the same <a>time origin</a>.
-    <a>Performance.translateTime</a> MUST be used to compare two
-    chronologically recorded time values of different <a>time origin</a>.</p>
   </section>
   <section id="privacy-security">
     <h3>Privacy and Security</h3>
