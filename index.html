@@ -68,7 +68,7 @@
     localBiblio:  {
       'CACHE-ATTACKS': {
         title: 'The Spy in the Sandbox - Practical Cache Attacks in Javascript',
-        href: 'http://arxiv.org/abs/1502.07373',
+        href: 'https://arxiv.org/abs/1502.07373',
         authors: [
           'Yossef Oren',
           'Vasileios P. Kemerlis',
@@ -90,7 +90,7 @@
   </section>
   <section id="sotd">
     <p>High Resolution Time Level 3 replaces the second version of High
-    Resolution Time [[HR-TIME]] and includes:</p>
+    Resolution Time [[HR-TIME-2]] and includes:</p>
     <ul>
       <li>Defines <a>performance.timeOrigin</a> attribute that provides the
       global time of the zero time of <a>time origin</a>;
@@ -230,13 +230,13 @@ worker.port.onmessage = function (event) {
           </li>
           <li>otherwise, the time of the user confirming the navigation if a
           confirmation dialog is displayed during the <a href=
-          "https://www.w3.org/TR/html51/browsers.html#prompt-to-unload-a-document">
+          "https://www.w3.org/TR/html51/browsers.html#prompt-to-unload">
             prompt to unload</a> algorithm;
           </li>
           <li>otherwise, the time of starting the <a href=
-          "https://www.w3.org/TR/html51/browsers.html#navigate">navigation</a>
+          "https://www.w3.org/TR/html51/browsers.html#navigated">navigation</a>
           responsible for loading the <a href=
-          "https://www.w3.org/TR/html51/browsers.html#dom-document-2">Window
+          "https://www.w3.org/TR/html51/browsers.html#document-associated-with-a-window">Window
           object's newest Document object</a>.
           </li>
         </ul>
@@ -244,10 +244,10 @@ worker.port.onmessage = function (event) {
       <li>If the <a href=
       "https://www.w3.org/TR/html51/webappapis.html#global-object">global
       object</a> is a <a href=
-      "https://w3c.github.io/workers/#the-workerglobalscope-common-interface">
+      "https://w3c.github.io/workers/#workerglobalscope">
         <code>WorkerGlobalScope</code></a> object, the <a>time origin</a> MUST
         be equal to the <a href=
-        "https://w3c.github.io/workers/#official-moment-of-creation">official
+        "https://w3c.github.io/workers/#processing-model">official
         moment of creation</a> of the worker. [[!WORKERS]]
       </li>
       <li>Otherwise, the <a>time origin</a> is undefined.
@@ -333,7 +333,7 @@ WorkerGlobalScope implements GlobalPerformance;
     use the same <dfn>global monotonic clock</dfn> that is shared by <a>time
     origin</a>'s, is monotonically increasing and not subject to system clock
     adjustments or system clock skew, and whose reference point is the Unix
-    time—see <a href="privacy-security"></a>.</p>
+    time—see <a href="#privacy-security"></a>.</p>
     <p class="note">The user agent can reset its global monotonic clock across
     browser restarts, or whenever starting an isolated browsing session—e.g.
     incognito or similar browsing mode. As a result, developers should not use
