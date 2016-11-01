@@ -254,17 +254,17 @@ worker.port.onmessage = function (event) {
       </li>
     </ul>
     <p>The <dfn id="time-origin-timestamp">time origin timestamp</dfn> is the
-    high resolution time value at which <a>time origin</a> is zero. On getting,
-    the `timeOrigin` attribute MUST return:</p>
+    high resolution time value at which <a>time origin</a> is zero. To obtain
+    the <a>time origin timestamp</a> given a [global object]
+    (<var>global</var>):</p>
     <ul>
-      <li>If the [current global object]'s <a>time origin</a> is undefined,
-      abort these steps.</li>
+      <li>Assert that global is not `null`.</li>
       <li>Let <var>t1</var> be the <a>DOMHighResTimeStamp</a> representing the
       high resolution [Unix time] at which the <a>global monotonic clock</a> is
       zero.</li>
       <li>Let <var>t2</var> be the <a>DOMHighResTimeStamp</a> representing the
       high resolution time value of the <a>global monotonic clock</a> at
-      [current global object]'s <a>time origin</a>.</li>
+      <var>global</var>'s <a>time origin</a>.</li>
       <li>Return the sum of <var>t1</var> and <var>t2</var>.</li>
     </ul>
     <p class="note">The <a>time origin timestamp</a> and the value returned by
@@ -306,12 +306,13 @@ interface Performance : EventTarget {
     <p>The <dfn for='Performance' data-lt=
     'time-origin-timestamp'>timeOrigin</dfn> attribute MUST return a
     <a>DOMHighResTimeStamp</a> representing the high resolution time of the
-    <a>time origin timestamp</a> of the [current global object].</p>
+    <a>time origin timestamp</a> for the [relevant global object] of the
+    <a>Performance</a> object.</p>
   </section>
   <section>
     <h3>The <code>performance</code> attribute</h3>
     <p>The <a>GlobalPerformance.performance</a> attribute allows access to
-    performance related attributes and methods from the [current global object].</p>
+    performance related attributes and methods from the [global object].</p>
     <pre class='idl'>
 [NoInterfaceObject, Exposed=(Window,Worker)]
 interface GlobalPerformance {
@@ -441,6 +442,7 @@ WorkerGlobalScope implements GlobalPerformance;
 [DOMTimeStamp]: http://www.w3.org/TR/WebIDL/#common-DOMTimeStamp
 [dedicatedworker]: http://www.w3.org/TR/workers/#worker
 [sharedworker]: http://www.w3.org/TR/workers/#sharedworker
-[current global object]: https://www.w3.org/TR/html51/webappapis.html#current
+[global object]: https://www.w3.org/TR/html51/webappapis.html#global-object
+[relevant global object]: https://www.w3.org/TR/html51/webappapis.html#relevant
 [clock drift]: https://en.wikipedia.org/wiki/Clock_drift
 [Unix time]: https://en.wikipedia.org/wiki/Unix_time
