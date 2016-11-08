@@ -258,7 +258,8 @@ worker.port.onmessage = function (event) {
     the <a>time origin timestamp</a> given a [global object]
     (<var>global</var>):</p>
     <ul>
-      <li>Assert that global is not `null`.</li>
+      <li>Assert that <var>global</var>'s <a>time origin</a> is not
+      undefined.</li>
       <li>Let <var>t1</var> be the <a>DOMHighResTimeStamp</a> representing the
       high resolution [Unix time] at which the <a>global monotonic clock</a> is
       zero.</li>
