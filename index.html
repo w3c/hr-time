@@ -310,19 +310,13 @@ interface Performance : EventTarget {
   </section>
   <section>
     <h3>The <code>performance</code> attribute</h3>
-    <p>The <dfn data-dfn-for="GlobalPerformance">performance</dfn> attribute allows access to
-    performance related attributes and methods from the [global object]. The <dfn>GlobalPerformance</dfn>
-    interface is intended to be exposed directly and will not exist in the ECMAScript binding.</p>
-    <pre class='idl'>
-[NoInterfaceObject, Exposed=(Window,Worker)]
-interface GlobalPerformance {
+    <p>The <dfn data-dfn-for="WindowOrWorkerGlobalScope">performance</dfn> attribute on the
+    <code><dfn data-cite="!HTML#windoworworkerglobalscope-mixin">WindowOrWorkerGlobalScope</dfn></code> allows access to
+    performance related attributes and methods from the [global object].</p>
+    <pre class='idl'>partial interface WindowOrWorkerGlobalScope {
     [Replaceable]
     readonly    attribute Performance performance;
-};
-
-Window implements GlobalPerformance;
-WorkerGlobalScope implements GlobalPerformance;
-</pre>
+};</pre>
   </section>
   <section id="monotonic-clock">
     <h3>Monotonic Clock</h3>
