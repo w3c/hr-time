@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <title>High Resolution Time Level 3</title>
-  <script src='//www.w3.org/Tools/respec/respec-w3c-common' async class=
+  <script src='https://www.w3.org/Tools/respec/respec-w3c-common' async class=
   'remove'>
   </script>
   <script class='remove'>
@@ -244,12 +244,8 @@ worker.port.onmessage = function (event) {
       </li>
       <li>If the <a href=
       "https://www.w3.org/TR/html51/webappapis.html#global-object">global
-      object</a> is a <a href=
-      "https://w3c.github.io/workers/#workerglobalscope">
-        <code>WorkerGlobalScope</code></a> object, the <a>time origin</a> MUST
-        be equal to the <a href=
-        "https://w3c.github.io/workers/#processing-model">official
-        moment of creation</a> of the worker. [[!WORKERS]]
+      object</a> is a <code>[WorkerGlobalScope]</code> object, the <a>time origin</a> MUST
+        be equal to the [official moment of creation] of the worker. [[!WORKERS]]
       </li>
       <li>Otherwise, the <a>time origin</a> is undefined.
       </li>
@@ -277,7 +273,7 @@ worker.port.onmessage = function (event) {
   </section>
   <section id="dom-domhighrestimestamp">
     <h3>The <code>DOMHighResTimeStamp</code> Type</h3>
-    <p>The <a>DOMHighResTimeStamp</a> type is used to store a time value in
+    <p>The <dfn>DOMHighResTimeStamp</dfn> type is used to store a time value in
     milliseconds, measured relative from the <a>time origin</a>, <a>global
     monotonic clock</a>, or a time value that represents a duration between two
     <a>DOMHighResTimeStamp</a>'s.</p>
@@ -292,7 +288,7 @@ typedef double DOMHighResTimeStamp;
     milliseconds accurate to a millisecond.</p>
   </section>
   <section>
-    <h3>The <code>Performance</code> interface</h3>
+    <h3>The <dfn>Performance</dfn> interface</h3>
     <pre class='idl'>
 [Exposed=(Window,Worker)]
 interface Performance : EventTarget {
@@ -301,30 +297,26 @@ interface Performance : EventTarget {
     serializer = {attribute};
 };
 </pre>
-    <p>The <dfn for='Performance' data-lt='now'>now()</dfn> method MUST return
+    <p>The <dfn data-dfn-for="Performance">now()</dfn> method MUST return
     a <a>DOMHighResTimeStamp</a> representing the high resolution time from the
     <a>time origin</a> to the occurrence of the call to the
     <a>Performance.now</a> method.</p>
-    <p>The <dfn for='Performance' data-lt=
-    'time-origin-timestamp'>timeOrigin</dfn> attribute MUST return a
+    <p>The <dfn data-dfn-for="Performance">timeOrigin</dfn> attribute MUST return a
     <a>DOMHighResTimeStamp</a> representing the high resolution time of the
     <a>time origin timestamp</a> for the [relevant global object] of the
     <a>Performance</a> object.</p>
+    <p>The <dfn data-dfn-for="Performance">serializer</dfn> provide a way for the <a>Performance</a>
+    object to be converted into a serialized form.</p>
   </section>
   <section>
     <h3>The <code>performance</code> attribute</h3>
-    <p>The <a>GlobalPerformance.performance</a> attribute allows access to
+    <p>The <dfn data-dfn-for="WindowOrWorkerGlobalScope">performance</dfn> attribute on the
+    <code><dfn data-cite="!HTML#windoworworkerglobalscope-mixin">WindowOrWorkerGlobalScope</dfn></code> allows access to
     performance related attributes and methods from the [global object].</p>
-    <pre class='idl'>
-[NoInterfaceObject, Exposed=(Window,Worker)]
-interface GlobalPerformance {
+    <pre class='idl'>partial interface WindowOrWorkerGlobalScope {
     [Replaceable]
     readonly    attribute Performance performance;
-};
-
-Window implements GlobalPerformance;
-WorkerGlobalScope implements GlobalPerformance;
-</pre>
+};</pre>
   </section>
   <section id="monotonic-clock">
     <h3>Monotonic Clock</h3>
@@ -441,9 +433,11 @@ WorkerGlobalScope implements GlobalPerformance;
 </html>
 
 <!-- spec references. preserve before running tidy! -->
-[DOMTimeStamp]: http://www.w3.org/TR/WebIDL/#common-DOMTimeStamp
-[dedicatedworker]: http://www.w3.org/TR/workers/#worker
-[sharedworker]: http://www.w3.org/TR/workers/#sharedworker
+[DOMTimeStamp]: https://www.w3.org/TR/WebIDL/#common-DOMTimeStamp
+[dedicatedworker]: https://w3c.github.io/workers/#worker
+[sharedworker]: https://w3c.github.io/workers/#sharedworker
+[official moment of creation]: https://w3c.github.io/workers/#processing-model
+[WorkerGlobalScope]: https://w3c.github.io/workers/#workerglobalscope
 [global object]: https://www.w3.org/TR/html51/webappapis.html#global-object
 [relevant global object]: https://www.w3.org/TR/html51/webappapis.html#relevant
 [clock drift]: https://en.wikipedia.org/wiki/Clock_drift
