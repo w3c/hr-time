@@ -3,12 +3,7 @@ Contributions to this repository are intended to become part of Recommendation-t
 [Software and Document License](http://www.w3.org/Consortium/Legal/copyright-software). To make substantive contributions to specifications, you must either participate
 in the relevant W3C Working Group or make a non-member patent licensing commitment.
 
-For normative changes, a corresponding [web-platform-tests](https://github.com/w3c/web-platform-tests) PR
-is generally expected. Typically, both PRs will be merged at the same time. If a PR for the specification
-is approved but the other needs more work, add the 'needs tests' label or, in web-platform-tests, the
-'status:needs-spec-decision' label. Note that a test change that contradicts the spec should not be merged
-before the corresponding spec change. If testing is not practical, please explain why and if appropriate
-[file an issue](https://github.com/w3c/web-platform-tests/issues/new) to follow up later.
+For our editing tst-driven process, see [CONTRIBUTING.md](https://github.com/w3c/web-performance/blob/gh-pages/CONTRIBUTING.md).
 
 If you are not the sole contributor to a contribution (pull request), please identify all 
 contributors in the pull request comment.
