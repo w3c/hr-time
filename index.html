@@ -159,51 +159,6 @@ var duration = Date.now() - mark_start;
       origin</a>'s. To display such events on the same timeline, the
       application can translate the <a>DOMHighResTimeStamp</a>'s with the help
       of the <a>performance.timeOrigin</a> attribute.</p>
-      <pre class="example highlight">
-// ---- worker.js -----------------------------
-// Shared worker script
-onconnect = function(e) {
-  var port = e.ports[0];
-  port.onmessage = function(e) {
-    // Time execution in worker
-    var task_start = performance.now();
-    result = runSomeWorkerTask();
-    var task_end = performance.now();
-
-    // Send results and epoch-relative timestamps to another context
-    port.postMessage({
-       'task': 'Some worker task',
-       'start_time': task_start + performance.timeOrigin,
-       'end_time': task_end + performance.timeOrigin,
-       'result': result
-    });
-  }
-}
-
-// ---- application.js ------------------------
-// Timing tasks in the document
-var task_start = performance.now();
-runSomeApplicationTask();
-var task_end = performance.now();
-
-// developer provided method to upload runtime performance data
-reportEventToAnalytics({
-  'task': 'Some document task',
-  'start_time': task_start,
-  'duration': task_end - task_start
-});
-
-// Translating worker timestamps into document's time origin
-var worker = new SharedWorker('worker.js');
-worker.port.onmessage = function (event) {
-  var msg = event.data;
-
-  // translate epoch-relative timestamps into document's time origin
-  msg.start_time = msg.start_time - performance.timeOrigin;
-  msg.end_time = msg.end_time - performance.timeOrigin;
-
-  reportEventToAnalytics(msg);
-}</pre>
     </section>
   </section>
   <section id="conformance">
