@@ -270,6 +270,8 @@ worker.port.onmessage = function (event) {
     recorded with respect to a global monotonic clock that is not subject to
     system and user clock adjustments, clock skew, and so on—see <a href=
     "#monotonic-clock"></a>.</p>
+    <p>The <dfn>current high resolution time</dfn> is the high resolution time
+    from the <a>time origin</a> to the present time (typically called "now").</p>
   </section>
   <section id="dom-domhighrestimestamp">
     <h3>The <code>DOMHighResTimeStamp</code> Type</h3>
@@ -297,10 +299,8 @@ interface Performance : EventTarget {
     [Default] object toJSON();
 };
 </pre>
-    <p>The <dfn data-dfn-for="Performance">now()</dfn> method MUST return
-    a <a>DOMHighResTimeStamp</a> representing the high resolution time from the
-    <a>time origin</a> to the occurrence of the call to the
-    <a>Performance.now</a> method.</p>
+    <p>The <dfn data-dfn-for="Performance">now()</dfn> method MUST return the
+    <a>current high resolution time</a>.</p>
     <p>The <dfn data-dfn-for="Performance">timeOrigin</dfn> attribute MUST return a
     <a>DOMHighResTimeStamp</a> representing the high resolution time of the
     <a>time origin timestamp</a> for the [relevant global object] of the
