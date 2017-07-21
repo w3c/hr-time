@@ -294,7 +294,7 @@ typedef double DOMHighResTimeStamp;
 interface Performance : EventTarget {
     DOMHighResTimeStamp now ();
     readonly attribute DOMHighResTimeStamp timeOrigin;
-    serializer = {attribute};
+    [Default] object toJSON();
 };
 </pre>
     <p>The <dfn data-dfn-for="Performance">now()</dfn> method MUST return
@@ -305,8 +305,8 @@ interface Performance : EventTarget {
     <a>DOMHighResTimeStamp</a> representing the high resolution time of the
     <a>time origin timestamp</a> for the [relevant global object] of the
     <a>Performance</a> object.</p>
-    <p>The <dfn data-dfn-for="Performance">serializer</dfn> provide a way for the <a>Performance</a>
-    object to be converted into a serialized form.</p>
+    <p data-dfn-for="Performance">When <dfn>toJSON</dfn> is called, run
+    [[!WebIDL]]'s <a data-cite="WEBIDL#default-tojson-operation">default toJSON operation</a>.</p>
   </section>
   <section>
     <h3>The <code>performance</code> attribute</h3>
