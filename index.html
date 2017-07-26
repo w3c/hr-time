@@ -6,9 +6,12 @@
   <script src='https://www.w3.org/Tools/respec/respec-w3c-common' async class=
   'remove'>
   </script>
+  <script src='respec-extensions.js' class='remove'>
+  </script>
   <script class='remove'>
   var respecConfig = {
     shortName: "hr-time-3",
+    latestShortName: "hr-time",
     specStatus: "ED",
     edDraftURI: "https://w3c.github.io/hr-time/",
     editors: [{
@@ -79,6 +82,7 @@
         date: 'March 2015'
       }
     },
+    postProcess: [ enhanceLatestVersions ],
     wgPatentURI:  "https://www.w3.org/2004/01/pp-impl/45211/status"
   };
   </script>
