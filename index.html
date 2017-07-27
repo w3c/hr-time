@@ -2,13 +2,13 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <title>High Resolution Time Level 3</title>
+  <title>High Resolution Time Level 2</title>
   <script src='https://www.w3.org/Tools/respec/respec-w3c-common' async class=
   'remove'>
   </script>
   <script class='remove'>
   var respecConfig = {
-    shortName: "hr-time-3",
+    shortName: "hr-time-2",
     specStatus: "ED",
     edDraftURI: "https://w3c.github.io/hr-time/",
     editors: [{
@@ -42,7 +42,7 @@
         href: 'https://github.com/w3c/hr-time/'
       }, {
         value: 'File a bug.',
-        href: 'https://github.com/w3c/hr-time/issues?q=milestone:%22Level%203%22'
+        href: 'https://github.com/w3c/hr-time/issues?q=milestone:%22Level%202%22'
       }, {
         value: 'Commit history.',
         href: 'https://github.com/w3c/hr-time/commits/gh-pages/index.html'
@@ -79,22 +79,31 @@
         date: 'March 2015'
       }
     },
-    wgPatentURI:  "https://www.w3.org/2004/01/pp-impl/45211/status"
+    wgPatentURI: "https://www.w3.org/2004/01/pp-impl/45211/status"
   };
   </script>
 </head>
 <body>
   <section id="abstract">
-    <p>This specification defines an API that provides the current time in
-    sub-millisecond resolution and such that it is not subject to system clock
-    skew or adjustments.</p>
+    <p>This specification defines an API that provides the time origin, and current time in sub-millisecond resolution, such that it is not subject to system clock skew or adjustments.</p>
   </section>
   <section id="sotd">
-    <p>High Resolution Time Level 3 replaces the second version of High
-    Resolution Time [[HR-TIME-2]] and includes:</p>
+    <p>High Resolution Time Level 2 replaces the first version of High
+    Resolution Time [[HR-TIME]] and includes:</p>
     <ul>
+      <li>Defines a precise definition of <a>time origin</a> for the purpose of
+      all performance timeline related specifications;
+      </li>
       <li>Defines <a>performance.timeOrigin</a> attribute that provides the
       global time of the zero time of <a>time origin</a>;
+      </li>
+      <li>The base definition for the <a>Performance</a> interface, previously specified in [[PERFORMANCE-TIMELINE]],
+       is now moved to this specification and now includes support for the <a>Performance.now</a> method in Web Workers
+      [[WORKERS]];
+      </li>
+      <li>To mitigate <a href='#privacy-security'>cache attacks</a>, the
+      recommended minimum resolution of the Performance interface should be set
+      to 5 microseconds.
       </li>
     </ul>
   </section>
