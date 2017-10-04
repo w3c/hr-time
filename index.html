@@ -178,15 +178,15 @@ onconnect = function(e) {
     var task_start = performance.now();
     result = runSomeWorkerTask();
     var task_end = performance.now();
-
-    // Send results and epoch-relative timestamps to another context
-    port.postMessage({
-       'task': 'Some worker task',
-       'start_time': task_start + performance.timeOrigin,
-       'end_time': task_end + performance.timeOrigin,
-       'result': result
-    });
   }
+
+  // Send results and epoch-relative timestamps to another context
+  port.postMessage({
+     'task': 'Some worker task',
+     'start_time': task_start + performance.timeOrigin,
+     'end_time': task_end + performance.timeOrigin,
+     'result': result
+  });
 }
 
 // ---- application.js ------------------------
