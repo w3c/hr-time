@@ -238,10 +238,10 @@ worker.port.onmessage = function (event) {
             browsing context is first created</a> if there is no previous
             document;
           </li>
-          <li>otherwise, the time of the user confirming the navigation if a
-          confirmation dialog is displayed during the <a href=
-          "https://www.w3.org/TR/html51/browsers.html#prompt-to-unload">
-            prompt to unload</a> algorithm;
+          <li>otherwise, the time of the user confirming the navigation during the previous
+          document's <a href="https://www.w3.org/TR/html51/browsers.html#prompt-to-unload">
+          prompt to unload algorithm</a>, if a previous document exists and if the
+          confirmation dialog was displayed;
           </li>
           <li>otherwise, the time of starting the <a href=
           "https://www.w3.org/TR/html51/browsers.html#navigated">navigation</a>
