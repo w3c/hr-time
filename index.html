@@ -77,7 +77,6 @@
       }
     },
     implementationURI: "http://wpt.fyi/hr-time/",
-    issueBase: "https://www.github.com/w3c/hr-time/issues/",
     githubAPI: "https://api.github.com/repos/w3c/hr-time",
     testSuiteURI: "https://wpt.fyi/hr-time/",
     wgPatentURI: "https://www.w3.org/2004/01/pp-impl/45211/status"
@@ -234,15 +233,15 @@ worker.port.onmessage = function (event) {
             browsing context is first created</a> if there is no previous
             document;
           </li>
-          <li>otherwise, the time of the user confirming the navigation if a
-          confirmation dialog is displayed during the <a data-cite=
-          "!HTML#prompt-to-unload-a-document">
-            prompt to unload</a> algorithm; <div class="issue" data-number="32"></div>
+          <li>otherwise, the time of the user confirming the navigation during the previous
+          document's <a href="!HTML#prompt-to-unload-a-document">
+          prompt to unload algorithm</a>, if a previous document exists and if the
+          confirmation dialog was displayed;
           </li>
           <li>otherwise, the time of starting the <a data-cite=
           "!HTML#navigate">navigation</a>
           responsible for loading the <a data-cite=
-          "!HTML#concept-document-window">Window
+          "!HTML#concept-document-window"><code>Window</code>
           object's newest Document object</a>.
           </li>
         </ul>
