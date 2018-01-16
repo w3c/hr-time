@@ -33,7 +33,6 @@
     wgURI: "https://www.w3.org/webperf/",
     wgPublicList: "public-web-perf",
     subjectPrefix: "[hr-time]",
-    license: 'w3c-software-doc',
     format: "markdown",
     otherLinks: [{
       key: 'Repository',
@@ -58,12 +57,6 @@
       data: [{
         value: 'Can I use High Resolution Time?',
         href: 'http://caniuse.com/#feat=high-resolution-time'
-      }, {
-        value: 'Test Suite',
-        href: 'http://w3c-test.org/hr-time/'
-      }, {
-        value: 'Test Suite repository',
-        href: 'https://github.com/w3c/web-platform-tests/tree/master/hr-time'
       }]
     }],
     localBiblio:  {
@@ -79,6 +72,9 @@
         date: 'March 2015'
       }
     },
+    implementationURI: "http://wpt.fyi/hr-time/",
+    githubAPI: "https://api.github.com/repos/w3c/hr-time",
+    testSuiteURI: "https://wpt.fyi/hr-time/",
     wgPatentURI: "https://www.w3.org/2004/01/pp-impl/45211/status"
   };
   </script>
@@ -88,8 +84,8 @@
     <p>This specification defines an API that provides the time origin, and current time in sub-millisecond resolution, such that it is not subject to system clock skew or adjustments.</p>
   </section>
   <section id="sotd">
-    <p>High Resolution Time Level 2 replaces the first version of High
-    Resolution Time [[HR-TIME]] and includes:</p>
+    <p>High Resolution Time Level 2 replaces the <a href='https://www.w3.org/TR/hr-time-1/'>first version of High
+    Resolution Time</a> and includes:</p>
     <ul>
       <li>Defines a precise definition of <a>time origin</a> for the purpose of
       all performance timeline related specifications;
@@ -114,7 +110,7 @@
     1970 UTC. For most purposes, this definition of time is sufficient as these
     values represent time to millisecond precision for any instant that is
     within approximately 285,616 years from 01 January, 1970 UTC. The
-    [DOMTimeStamp] is defined similarly [[WebIDL]].</p>
+    [DOMTimeStamp] is defined similarly [[WEBIDL]].</p>
     <p>In practice, these definitions of time are subject to both clock skew
     and adjustment of the system clock. The value of time may not always be
     monotonically increasing and subsequent values may either decrease or
@@ -219,42 +215,35 @@ worker.port.onmessage = function (event) {
     <p>Some conformance requirements are phrased as requirements on attributes,
     methods or objects. Such requirements are to be interpreted as requirements
     on user agents.</p>
-    <p>The IDL fragments in this specification must be interpreted as required
-    for conforming IDL fragments, as described in the Web IDL specification.
-    [[!WebIDL]]</p>
   </section>
   <section>
     <h3>Time Origin</h3>
     <p>The <dfn id="time-origin">time origin</dfn> is the time value from which
     time is measured:</p>
     <ul>
-      <li>If the <a href=
-      "https://www.w3.org/TR/html51/webappapis.html#global-object">global
-      object</a> [[!HTML51]] is a <code>Window</code> object, the <a>time
+      <li>If the [global object] is a <code>Window</code> object, the <a>time
       origin</a> MUST be equal to:
         <ul>
-          <li>the time when the <a href=
-          "https://www.w3.org/TR/html51/browsers.html#creating-a-new-browsing-context">
+          <li>the time when the <a data-cite=
+          "!HTML#creating-a-new-browsing-context">
             browsing context is first created</a> if there is no previous
             document;
           </li>
           <li>otherwise, the time of the user confirming the navigation during the previous
-          document's <a href="https://www.w3.org/TR/html51/browsers.html#prompt-to-unload">
+          document's <a href="!HTML#prompt-to-unload-a-document">
           prompt to unload algorithm</a>, if a previous document exists and if the
           confirmation dialog was displayed;
           </li>
-          <li>otherwise, the time of starting the <a href=
-          "https://www.w3.org/TR/html51/browsers.html#navigated">navigation</a>
-          responsible for loading the <a href=
-          "https://www.w3.org/TR/html51/browsers.html#document-associated-with-a-window">Window
+          <li>otherwise, the time of starting the <a data-cite=
+          "!HTML#navigate">navigation</a>
+          responsible for loading the <a data-cite=
+          "!HTML#concept-document-window"><code>Window</code>
           object's newest Document object</a>.
           </li>
         </ul>
       </li>
-      <li>If the <a href=
-      "https://www.w3.org/TR/html51/webappapis.html#global-object">global
-      object</a> is a <code>[WorkerGlobalScope]</code> object, the <a>time origin</a> MUST
-        be equal to the [official moment of creation] of the worker. [[!WORKERS]]
+      <li>If the [global object] is a <code>[WorkerGlobalScope]</code> object, the <a>time origin</a> MUST
+        be equal to the [official moment of creation] of the worker.
       </li>
       <li>Otherwise, the <a>time origin</a> is undefined.
       </li>
@@ -282,9 +271,9 @@ worker.port.onmessage = function (event) {
     <p>The <dfn>current high resolution time</dfn> is the high resolution time
     from the <a>time origin</a> to the present time (typically called "now").</p>
   </section>
-  <section id="dom-domhighrestimestamp">
-    <h3>The <code>DOMHighResTimeStamp</code> Type</h3>
-    <p>The <dfn>DOMHighResTimeStamp</dfn> type is used to store a time value in
+  <section>
+    <h3>The <dfn>DOMHighResTimeStamp</dfn> Type</h3>
+    <p>The <a>DOMHighResTimeStamp</a> type is used to store a time value in
     milliseconds, measured relative from the <a>time origin</a>, <a>global
     monotonic clock</a>, or a time value that represents a duration between two
     <a>DOMHighResTimeStamp</a>'s.</p>
@@ -298,7 +287,7 @@ typedef double DOMHighResTimeStamp;
     User Agent can represent a <a>DOMHighResTimeStamp</a> as a time in
     milliseconds accurate to a millisecond.</p>
   </section>
-  <section>
+  <section data-dfn-for="Performance"  data-link-for="Performance">
     <h3>The <dfn>Performance</dfn> interface</h3>
     <pre class='idl'>
 [Exposed=(Window,Worker)]
@@ -308,18 +297,18 @@ interface Performance : EventTarget {
     [Default] object toJSON();
 };
 </pre>
-    <p>The <dfn data-dfn-for="Performance">now()</dfn> method MUST return the
+    <p data-tests='basic.any.html, basic.any.worker.html'>The <dfn>now()</dfn> method MUST return the
     <a>current high resolution time</a>.</p>
-    <p>The <dfn data-dfn-for="Performance">timeOrigin</dfn> attribute MUST return a
+    <p data-tests='timeOrigin.html, window-worker-timeOrigin.window.html'>The <dfn>timeOrigin</dfn> attribute MUST return a
     <a>DOMHighResTimeStamp</a> representing the high resolution time of the
     <a>time origin timestamp</a> for the [relevant global object] of the
     <a>Performance</a> object.</p>
-    <p data-dfn-for="Performance">When <dfn>toJSON</dfn> is called, run
-    [[!WebIDL]]'s <a data-cite="WEBIDL#default-tojson-operation">default toJSON operation</a>.</p>
+    <p>When <dfn>toJSON</dfn> is called, run
+    [[!WEBIDL]]'s <a data-cite="!WEBIDL#default-tojson-operation">default toJSON operation</a>.</p>
   </section>
-  <section>
+  <section data-dfn-for="WindowOrWorkerGlobalScope"  data-link-for="WindowOrWorkerGlobalScope">
     <h3>The <code>performance</code> attribute</h3>
-    <p>The <dfn data-dfn-for="WindowOrWorkerGlobalScope">performance</dfn> attribute on the
+    <p>The <dfn>performance</dfn> attribute on the
     <code><dfn data-cite="!HTML#windoworworkerglobalscope-mixin">WindowOrWorkerGlobalScope</dfn></code> allows access to
     performance related attributes and methods from the [global object].</p>
     <pre class='idl'>partial interface WindowOrWorkerGlobalScope {
@@ -329,14 +318,15 @@ interface Performance : EventTarget {
   </section>
   <section id="monotonic-clock">
     <h3>Monotonic Clock</h3>
-    <p>The time values returned when calling the <a>Performance.now</a> method
+    <p data-tests='monotonic-clock.any.html, monotonic-clock.any.worker.html '>The
+      time values returned when calling the <code><a>performance.now()</a></code> method
     on <a>Performance</a> objects with the same <a>time origin</a> MUST use the
     same <dfn>monotonic clock</dfn> that is monotonically increasing and not
     subject to system clock adjustments or system clock skew. The difference
     between any two chronologically recorded time values returned from the
-    <a>Performance.now</a> method MUST never be negative if the two time values
+    <code><a>performance.now()</a></code> method MUST never be negative if the two time values
     have the same <a>time origin</a>.</p>
-    <p>The time values returned when getting <a>performance.timeOrigin</a> MUST
+    <p data-tests='test_cross_frame_start.html'>The time values returned when getting <code><a>performance.timeOrigin</a></code> MUST
     use the same <dfn>global monotonic clock</dfn> that is shared by <a>time
     origin</a>'s, is monotonically increasing and not subject to system clock
     adjustments or system clock skew, and whose reference point is the Unix
@@ -369,7 +359,7 @@ interface Performance : EventTarget {
       or application-initiated operations to differentiate between subset of
       users, and in some cases identify a particular user - see
       [[CACHE-ATTACKS]].</p>
-      <p>This specification defines an API that provides sub-millisecond time
+      <p data-tests='timing-attack.html'>This specification defines an API that provides sub-millisecond time
       resolution, which is more accurate than the previously available
       millisecond resolution exposed by [DOMTimeStamp]. However, even without
       this new API an attacker may be able to obtain high-resolution estimates
@@ -400,7 +390,7 @@ interface Performance : EventTarget {
       <p>However, even with above mechanism in place, the <a>global monotonic
       clock</a> may provide additional [clock drift] resolution. Today, the
       application can timestamp the time-of-day and monotonic time values (via
-      `Date.now()` and `performance.now()`) at multiple points within the same
+      `Date.now()` and <code><a>performance.now()</a></code>) at multiple points within the same
       context and observe drift between them—e.g. due to automatic or user
       clock adjustments. With the <a>performance.timeOrigin</a> attribute, the
       attacker can also compare the time at which <a>time origin</a> is zero,
@@ -438,16 +428,17 @@ interface Performance : EventTarget {
     Yossef Oren
     for their contributions to this work.</p>
   </section>
+
 </body>
 </html>
 
 <!-- spec references. preserve before running tidy! -->
-[DOMTimeStamp]: https://www.w3.org/TR/WebIDL/#common-DOMTimeStamp
+[DOMTimeStamp]: https://heycam.github.io/webidl/#DOMTimeStamp
 [dedicatedworker]: https://html.spec.whatwg.org/multipage/workers.html#worker
 [sharedworker]: https://html.spec.whatwg.org/multipage/workers.html#sharedworker
 [official moment of creation]: https://html.spec.whatwg.org/multipage/workers.html#worker-processing-model
 [WorkerGlobalScope]: https://html.spec.whatwg.org/multipage/workers.html#workerglobalscope
-[global object]: https://www.w3.org/TR/html51/webappapis.html#global-object
-[relevant global object]: https://www.w3.org/TR/html51/webappapis.html#relevant
+[global object]: https://html.spec.whatwg.org/multipage/webappapis.html#global-object
+[relevant global object]: https://html.spec.whatwg.org/multipage/webappapis.html#relevant
 [clock drift]: https://en.wikipedia.org/wiki/Clock_drift
 [Unix time]: https://en.wikipedia.org/wiki/Unix_time
