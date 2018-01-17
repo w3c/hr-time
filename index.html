@@ -34,31 +34,18 @@
     wgPublicList: "public-web-perf",
     subjectPrefix: "[hr-time]",
     format: "markdown",
-    otherLinks: [{
-      key: 'Repository',
-      data: [{
-        value: 'We are on Github.',
-        href: 'https://github.com/w3c/hr-time/'
-      }, {
-        value: 'File a bug.',
-        href: 'https://github.com/w3c/hr-time/issues?q=milestone:%22Level%202%22'
-      }, {
-        value: 'Commit history.',
-        href: 'https://github.com/w3c/hr-time/commits/gh-pages/index.html'
-      }]
-    },{
-      key: 'Mailing list',
-      data: [{
-        value: 'public-web-perf@w3.org',
-        href: 'https://lists.w3.org/Archives/Public/public-web-perf/'
-      }]
-    },{
-      key: 'Implementation',
-      data: [{
-        value: 'Can I use High Resolution Time?',
-        href: 'http://caniuse.com/#feat=high-resolution-time'
-      }]
-    }],
+    github: "https://github.com/w3c/hr-time/",
+    otherLinks: [
+      {
+        key: 'Implementation',
+        data: [
+          {
+            value: 'Can I use High Resolution Time?',
+            href: 'http://caniuse.com/#feat=high-resolution-time'
+          }
+        ],
+      }
+    ],
     localBiblio:  {
       'CACHE-ATTACKS': {
         title: 'The Spy in the Sandbox - Practical Cache Attacks in Javascript',
@@ -72,8 +59,6 @@
         date: 'March 2015'
       }
     },
-    implementationURI: "http://wpt.fyi/hr-time/",
-    githubAPI: "https://api.github.com/repos/w3c/hr-time",
     testSuiteURI: "https://wpt.fyi/hr-time/",
     wgPatentURI: "https://www.w3.org/2004/01/pp-impl/45211/status"
   };
@@ -83,7 +68,7 @@
   <section id="abstract">
     <p>This specification defines an API that provides the time origin, and current time in sub-millisecond resolution, such that it is not subject to system clock skew or adjustments.</p>
   </section>
-  <section id="sotd">
+  <section id="sotd"  data-link-for="Performance">
     <p>High Resolution Time Level 2 replaces the <a href='https://www.w3.org/TR/hr-time-1/'>first version of High
     Resolution Time</a> and includes:</p>
     <ul>
@@ -216,12 +201,12 @@ worker.port.onmessage = function (event) {
     methods or objects. Such requirements are to be interpreted as requirements
     on user agents.</p>
   </section>
-  <section>
+  <section id="sec-time-origin">
     <h3>Time Origin</h3>
-    <p>The <dfn id="time-origin">time origin</dfn> is the time value from which
+    <p>The <dfn>time origin</dfn> is the time value from which
     time is measured:</p>
     <ul>
-      <li>If the [global object] is a <code>Window</code> object, the <a>time
+      <li>If the [global object] is a <a data-cite="!HTML#window"><code>Window</code></a> object, the <a>time
       origin</a> MUST be equal to:
         <ul>
           <li>the time when the <a data-cite=
@@ -230,7 +215,7 @@ worker.port.onmessage = function (event) {
             document;
           </li>
           <li>otherwise, the time of the user confirming the navigation during the previous
-          document's <a href="!HTML#prompt-to-unload-a-document">
+          document's <a data-cite="!HTML#prompt-to-unload-a-document">
           prompt to unload algorithm</a>, if a previous document exists and if the
           confirmation dialog was displayed;
           </li>
@@ -248,7 +233,7 @@ worker.port.onmessage = function (event) {
       <li>Otherwise, the <a>time origin</a> is undefined.
       </li>
     </ul>
-    <p>The <dfn id="time-origin-timestamp">time origin timestamp</dfn> is the
+    <p>The <dfn>time origin timestamp</dfn> is the
     high resolution time value at which <a>time origin</a> is zero. To obtain
     the <a>time origin timestamp</a> given a [global object]
     (<var>global</var>):</p>
@@ -271,7 +256,7 @@ worker.port.onmessage = function (event) {
     <p>The <dfn>current high resolution time</dfn> is the high resolution time
     from the <a>time origin</a> to the present time (typically called "now").</p>
   </section>
-  <section>
+  <section id="sec-domhighrestimestamp">
     <h3>The <dfn>DOMHighResTimeStamp</dfn> Type</h3>
     <p>The <a>DOMHighResTimeStamp</a> type is used to store a time value in
     milliseconds, measured relative from the <a>time origin</a>, <a>global
@@ -287,7 +272,7 @@ typedef double DOMHighResTimeStamp;
     User Agent can represent a <a>DOMHighResTimeStamp</a> as a time in
     milliseconds accurate to a millisecond.</p>
   </section>
-  <section data-dfn-for="Performance"  data-link-for="Performance">
+  <section id="sec-performance" data-dfn-for="Performance"  data-link-for="Performance">
     <h3>The <dfn>Performance</dfn> interface</h3>
     <pre class='idl'>
 [Exposed=(Window,Worker)]
@@ -316,7 +301,7 @@ interface Performance : EventTarget {
     readonly    attribute Performance performance;
 };</pre>
   </section>
-  <section id="monotonic-clock">
+  <section id="sec-monotonic-clock"   data-link-for="Performance">
     <h3>Monotonic Clock</h3>
     <p data-tests='monotonic-clock.any.html, monotonic-clock.any.worker.html '>The
       time values returned when calling the <code><a>performance.now()</a></code> method
@@ -340,7 +325,7 @@ interface Performance : EventTarget {
     messages via one of the provided messaging mechanisms - e.g. `postMessage`,
     `BroadcastChannel`, etc.</p>
   </section>
-  <section id="privacy-security">
+  <section id="sec-privacy-security" data-link-for="Performance">
     <h3>Privacy and Security</h3>
     <section>
       <h3>Clock resolution</h3>
