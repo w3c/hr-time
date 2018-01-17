@@ -82,7 +82,7 @@
        is now moved to this specification and now includes support for the <a>Performance.now</a> method in Web Workers
       [[WORKERS]];
       </li>
-      <li>To mitigate <a href='#privacy-security'>cache attacks</a>, the
+      <li>To mitigate <a href='#sec-privacy-security'>cache attacks</a>, the
       recommended minimum resolution of the Performance interface should be set
       to 5 microseconds.
       </li>
@@ -252,7 +252,7 @@ worker.port.onmessage = function (event) {
     `Date.now()` executed at "zero time" can differ because the former is
     recorded with respect to a global monotonic clock that is not subject to
     system and user clock adjustments, clock skew, and so on—see <a href=
-    "#monotonic-clock"></a>.</p>
+    "#sec-monotonic-clock"></a>.</p>
     <p>The <dfn>current high resolution time</dfn> is the high resolution time
     from the <a>time origin</a> to the present time (typically called "now").</p>
   </section>
@@ -266,7 +266,7 @@ worker.port.onmessage = function (event) {
 typedef double DOMHighResTimeStamp;
 </pre>
     <p>A <a>DOMHighResTimeStamp</a> SHOULD represent a time in milliseconds
-    accurate to 5 microseconds - see <a href="#privacy-security"></a>.</p>
+    accurate to 5 microseconds - see <a href="#sec-privacy-security"></a>.</p>
     <p class='note'>If the User Agent is unable to provide a time value
     accurate to 5 microseconds due to hardware or software constraints, the
     User Agent can represent a <a>DOMHighResTimeStamp</a> as a time in
@@ -315,7 +315,7 @@ interface Performance : EventTarget {
     use the same <dfn>global monotonic clock</dfn> that is shared by <a>time
     origin</a>'s, is monotonically increasing and not subject to system clock
     adjustments or system clock skew, and whose reference point is the Unix
-    time—see <a href="#privacy-security"></a>.</p>
+    time—see <a href="#sec-privacy-security"></a>.</p>
     <p class="note">The user agent can reset its global monotonic clock across
     browser restarts, or whenever starting an isolated browsing session—e.g.
     incognito or similar browsing mode. As a result, developers should not use
