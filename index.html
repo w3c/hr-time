@@ -266,7 +266,7 @@ worker.port.onmessage = function (event) {
 typedef double DOMHighResTimeStamp;
 </pre>
     <p>A <a>DOMHighResTimeStamp</a> SHOULD represent a time in milliseconds
-    accurate to 5 microseconds - see <a href="#sec-privacy-security"></a>.</p>
+    accurate to some microseconds - see <a href="#clock-resolution"></a> for additional considerations.</p>
     <p class='note'>If the User Agent is unable to provide a time value
     accurate to 5 microseconds due to hardware or software constraints, the
     User Agent can represent a <a>DOMHighResTimeStamp</a> as a time in
@@ -350,8 +350,11 @@ interface Performance : EventTarget {
       this new API an attacker may be able to obtain high-resolution estimates
       through repeat execution and statistical analysis. To ensure that the new
       API does not significantly improve the accuracy or speed of such attacks,
-      the recommended minimum resolution of the <a>Performance</a> interface
+      the recommended minimum resolution of the <a>DOMHighResTimeStamp</a> type
       should be set to 5 microseconds.</p>
+      <div class="issue" data-number="56">
+        The recommended minimum resolution of the <a>DOMHighResTimeStamp</a> is likely to increase in the upcoming future.
+      </div>
       <p>Mitigating such timing side-channel attacks entirely is practically
       not possible: either all operations would have to execute in a time that
       does not vary based on the value of any confidential information, or, the
