@@ -293,7 +293,7 @@ interface Performance : EventTarget {
     <p>The <dfn>performance</dfn> attribute on the
     <code><dfn data-cite="!HTML#windoworworkerglobalscope-mixin">WindowOrWorkerGlobalScope</dfn></code> allows access to
     performance related attributes and methods from the [global object].</p>
-    <pre class='idl'>partial interface WindowOrWorkerGlobalScope {
+    <pre class='idl'>partial interface mixin WindowOrWorkerGlobalScope {
     [Replaceable]
     readonly    attribute Performance performance;
 };</pre>
