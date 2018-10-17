@@ -1,6 +1,9 @@
 {
-  "group":     45211
-, "contacts":  ["plehegar"]
-, "shortName": "hr-time"
-, "policy":    "open"
+  "group": 45211,
+  "contacts": [
+    "plehegar"
+  ],
+  "shortName": "hr-time",
+  "policy": "open",
+  "repo-type": "rec-track"
 }
