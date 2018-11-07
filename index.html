@@ -87,7 +87,7 @@
     monotonically increasing and subsequent values may either decrease or
     remain the same.</p>
     <p>For example, the following script may record a positive number, negative
-    number, or zero for computed `duration`:</p>
+    number, or zero for computed <code>duration</code>:</p>
     <pre class='example js'>
       var mark_start = Date.now();
       doTask(); // Some task
@@ -213,8 +213,8 @@ worker.port.onmessage = function (event) {
           </li>
         </ul>
       </li>
-      <li>If the <a>global object</a> is a <a>WorkerGlobalScope</a>
-      object, the <a>time origin</a> MUST be equal to the <a>official moment of
+      <li>If the <a>global object</a> is a <a>WorkerGlobalScope</a> object, the
+      <a>time origin</a> MUST be equal to the <a>official moment of
       creation</a> of the worker.
       </li>
       <li>Otherwise, the <a>time origin</a> is undefined.
@@ -401,8 +401,8 @@ interface Performance : EventTarget {
   </section>
   <section>
     <h2>Dependencies</h2>
-    <p>The [[HTML]] specification defines the following:
-    <dfn data-cite="html/webappapis.html#global-object">global object</dfn>,
+    <p>The [[HTML]] specification defines the following: <dfn data-cite=
+    "html/webappapis.html#global-object">global object</dfn>,
     <code><dfn data-cite="html/workers.html#worker">Worker</dfn></code>
     interface, <code><dfn data-cite=
     "html/workers.html#sharedworker">SharedWorker</dfn></code> interface,
