@@ -227,8 +227,9 @@ worker.port.onmessage = function (event) {
       <li>Assert that <var>global</var>'s <a>time origin</a> is not undefined.
       </li>
       <li>Let <var>t1</var> be the <a>DOMHighResTimeStamp</a> representing the
-      high resolution <a href="https://en.wikipedia.org/wiki/Unix_time">Unix
-      time</a> at which the <a>global monotonic clock</a> is zero.
+      high resolution <a
+      data-cite="ECMA-262#sec-time-values-and-time-range">time</a> at which
+      the <a>global monotonic clock</a> is zero.
       </li>
       <li>Let <var>t2</var> be the <a>DOMHighResTimeStamp</a> representing the
       high resolution time value of the <a>global monotonic clock</a> at <var>
@@ -310,8 +311,8 @@ interface Performance : EventTarget {
     getting <code><a>performance.timeOrigin</a></code> MUST use the same
     <dfn>global monotonic clock</dfn> that is shared by <a>time origin</a>'s,
     is monotonically increasing and not subject to system clock adjustments or
-    system clock skew, and whose reference point is the Unix time—see <a href=
-    "#sec-privacy-security"></a>.</p>
+    system clock skew, and whose reference point is the ECMA-262 time
+    definition - see <a href= "#sec-privacy-security"></a>.</p>
     <p class="note">The user agent can reset its global monotonic clock across
     browser restarts, or whenever starting an isolated browsing session—e.g.
     incognito or similar browsing mode. As a result, developers should not use
@@ -370,11 +371,11 @@ interface Performance : EventTarget {
       exposes a <a>global monotonic clock</a> to the application, and that must
       be shared across all the browser contexts. The <a>global monotonic
       clock</a> does not need to be tied to physical time, but is recommended
-      to be set with respect to the <a href=
-      "https://en.wikipedia.org/wiki/Unix_time">Unix time</a> to avoid exposing
-      new fingerprint entropy about the user—e.g. this time can already be
-      easily obtained by the application, whereas exposing a new logical clock
-      provides new information.</p>
+      to be set with respect to the ECMA-262 definition of <a
+      data-cite="ECMA-262#sec-time-values-and-time-range">time</a> to avoid
+      exposing new fingerprint entropy about the user — e.g. this time can
+      already be easily obtained by the application, whereas exposing a new
+      logical clock provides new information.</p>
       <p>However, even with above mechanism in place, the <a>global monotonic
       clock</a> may provide additional <a href=
       "https://en.wikipedia.org/wiki/Clock_drift">clock drift</a> resolution.
