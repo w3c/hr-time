@@ -350,11 +350,19 @@ interface Performance : EventTarget {
       improve the accuracy or speed of such attacks, the recommended minimum
       resolution of the <a>DOMHighResTimeStamp</a> type should be inaccurate
       enough to prevent attacks.</p>
-      <div class="issue" data-number="56">
-        Due to recent developments this may need to increase significantly, but
-        the working group has not yet reached consensus on what the new
-        recommend minimum value should be.
-      </div>
+      <p>In order to mitigate such attacks user agents may deploy any technique
+      they deem necessary. Deployment of those techniques may vary based on the
+      browser's architecture, the user's device, the content and its ability to
+      maliciousely read cross-origin data, or other practical considerations.
+      </p>
+      <p>
+      These techniques may include:
+      <ul>
+        <li>Resolution reduction.</li>
+        <li>Added jitter.</li>
+        <li>Abuse detection and/or API call throttling.</li>
+      </ul>
+      </p>
       <p>Mitigating such timing side-channel attacks entirely is practically
       not possible: either all operations would have to execute in a time that
       does not vary based on the value of any confidential information, or, the
