@@ -341,10 +341,10 @@ interface Performance : EventTarget {
     properties only apply for contexts that can reach other by exchanging
     messages via one of the provided messaging mechanisms - e.g. `postMessage`,
     `BroadcastChannel`, etc.</p>
-    <p class="note">The user agent needs to make sure that the monotonic clock of
-    backgrounded tabs continues to advance at the same speed as the system
-    clock even in cases where other timers or periodic callbacks may be slowed
-    down or frozen entirely.</p>
+    <p class="note">In certain scenarios (e.g. when a tab is backgrounded), the
+    user agent may choose to throttle timers and periodic callbacks run in that
+    context or even freeze them entirely. Any such throttling should not effect
+    the resolution or accuracy of the time returned by the monotonic clock.</p>
   </section>
   <section id="sec-privacy-security" data-link-for="Performance">
     <h3>Privacy and Security</h3>
