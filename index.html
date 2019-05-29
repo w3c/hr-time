@@ -85,7 +85,7 @@
   </section>
   <section id="sotd" data-link-for="Performance">
     <p>High Resolution Time Level 2 replaces the <a
-      data-cite='hr-time-20121217/#sec-high-resolution-time'>first version of High Resolution
+      data-cite='HR-TIME-20121217/#sec-high-resolution-time'>first version of High Resolution
     Time</a> and includes:</p>
     <ul>
       <li>Defines a precise definition of <a>time origin</a> for the purpose of
@@ -95,7 +95,7 @@
       global time of the zero time of <a>time origin</a>;
       </li>
       <li>The base definition for the <a>Performance</a> interface, previously
-      specified in [[performance-timeline-20131212]], is now moved to this specification
+      specified in [[PERFORMANCE-TIMELINE-20131212]], is now moved to this specification
       and now includes support for the <a>Performance.now</a> method in <a data-lt="Worker">Web
       Workers</a>.
       </li>
@@ -103,7 +103,8 @@
   </section>
   <section id="introduction" class='informative'>
     <h2>Introduction</h2>
-    <p>The ECMAScript Language specification [[ECMA-262]] defines the Date
+    <p>The ECMAScript Language specification [[ECMA-262]] defines the
+    <code><dfn data-cite="ECMA-262#sec-date-objects">Date</dfn></code>
     object as a time value representing time in milliseconds since 01 January,
     1970 UTC. For most purposes, this definition of time is sufficient as these
     values represent time to millisecond precision for any instant that is
@@ -148,7 +149,7 @@
       </li>
     </ul>
     <p>This specification does not propose changing the behavior of
-    <code>Date.now()</code> [[ECMA-262]] as it is genuinely useful in
+    <code><dfn data-cite='ecma-262#sec-date.now'>Date.now()</dfn></code> [[ECMA-262]] as it is genuinely useful in
     determining the current value of the calendar time and has a long history
     of usage. The <a>DOMHighResTimeStamp</a> type, <a>performance.now</a>
     method, and <a>performance.timeOrigin</a> attributes of the
@@ -249,8 +250,7 @@ worker.port.onmessage = function (event) {
       <li>Assert that <var>global</var>'s <a>time origin</a> is not undefined.
       </li>
       <li>Let <var>t1</var> be the <a>DOMHighResTimeStamp</a> representing the
-      high resolution <a>time</a> at which
-      the <a>global monotonic clock</a> is zero.
+      high resolution time at which the <a>global monotonic clock</a> is zero.
       </li>
       <li>Let <var>t2</var> be the <a>DOMHighResTimeStamp</a> representing the
       high resolution time value of the <a>global monotonic clock</a> at <var>
@@ -259,7 +259,7 @@ worker.port.onmessage = function (event) {
       <li>Return the sum of <var>t1</var> and <var>t2</var>.</li>
     </ul>
     <p class="note">The <a>time origin timestamp</a> and the value returned by
-    `Date.now()` executed at "zero time" can differ because the former is
+    <a>Date.now()</a> executed at "zero time" can differ because the former is
     recorded with respect to a global monotonic clock that is not subject to
     system and user clock adjustments, clock skew, and so on—see <a href=
     "#sec-monotonic-clock"></a>.</p>
@@ -307,7 +307,7 @@ interface Performance : EventTarget {
   "WindowOrWorkerGlobalScope">
     <h3>The <code>performance</code> attribute</h3>
     <p>The <dfn>performance</dfn> attribute on the <code><dfn data-cite=
-    "HTML#windoworworkerglobalscope-mixin">WindowOrWorkerGlobalScope</dfn></code>
+    "HTML#windoworworkerglobalscope">WindowOrWorkerGlobalScope</dfn></code>
     allows access to performance related attributes and methods from the
     <a data-xref-for="Realm">global object</a>.</p>
     <pre class='idl'>
@@ -320,15 +320,15 @@ interface Performance : EventTarget {
     <h3>Monotonic Clock</h3>
     <p data-tests='monotonic-clock.any.html, monotonic-clock.any.worker.html'>
     The time values returned when calling the
-    <code><a>performance.now()</a></code> method on <a>Performance</a> objects
+    <a>performance.now()</a> method on <a>Performance</a> objects
     with the same <a>time origin</a> MUST use the same <dfn>monotonic
     clock</dfn> that is monotonically increasing and not subject to system
     clock adjustments or system clock skew. The difference between any two
     chronologically recorded time values returned from the
-    <code><a>performance.now()</a></code> method MUST never be negative if the
+    <a>performance.now()</a> method MUST never be negative if the
     two time values have the same <a>time origin</a>.</p>
     <p data-tests='test_cross_frame_start.html'>The time values returned when
-    getting <code><a>performance.timeOrigin</a></code> MUST use the same
+    getting <a>performance.timeOrigin</a> MUST use the same
     <dfn>global monotonic clock</dfn> that is shared by <a>time origin</a>'s,
     is monotonically increasing and not subject to system clock adjustments or
     system clock skew, and whose reference point is the [[ECMA-262]] <a>time</a>
@@ -419,7 +419,7 @@ interface Performance : EventTarget {
       clock</a> may provide additional <a href=
       "https://en.wikipedia.org/wiki/Clock_drift">clock drift</a> resolution.
       Today, the application can timestamp the time-of-day and monotonic time
-      values (via `<a data-cite='ECMA-262/#sec-date.now'>Date.now()</a>` and <a>performance.now()</a>) at
+      values (via <a>Date.now()</a> and <a>performance.now()</a>) at
       multiple points within the same context and observe drift between
       them—e.g. due to automatic or user clock adjustments. With the
       <a>performance.timeOrigin</a> attribute, the attacker can also compare
@@ -444,28 +444,28 @@ interface Performance : EventTarget {
     <dl data-sort="">
       <dt>HTML</dt>
       <dd>The [[HTML]] specification defines the following:
-        <code><dfn data-cite="html/workers.html#worker">Worker</dfn></code>,
-        <code><dfn data-cite="html/workers.html#sharedworker">SharedWorker</dfn></code>,
-        <code><dfn data-cite="html/workers.html#workerglobalscope">WorkerGlobalScope</dfn></code>,
-        <code><dfn data-cite="html/window-object.html#window">Window</dfn></code>,
-        <dfn data-cite="html/webappapis.html#concept-relevant-global">relevant global
+        <code><dfn data-cite="HTML/workers.html#worker">Worker</dfn></code>,
+        <code><dfn data-cite="HTML/workers.html#sharedworker">SharedWorker</dfn></code>,
+        <code><dfn data-cite="HTML/workers.html#workerglobalscope">WorkerGlobalScope</dfn></code>,
+        <code><dfn data-cite="HTML/window-object.html#window">Window</dfn></code>,
+        <dfn data-cite="HTML/webappapis.html#concept-relevant-global">relevant global
         object</dfn>,
         <dfn data-lt="browsing context is first created"
-             data-cite="HTML#browsers.html#creating-a-new-browsing-context">creating a new browsing context</dfn>,
+             data-cite="HTML/browsers.html#creating-a-new-browsing-context">creating a new browsing context</dfn>,
         <dfn data-cite=
-          "HTML#prompt-to-unload-a-document">prompt to unload algorithm</dfn>
+          "html/browsing-the-web.html#prompt-to-unload-a-document">prompt to unload algorithm</dfn>
       .
       </dd>
       <dt>Web IDL</dt>
       <dd>The [[WEBIDL]] specification defines the following:
-        <code><dfn data-cite="webidl/#DOMTimeStamp">DOMTimeStamp</dfn></code>
+        <code><dfn data-cite="WEBIDL#DOMTimeStamp">DOMTimeStamp</dfn></code>
         interface,
-        <dfn data-cite="webidl/#default-tojson-operation">default toJSON operation</dfn>
+        <dfn data-cite="WEBIDL#default-tojson-operation">default toJSON operation</dfn>
         .
       </dd>
       <dt>DOM</dt>
       <dd>The [[DOM]] specification defines the
-        <code><dfn data-cite="dom/#eventtarget">EventTarget</dfn></code>
+        <code><dfn data-cite="DOM#eventtarget">EventTarget</dfn></code>
          interface.
       </dd>
       <dt>ECMA-262</dt>
