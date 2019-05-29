@@ -301,7 +301,7 @@ interface Performance : EventTarget {
     <dfn>timeOrigin</dfn> attribute MUST return a <a>DOMHighResTimeStamp</a>
     representing the high resolution time of the <a>time origin timestamp</a>
     for the <a>relevant global object</a> of the <a>Performance</a> object.</p>
-    <p>When <dfn>toJSON</dfn> is called, run [[WEBIDL]]'s <a>default toJSON operation</a>.</p>
+    <p data-tests='performance-tojson.html'>When <dfn>toJSON</dfn> is called, run [[WEBIDL]]'s <a>default toJSON operation</a>.</p>
   </section>
   <section data-dfn-for="WindowOrWorkerGlobalScope" data-link-for=
   "WindowOrWorkerGlobalScope">
@@ -331,7 +331,7 @@ interface Performance : EventTarget {
     getting <code><a>performance.timeOrigin</a></code> MUST use the same
     <dfn>global monotonic clock</dfn> that is shared by <a>time origin</a>'s,
     is monotonically increasing and not subject to system clock adjustments or
-    system clock skew, and whose reference point is the [[ECMA-262]] time
+    system clock skew, and whose reference point is the [[ECMA-262]] <a>time</a>
     definition - see <a href="#sec-privacy-security"></a>.</p>
     <p class="note">The user agent can reset its global monotonic clock across
     browser restarts, or whenever starting an isolated browsing session—e.g.
@@ -419,7 +419,7 @@ interface Performance : EventTarget {
       clock</a> may provide additional <a href=
       "https://en.wikipedia.org/wiki/Clock_drift">clock drift</a> resolution.
       Today, the application can timestamp the time-of-day and monotonic time
-      values (via `Date.now()` and <code><a>performance.now()</a></code>) at
+      values (via `<a data-cite='ECMA-262/#sec-date.now'>Date.now()</a>` and <a>performance.now()</a>) at
       multiple points within the same context and observe drift between
       them—e.g. due to automatic or user clock adjustments. With the
       <a>performance.timeOrigin</a> attribute, the attacker can also compare
