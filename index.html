@@ -66,7 +66,14 @@
     }
     ,
     testSuiteURI: "https://wpt.fyi/hr-time/",
-    wgPatentURI: "https://www.w3.org/2004/01/pp-impl/45211/status"
+    wgPatentURI: "https://www.w3.org/2004/01/pp-impl/45211/status",
+
+    lint: {
+        "check-punctuation": true,
+      },
+    doJsonLd: true,
+    xref: [ "html", "dom", "webidl", "ecma-262" ],
+    mdn: true,
   };
   </script>
 </head>
@@ -77,8 +84,8 @@
     system clock skew or adjustments.</p>
   </section>
   <section id="sotd" data-link-for="Performance">
-    <p>High Resolution Time Level 2 replaces the <a href=
-    'https://www.w3.org/TR/hr-time-1/'>first version of High Resolution
+    <p>High Resolution Time Level 2 replaces the <a
+      data-cite='hr-time-20121217/#sec-high-resolution-time'>first version of High Resolution
     Time</a> and includes:</p>
     <ul>
       <li>Defines a precise definition of <a>time origin</a> for the purpose of
@@ -88,9 +95,9 @@
       global time of the zero time of <a>time origin</a>;
       </li>
       <li>The base definition for the <a>Performance</a> interface, previously
-      specified in [[PERFORMANCE-TIMELINE]], is now moved to this specification
-      and now includes support for the <a>Performance.now</a> method in Web
-      Workers [[WORKERS]];
+      specified in [[performance-timeline-20131212]], is now moved to this specification
+      and now includes support for the <a>Performance.now</a> method in <a data-lt="Worker">Web
+      Workers</a>.
       </li>
     </ul>
   </section>
@@ -115,7 +122,7 @@
     </pre>
     <p>For certain tasks this definition of time may not be sufficient as it
     does not allow for sub-millisecond resolution and is subject to system
-    clock skew. For example,</p>
+    clock skew. For example:</p>
     <ul>
       <li>When attempting to accurately measure the elapsed time of navigating
       to a Document, fetching of resources or execution of script, a
@@ -212,43 +219,37 @@ worker.port.onmessage = function (event) {
     <p>The <dfn>time origin</dfn> is the time value from which time is
     measured:</p>
     <ul>
-      <li>If the <a>global object</a> is a <a data-cite=
-      "HTML#window"><code>Window</code></a> object, the <a>time origin</a> MUST
+      <li>If the <a data-xref-for="Realm">global object</a> is a <a>Window</a> object, the <a>time origin</a> MUST
       be equal to:
         <ul>
-          <li>the time when the <a data-cite=
-          "HTML#creating-a-new-browsing-context">browsing context is first
-          created</a> if there is no previous document;
+          <li>the time when the <a>browsing
+            context is first created</a> if there is no previous document;
           </li>
           <li>otherwise, the time of the user confirming the navigation during
-          the previous document's <a data-cite=
-          "HTML#prompt-to-unload-a-document">prompt to unload algorithm</a>, if
+          the previous document's <a>prompt to unload algorithm</a>, if
           a previous document exists and if the confirmation dialog was
           displayed;
           </li>
-          <li>otherwise, the time of starting the <a data-cite="HTML#navigate">
-            navigation</a> responsible for loading the <a data-cite=
-            "HTML#concept-document-window"><code>Window</code> object's newest
+          <li>otherwise, the time of starting the <a data-lt="navigate">navigation</a>
+            responsible for loading the <a>Window</a> object's newest
             Document object</a>.
           </li>
         </ul>
       </li>
-      <li>If the <a>global object</a> is a <a>WorkerGlobalScope</a> object, the
-      <a>time origin</a> MUST be equal to the <a>official moment of
-      creation</a> of the worker.
+      <li>If the <a data-xref-for="Realm">global object</a> is a <a>WorkerGlobalScope</a> object, the
+      <a>time origin</a> MUST be equal to the <a>official moment of creation</a> of the worker.
       </li>
       <li>Otherwise, the <a>time origin</a> is undefined.
       </li>
     </ul>
     <p>The <dfn>time origin timestamp</dfn> is the high resolution time value
     at which <a>time origin</a> is zero. To obtain the <a>time origin
-    timestamp</a> given a <a>global object</a> (<var>global</var>):</p>
+    timestamp</a> given a <a data-xref-for="Realm">global object</a> (<var>global</var>):</p>
     <ul>
       <li>Assert that <var>global</var>'s <a>time origin</a> is not undefined.
       </li>
       <li>Let <var>t1</var> be the <a>DOMHighResTimeStamp</a> representing the
-      high resolution <a
-      data-cite="ECMA-262#sec-time-values-and-time-range">time</a> at which
+      high resolution <a>time</a> at which
       the <a>global monotonic clock</a> is zero.
       </li>
       <li>Let <var>t2</var> be the <a>DOMHighResTimeStamp</a> representing the
@@ -308,7 +309,7 @@ interface Performance : EventTarget {
     <p>The <dfn>performance</dfn> attribute on the <code><dfn data-cite=
     "HTML#windoworworkerglobalscope-mixin">WindowOrWorkerGlobalScope</dfn></code>
     allows access to performance related attributes and methods from the
-    <a>global object</a>.</p>
+    <a data-xref-for="Realm">global object</a>.</p>
     <pre class='idl'>
       partial interface mixin WindowOrWorkerGlobalScope {
         [Replaceable] readonly attribute Performance performance;
@@ -331,7 +332,7 @@ interface Performance : EventTarget {
     <dfn>global monotonic clock</dfn> that is shared by <a>time origin</a>'s,
     is monotonically increasing and not subject to system clock adjustments or
     system clock skew, and whose reference point is the [[ECMA-262]] time
-    definition - see <a href= "#sec-privacy-security"></a>.</p>
+    definition - see <a href="#sec-privacy-security"></a>.</p>
     <p class="note">The user agent can reset its global monotonic clock across
     browser restarts, or whenever starting an isolated browsing session—e.g.
     incognito or similar browsing mode. As a result, developers should not use
@@ -410,8 +411,7 @@ interface Performance : EventTarget {
       exposes a <a>global monotonic clock</a> to the application, and that must
       be shared across all the browser contexts. The <a>global monotonic
       clock</a> does not need to be tied to physical time, but is recommended
-      to be set with respect to the [[ECMA-262]] definition of <a
-      data-cite="ECMA-262#sec-time-values-and-time-range">time</a> to avoid
+      to be set with respect to the [[ECMA-262]] definition of <a>time</a> to avoid
       exposing new fingerprint entropy about the user — e.g. this time can
       already be easily obtained by the application, whereas exposing a new
       logical clock provides new information.</p>
@@ -441,23 +441,39 @@ interface Performance : EventTarget {
   </section>
   <section>
     <h2>Dependencies</h2>
-    <p>The [[HTML]] specification defines the following: <dfn data-cite=
-    "html/webappapis.html#global-object">global object</dfn>,
-    <code><dfn data-cite="html/workers.html#worker">Worker</dfn></code>
-    interface, <code><dfn data-cite=
-    "html/workers.html#sharedworker">SharedWorker</dfn></code> interface,
-    <dfn data-cite="html/workers.html#official-moment-of-creation">official
-    moment of creation</dfn>, <code><dfn data-cite=
-    "html/workers.html#workerglobalscope">WorkerGlobalScope</dfn></code>
-    interface, <dfn data-cite=
-    "html/webappapis.html#concept-relevant-global">relevant global
-    object</dfn>.</p>
-    <p>The [[WEBIDL]] specification defines the following: <code><dfn data-cite=
-    "webidl/#DOMTimeStamp">DOMTimeStamp</dfn></code> interface, <dfn data-cite=
-    "webidl/#default-tojson-operation">default toJSON operation</dfn>.</p>
-    <p>The [[DOM]] specification defines the <code><dfn data-cite=
-      "dom/#eventtarget">EventTarget</dfn></code> interface.</p>
-    </section>
+    <dl data-sort="">
+      <dt>HTML</dt>
+      <dd>The [[HTML]] specification defines the following:
+        <code><dfn data-cite="html/workers.html#worker">Worker</dfn></code>,
+        <code><dfn data-cite="html/workers.html#sharedworker">SharedWorker</dfn></code>,
+        <code><dfn data-cite="html/workers.html#workerglobalscope">WorkerGlobalScope</dfn></code>,
+        <code><dfn data-cite="html/window-object.html#window">Window</dfn></code>,
+        <dfn data-cite="html/webappapis.html#concept-relevant-global">relevant global
+        object</dfn>,
+        <dfn data-lt="browsing context is first created"
+             data-cite="HTML#browsers.html#creating-a-new-browsing-context">creating a new browsing context</dfn>,
+        <dfn data-cite=
+          "HTML#prompt-to-unload-a-document">prompt to unload algorithm</dfn>
+      .
+      </dd>
+      <dt>Web IDL</dt>
+      <dd>The [[WEBIDL]] specification defines the following:
+        <code><dfn data-cite="webidl/#DOMTimeStamp">DOMTimeStamp</dfn></code>
+        interface,
+        <dfn data-cite="webidl/#default-tojson-operation">default toJSON operation</dfn>
+        .
+      </dd>
+      <dt>DOM</dt>
+      <dd>The [[DOM]] specification defines the
+        <code><dfn data-cite="dom/#eventtarget">EventTarget</dfn></code>
+         interface.
+      </dd>
+      <dt>ECMA-262</dt>
+      <dd>The [[ECMA-262]] specification provides a definition of
+        <dfn data-cite="ECMA-262#sec-time-values-and-time-range">time</dfn>.
+      </dd>
+    </dl>
+  </section>
   <section class="appendix">
     <h2>Acknowledgments</h2>
     <p>Thanks to Arvind Jain, Angelos D. Keromytis, Boris Zbarsky, Jason Weber,
