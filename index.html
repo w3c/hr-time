@@ -300,8 +300,7 @@ interface Performance : EventTarget {
     <dfn>timeOrigin</dfn> attribute MUST return a <a>DOMHighResTimeStamp</a>
     representing the high resolution time of the <a>time origin timestamp</a>
     for the <a>relevant global object</a> of the <a>Performance</a> object.</p>
-    <p>When <dfn>toJSON</dfn> is called, run [[WEBIDL]]'s <a data-cite=
-    "WEBIDL#default-tojson-operation">default toJSON operation</a>.</p>
+    <p>When <dfn>toJSON</dfn> is called, run [[WEBIDL]]'s <a>default toJSON operation</a>.</p>
   </section>
   <section data-dfn-for="WindowOrWorkerGlobalScope" data-link-for=
   "WindowOrWorkerGlobalScope">
@@ -453,9 +452,12 @@ interface Performance : EventTarget {
     interface, <dfn data-cite=
     "html/webappapis.html#concept-relevant-global">relevant global
     object</dfn>.</p>
-    <p>The [[WEBIDL]] specification defines the following: <code><dfn data-dfn=
-    "webidl/#DOMTimeStamp">DOMTimeStamp</dfn></code> interface.</p>
-  </section>
+    <p>The [[WEBIDL]] specification defines the following: <code><dfn data-cite=
+    "webidl/#DOMTimeStamp">DOMTimeStamp</dfn></code> interface, <dfn data-cite=
+    "webidl/#default-tojson-operation">default toJSON operation</dfn>.</p>
+    <p>The [[DOM]] specification defines the <code><dfn data-cite=
+      "dom/#eventtarget">EventTarget</dfn></code> interface.</p>
+    </section>
   <section class="appendix">
     <h2>Acknowledgments</h2>
     <p>Thanks to Arvind Jain, Angelos D. Keromytis, Boris Zbarsky, Jason Weber,
