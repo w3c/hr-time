@@ -97,15 +97,14 @@
       </li>
       <li>The base definition for the {{Performance}} interface, previously
       specified in [[PERFORMANCE-TIMELINE-20131212]], is now moved to this specification
-      and now includes support for the {{Performance.now}} method in <a data-cite="HTML#workers.html#worker">Web
-      Workers</a>.
+      and now includes support for the {{Performance.now}} method in {{Worker}}.
       </li>
     </ul>
   </section>
   <section id="introduction" class='informative'>
     <h2>Introduction</h2>
     <p>The ECMAScript Language specification [[ECMA-262]] defines the
-    <code><dfn data-cite="ECMA-262#sec-date-objects">Date</dfn></code>
+    <code><dfn data-no-export="" data-cite="ECMA-262#sec-date-objects">Date</dfn></code>
     object as a time value representing time in milliseconds since 01 January,
     1970 UTC. For most purposes, this definition of time is sufficient as these
     values represent time to millisecond precision for any instant that is
@@ -150,7 +149,7 @@
       </li>
     </ul>
     <p>This specification does not propose changing the behavior of
-    <code><dfn data-cite='ecma-262#sec-date.now'>Date.now()</dfn></code> [[ECMA-262]] as it is genuinely useful in
+    <code><dfn data-no-export="" data-cite='ecma-262#sec-date.now'>Date.now()</dfn></code> [[ECMA-262]] as it is genuinely useful in
     determining the current value of the calendar time and has a long history
     of usage. The {{DOMHighResTimeStamp}} type, {{Performance.now}}
     method, and {{performance.timeOrigin}} attributes of the
@@ -218,7 +217,7 @@ worker.port.onmessage = function (event) {
   </section>
   <section id="sec-time-origin">
     <h3>Time Origin</h3>
-    <p>The <dfn>time origin</dfn> is the time value from which time is
+    <p>The <dfn data-export="">time origin</dfn> is the time value from which time is
     measured:</p>
     <ul>
       <li>If the [=Realm/global object=] is a {{Window}} object, the <a>time origin</a> MUST
@@ -245,7 +244,7 @@ worker.port.onmessage = function (event) {
       <li>Otherwise, the <a>time origin</a> is undefined.
       </li>
     </ul>
-    <p>The <dfn>time origin timestamp</dfn> is the high resolution time value
+    <p>The <dfn data-export="">time origin timestamp</dfn> is the high resolution time value
     at which <a>time origin</a> is zero. To obtain the <a>time origin
     timestamp</a> given a [=Realm/global object=]  (<var>global</var>):</p>
     <ul>
@@ -265,7 +264,7 @@ worker.port.onmessage = function (event) {
     recorded with respect to a global monotonic clock that is not subject to
     system and user clock adjustments, clock skew, and so on—see <a href=
     "#sec-monotonic-clock"></a>.</p>
-    <p>The <dfn>current high resolution time</dfn> is the high resolution time
+    <p>The <dfn data-export="">current high resolution time</dfn> is the high resolution time
     from the <a>time origin</a> to the present time (typically called
     "now").</p>
   </section>
@@ -308,8 +307,7 @@ interface Performance : EventTarget {
   <section data-dfn-for="WindowOrWorkerGlobalScope" data-link-for=
   "WindowOrWorkerGlobalScope">
     <h3>The <code>performance</code> attribute</h3>
-    <p>The <dfn>performance</dfn> attribute on the interface mixin <code><dfn data-cite=
-    "HTML#windoworworkerglobalscope">WindowOrWorkerGlobalScope</dfn></code>
+    <p>The <dfn>performance</dfn> attribute on the interface mixin {{WindowOrWorkerGlobalScope}}
     allows access to performance related attributes and methods from the
     [=Realm/global object=].</p>
     <pre class='idl' data-cite='HTML'>
@@ -323,7 +321,7 @@ interface Performance : EventTarget {
     <p data-tests='monotonic-clock.any.html, monotonic-clock.any.worker.html'>
     The time values returned when calling the
     {{performance.now()}} method on {{Performance}} objects
-    with the same <a>time origin</a> MUST use the same <dfn>monotonic
+    with the same <a>time origin</a> MUST use the same <dfn data-export="">monotonic
     clock</dfn> that is monotonically increasing and not subject to system
     clock adjustments or system clock skew. The difference between any two
     chronologically recorded time values returned from the
@@ -331,10 +329,10 @@ interface Performance : EventTarget {
     two time values have the same <a>time origin</a>.</p>
     <p data-tests='test_cross_frame_start.html'>The time values returned when
     getting {{performance.timeOrigin}} MUST use the same
-    <dfn>global monotonic clock</dfn> that is shared by <a>time origin</a>'s,
+    <dfn data-export="">global monotonic clock</dfn> that is shared by <a>time origin</a>'s,
     is monotonically increasing and not subject to system clock adjustments or
     system clock skew, and whose reference point is the [[ECMA-262]]
-    <dfn data-cite="ECMA-262#sec-time-values-and-time-range">time</dfn>
+    <dfn data-no-export="" data-cite="ECMA-262#sec-time-values-and-time-range">time</dfn>
     definition - see [[[#sec-privacy-security]]].</p>
     <p class="note">The user agent can reset its global monotonic clock across
     browser restarts, or whenever starting an isolated browsing session—e.g.
