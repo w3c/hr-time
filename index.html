@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <title>High Resolution Time Level 2</title>
-  <script src='https://www.w3.org/Tools/respec/respec-w3c-common' async class=
+  <script src='https://www.w3.org/Tools/respec/respec-w3c' async class=
   'remove'></script>
   <script class='remove'>
   var respecConfig = {
@@ -85,31 +85,32 @@
     system clock skew or adjustments.</p>
   </section>
   <section id="sotd" data-link-for="Performance">
-    <p>High Resolution Time Level 2 replaces the <a
-      data-cite='HR-TIME-20121217/#sec-high-resolution-time'>first version of High Resolution
-    Time</a> and includes:</p>
+    <p>High Resolution Time Level 2 replaces the <a data-cite=
+    'HR-TIME-20121217/#sec-high-resolution-time'>first version of High
+    Resolution Time</a> and includes:</p>
     <ul>
-      <li>A precise definition of <a>time origin</a> for the purpose of
-      all performance timeline related specifications;
+      <li>A precise definition of <a>time origin</a> for the purpose of all
+      performance timeline related specifications;
       </li>
-      <li>{{performance.timeOrigin}}, an attribute providing the
-      global time of the zero time of <a>time origin</a>;
+      <li>{{performance.timeOrigin}}, an attribute providing the global time of
+      the zero time of <a>time origin</a>;
       </li>
       <li>The base definition for the {{Performance}} interface, previously
-      specified in [[PERFORMANCE-TIMELINE-20131212]], is now moved to this specification
-      and now includes support for the {{Performance.now}} method in {{Worker}}.
-      </li>
+      specified in [[PERFORMANCE-TIMELINE-20131212]], is now moved to this
+      specification and now includes support for the {{Performance.now}} method
+      in {{Worker}}.</li>
     </ul>
   </section>
   <section id="introduction" class='informative'>
     <h2>Introduction</h2>
     <p>The ECMAScript Language specification [[ECMA-262]] defines the
-    <code><dfn data-no-export="" data-cite="ECMA-262#sec-date-objects">Date</dfn></code>
-    object as a time value representing time in milliseconds since 01 January,
-    1970 UTC. For most purposes, this definition of time is sufficient as these
-    values represent time to millisecond precision for any instant that is
-    within approximately 285,616 years from 01 January, 1970 UTC. The
-    {{DOMTimeStamp}} is defined similarly [[WEBIDL]].</p>
+    <code><dfn data-no-export="" data-cite=
+    "ECMA-262#sec-date-objects">Date</dfn></code> object as a time value
+    representing time in milliseconds since 01 January, 1970 UTC. For most
+    purposes, this definition of time is sufficient as these values represent
+    time to millisecond precision for any instant that is within approximately
+    285,616 years from 01 January, 1970 UTC. The {{DOMTimeStamp}} is defined
+    similarly [[WEBIDL]].</p>
     <p>In practice, these definitions of time are subject to both clock skew
     and adjustment of the system clock. The value of time may not always be
     monotonically increasing and subsequent values may either decrease or
@@ -143,110 +144,108 @@
       need to accurately know the amount of time elapsed in the animation and
       audio.</li>
       <li>When multiple contexts need to synchronize work with sub-millisecond
-      resolution (e.g. when using {{Worker}} or {{SharedWorker}} workers
-      to drive animation, audio, etc., in a renderer context), or to create a
-      unified view of the event timeline.
-      </li>
+      resolution (e.g. when using {{Worker}} or {{SharedWorker}} workers to
+      drive animation, audio, etc., in a renderer context), or to create a
+      unified view of the event timeline.</li>
     </ul>
     <p>This specification does not propose changing the behavior of
-    <code><dfn data-no-export="" data-cite='ecma-262#sec-date.now'>Date.now()</dfn></code> [[ECMA-262]] as it is genuinely useful in
-    determining the current value of the calendar time and has a long history
-    of usage. The {{DOMHighResTimeStamp}} type, {{Performance.now}}
-    method, and {{performance.timeOrigin}} attributes of the
-    {{Performance}} interface resolve above issues by providing
+    <code><dfn data-no-export="" data-cite=
+    'ecma-262#sec-date.now'>Date.now()</dfn></code> [[ECMA-262]] as it is
+    genuinely useful in determining the current value of the calendar time and
+    has a long history of usage. The {{DOMHighResTimeStamp}} type,
+    {{Performance.now}} method, and {{performance.timeOrigin}} attributes of
+    the {{Performance}} interface resolve above issues by providing
     monotonically increasing time values with sub-millisecond resolution.</p>
     <section id='examples' class='informative'>
       <h3>Examples</h3>
       <p>A developer may wish to construct a timeline of their entire
-      application, including events from {{Worker}} or {{SharedWorker}},
-      which have different <a>time origin</a>'s. To display such events on the
-      same timeline, the application can translate the
-      {{DOMHighResTimeStamp}}'s with the help of the
-      {{performance.timeOrigin}} attribute.</p>
+      application, including events from {{Worker}} or {{SharedWorker}}, which
+      have different <a>time origin</a>'s. To display such events on the same
+      timeline, the application can translate the {{DOMHighResTimeStamp}}'s
+      with the help of the {{performance.timeOrigin}} attribute.</p>
       <pre class="example js">
-// ---- worker.js -----------------------------
-// Shared worker script
-onconnect = function(e) {
-  var port = e.ports[0];
-  port.onmessage = function(e) {
-    // Time execution in worker
-    var task_start = performance.now();
-    result = runSomeWorkerTask();
-    var task_end = performance.now();
-  }
+        // ---- worker.js -----------------------------
+        // Shared worker script
+        onconnect = function(e) {
+          var port = e.ports[0];
+          port.onmessage = function(e) {
+            // Time execution in worker
+            var task_start = performance.now();
+            result = runSomeWorkerTask();
+            var task_end = performance.now();
+          }
 
-  // Send results and epoch-relative timestamps to another context
-  port.postMessage({
-     'task': 'Some worker task',
-     'start_time': task_start + performance.timeOrigin,
-     'end_time': task_end + performance.timeOrigin,
-     'result': result
-  });
-}
+          // Send results and epoch-relative timestamps to another context
+          port.postMessage({
+            'task': 'Some worker task',
+            'start_time': task_start + performance.timeOrigin,
+            'end_time': task_end + performance.timeOrigin,
+            'result': result
+          });
+        }
 
-// ---- application.js ------------------------
-// Timing tasks in the document
-var task_start = performance.now();
-runSomeApplicationTask();
-var task_end = performance.now();
+        // ---- application.js ------------------------
+        // Timing tasks in the document
+        var task_start = performance.now();
+        runSomeApplicationTask();
+        var task_end = performance.now();
 
-// developer provided method to upload runtime performance data
-reportEventToAnalytics({
-  'task': 'Some document task',
-  'start_time': task_start,
-  'duration': task_end - task_start
-});
+        // developer provided method to upload runtime performance data
+        reportEventToAnalytics({
+          'task': 'Some document task',
+          'start_time': task_start,
+          'duration': task_end - task_start
+        });
 
-// Translating worker timestamps into document's time origin
-var worker = new SharedWorker('worker.js');
-worker.port.onmessage = function (event) {
-  var msg = event.data;
+        // Translating worker timestamps into document's time origin
+        var worker = new SharedWorker('worker.js');
+        worker.port.onmessage = function (event) {
+          var msg = event.data;
 
-  // translate epoch-relative timestamps into document's time origin
-  msg.start_time = msg.start_time - performance.timeOrigin;
-  msg.end_time = msg.end_time - performance.timeOrigin;
+          // translate epoch-relative timestamps into document's time origin
+          msg.start_time = msg.start_time - performance.timeOrigin;
+          msg.end_time = msg.end_time - performance.timeOrigin;
 
-  reportEventToAnalytics(msg);
-}</pre>
+          reportEventToAnalytics(msg);
+        }
+      </pre>
     </section>
-  </section>
-  <section id="conformance">
-    <p>Some conformance requirements are phrased as requirements on attributes,
-    methods or objects. Such requirements are to be interpreted as requirements
-    on user agents.</p>
   </section>
   <section id="sec-time-origin">
     <h3>Time Origin</h3>
-    <p>The <dfn data-export="">time origin</dfn> is the time value from which time is
-    measured:</p>
+    <p>The <dfn data-export="">time origin</dfn> is the time value from which
+    time is measured:</p>
     <ul>
-      <li>If the [=Realm/global object=] is a {{Window}} object, the <a>time origin</a> MUST
-      be equal to:
+      <li>If the [=Realm/global object=] is a {{Window}} object, the <a>time
+      origin</a> MUST be equal to:
         <ul>
-          <li>the time when the <a data-cite="HTML/browsers.html#creating-a-new-browsing-context">browsing context is first created</a> if there
-            is no previous document;
+          <li>the time when the <a data-cite=
+          "HTML/browsers.html#creating-a-new-browsing-context">browsing context
+          is first created</a> if there is no previous document;
           </li>
           <li>otherwise, the time of the user confirming the navigation during
           the previous document's <a data-cite=
-          "HTML/browsing-the-web.html#prompt-to-unload-a-document">prompt to unload algorithm</a>, if
-          a previous document exists and if the confirmation dialog was
-          displayed;
+          "HTML/browsing-the-web.html#prompt-to-unload-a-document">prompt to
+          unload algorithm</a>, if a previous document exists and if the
+          confirmation dialog was displayed;
           </li>
-          <li>otherwise, the time of starting the <a data-lt="navigate">navigation</a>
-            responsible for loading the <a data-lt="associated document">Window object's newest
-            Document object</a>.
+          <li>otherwise, the time of starting the <a data-lt=
+          "navigate">navigation</a> responsible for loading the <a data-lt=
+          "associated document">Window object's newest Document object</a>.
           </li>
         </ul>
       </li>
-      <li>If the [=Realm/global object=]  is a {{WorkerGlobalScope}} object, the
-      <a>time origin</a> MUST be equal to the <a>official moment of creation</a> of the worker.
+      <li>If the [=Realm/global object=] is a {{WorkerGlobalScope}} object, the
+      <a>time origin</a> MUST be equal to the <a>official moment of
+      creation</a> of the worker.
       </li>
       <li>Otherwise, the <a>time origin</a> is undefined.
       </li>
     </ul>
-    <p>The <dfn data-export="">time origin timestamp</dfn> is the high resolution time value
-    at which <a>time origin</a> is zero. To obtain the <a>time origin
-    timestamp</a> given a [=Realm/global object=]  (<var>global</var>):</p>
+    <p>The <dfn data-export="">time origin timestamp</dfn> is the high
+    resolution time value at which <a>time origin</a> is zero. To obtain the
+    <a>time origin timestamp</a> given a [=Realm/global object=]
+    (<var>global</var>):</p>
     <ul>
       <li>Assert that <var>global</var>'s <a>time origin</a> is not undefined.
       </li>
@@ -264,19 +263,19 @@ worker.port.onmessage = function (event) {
     recorded with respect to a global monotonic clock that is not subject to
     system and user clock adjustments, clock skew, and so on—see <a href=
     "#sec-monotonic-clock"></a>.</p>
-    <p>The <dfn data-export="">current high resolution time</dfn> is the high resolution time
-    from the <a>time origin</a> to the present time (typically called
-    "now").</p>
+    <p>The <dfn data-export="">current high resolution time</dfn> is the high
+    resolution time from the <a>time origin</a> to the present time (typically
+    called "now").</p>
   </section>
   <section id="sec-domhighrestimestamp">
-    <h3>The <dfn>DOMHighResTimeStamp</dfn> Type</h3>
+    <h3>The <dfn>DOMHighResTimeStamp</dfn> typedef</h3>
     <p>The {{DOMHighResTimeStamp}} type is used to store a time value in
     milliseconds, measured relative from the <a>time origin</a>, <a>global
     monotonic clock</a>, or a time value that represents a duration between two
     {{DOMHighResTimeStamp}}'s.</p>
     <pre class='idl'>
-typedef double DOMHighResTimeStamp;
-</pre>
+      typedef double DOMHighResTimeStamp;
+    </pre>
     <p>A {{DOMHighResTimeStamp}} SHOULD represent a time in milliseconds
     accurate enough to allow measurement while preventing timing attack - see
     <a href="#clock-resolution"></a> for additional considerations.</p>
@@ -289,51 +288,65 @@ typedef double DOMHighResTimeStamp;
   "Performance">
     <h3>The <dfn>Performance</dfn> interface</h3>
     <pre class='idl' data-cite='DOM'>
-[Exposed=(Window,Worker)]
-interface Performance : EventTarget {
-    DOMHighResTimeStamp now ();
-    readonly attribute DOMHighResTimeStamp timeOrigin;
-    [Default] object toJSON();
-};
-</pre>
-    <p data-tests='basic.any.html, basic.any.worker.html'>The <dfn>now()</dfn>
-    method MUST return the <a>current high resolution time</a>.</p>
-    <p data-tests='timeOrigin.html, window-worker-timeOrigin.window.html'>The
-    <dfn>timeOrigin</dfn> attribute MUST return a {{DOMHighResTimeStamp}}
-    representing the high resolution time of the <a>time origin timestamp</a>
-    for the <a>relevant global object</a> of the {{Performance}} object.</p>
-    <p data-tests='performance-tojson.html'>When <dfn>toJSON</dfn> is called, run [[WEBIDL]]'s <a>default toJSON operation</a>.</p>
+      [Exposed=(Window,Worker)]
+      interface Performance : EventTarget {
+          DOMHighResTimeStamp now();
+          readonly attribute DOMHighResTimeStamp timeOrigin;
+          [Default] object toJSON();
+      };
+    </pre>
+    <section>
+      <h3>`now()` method</h3>
+      <p data-tests='basic.any.html, basic.any.worker.html'>The
+      <dfn>now()</dfn> method MUST return the <a>current high resolution
+      time</a>.</p>
+    </section>
+    <section>
+      <h3>`timeOrigin` attribute</h3>
+      <p data-tests='timeOrigin.html, window-worker-timeOrigin.window.html'>The
+      <dfn>timeOrigin</dfn> attribute MUST return a {{DOMHighResTimeStamp}}
+      representing the high resolution time of the <a>time origin timestamp</a>
+      for the <a>relevant global object</a> of the {{Performance}} object.</p>
+    </section>
+    <section>
+      <h3>`toJSON()` method</h3>
+      <p data-tests='performance-tojson.html'>When <dfn>toJSON()</dfn> is called,
+      run [[WEBIDL]]'s <a>default toJSON operation</a>.</p>
+    </section>
   </section>
-  <section data-dfn-for="WindowOrWorkerGlobalScope" data-link-for=
-  "WindowOrWorkerGlobalScope">
-    <h3>The <code>performance</code> attribute</h3>
-    <p>The <dfn>performance</dfn> attribute on the interface mixin {{WindowOrWorkerGlobalScope}}
-    allows access to performance related attributes and methods from the
-    [=Realm/global object=].</p>
-    <pre class='idl' data-cite='HTML'>
+  <section>
+    <h2>Extensions to `WindowOrWorkerGlobalScope` mixin</h2>
+    <section data-dfn-for="WindowOrWorkerGlobalScope" data-link-for=
+    "WindowOrWorkerGlobalScope">
+      <h3>The <code>performance</code> attribute</h3>
+      <p>The <dfn>performance</dfn> attribute on the interface mixin
+      {{WindowOrWorkerGlobalScope}} allows access to performance related
+      attributes and methods from the [=Realm/global object=].</p>
+      <pre class='idl' data-cite='HTML'>
       partial interface mixin WindowOrWorkerGlobalScope {
         [Replaceable] readonly attribute Performance performance;
       };
   </pre>
+    </section>
   </section>
   <section id="sec-monotonic-clock" data-link-for="Performance">
     <h3>Monotonic Clock</h3>
     <p data-tests='monotonic-clock.any.html, monotonic-clock.any.worker.html'>
-    The time values returned when calling the
-    {{performance.now()}} method on {{Performance}} objects
-    with the same <a>time origin</a> MUST use the same <dfn data-export="">monotonic
-    clock</dfn> that is monotonically increasing and not subject to system
-    clock adjustments or system clock skew. The difference between any two
-    chronologically recorded time values returned from the
-    {{performance.now()}} method MUST never be negative if the
-    two time values have the same <a>time origin</a>.</p>
+    The time values returned when calling the {{performance.now()}} method on
+    {{Performance}} objects with the same <a>time origin</a> MUST use the same
+    <dfn data-export="">monotonic clock</dfn> that is monotonically increasing
+    and not subject to system clock adjustments or system clock skew. The
+    difference between any two chronologically recorded time values returned
+    from the {{performance.now()}} method MUST never be negative if the two
+    time values have the same <a>time origin</a>.</p>
     <p data-tests='test_cross_frame_start.html'>The time values returned when
-    getting {{performance.timeOrigin}} MUST use the same
-    <dfn data-export="">global monotonic clock</dfn> that is shared by <a>time origin</a>'s,
-    is monotonically increasing and not subject to system clock adjustments or
+    getting {{performance.timeOrigin}} MUST use the same <dfn data-export=
+    "">global monotonic clock</dfn> that is shared by <a>time origin</a>'s, is
+    monotonically increasing and not subject to system clock adjustments or
     system clock skew, and whose reference point is the [[ECMA-262]]
-    <dfn data-no-export="" data-cite="ECMA-262#sec-time-values-and-time-range">time</dfn>
-    definition - see [[[#sec-privacy-security]]].</p>
+    <dfn data-no-export="" data-cite=
+    "ECMA-262#sec-time-values-and-time-range">time</dfn> definition - see
+    [[[#sec-privacy-security]]].</p>
     <p class="note">The user agent can reset its global monotonic clock across
     browser restarts, or whenever starting an isolated browsing session—e.g.
     incognito or similar browsing mode. As a result, developers should not use
@@ -369,26 +382,24 @@ interface Performance : EventTarget {
       [[SPECTRE]] for more background.</p>
       <p data-tests='timing-attack.html'>This specification defines an API that
       provides sub-millisecond time resolution, which is more accurate than the
-      previously available millisecond resolution exposed by
-      {{DOMTimeStamp}}. However, even without this new API an attacker may
-      be able to obtain high-resolution estimates through repeat execution and
-      statistical analysis. To ensure that the new API does not significantly
-      improve the accuracy or speed of such attacks, the recommended minimum
-      resolution of the {{DOMHighResTimeStamp}} type should be inaccurate
-      enough to prevent attacks.</p>
+      previously available millisecond resolution exposed by {{DOMTimeStamp}}.
+      However, even without this new API an attacker may be able to obtain
+      high-resolution estimates through repeat execution and statistical
+      analysis. To ensure that the new API does not significantly improve the
+      accuracy or speed of such attacks, the recommended minimum resolution of
+      the {{DOMHighResTimeStamp}} type should be inaccurate enough to prevent
+      attacks.</p>
       <p>In order to mitigate such attacks user agents may deploy any technique
       they deem necessary. Deployment of those techniques may vary based on the
       browser's architecture, the user's device, the content and its ability to
-      maliciousely read cross-origin data, or other practical considerations.
-      </p>
-      <p>
-      These techniques may include:
+      maliciousely read cross-origin data, or other practical
+      considerations.</p>
+      <p>These techniques may include:</p>
       <ul>
         <li>Resolution reduction.</li>
         <li>Added jitter.</li>
         <li>Abuse detection and/or API call throttling.</li>
       </ul>
-      </p>
       <p>Mitigating such timing side-channel attacks entirely is practically
       not possible: either all operations would have to execute in a time that
       does not vary based on the value of any confidential information, or, the
@@ -400,8 +411,8 @@ interface Performance : EventTarget {
       <div class="note">
         As a result of [[SPECTRE]], browsers have significantly increased the
         level of mitigations they employ on both explicit and implicit high
-        resolution timers. See <a
-        href="https://github.com/w3c/hr-time/issues/56">Issue 56</a> for more
+        resolution timers. See <a href=
+        "https://github.com/w3c/hr-time/issues/56">Issue 56</a> for more
         details.
       </div>
     </section>
@@ -412,24 +423,23 @@ interface Performance : EventTarget {
       exposes a <a>global monotonic clock</a> to the application, and that must
       be shared across all the browser contexts. The <a>global monotonic
       clock</a> does not need to be tied to physical time, but is recommended
-      to be set with respect to the [[ECMA-262]] definition of <a>time</a> to avoid
-      exposing new fingerprint entropy about the user — e.g. this time can
-      already be easily obtained by the application, whereas exposing a new
+      to be set with respect to the [[ECMA-262]] definition of <a>time</a> to
+      avoid exposing new fingerprint entropy about the user — e.g. this time
+      can already be easily obtained by the application, whereas exposing a new
       logical clock provides new information.</p>
       <p>However, even with above mechanism in place, the <a>global monotonic
       clock</a> may provide additional <a href=
       "https://en.wikipedia.org/wiki/Clock_drift">clock drift</a> resolution.
       Today, the application can timestamp the time-of-day and monotonic time
-      values (via <a>Date.now()</a> and {{performance.now()}}) at
-      multiple points within the same context and observe drift between
-      them—e.g. due to automatic or user clock adjustments. With the
-      {{performance.timeOrigin}} attribute, the attacker can also compare
-      the time at which <a>time origin</a> is zero, as reported by the
-      <a>global monotonic clock</a>, against the current time-of-day estimate
-      of when it is zero (i.e. difference between
-      `Date.now()-performance.now()` and `performance.timeOrigin`) and
-      potentially observe clock drift between these clocks over a longer time
-      period.</p>
+      values (via <a>Date.now()</a> and {{performance.now()}}) at multiple
+      points within the same context and observe drift between them—e.g. due to
+      automatic or user clock adjustments. With the {{performance.timeOrigin}}
+      attribute, the attacker can also compare the time at which <a>time
+      origin</a> is zero, as reported by the <a>global monotonic clock</a>,
+      against the current time-of-day estimate of when it is zero (i.e.
+      difference between `Date.now()-performance.now()` and
+      `performance.timeOrigin`) and potentially observe clock drift between
+      these clocks over a longer time period.</p>
       <p>In practice, the same time drift can be observed by an application
       across multiple navigations: the application can record logical time in
       each context and use a client or server time synchronization mechanism to
@@ -440,6 +450,12 @@ interface Performance : EventTarget {
       available entropy about the user.</p>
     </section>
   </section>
+  <section id="conformance">
+    <p>Some conformance requirements are phrased as requirements on attributes,
+    methods or objects. Such requirements are to be interpreted as requirements
+    on user agents.</p>
+  </section>
+  <section id="idl-index"></section>
   <section class="appendix">
     <h2>Acknowledgments</h2>
     <p>Thanks to Arvind Jain, Angelos D. Keromytis, Boris Zbarsky, Jason Weber,
