@@ -384,9 +384,10 @@
       analysis. To ensure that the new API does not significantly improve the
       accuracy or speed of such attacks, the minimum resolution of the
       {{DOMHighResTimeStamp}} type should be inaccurate enough to prevent
-      attacks: current minimum recommended resolution is no more than 5
-      microseconds and may be set higher by the User Agent due to architecture
-      or software constraints, or other considerations.</p>
+      attacks: current minimum recommended resolution is no less than 5
+      microseconds and, where necessary, should be set higher by the User
+      Agent to address privacy and security concerns due to architecture or
+      software constraints, or other considerations.</p>
       <p>In order to mitigate such attacks user agents may deploy any technique
       they deem necessary. Deployment of those techniques may vary based on the
       browser's architecture, the user's device, the content and its ability to
