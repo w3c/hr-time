@@ -279,10 +279,6 @@
     <p>A {{DOMHighResTimeStamp}} SHOULD represent a time in milliseconds
     accurate enough to allow measurement while preventing timing attack - see
     <a href="#clock-resolution"></a> for additional considerations.</p>
-    <p class='note'>If the User Agent is unable to provide a time value
-    accurate to 5 microseconds due to hardware or software constraints, the
-    User Agent can represent a {{DOMHighResTimeStamp}} as a time in
-    milliseconds accurate to a millisecond.</p>
   </section>
   <section id="sec-performance" data-dfn-for="Performance" data-link-for=
   "Performance">
@@ -386,9 +382,12 @@
       However, even without this new API an attacker may be able to obtain
       high-resolution estimates through repeat execution and statistical
       analysis. To ensure that the new API does not significantly improve the
-      accuracy or speed of such attacks, the recommended minimum resolution of
-      the {{DOMHighResTimeStamp}} type should be inaccurate enough to prevent
-      attacks.</p>
+      accuracy or speed of such attacks, the minimum resolution of the
+      {{DOMHighResTimeStamp}} type should be inaccurate enough to prevent
+      attacks: current minimum recommended resolution is no less than 5
+      microseconds and, where necessary, should be set higher by the User
+      Agent to address privacy and security concerns due to architecture or
+      software constraints, or other considerations.</p>
       <p>In order to mitigate such attacks user agents may deploy any technique
       they deem necessary. Deployment of those techniques may vary based on the
       browser's architecture, the user's device, the content and its ability to
@@ -409,11 +408,10 @@
       associated negative effects on performance and responsiveness of
       applications.</p>
       <div class="note">
-        As a result of [[SPECTRE]], browsers have significantly increased the
-        level of mitigations they employ on both explicit and implicit high
-        resolution timers. See <a href=
-        "https://github.com/w3c/hr-time/issues/56">Issue 56</a> for more
-        details.
+        Clock resolution is an unsolved and evolving area of research, with no
+        existing industry consensus or definitive set of recommendations that
+        applies to all browsers. To track the discussion, refer to
+        <a href="https://github.com/w3c/hr-time/issues/79">Issue 79</a>.
       </div>
     </section>
     <section>
