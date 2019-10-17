@@ -92,7 +92,7 @@
       <li>A precise definition of <a>time origin</a> for the purpose of all
       performance timeline related specifications;
       </li>
-      <li>{{performance.timeOrigin}}, an attribute providing the global time of
+      <li>{{Performance.timeOrigin}}, an attribute providing the global time of
       the zero time of <a>time origin</a>;
       </li>
       <li>The base definition for the {{Performance}} interface, previously
@@ -153,7 +153,7 @@
     'ecma-262#sec-date.now'>Date.now()</dfn></code> [[ECMA-262]] as it is
     genuinely useful in determining the current value of the calendar time and
     has a long history of usage. The {{DOMHighResTimeStamp}} type,
-    {{Performance.now}} method, and {{performance.timeOrigin}} attributes of
+    {{Performance.now}} method, and {{Performance.timeOrigin}} attributes of
     the {{Performance}} interface resolve above issues by providing
     monotonically increasing time values with sub-millisecond resolution.</p>
     <section id='examples' class='informative'>
@@ -162,7 +162,7 @@
       application, including events from {{Worker}} or {{SharedWorker}}, which
       have different <a>time origin</a>'s. To display such events on the same
       timeline, the application can translate the {{DOMHighResTimeStamp}}'s
-      with the help of the {{performance.timeOrigin}} attribute.</p>
+      with the help of the {{Performance.timeOrigin}} attribute.</p>
       <pre class="example js">
         // ---- worker.js -----------------------------
         // Shared worker script
@@ -306,8 +306,8 @@
     </section>
     <section>
       <h3>`toJSON()` method</h3>
-      <p data-tests='performance-tojson.html'>When <dfn>toJSON()</dfn> is called,
-      run [[WEBIDL]]'s <a>default toJSON operation</a>.</p>
+      <p data-tests='performance-tojson.html'>When <dfn>toJSON()</dfn> is
+      called, run [[WEBIDL]]'s <a>default toJSON operation</a>.</p>
     </section>
   </section>
   <section>
@@ -328,15 +328,15 @@
   <section id="sec-monotonic-clock" data-link-for="Performance">
     <h3>Monotonic Clock</h3>
     <p data-tests='monotonic-clock.any.html, monotonic-clock.any.worker.html'>
-    The time values returned when calling the {{performance.now()}} method on
+    The time values returned when calling the {{Performance/now()}} method on
     {{Performance}} objects with the same <a>time origin</a> MUST use the same
     <dfn data-export="">monotonic clock</dfn> that is monotonically increasing
     and not subject to system clock adjustments or system clock skew. The
     difference between any two chronologically recorded time values returned
-    from the {{performance.now()}} method MUST never be negative if the two
+    from the {{Performance.now()}} method MUST never be negative if the two
     time values have the same <a>time origin</a>.</p>
     <p data-tests='test_cross_frame_start.html'>The time values returned when
-    getting {{performance.timeOrigin}} MUST use the same <dfn data-export=
+    getting {{Performance.timeOrigin}} MUST use the same <dfn data-export=
     "">global monotonic clock</dfn> that is shared by <a>time origin</a>'s, is
     monotonically increasing and not subject to system clock adjustments or
     system clock skew, and whose reference point is the [[ECMA-262]]
@@ -385,9 +385,9 @@
       accuracy or speed of such attacks, the minimum resolution of the
       {{DOMHighResTimeStamp}} type should be inaccurate enough to prevent
       attacks: current minimum recommended resolution is no less than 5
-      microseconds and, where necessary, should be set higher by the User
-      Agent to address privacy and security concerns due to architecture or
-      software constraints, or other considerations.</p>
+      microseconds and, where necessary, should be set higher by the User Agent
+      to address privacy and security concerns due to architecture or software
+      constraints, or other considerations.</p>
       <p>In order to mitigate such attacks user agents may deploy any technique
       they deem necessary. Deployment of those techniques may vary based on the
       browser's architecture, the user's device, the content and its ability to
@@ -410,8 +410,8 @@
       <div class="note">
         Clock resolution is an unsolved and evolving area of research, with no
         existing industry consensus or definitive set of recommendations that
-        applies to all browsers. To track the discussion, refer to
-        <a href="https://github.com/w3c/hr-time/issues/79">Issue 79</a>.
+        applies to all browsers. To track the discussion, refer to <a href=
+        "https://github.com/w3c/hr-time/issues/79">Issue 79</a>.
       </div>
     </section>
     <section>
@@ -429,9 +429,9 @@
       clock</a> may provide additional <a href=
       "https://en.wikipedia.org/wiki/Clock_drift">clock drift</a> resolution.
       Today, the application can timestamp the time-of-day and monotonic time
-      values (via <a>Date.now()</a> and {{performance.now()}}) at multiple
+      values (via <a>Date.now()</a> and {{Performance.now()}}) at multiple
       points within the same context and observe drift between them—e.g. due to
-      automatic or user clock adjustments. With the {{performance.timeOrigin}}
+      automatic or user clock adjustments. With the {{Performance.timeOrigin}}
       attribute, the attacker can also compare the time at which <a>time
       origin</a> is zero, as reported by the <a>global monotonic clock</a>,
       against the current time-of-day estimate of when it is zero (i.e.
