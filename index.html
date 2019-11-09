@@ -153,16 +153,17 @@
     'ecma-262#sec-date.now'>Date.now()</dfn></code> [[ECMA-262]] as it is
     genuinely useful in determining the current value of the calendar time and
     has a long history of usage. The {{DOMHighResTimeStamp}} type,
-    {{Performance.now}} method, and {{Performance.timeOrigin}} attributes of
-    the {{Performance}} interface resolve above issues by providing
+    {{Performance.now}} method, and {{performance.timeOrigin}} attributes of
+    the {{Performance}} interface resolve the above issues by providing
     monotonically increasing time values with sub-millisecond resolution.</p>
     <section id='examples' class='informative'>
       <h3>Examples</h3>
       <p>A developer may wish to construct a timeline of their entire
       application, including events from {{Worker}} or {{SharedWorker}}, which
-      have different <a>time origin</a>'s. To display such events on the same
-      timeline, the application can translate the {{DOMHighResTimeStamp}}'s
-      with the help of the {{Performance.timeOrigin}} attribute.</p>
+      have different <a>time origin</a>s. To display such events on the same
+      timeline, the application can translate the {{DOMHighResTimeStamp}}s
+      with the help of the {{performance.timeOrigin}} attribute.</p>
+
       <pre class="example js">
         // ---- worker.js -----------------------------
         // Shared worker script
@@ -272,12 +273,12 @@
     <p>The {{DOMHighResTimeStamp}} type is used to store a time value in
     milliseconds, measured relative from the <a>time origin</a>, <a>global
     monotonic clock</a>, or a time value that represents a duration between two
-    {{DOMHighResTimeStamp}}'s.</p>
+    {{DOMHighResTimeStamp}}s.</p>
     <pre class='idl'>
       typedef double DOMHighResTimeStamp;
     </pre>
     <p>A {{DOMHighResTimeStamp}} SHOULD represent a time in milliseconds
-    accurate enough to allow measurement while preventing timing attack - see
+    accurate enough to allow measurement while preventing timing attacks - see
     <a href="#clock-resolution"></a> for additional considerations.</p>
   </section>
   <section id="sec-performance" data-dfn-for="Performance" data-link-for=
@@ -336,8 +337,8 @@
     from the {{Performance.now()}} method MUST never be negative if the two
     time values have the same <a>time origin</a>.</p>
     <p data-tests='test_cross_frame_start.html'>The time values returned when
-    getting {{Performance.timeOrigin}} MUST use the same <dfn data-export=
-    "">global monotonic clock</dfn> that is shared by <a>time origin</a>'s, is
+    getting {{performance.timeOrigin}} MUST use the same <dfn data-export=
+    "">global monotonic clock</dfn> that is shared by <a>time origin</a>s, is
     monotonically increasing and not subject to system clock adjustments or
     system clock skew, and whose reference point is the [[ECMA-262]]
     <dfn data-no-export="" data-cite=
@@ -348,7 +349,7 @@
     incognito or similar browsing mode. As a result, developers should not use
     global timestamps as absolute time that holds its monotonic properties
     across all past, present, and future contexts; in practice, the monotonic
-    properties only apply for contexts that can reach other by exchanging
+    properties only apply for contexts that can reach each other by exchanging
     messages via one of the provided messaging mechanisms - e.g. `postMessage`,
     `BroadcastChannel`, etc.</p>
     <p class="note">In certain scenarios (e.g. when a tab is backgrounded), the
@@ -384,14 +385,14 @@
       analysis. To ensure that the new API does not significantly improve the
       accuracy or speed of such attacks, the minimum resolution of the
       {{DOMHighResTimeStamp}} type should be inaccurate enough to prevent
-      attacks: current minimum recommended resolution is no less than 5
-      microseconds and, where necessary, should be set higher by the User Agent
-      to address privacy and security concerns due to architecture or software
-      constraints, or other considerations.</p>
+      attacks: the current minimum recommended resolution is no less than 5
+      microseconds and, where necessary, should be set higher by the User
+      Agent to address privacy and security concerns due to architecture or
+      software constraints, or other considerations.</p>
       <p>In order to mitigate such attacks user agents may deploy any technique
       they deem necessary. Deployment of those techniques may vary based on the
       browser's architecture, the user's device, the content and its ability to
-      maliciousely read cross-origin data, or other practical
+      maliciously read cross-origin data, or other practical
       considerations.</p>
       <p>These techniques may include:</p>
       <ul>
@@ -400,8 +401,8 @@
         <li>Abuse detection and/or API call throttling.</li>
       </ul>
       <p>Mitigating such timing side-channel attacks entirely is practically
-      not possible: either all operations would have to execute in a time that
-      does not vary based on the value of any confidential information, or, the
+      impossible: either all operations would have to execute in a time that
+      does not vary based on the value of any confidential information, or the
       application would need to be isolated from any time-related primitives
       (clock, timers, counters, etc). Neither is practical due to the
       associated complexity for the browser and application developers and the
@@ -425,8 +426,8 @@
       avoid exposing new fingerprint entropy about the user — e.g. this time
       can already be easily obtained by the application, whereas exposing a new
       logical clock provides new information.</p>
-      <p>However, even with above mechanism in place, the <a>global monotonic
-      clock</a> may provide additional <a href=
+      <p>However, even with the above mechanism in place, the <a>global
+      monotonic clock</a> may provide additional <a href=
       "https://en.wikipedia.org/wiki/Clock_drift">clock drift</a> resolution.
       Today, the application can timestamp the time-of-day and monotonic time
       values (via <a>Date.now()</a> and {{Performance.now()}}) at multiple
@@ -434,18 +435,18 @@
       automatic or user clock adjustments. With the {{Performance.timeOrigin}}
       attribute, the attacker can also compare the time at which <a>time
       origin</a> is zero, as reported by the <a>global monotonic clock</a>,
-      against the current time-of-day estimate of when it is zero (i.e.
+      against the current time-of-day estimate of when it is zero (i.e. the
       difference between `Date.now()-performance.now()` and
       `performance.timeOrigin`) and potentially observe clock drift between
       these clocks over a longer time period.</p>
       <p>In practice, the same time drift can be observed by an application
-      across multiple navigations: the application can record logical time in
-      each context and use a client or server time synchronization mechanism to
-      infer changes in the user's clock. Similarly, lower-layer mechanisms such
-      as TCP timestamps may reveal same high-resolution information to the
-      server without the need for multiple visits. As such, the information
-      provided by this API should not expose any significant or previously not
-      available entropy about the user.</p>
+      across multiple navigations: the application can record the logical time
+      in each context and use a client or server time synchronization mechanism
+      to infer changes in the user's clock. Similarly, lower-layer mechanisms
+      such as TCP timestamps may reveal the same high-resolution information to
+      the server without the need for multiple visits. As such, the information
+      provided by this API should not expose any significant or previously
+      unavailable entropy about the user.</p>
     </section>
   </section>
   <section id="conformance">
