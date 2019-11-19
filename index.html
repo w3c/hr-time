@@ -2,12 +2,12 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <title>High Resolution Time Level 2</title>
+  <title>High Resolution Time</title>
   <script src='https://www.w3.org/Tools/respec/respec-w3c' async class=
   'remove'></script>
   <script class='remove'>
   var respecConfig = {
-    shortName: "hr-time-2",
+    shortName: "hr-time",
     specStatus: "ED",
     formerEditors: [{
       name: "James Simonsen",
@@ -67,6 +67,7 @@
     }
     ,
     testSuiteURI: "https://wpt.fyi/hr-time/",
+    implementationReportURI: "https://wpt.fyi/hr-time/",
     wgPatentURI: "https://www.w3.org/2004/01/pp-impl/45211/status",
 
     lint: {
@@ -85,21 +86,7 @@
     system clock skew or adjustments.</p>
   </section>
   <section id="sotd" data-link-for="Performance">
-    <p>High Resolution Time Level 2 replaces the <a data-cite=
-    'HR-TIME-20121217/#sec-high-resolution-time'>first version of High
-    Resolution Time</a> and includes:</p>
-    <ul>
-      <li>A precise definition of <a>time origin</a> for the purpose of all
-      performance timeline related specifications;
-      </li>
-      <li>{{Performance.timeOrigin}}, an attribute providing the global time of
-      the zero time of <a>time origin</a>;
-      </li>
-      <li>The base definition for the {{Performance}} interface, previously
-      specified in [[PERFORMANCE-TIMELINE-20131212]], is now moved to this
-      specification and now includes support for the {{Performance.now}} method
-      in {{Worker}}.</li>
-    </ul>
+
   </section>
   <section id="introduction" class='informative'>
     <h2>Introduction</h2>
@@ -153,7 +140,7 @@
     'ecma-262#sec-date.now'>Date.now()</dfn></code> [[ECMA-262]] as it is
     genuinely useful in determining the current value of the calendar time and
     has a long history of usage. The {{DOMHighResTimeStamp}} type,
-    {{Performance.now}} method, and {{performance.timeOrigin}} attributes of
+    {{Performance.now}} method, and {{Performance.timeOrigin}} attributes of
     the {{Performance}} interface resolve the above issues by providing
     monotonically increasing time values with sub-millisecond resolution.</p>
     <section id='examples' class='informative'>
@@ -162,7 +149,7 @@
       application, including events from {{Worker}} or {{SharedWorker}}, which
       have different <a>time origin</a>s. To display such events on the same
       timeline, the application can translate the {{DOMHighResTimeStamp}}s
-      with the help of the {{performance.timeOrigin}} attribute.</p>
+      with the help of the {{Performance.timeOrigin}} attribute.</p>
 
       <pre class="example js">
         // ---- worker.js -----------------------------
@@ -337,7 +324,7 @@
     from the {{Performance.now()}} method MUST never be negative if the two
     time values have the same <a>time origin</a>.</p>
     <p data-tests='test_cross_frame_start.html'>The time values returned when
-    getting {{performance.timeOrigin}} MUST use the same <dfn data-export=
+    getting {{Performance.timeOrigin}} MUST use the same <dfn data-export=
     "">global monotonic clock</dfn> that is shared by <a>time origin</a>s, is
     monotonically increasing and not subject to system clock adjustments or
     system clock skew, and whose reference point is the [[ECMA-262]]
