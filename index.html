@@ -135,21 +135,21 @@
       drive animation, audio, etc., in a renderer context), or to create a
       unified view of the event timeline.</li>
     </ul>
-    <p>This specification does not propose changing the behavior of
+    <p data-link-for="Performance">This specification does not propose changing the behavior of
     <code><dfn data-no-export="" data-cite=
     'ecma-262#sec-date.now'>Date.now()</dfn></code> [[ECMA-262]] as it is
     genuinely useful in determining the current value of the calendar time and
     has a long history of usage. The {{DOMHighResTimeStamp}} type,
-    {{Performance.now}} method, and {{Performance.timeOrigin}} attributes of
+    <code>performance.</code>{{now}} method, and <code>performance.</code>{{timeOrigin}} attributes of
     the {{Performance}} interface resolve the above issues by providing
     monotonically increasing time values with sub-millisecond resolution.</p>
     <section id='examples' class='informative'>
       <h3>Examples</h3>
-      <p>A developer may wish to construct a timeline of their entire
+      <p data-link-for="Performance">A developer may wish to construct a timeline of their entire
       application, including events from {{Worker}} or {{SharedWorker}}, which
       have different <a>time origin</a>s. To display such events on the same
       timeline, the application can translate the {{DOMHighResTimeStamp}}s
-      with the help of the {{Performance.timeOrigin}} attribute.</p>
+      with the help of the <code>performance.</code>{{timeOrigin}} attribute.</p>
 
       <pre class="example js">
         // ---- worker.js -----------------------------
@@ -323,8 +323,8 @@
     difference between any two chronologically recorded time values returned
     from the {{Performance.now()}} method MUST never be negative if the two
     time values have the same <a>time origin</a>.</p>
-    <p data-tests='test_cross_frame_start.html'>The time values returned when
-    getting {{Performance.timeOrigin}} MUST use the same <dfn data-export=
+    <p data-link-for="Performance" data-tests='test_cross_frame_start.html'>The time values returned when
+    getting <code>performance.</code>{{timeOrigin}} MUST use the same <dfn data-export=
     "">global monotonic clock</dfn> that is shared by <a>time origin</a>s, is
     monotonically increasing and not subject to system clock adjustments or
     system clock skew, and whose reference point is the [[ECMA-262]]
