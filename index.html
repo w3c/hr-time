@@ -139,9 +139,10 @@
     'ecma-262#sec-date.now'>Date.now()</dfn></code> [[ECMA-262]] as it is
     genuinely useful in determining the current value of the calendar time and
     has a long history of usage. The {{DOMHighResTimeStamp}} type,
-    <code>performance.</code>{{now}} method, and <code>performance.</code>{{timeOrigin}} attributes of
-    the {{Performance}} interface resolve the above issues by providing
-    monotonically increasing time values with sub-millisecond resolution.</p>
+    <code>performance.</code>{{now}} method, and <code>performance.</code>
+    {{timeOrigin}} attributes of the {{Performance}} interface resolve the 
+    above issues by providing a <dfn data-export="">high resolution time</dfn>, 
+    a monotonically increasing time value with sub-millisecond resolution.</p>
     <section id='examples' class='informative'>
       <h3>Examples</h3>
       <p data-link-for="Performance">A developer may wish to construct a timeline of their entire
@@ -229,19 +230,20 @@
       <li>Otherwise, the <a>time origin</a> is undefined.
       </li>
     </ul>
-    <p>The <dfn data-export="">time origin timestamp</dfn> is the high
-    resolution time value at which <a>time origin</a> is zero. To obtain the
+    <p>The <dfn data-export="">time origin timestamp</dfn> is the [=high
+    resolution time=] value at which <a>time origin</a> is zero. To obtain the
     <a>time origin timestamp</a> given a [=Realm/global object=]
     (<var>global</var>):</p>
     <ul>
       <li>Assert that <var>global</var>'s <a>time origin</a> is not undefined.
       </li>
       <li>Let <var>t1</var> be the {{DOMHighResTimeStamp}} representing the
-      high resolution time at which the <a>global monotonic clock</a> is zero.
+      [=high resolution time=] at which the <a>global monotonic clock</a> is 
+      zero.
       </li>
       <li>Let <var>t2</var> be the {{DOMHighResTimeStamp}} representing the
-      high resolution time value of the <a>global monotonic clock</a> at <var>
-        global</var>'s <a>time origin</a>.
+      [=high resolution time=] value of the <a>global monotonic clock</a> at 
+      <var>global</var>'s <a>time origin</a>.
       </li>
       <li>Return the sum of <var>t1</var> and <var>t2</var>.</li>
     </ul>
@@ -250,9 +252,9 @@
     recorded with respect to a global monotonic clock that is not subject to
     system and user clock adjustments, clock skew, and so on—see <a href=
     "#sec-monotonic-clock"></a>.</p>
-    <p>The <dfn data-export="">current high resolution time</dfn> is the high
-    resolution time from the <a>time origin</a> to the present time (typically
-    called "now").</p>
+    <p>The <dfn data-export="">current high resolution time</dfn> is the [=high
+    resolution time=] from the <a>time origin</a> to the present time 
+    (typically called "now").</p>
   </section>
   <section id="sec-domhighrestimestamp">
     <h3>The <dfn data-export="">DOMHighResTimeStamp</dfn> typedef</h3>
@@ -288,8 +290,9 @@
       <h3>`timeOrigin` attribute</h3>
       <p data-tests='timeOrigin.html, window-worker-timeOrigin.window.html'>The
       <dfn>timeOrigin</dfn> attribute MUST return a {{DOMHighResTimeStamp}}
-      representing the high resolution time of the <a>time origin timestamp</a>
-      for the <a>relevant global object</a> of the {{Performance}} object.</p>
+      representing the [=high resolution time=] of the <a>time origin 
+      timestamp</a> for the <a>relevant global object</a> of the 
+      {{Performance}} object.</p>
     </section>
     <section>
       <h3>`toJSON()` method</h3>
@@ -441,6 +444,7 @@
     on user agents.</p>
   </section>
   <section id="idl-index"></section>
+  <section id="index"></section>
   <section class="appendix">
     <h2>Acknowledgments</h2>
     <p>Thanks to Arvind Jain, Angelos D. Keromytis, Boris Zbarsky, Jason Weber,
