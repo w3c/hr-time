@@ -380,13 +380,19 @@
       previously available millisecond resolution exposed by {{DOMTimeStamp}}.
       However, even without this new API an attacker may be able to obtain
       high-resolution estimates through repeat execution and statistical
-      analysis. To ensure that the new API does not significantly improve the
+      analysis.</p>
+      <p>To ensure that the new API does not significantly improve the
       accuracy or speed of such attacks, the minimum resolution of the
       {{DOMHighResTimeStamp}} type should be inaccurate enough to prevent
       attacks: the current minimum recommended resolution is no less than 5
-      microseconds and, where necessary, should be set higher by the User
-      Agent to address privacy and security concerns due to architecture or
-      software constraints, or other considerations.</p>
+      microseconds when the <a data-cite="HTML##current-settings-object">current
+      settings object</a>'s <a 
+      data-cite="HTML#concept-settings-object-embedder-policy">embedder policy</a>
+      has a <a data-cite="HTML#embedder-policy-value-2">value</a> of <a
+      data-cite="HTML#coep-require-corp"><code>require-corp</code></a>, and no
+      less than X microseconds otherwise. Where necessary, the User Agent should
+      set higher resolution values to address privacy and security concerns due
+      to architecture or software constraints, or other considerations.</p>
       <p>In order to mitigate such attacks user agents may deploy any technique
       they deem necessary. Deployment of those techniques may vary based on the
       browser's architecture, the user's device, the content and its ability to
