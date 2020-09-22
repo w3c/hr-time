@@ -252,8 +252,8 @@
     "#sec-monotonic-clock"></a>.</p>
     <p>
     <div algorithm="relative high resolution time">
-      The <dfn data-export="">relative high resolution time</dfn> given |time|,
-       a {{DOMHighResTimeStamp}}, and |global|, a [=Realm/global object=],
+      The <dfn data-export="">relative high resolution time</dfn> given a 
+      {{DOMHighResTimeStamp}} |time| and a [=Realm/global object=] |global|,
        runs the following steps:
        <ul>
          <li>Let |diff| be the difference between |time| and the |global|'s <a>time origin</a>.</li>
@@ -261,10 +261,10 @@
        </ul>
     </div>
     </p>
-    <p>The <dfn data-export="">current high resolution time</dfn> returns the 
-    result of <a>relative high resolution time</a> where |time| is the 
-    present time and |global| is the <a data-cite="DOM#context-object">
-    context object</a>'s relevant [=Realm/global object=].</p>
+    <p>The <dfn data-export="">current high resolution time</dfn> given a 
+    [=Realm/global object=] |current global| returns the result of <a>relative
+    high resolution time</a> where |time| is the present time and |global| is 
+    |current global|.</p>
   </section>
   <section id="sec-domhighrestimestamp">
     <h3>The <dfn data-export="">DOMHighResTimeStamp</dfn> typedef</h3>
