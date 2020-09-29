@@ -264,11 +264,13 @@
     <p>The <dfn data-export="">current high resolution time</dfn> given a 
     [=Realm/global object=] |current global| must run the following steps:
     <ul>
-      <li>Let |time| be the present time.</li>
+      <li>Let |current time| be the present time.</li>
+      <li>Let |cluster| be the <a data-cite="ECMASCRIPT#sec-agent-clusters">agent cluster</a> that |current global|'s [=relevant agent=] belongs to.</li>
+      <li>Let |time resolution| be 5 microseconds.</li>
+      <li>If |cluster| is not <a data-cite="HTML#cross-origin-isolated">cross-origin isolated</a>, set |time resolution| to be X.</li>
+      <li>In a user-agent specific manner, jitter and coarsen |current time| such that its resolution will not exceed |time resolution|.</li>
+      <li>Return the result of [=relative high resolution time=] where |time| is |current time| and |global| is |current global|.</li>
     </ul>
-    returns the result of <a>relative
-    high resolution time</a> where |time| is the present time and |global| is 
-    |current global|.</p>
   </section>
   <section id="sec-domhighrestimestamp">
     <h3>The <dfn data-export="">DOMHighResTimeStamp</dfn> typedef</h3>
@@ -391,11 +393,10 @@
       attacks.
 
       : the current minimum recommended resolution is no less than 5
-      microseconds when the <a data-cite="HTML#current-settings-object">current
-      settings object</a>'s <a 
-      data-cite="HTML#concept-settings-object-embedder-policy">embedder policy</a>
-      has a <a data-cite="HTML#embedder-policy-value-2">value</a> of <a
-      data-cite="HTML#coep-require-corp"><code>require-corp</code></a>, and no
+      microseconds when the <a
+      data-cite="ECMASCRIPT#ssec-agent-clusters">agent-cluster</a> of the
+      [=current global object=]'s [=relevant agent=] belongs to is <a
+      data-cite="HTML#cross-origin-isolated">cross-origin isolated</a>, and no
       less than X microseconds otherwise. Where necessary, the User Agent should
       set higher resolution values to address privacy and security concerns due
       to architecture or software constraints, or other considerations.</p>
