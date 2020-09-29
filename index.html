@@ -262,7 +262,11 @@
     </div>
     </p>
     <p>The <dfn data-export="">current high resolution time</dfn> given a 
-    [=Realm/global object=] |current global| returns the result of <a>relative
+    [=Realm/global object=] |current global| must run the following steps:
+    <ul>
+      <li>Let |time| be the present time.</li>
+    </ul>
+    returns the result of <a>relative
     high resolution time</a> where |time| is the present time and |global| is 
     |current global|.</p>
   </section>
@@ -384,7 +388,9 @@
       <p>To ensure that the new API does not significantly improve the
       accuracy or speed of such attacks, the minimum resolution of the
       {{DOMHighResTimeStamp}} type should be inaccurate enough to prevent
-      attacks: the current minimum recommended resolution is no less than 5
+      attacks.
+
+      : the current minimum recommended resolution is no less than 5
       microseconds when the <a data-cite="HTML#current-settings-object">current
       settings object</a>'s <a 
       data-cite="HTML#concept-settings-object-embedder-policy">embedder policy</a>
@@ -393,6 +399,7 @@
       less than X microseconds otherwise. Where necessary, the User Agent should
       set higher resolution values to address privacy and security concerns due
       to architecture or software constraints, or other considerations.</p>
+
       <p>In order to mitigate such attacks user agents may deploy any technique
       they deem necessary. Deployment of those techniques may vary based on the
       browser's architecture, the user's device, the content and its ability to
