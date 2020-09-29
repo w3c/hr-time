@@ -266,12 +266,11 @@
     [=Realm/global object=] |current global| must run the following steps:
     <ul>
       <li>Let |current time| be the present time.</li>
-      <li>Let |cluster| be the <a
-        data-cite="ECMASCRIPT#sec-agent-clusters">agent cluster</a> that
-        |current global|'s [=relevant agent=] belongs to.</li>
+      <li>Let |settings object| be |current global|'s corresponding
+        [=environment settings object=].</li>
       <li>Let |time resolution| be 5 microseconds.</li>
-      <li>If |cluster|'s <a
-        data-cite="HTML#cross-origin-isolated">cross-origin isolated</a> is set
+      <li>If |settings object|'s
+        [=environment settings object/cross-origin isolated capability=] is set
         to false, set |time resolution| to be X microseconds.</li>
       <li>In a user-agent specific manner, jitter and coarsen |current time|
         such that its resolution will not exceed |time resolution|.</li>
@@ -400,13 +399,13 @@
       attacks.</p>
 
       <p>The current minimum recommended resolution is no less than 5
-      microseconds when the [=current global object=]'s [=relevant agent=]
-      belongs to an <a data-cite="ECMASCRIPT#sec-agent-clusters">agent
-      cluster</a> which <a data-cite="HTML#cross-origin-isolated">cross-origin
-      isolated</a> is set to true , and no less than X microseconds otherwise.
-      Where necessary, the User Agent should
-      set higher resolution values to address privacy and security concerns due
-      to architecture or software constraints, or other considerations.</p>
+      microseconds when the [=current settings object=]'s
+      [=environment settings object/cross-origin isolated capability=] is set
+      to true, and no less than X microseconds otherwise.
+
+      Where necessary, the User Agent should set higher resolution values to
+      address privacy and security concerns due to architecture or software
+      constraints, or other considerations.</p>
 
       <p>In order to mitigate such attacks user agents may deploy any technique
       they deem necessary. Deployment of those techniques may vary based on the
