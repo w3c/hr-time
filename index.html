@@ -265,11 +265,17 @@
     [=Realm/global object=] |current global| must run the following steps:
     <ul>
       <li>Let |current time| be the present time.</li>
-      <li>Let |cluster| be the <a data-cite="ECMASCRIPT#sec-agent-clusters">agent cluster</a> that |current global|'s [=relevant agent=] belongs to.</li>
+      <li>Let |cluster| be the <a
+        data-cite="ECMASCRIPT#sec-agent-clusters">agent cluster</a> that
+        |current global|'s [=relevant agent=] belongs to.</li>
       <li>Let |time resolution| be 5 microseconds.</li>
-      <li>If |cluster| is not <a data-cite="HTML#cross-origin-isolated">cross-origin isolated</a>, set |time resolution| to be X.</li>
-      <li>In a user-agent specific manner, jitter and coarsen |current time| such that its resolution will not exceed |time resolution|.</li>
-      <li>Return the result of [=relative high resolution time=] where |time| is |current time| and |global| is |current global|.</li>
+      <li>If |cluster| is not <a
+        data-cite="HTML#cross-origin-isolated">cross-origin isolated</a>, set
+        |time resolution| to be X.</li>
+      <li>In a user-agent specific manner, jitter and coarsen |current time|
+        such that its resolution will not exceed |time resolution|.</li>
+      <li>Return the result of [=relative high resolution time=] where |time|
+        is |current time| and |global| is |current global|.</li>
     </ul>
   </section>
   <section id="sec-domhighrestimestamp">
