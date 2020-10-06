@@ -73,7 +73,7 @@
         "check-punctuation": true,
       },
     doJsonLd: true,
-    xref: [ "html", "dom", "webidl", "ecma-262" ],
+    xref: [ "html", "dom", "webidl", "ecma-262", "infra" ],
     mdn: "hr-time-2",
     highlightVars: true,
   };
@@ -270,12 +270,13 @@
         [=environment settings object=].</li>
       <li>Let |time resolution| be 5 microseconds.</li>
       <li>If |settings object|'s
-        [=environment settings object/cross-origin isolated capability=] is set
-        to false, set |time resolution| to be X microseconds.</li>
-      <li>In a user-agent specific manner, jitter and coarsen |current time|
-        such that its resolution will not exceed |time resolution|.</li>
-      <li>Return the result of [=relative high resolution time=] where |time|
-        is |current time| and |global| is |current global|.</li>
+        [=environment settings object/cross-origin isolated capability=] is
+        false, set |time resolution| to be X microseconds.</li>
+      <li>In an <a>implementation-defined</a> manner, jitter and coarsen
+        |current time| such that its resolution will not exceed |time
+        resolution|.</li>
+      <li>Return the result of [=relative high resolution time=] given
+        |current time| and |current global|.</li>
     </ul>
   </section>
   <section id="sec-domhighrestimestamp">
