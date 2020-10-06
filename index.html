@@ -197,6 +197,32 @@
         }
       </pre>
     </section>
+    <section id='use-cases' class='informative'>
+      <h3>Use-cases</h3>
+      <p>This specification defines a few different capabilities: it defines a
+        stable, monotonic clock, that's comparable across contexts, with
+        sub-milliseconds clock resolution.</p>
+      <p>The need for a stable monotonic clock when talking about performance
+        measurements stems from the fact that unrelated clock skew can distort
+        measurements and render them useless. Those timestamps need to be
+        comparable across contexts in order to instrument events e.g. on both
+        the main thread and in a worker context, and compare their timings.</p>
+
+      <p>Finally, the need for sub-millisecond timers revolves around the
+      following use-cases:
+      <ul>
+        <li>Ability to schedule work in sub-millisecond intervals. That is
+          particularly important on the main thread, where work can interfere
+          with frame rendering which needs to happen in short and regular
+          intervals, to avoid user-visible jank.</li>
+        <li>When collecting in-the-wild measurements of JS code (e.g. using
+          User-Timing), developers may be interested in gathering
+          sub-milliseconds timings of their functions, to catch regressions
+          early.</li> 
+        <li>Ability to cue audio or actions to specific points in time, e.g.
+          to coordinate them with animations.</li>
+      </p>
+    </section>
   </section>
   <section id="sec-time-origin">
     <h3>Time Origin</h3>
