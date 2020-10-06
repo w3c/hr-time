@@ -7,7 +7,7 @@
   'remove'></script>
   <script class='remove'>
   var respecConfig = {
-    shortName: "hr-time",
+    shortName: "hr-time-3",
     specStatus: "ED",
     formerEditors: [{
       name: "James Simonsen",
@@ -28,8 +28,6 @@
       company: "Google Inc.",
       w3cid: "56102"
     }],
-    wg: "Web Performance Working Group",
-    wgURI: "https://www.w3.org/webperf/",
     github: "https://github.com/w3c/hr-time/",
     caniuse: "high-resolution-time",
     localBiblio:  {
@@ -67,8 +65,7 @@
     ,
     testSuiteURI: "https://wpt.fyi/hr-time/",
     implementationReportURI: "https://wpt.fyi/hr-time/",
-    wgPatentURI: "https://www.w3.org/2004/01/pp-impl/45211/status",
-
+    group: "webperf",
     lint: {
         "check-punctuation": true,
       },
@@ -251,8 +248,8 @@
     system and user clock adjustments, clock skew, and so on—see <a href=
     "#sec-monotonic-clock"></a>.</p>
     <p>
-    <div algorithm="relative high resolution time">
-      The <dfn data-export="">relative high resolution time</dfn> given a 
+    <div data-algorithm="relative high resolution time">
+      The <dfn data-export="">relative high resolution time</dfn> given a
       {{DOMHighResTimeStamp}} |time| and a [=Realm/global object=] |global|,
        runs the following steps:
        <ul>
