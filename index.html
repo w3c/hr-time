@@ -268,12 +268,14 @@
       <li>Let |current time| be the present time.</li>
       <li>Let |settings object| be |current global|'s corresponding
         [=environment settings object=].</li>
-      <li>Let |time resolution| be 5 microseconds.</li>
+      <li>Let |time resolution| be 5 microseconds, or a higher
+        <a>implementation-defined</a> value.</li>
       <li>If |settings object|'s
         [=environment settings object/cross-origin isolated capability=] is
-        false, set |time resolution| to be X microseconds.</li>
-      <li>In an <a>implementation-defined</a> manner, jitter and coarsen
-        |current time| such that its resolution will not exceed |time
+        false, set |time resolution| to be X microseconds, or a higher
+        <a>implementation-defined</a> value.</li>
+      <li>In an <a>implementation-defined</a> manner, coarsen and potentially
+        jitter |current time| such that its resolution will not exceed |time
         resolution|.</li>
       <li>Return the result of [=relative high resolution time=] given
         |current time| and |current global|.</li>
@@ -401,8 +403,8 @@
 
       <p>The current minimum recommended resolution is no less than 5
       microseconds when the [=current settings object=]'s
-      [=environment settings object/cross-origin isolated capability=] is set
-      to true, and no less than X microseconds otherwise.
+      [=environment settings object/cross-origin isolated capability=] is true,
+      and no less than X microseconds otherwise.
 
       Where necessary, the User Agent should set higher resolution values to
       address privacy and security concerns due to architecture or software
