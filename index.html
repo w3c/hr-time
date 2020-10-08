@@ -401,13 +401,9 @@
       {{DOMHighResTimeStamp}} type should be inaccurate enough to prevent
       attacks.</p>
 
-      <p>The current minimum recommended resolution is no less than 5
-      microseconds when the [=current settings object=]'s
-      [=environment settings object/cross-origin isolated capability=] is true,
-      and no less than X microseconds otherwise.
-
-      Where necessary, the User Agent should set higher resolution values to
-      address privacy and security concerns due to architecture or software
+      <p>Where necessary, the User Agent should set higher resolution values to
+      |time resolution| in [=current high resolution time=]'s processing model,
+      to address privacy and security concerns due to architecture or software
       constraints, or other considerations.</p>
 
       <p>In order to mitigate such attacks user agents may deploy any technique
