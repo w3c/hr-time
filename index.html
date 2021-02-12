@@ -111,7 +111,6 @@
     <p>For certain tasks this definition of time may not be sufficient as it:</p>
     <ul>
       <li>Does not have a stable monotonic clock, and as a result, it is subject to system clock skew.</li>
-      <li>Does not enable coordination and comparison of timestamps across different contexts.</li>
       <li>Does not provide sub-millisecond time resolution.</li>
     </ul>
     <p data-link-for="Performance">This specification does not propose changing the behavior of
@@ -122,6 +121,11 @@
     <code>performance.</code>{{now}} method, and <code>performance.</code>{{timeOrigin}} attributes of
     the {{Performance}} interface resolve the above issues by providing
     monotonically increasing time values with sub-millisecond resolution.</p>
+    <p class=note>Providing sub-millisecond resolution is not a mandatory part
+    of this specification.  Implementations may choose to limit the timer
+    resolution they expose for privacy and security reasons, and not expose
+    sub-millisecond timers. Use-cases that rely on sub-millisecond resolution
+    may not be satisfied when that happens.</p>
     <section id='use-cases' class='informative'>
       <h3>Use-cases</h3>
       <p>This specification defines a few different capabilities: it provides
@@ -150,8 +154,8 @@
         <li>When calculating the frame rate of a script-based animation,
           developers will need sub-millisecond resolution in order to determine if
           an animation is drawing at 60 FPS. Without sub-millisecond resolution, a
-          developer can only determine if an animation is drawing at 58.8 FPS or
-          62.5 FPS.</li>
+          developer can only determine if an animation is drawing at 58.8 FPS
+          (1000ms / 16) or 62.5 FPS (1000ms / 17).</li>
         <li>When collecting in-the-wild measurements of JS code (e.g. using
           User-Timing), developers may be interested in gathering
           sub-milliseconds timing of their functions, to catch regressions
