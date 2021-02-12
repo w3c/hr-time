@@ -105,31 +105,10 @@
       doTask(); // Some task
       var duration = Date.now() - mark_start;
     </pre>
-    <p>For certain tasks this definition of time may not be sufficient as it
-    does not allow for sub-millisecond resolution and is subject to system
-    clock skew. For example:</p>
+    <p>For certain tasks this definition of time may not be sufficient as it:</p>
     <ul>
-      <li>When attempting to accurately measure the elapsed time of navigating
-      to a Document, fetching of resources or execution of script, a
-      monotonically increasing clock with sub-millisecond resolution is
-      desired.</li>
-      <li>When calculating the animation state from script, developers will
-      need to accurately know the amount of time that has elapsed in the
-      animation in order to properly update the next scene of the
-      animation.</li>
-      <li>When calculating the frame rate of a script based animation,
-      developers will need sub-millisecond resolution in order to determine if
-      an animation is drawing at 60 FPS. Without sub-millisecond resolution, a
-      developer can only determine if an animation is drawing at 58.8 FPS or
-      62.5 FPS.</li>
-      <li>When attempting to cue audio to a specific point in an animation or
-      ensure that the audio is synchronized with the animation, developers will
-      need to accurately know the amount of time elapsed in the animation and
-      audio.</li>
-      <li>When multiple contexts need to synchronize work with sub-millisecond
-      resolution (e.g. when using {{Worker}} or {{SharedWorker}} workers to
-      drive animation, audio, etc., in a renderer context), or to create a
-      unified view of the event timeline.</li>
+      <li>Does not have a stable monotonic clock, and as a result, it is subject to system clock skew.</li>
+      <li>Does not provide sub-millisecond time resolution.</li>
     </ul>
     <p data-link-for="Performance">This specification does not propose changing the behavior of
     <code><dfn data-no-export="" data-cite=
@@ -139,6 +118,51 @@
     <code>performance.</code>{{now}} method, and <code>performance.</code>{{timeOrigin}} attributes of
     the {{Performance}} interface resolve the above issues by providing
     monotonically increasing time values with sub-millisecond resolution.</p>
+    <p class=note>Providing sub-millisecond resolution is not a mandatory part
+    of this specification.  Implementations may choose to limit the timer
+    resolution they expose for privacy and security reasons, and not expose
+    sub-millisecond timers. Use-cases that rely on sub-millisecond resolution
+    may not be satisfied when that happens.</p>
+    <section id='use-cases' class='informative'>
+      <h3>Use-cases</h3>
+      <p>This specification defines a few different capabilities: it provides
+        timestamps based on a stable, monotonic clock, comparable across
+        contexts, with potential sub-millisecond resolution.</p>
+
+      <p>The need for a stable monotonic clock when talking about performance
+        measurements stems from the fact that unrelated clock skew can distort
+        measurements and render them useless. For example, when attempting to 
+        accurately measure the elapsed time of navigating to a Document,
+        fetching of resources or execution of script, a monotonically 
+        increasing clock with sub-millisecond resolution is desired.</li>
+
+      <p>Comparing timestamps between contexts is essential e.g. when
+        synchronizing work between a {{Worker}} and the main thread or when
+        instrumenting such work in order to create a unified view of the event
+        timeline.</p>
+
+      <p>Finally, the need for sub-millisecond timers revolves around the
+        following use-cases:</p>
+      <p><ul>
+        <li>Ability to schedule work in sub-millisecond intervals. That is
+          particularly important on the main thread, where work can interfere
+          with frame rendering which needs to happen in short and regular
+          intervals, to avoid user-visible jank.</li>
+        <li>When calculating the frame rate of a script-based animation,
+          developers will need sub-millisecond resolution in order to determine if
+          an animation is drawing at 60 FPS. Without sub-millisecond resolution, a
+          developer can only determine if an animation is drawing at 58.8 FPS
+          (1000ms / 16) or 62.5 FPS (1000ms / 17).</li>
+        <li>When collecting in-the-wild measurements of JS code (e.g. using
+          User-Timing), developers may be interested in gathering
+          sub-milliseconds timing of their functions, to catch regressions
+          early.</li> 
+        <li>When attempting to cue audio to a specific point in an animation or
+          ensure that the audio and animation are perfectly synchronized,
+          developers will need to accurately measure the amount of time
+          elapsed.</li>
+      </ul></p>
+    </section>
     <section id='examples' class='informative'>
       <h3>Examples</h3>
       <p data-link-for="Performance">A developer may wish to construct a timeline of their entire
