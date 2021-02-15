@@ -263,16 +263,15 @@
     </div>
     </p>
     <p>The <dfn data-export="">current high resolution time</dfn> given a 
-    [=Realm/global object=] |current global| must run the following steps:
+    [=/global object=] |current global| must run the following steps:
     <ul>
       <li>Let |current time| be the present time.</li>
-      <li>Let |settings object| be |current global|'s corresponding
-        [=environment settings object=].</li>
-      <li>Let |time resolution| be 5 microseconds, or a higher
+      <li>Let |settings object| be |current global|'s [=relevant settings object=].</li>
+      <li>Let |time resolution| be 100 microseconds, or a higher
         <a>implementation-defined</a> value.</li>
       <li>If |settings object|'s
         [=environment settings object/cross-origin isolated capability=] is
-        false, set |time resolution| to be 100 microseconds, or a higher
+        true, set |time resolution| to be 5 microseconds, or a higher
         <a>implementation-defined</a> value.</li>
       <li>In an <a>implementation-defined</a> manner, coarsen and potentially
         jitter |current time| such that its resolution will not exceed |time
@@ -401,7 +400,7 @@
       {{DOMHighResTimeStamp}} type should be inaccurate enough to prevent
       attacks.</p>
 
-      <p>Where necessary, the User Agent should set higher resolution values to
+      <p>Where necessary, the user agent should set higher resolution values to
       |time resolution| in [=current high resolution time=]'s processing model,
       to address privacy and security concerns due to architecture or software
       constraints, or other considerations.</p>
