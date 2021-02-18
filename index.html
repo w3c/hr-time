@@ -251,10 +251,8 @@
       <li>Otherwise, the <a>time origin</a> is undefined.
       </li>
     </ul>
-    <p>The <dfn data-export="">time origin timestamp</dfn> is the high
-    resolution time value at which <a>time origin</a> is zero. To obtain the
-    <a>time origin timestamp</a> given a [=Realm/global object=]
-    (<var>global</var>):</p>
+    <p>The <dfn>get time origin timestamp</dfn> algorithm, given a
+    [=Realm/global object=] |global|, runs the following steps:</p>
     <ul>
       <li>Assert that <var>global</var>'s <a>time origin</a> is not undefined.
       </li>
@@ -265,20 +263,40 @@
       high resolution time value of the <a>shared monotonic clock</a> at <var>
         global</var>'s <a>time origin</a>.
       </li>
-      <li>Return the sum of <var>t1</var> and <var>t2</var>.</li>
+      <li>Let |total| be the sum of <var>t1</var> and <var>t2</var>.</li>
+      <li>Return the result of calling [=coarsen time=] with |global| and
+      |total|.</li>
     </ul>
-    <p class="note">The <a>time origin timestamp</a> and the value returned by
-    <a>Date.now()</a> executed at "zero time" can differ because the former is
+    <p class="note">The value returned by [=get time origin timestamp=] is the high
+    resolution time value at which <a>time origin</a> is zero. It may differ from the
+    value returned by <a>Date.now()</a> executed at "zero time", because the former is
     recorded with respect to a <a>shared monotonic clock</a> that is not subject to
-    system and user clock adjustments, clock skew, and so on—see <a href=
+    system and user clock adjustments, clock skew, and so on &mdash; see <a href=
     "#sec-monotonic-clock"></a>.</p>
     <p>
+    <div data-algorithm="coarsen time">
+      The <dfn>coarsen time</dfn> algorithm, given a [=global object=]
+      |global| and a {{DOMHighResTimeStamp}} |timestamp|, runs the following steps:
+       <ul>
+         <li>Let |time resolution| be 100 microseconds, or a higher
+           <a>implementation-defined</a> value.</li>
+         <li>If |global|'s [=relevant settings object=]'s
+           [=environment settings object/cross-origin isolated capability=] is
+           true, set |time resolution| to be 5 microseconds, or a higher
+           <a>implementation-defined</a> value.</li>
+         <li>In an <a>implementation-defined</a> manner, coarsen and potentially
+           jitter |timestamp| such that its resolution will not exceed |time
+           resolution|.</li>
+         <li>Return |timestamp|.</li>
+       </ul>
+    </div>
     <div data-algorithm="relative high resolution time">
       The <dfn data-export="">relative high resolution time</dfn> given a
       {{DOMHighResTimeStamp}} |time| and a [=Realm/global object=] |global|,
        runs the following steps:
        <ul>
-         <li>Let |diff| be the difference between |time| and the |global|'s <a>time origin</a>.</li>
+         <li>Let |diff| be the difference between |time| and calling [=get time
+         origin timestamp=] with |global|.</li>
          <li>Return |diff|.</li>
        </ul>
     </div>
@@ -287,16 +305,8 @@
     [=/global object=] |current global| must run the following steps:
     <ul>
       <li>Let |current time| be the [=unsafe shared current time=].</li>
-      <li>Let |settings object| be |current global|'s [=relevant settings object=].</li>
-      <li>Let |time resolution| be 100 microseconds, or a higher
-        <a>implementation-defined</a> value.</li>
-      <li>If |settings object|'s
-        [=environment settings object/cross-origin isolated capability=] is
-        true, set |time resolution| to be 5 microseconds, or a higher
-        <a>implementation-defined</a> value.</li>
-      <li>In an <a>implementation-defined</a> manner, coarsen and potentially
-        jitter |current time| such that its resolution will not exceed |time
-        resolution|.</li>
+      <li>Let |coarse time| be the result of calling [=coarsen time=] with
+      |current global| and |current time|.</li>
       <li>Return the result of [=relative high resolution time=] given
         |current time| and |current global|.</li>
     </ul>
@@ -336,9 +346,9 @@
     <section>
       <h3>`timeOrigin` attribute</h3>
       <p data-tests='timeOrigin.html, window-worker-timeOrigin.window.html'>The
-      <dfn>timeOrigin</dfn> attribute MUST return a {{DOMHighResTimeStamp}}
-      representing the high resolution time of the <a>time origin timestamp</a>
-      for the <a>relevant global object</a> of the {{Performance}} object.</p>
+      <dfn>timeOrigin</dfn> attribute MUST return the value returned by [=get
+      time origin timestamp=] for the <a>relevant global object</a> of the
+      [=context object=].</p>
     </section>
     <section>
       <h3>`toJSON()` method</h3>
