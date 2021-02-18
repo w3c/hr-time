@@ -70,8 +70,9 @@
         "check-punctuation": true,
       },
     doJsonLd: true,
-    xref: [ "html", "dom", "webidl", "ecma-262" ],
+    xref: [ "html", "dom", "webidl", "ecma-262", "infra" ],
     mdn: "hr-time-2",
+    highlightVars: true,
   };
   </script>
 </head>
@@ -283,9 +284,22 @@
     </div>
     </p>
     <p>The <dfn data-export="">current high resolution time</dfn> given a 
-    [=Realm/global object=] |current global| returns the result of <a>relative
-    high resolution time</a> where |time| is the present time and |global| is 
-    |current global|.</p>
+    [=/global object=] |current global| must run the following steps:
+    <ul>
+      <li>Let |current time| be the present time.</li>
+      <li>Let |settings object| be |current global|'s [=relevant settings object=].</li>
+      <li>Let |time resolution| be 100 microseconds, or a higher
+        <a>implementation-defined</a> value.</li>
+      <li>If |settings object|'s
+        [=environment settings object/cross-origin isolated capability=] is
+        true, set |time resolution| to be 5 microseconds, or a higher
+        <a>implementation-defined</a> value.</li>
+      <li>In an <a>implementation-defined</a> manner, coarsen and potentially
+        jitter |current time| such that its resolution will not exceed |time
+        resolution|.</li>
+      <li>Return the result of [=relative high resolution time=] given
+        |current time| and |current global|.</li>
+    </ul>
   </section>
   <section id="sec-domhighrestimestamp">
     <h3>The <dfn data-export="">DOMHighResTimeStamp</dfn> typedef</h3>
@@ -401,13 +415,17 @@
       previously available millisecond resolution exposed by {{DOMTimeStamp}}.
       However, even without this new API an attacker may be able to obtain
       high-resolution estimates through repeat execution and statistical
-      analysis. To ensure that the new API does not significantly improve the
+      analysis.</p>
+      <p>To ensure that the new API does not significantly improve the
       accuracy or speed of such attacks, the minimum resolution of the
       {{DOMHighResTimeStamp}} type should be inaccurate enough to prevent
-      attacks: the current minimum recommended resolution is no less than 5
-      microseconds and, where necessary, should be set higher by the User
-      Agent to address privacy and security concerns due to architecture or
-      software constraints, or other considerations.</p>
+      attacks.</p>
+
+      <p>Where necessary, the user agent should set higher resolution values to
+      |time resolution| in [=current high resolution time=]'s processing model,
+      to address privacy and security concerns due to architecture or software
+      constraints, or other considerations.</p>
+
       <p>In order to mitigate such attacks user agents may deploy any technique
       they deem necessary. Deployment of those techniques may vary based on the
       browser's architecture, the user's device, the content and its ability to
