@@ -259,17 +259,17 @@
       <li>Assert that <var>global</var>'s <a>time origin</a> is not undefined.
       </li>
       <li>Let <var>t1</var> be the {{DOMHighResTimeStamp}} representing the
-      high resolution time at which the <a>global monotonic clock</a> is zero.
+      high resolution time at which the <a>shared monotonic clock</a> is zero.
       </li>
       <li>Let <var>t2</var> be the {{DOMHighResTimeStamp}} representing the
-      high resolution time value of the <a>global monotonic clock</a> at <var>
+      high resolution time value of the <a>shared monotonic clock</a> at <var>
         global</var>'s <a>time origin</a>.
       </li>
       <li>Return the sum of <var>t1</var> and <var>t2</var>.</li>
     </ul>
     <p class="note">The <a>time origin timestamp</a> and the value returned by
     <a>Date.now()</a> executed at "zero time" can differ because the former is
-    recorded with respect to a global monotonic clock that is not subject to
+    recorded with respect to a shared monotonic clock that is not subject to
     system and user clock adjustments, clock skew, and so on—see <a href=
     "#sec-monotonic-clock"></a>.</p>
     <p>
@@ -286,7 +286,7 @@
     <p>The <dfn data-export="">current high resolution time</dfn> given a 
     [=/global object=] |current global| must run the following steps:
     <ul>
-      <li>Let |current time| be the present time.</li>
+      <li>Let |current time| be the |unsafe shared current time|.</li>
       <li>Let |settings object| be |current global|'s [=relevant settings object=].</li>
       <li>Let |time resolution| be 100 microseconds, or a higher
         <a>implementation-defined</a> value.</li>
@@ -300,11 +300,13 @@
       <li>Return the result of [=relative high resolution time=] given
         |current time| and |current global|.</li>
     </ul>
+    <p>The <dfn data-export="">unsafe shared current time</dfn> must return the
+    current value of the |shared monotonic clock|.
   </section>
   <section id="sec-domhighrestimestamp">
     <h3>The <dfn data-export="">DOMHighResTimeStamp</dfn> typedef</h3>
     <p>The {{DOMHighResTimeStamp}} type is used to store a time value in
-    milliseconds, measured relative from the <a>time origin</a>, <a>global
+    milliseconds, measured relative from the <a>time origin</a>, <a>shared
     monotonic clock</a>, or a time value that represents a duration between two
     {{DOMHighResTimeStamp}}s.</p>
     <pre class='idl'>
@@ -370,17 +372,16 @@
     from the {{Performance.now()}} method MUST never be negative if the two
     time values have the same <a>time origin</a>.</p>
     <p data-link-for="Performance" data-tests='test_cross_frame_start.html'>The time values returned when
-    getting <code>performance.</code>{{timeOrigin}} MUST use the same <dfn data-export=
-    "">global monotonic clock</dfn> that is shared by <a>time origin</a>s, is
+    getting <code>performance.</code>{{timeOrigin}} MUST use the same <dfn>shared monotonic clock</dfn> that is shared by <a>time origin</a>s, is
     monotonically increasing and not subject to system clock adjustments or
     system clock skew, and whose reference point is the [[ECMA-262]]
     <dfn data-no-export="" data-cite=
     "ECMA-262#sec-time-values-and-time-range">time</dfn> definition - see
     [[[#sec-privacy-security]]].</p>
-    <p class="note">The user agent can reset its global monotonic clock across
+    <p class="note">The user agent can reset its <a>shared monotonic clock</a> across
     browser restarts, or whenever starting an isolated browsing session—e.g.
     incognito or similar browsing mode. As a result, developers should not use
-    global timestamps as absolute time that holds its monotonic properties
+    shared timestamps as absolute time that holds its monotonic properties
     across all past, present, and future contexts; in practice, the monotonic
     properties only apply for contexts that can reach each other by exchanging
     messages via one of the provided messaging mechanisms - e.g. `postMessage`,
@@ -456,14 +457,14 @@
       <h3>Clock drift</h3>
       <p>This specification also defines an API that provides sub-millisecond
       time resolution of the zero time of the time origin, which requires and
-      exposes a <a>global monotonic clock</a> to the application, and that must
-      be shared across all the browser contexts. The <a>global monotonic
+      exposes a <a>shared monotonic clock</a> to the application, and that must
+      be shared across all the browser contexts. The <a>shared monotonic
       clock</a> does not need to be tied to physical time, but is recommended
       to be set with respect to the [[ECMA-262]] definition of <a>time</a> to
       avoid exposing new fingerprint entropy about the user — e.g. this time
       can already be easily obtained by the application, whereas exposing a new
       logical clock provides new information.</p>
-      <p>However, even with the above mechanism in place, the <a>global
+      <p>However, even with the above mechanism in place, the <a>shared
       monotonic clock</a> may provide additional <a href=
       "https://en.wikipedia.org/wiki/Clock_drift">clock drift</a> resolution.
       Today, the application can timestamp the time-of-day and monotonic time
@@ -471,7 +472,7 @@
       points within the same context and observe drift between them—e.g. due to
       automatic or user clock adjustments. With the {{Performance.timeOrigin}}
       attribute, the attacker can also compare the time at which <a>time
-      origin</a> is zero, as reported by the <a>global monotonic clock</a>,
+      origin</a> is zero, as reported by the <a>shared monotonic clock</a>,
       against the current time-of-day estimate of when it is zero (i.e. the
       difference between `Date.now()-performance.now()` and
       `performance.timeOrigin`) and potentially observe clock drift between
