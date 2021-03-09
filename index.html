@@ -302,7 +302,9 @@
       {{DOMHighResTimeStamp}} |time| and a [=Realm/global object=] |global|,
        runs the following steps:
        <ul>
-         <li>Let |diff| be the difference between |time| and the result of
+        <li>Let |coarse time| be the result of calling [=coarsen time=] with
+        |global| and |time|.</li>
+         <li>Let |diff| be the difference between |coarse time| and the result of
          calling [=get time origin timestamp=] with |global|.</li>
          <li>Return |diff|.</li>
        </ul>
@@ -312,10 +314,8 @@
     [=/global object=] |current global| must run the following steps:
     <ul>
       <li>Let |current time| be the [=unsafe shared current time=].</li>
-      <li>Let |coarse time| be the result of calling [=coarsen time=] with
-      |current global| and |current time|.</li>
       <li>Return the result of [=relative high resolution time=] given
-        |coarse time| and |current global|.</li>
+        |current time| and |current global|.</li>
     </ul>
     <p>The <dfn data-export="">unsafe shared current time</dfn> must return the
     current value of the <a>shared monotonic clock</a>.
