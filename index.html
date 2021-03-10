@@ -311,12 +311,9 @@
     </div>
     </p>
     <p>The <dfn data-export="">current high resolution time</dfn> given a 
-    [=/global object=] |current global| must run the following steps:
-    <ul>
-      <li>Let |current time| be the [=unsafe shared current time=].</li>
-      <li>Return the result of [=relative high resolution time=] given
-        |current time| and |current global|.</li>
-    </ul>
+    [=/global object=] |current global| must return the result of [=relative
+    high resolution time=] given [=unsafe shared current time=] and |current
+    global|.</p>
     <p>The <dfn data-export="">unsafe shared current time</dfn> must return the
     current value of the <a>shared monotonic clock</a>.
   </section>
