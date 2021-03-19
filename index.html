@@ -139,9 +139,9 @@
 
       <p>The need for a stable monotonic clock when talking about performance
         measurements stems from the fact that unrelated clock skew can distort
-        measurements and render them useless. For example, when attempting to 
+        measurements and render them useless. For example, when attempting to
         accurately measure the elapsed time of navigating to a Document,
-        fetching of resources or execution of script, a monotonically 
+        fetching of resources or execution of script, a monotonically
         increasing clock with sub-millisecond resolution is desired.</li>
 
       <p>Comparing timestamps between contexts is essential e.g. when
@@ -164,7 +164,7 @@
         <li>When collecting in-the-wild measurements of JS code (e.g. using
           User-Timing), developers may be interested in gathering
           sub-milliseconds timing of their functions, to catch regressions
-          early.</li> 
+          early.</li>
         <li>When attempting to cue audio to a specific point in an animation or
           ensure that the audio and animation are perfectly synchronized,
           developers will need to accurately measure the amount of time
@@ -260,8 +260,8 @@
     </ul>
     <p>To <dfn>get time origin timestamp</dfn>, given a
     [=Realm/global object=] |global|, runs the following steps:</p>
-    <ul>
-      <li>Assert that <var>global</var>'s <a>time origin</a> is not undefined.
+    <ol>
+      <li>Assert: <var>global</var>'s <a>time origin</a> is not undefined.
       </li>
       <li>Let <var>t1</var> be the {{DOMHighResTimeStamp}} representing the
       high resolution time at which the <a>shared monotonic clock</a> is zero.
@@ -271,9 +271,10 @@
         global</var>'s <a>time origin</a>.
       </li>
       <li>Let |total| be the sum of <var>t1</var> and <var>t2</var>.</li>
-      <li>Return the result of calling [=coarsen time=] with |global| and
-      |total|.</li>
-    </ul>
+      <li>Return the result of calling [=coarsen time=] with |total| and
+      |global|'s [=relevant settings object=]'s
+      [=environment settings object/cross-origin isolated capability=].</li>
+    </ol>
     <p class="note">The value returned by [=get time origin timestamp=] is the high
     resolution time value at which <a>time origin</a> is zero. It may differ from the
     value returned by <a>Date.now()</a> executed at "zero time", because the former is
@@ -282,38 +283,42 @@
     "#sec-monotonic-clock"></a>.</p>
     <p>
     <div data-algorithm="coarsen time">
-      The <dfn>coarsen time</dfn> algorithm, given a [=global object=]
-      |global| and a {{DOMHighResTimeStamp}} |timestamp|, runs the following steps:
-       <ul>
+      The <dfn>coarsen time</dfn> algorithm, given a {{DOMHighResTimeStamp}} |timestamp| and an
+      optional boolean |crossOriginIsolatedCapability| (default false), runs the following steps:
+
+       <ol>
          <li>Let |time resolution| be 100 microseconds, or a higher
            <a>implementation-defined</a> value.</li>
-         <li>If |global|'s [=relevant settings object=]'s
-           [=environment settings object/cross-origin isolated capability=] is
+         <li>If |crossOriginIsolatedCapability| is
            true, set |time resolution| to be 5 microseconds, or a higher
            <a>implementation-defined</a> value.</li>
          <li>In an <a>implementation-defined</a> manner, coarsen and potentially
            jitter |timestamp| such that its resolution will not exceed |time
            resolution|.</li>
          <li>Return |timestamp|.</li>
-       </ul>
+       </ol>
     </div>
     <div data-algorithm="relative high resolution time">
       The <dfn data-export="">relative high resolution time</dfn> given a
       {{DOMHighResTimeStamp}} |time| and a [=Realm/global object=] |global|,
        runs the following steps:
-       <ul>
-        <li>Let |coarse time| be the result of calling [=coarsen time=] with
-        |global| and |time|.</li>
-         <li>Let |diff| be the difference between |coarse time| and the result of
-         calling [=get time origin timestamp=] with |global|.</li>
-         <li>Return |diff|.</li>
-       </ul>
+       <ol>
+        <li>Let |coarse time| be the result of calling [=coarsen time=] with |time| and
+        |global|'s [=relevant settings object=]'s
+        [=environment settings object/cross-origin isolated capability=].</li>
+        <li>Let |diff| be the difference between |coarse time| and the result of
+        calling [=get time origin timestamp=] with |global|.</li>
+        <li>Return |diff|.</li>
+       </ol>
     </div>
     </p>
-    <p>The <dfn data-export="">current high resolution time</dfn> given a 
+    <p>The <dfn data-export="">current high resolution time</dfn> given a
     [=/global object=] |current global| must return the result of [=relative
     high resolution time=] given [=unsafe shared current time=] and |current
     global|.</p>
+    <p>The <dfn data-export="">coarsened shared current time</dfn> given an optional boolean
+    |crossOriginIsolatedCapability| (default false), must return the result of calling
+    [=coarsen time=] with the [=unsafe shared current time=] and |crossOriginIsolatedCapability|.
     <p>The <dfn data-export="">unsafe shared current time</dfn> must return the
     current value of the <a>shared monotonic clock</a>.
   </section>
