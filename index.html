@@ -302,15 +302,19 @@
     <div data-algorithm="relative high resolution time">
       The <dfn data-export="">relative high resolution time</dfn> given a
       {{DOMHighResTimeStamp}} |time| and a [=Realm/global object=] |global|,
-       runs the following steps:
-       <ol>
+      is the result of the following steps:
+      <ol>
         <li>Let |coarse time| be the result of calling [=coarsen time=] with |time| and
         |global|'s [=relevant settings object=]'s
         [=environment settings object/cross-origin isolated capability=].</li>
-        <li>Let |diff| be the difference between |coarse time| and the result of
-        calling [=get time origin timestamp=] with |global|.</li>
-        <li>Return |diff|.</li>
+        <li>Return the [=relative high resolution coarse time=] for |coarse time| and
+        |global|.</li>
        </ol>
+
+      The <dfn data-export="">relative high resolution coarse time</dfn> given a
+      {{DOMHighResTimeStamp}} |coarseTime| and a [=Realm/global object=] |global|,
+       is the difference between |coarseTime| and the result of
+        calling [=get time origin timestamp=] with |global|.</li>
     </div>
     </p>
     <p>The <dfn data-export="">current high resolution time</dfn> given a
