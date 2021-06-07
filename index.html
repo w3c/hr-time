@@ -9,77 +9,45 @@
   var respecConfig = {
     shortName: "hr-time-3",
     specStatus: "ED",
-    editors: [{
-      name: "Yoav Weiss",
-      url: "https://blog.yoav.ws/",
-      mailto: "yoav@yoav.ws",
-      company: "Google",
-      companyURL: "https://google.com/",
-      w3cid: "58673"
-    }],
-    formerEditors: [{
-      name: "Ilya Grigorik",
-      mailto: "igrigorik@gmail.com",
-      company: "Google Inc.",
-      w3cid: "56102"
-    },{
-      name: "James Simonsen",
-      mailto: "simonjam@google.com",
-      company: "Google Inc.",
-      note: "Until January 2015",
-      w3cid: "45726"
-    }, {
-      name: "Jatinder Mann",
-      mailto: "jmann@microsoft.com",
-      company: "Microsoft Corp.",
-      note: "Until February 2014",
-      w3cid: "44357"
-    }],
-    github: "https://github.com/w3c/hr-time/",
-    caniuse: "high-resolution-time",
-    localBiblio:  {
-      'CACHE-ATTACKS': {
-        title: 'The Spy in the Sandbox - Practical Cache Attacks in Javascript',
-        href: 'https://arxiv.org/abs/1502.07373',
-        authors: [
-          'Yossef Oren',
-          'Vasileios P. Kemerlis',
-          'Simha Sethumadhavan',
-          'Angelos D. Keromytis'
-        ],
-        date: 'March 2015'
+    editors: [
+      {
+        company: "Google LLC",
+        companyURL: "https://google.com/",
+        name: "Yoav Weiss",
+        url: "https://blog.yoav.ws/",
+        w3cid: "58673",
       },
-      'SPECTRE': {
-      title: 'Spectre Attacks: Exploiting Speculative Execution',
-      href: 'https://spectreattack.com/spectre.pdf',
-      authors: [
-        'Paul Kocher',
-        'Jann Horn',
-        'Anders Fogh',
-        'Daniel Genkin',
-        'Daniel Gruss',
-        'Werner Haas',
-        'Mike Hamburg',
-        'Moritz Lipp',
-        'Stefan Mangard',
-        'Thomas Prescher',
-        'Michael Schwarz',
-        'Yuval Yarom'
-        ],
-        date: 'January 2018',
-      }
-    }
-    ,
-    testSuiteURI: "https://wpt.fyi/hr-time/",
+    ],
+    formerEditors: [
+      {
+        company: "Google LLC",
+        name: "Ilya Grigorik",
+        retiredDate: "2021-03-01",
+        url: "mailto:igrigorik@gmail.com",
+        w3cid: "56102",
+      },
+      {
+        company: "Google LLC",
+        name: "James Simonsen",
+        retiredDate: "2015-01-01",
+        url: "mailto:simonjam@google.com",
+        w3cid: "45726",
+      },
+      {
+        company: "Microsoft Corp.",
+        name: "Jatinder Mann",
+        retiredDate: "2014-02-01",
+        url: "mailto:jmann@microsoft.com",
+        w3cid: "44357",
+      },
+    ],
+    github: "w3c/hr-time",
+    caniuse: "high-resolution-time",
+    testSuiteURI: "https://wpt.live/hr-time/",
     implementationReportURI: "https://wpt.fyi/hr-time/",
     group: "webperf",
-    lint: {
-        "check-punctuation": true,
-      },
-    doJsonLd: true,
-    xref: [ "html", "dom", "webidl", "ecma-262", "infra" ],
+    xref: "web-platform",
     mdn: "hr-time",
-    highlightVars: true,
   };
   </script>
 </head>
