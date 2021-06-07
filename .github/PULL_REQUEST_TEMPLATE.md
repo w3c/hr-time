@@ -5,7 +5,7 @@ Closes #???
 Implementation commitment:
 
 - [ ] [WebKit](https://bugs.webkit.org/???)
-- [ ] [Chromium] (https://bugs.chromium.org/???)
+- [ ] [Chromium](https://bugs.chromium.org/???)
 - [ ] [Gecko](http://bugzilla.mozilla.org/???)
 
 Tasks:
