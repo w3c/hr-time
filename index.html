@@ -372,6 +372,25 @@
         see <a href="#clock-resolution"></a> for additional considerations.
       </p>
     </section>
+    <section>
+      <h3>
+        The <dfn>LegacyTimeStamp</dfn> typedef
+      </h3>
+      <pre class="idl">
+        typedef unsigned long long LegacyTimeStamp;
+      </pre>
+      <aside class="note" title="Legacy platform feature">
+        <p>
+          The use of `LegacyTimeStamp`, known previously as `DOMTimeStamp`, is
+          discouraged. Wherever possible use {{DOMHighResTimeStamp}} instead.
+        </p>
+      </aside>
+      <p>
+        A {{LegacyTimeStamp}} represents the milliseconds since 00:00:00 UTC on
+        1 January 1970. Specifications that use this type define how the number
+        of milliseconds are interpreted.
+      </p>
+    </section>
     <section id="sec-performance" data-dfn-for="Performance">
       <h3>
         The <dfn>Performance</dfn> interface
