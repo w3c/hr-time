@@ -352,6 +352,17 @@
         The <dfn data-export="">unsafe shared current time</dfn> must return
         the current value of the <a>shared monotonic clock</a>.
       </p>
+      <p>
+        To get an <dfn data-export="">epoch-relative timestamp</dfn>,
+        optionally with a date/time |epoch|:
+      </p>
+      <ol>
+        <li>If |epoch| was not passed, set |epoch| to 00:00:00 UTC on 1 January
+        1970.
+        </li>
+        <li>Return the number of milliseconds from |epoch| to the current time.
+        </li>
+      </ol>
     </section>
     <section id="sec-domhighrestimestamp">
       <h3>
@@ -374,21 +385,25 @@
     </section>
     <section>
       <h3>
-        The <dfn>LegacyTimeStamp</dfn> typedef
+        The <dfn>EpochTimeStamp</dfn> typedef
       </h3>
       <pre class="idl">
-        typedef unsigned long long LegacyTimeStamp;
+        typedef unsigned long long EpochTimeStamp;
       </pre>
       <aside class="note" title="Legacy platform feature">
         <p>
-          The use of `LegacyTimeStamp`, known previously as `DOMTimeStamp`, is
+          The use of `EpochTimeStamp`, known previously as `DOMTimeStamp`, is
           discouraged. Wherever possible use {{DOMHighResTimeStamp}} instead.
         </p>
       </aside>
       <p>
-        A {{LegacyTimeStamp}} represents the milliseconds since 00:00:00 UTC on
-        1 January 1970. Specifications that use this type define how the number
-        of milliseconds are interpreted.
+        A {{EpochTimeStamp}} represents the milliseconds since some epoch
+        (i.e., a date and time in some timezone). Specifications that use this
+        type define how the number of milliseconds are interpreted. An
+        {{EpochTimeStamp}} is initialized by getting a [=epoch-relative
+        timestamp=] with no arguments, which defaults the epoch to the 01
+        January, 1970 UTC. Specifications that require a different epoch can
+        call [=epoch-relative timestamp=] with a different epoch, if needed.
       </p>
     </section>
     <section id="sec-performance" data-dfn-for="Performance">
