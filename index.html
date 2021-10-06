@@ -354,13 +354,13 @@
       </p>
       <p>
         To get an <dfn data-export="">epoch-relative timestamp</dfn>,
-        optionally with a date-time |epoch|:
+        optionally with a date-time |time|:
       </p>
       <ol>
-        <li>If |epoch| was not passed, set |epoch| to 1 January 1970 00:00:00
-        UTC.
+        <li>If |time| was not passed, set |time| to the current time.
         </li>
-        <li>Return the number of milliseconds from |epoch| to the current time.
+        <li>Return the number of milliseconds from 1 January 1970 00:00:00 UTC
+        to |time|.
         </li>
       </ol>
     </section>
@@ -397,13 +397,14 @@
         </p>
       </aside>
       <p>
-        A {{EpochTimeStamp}} represents the milliseconds since some epoch
-        (i.e., a date and time in some timezone). Specifications that use this
+        A {{EpochTimeStamp}} represents the number of milliseconds from a given
+        time to 01 January, 1970 00:00:00 UTC. Specifications that use this
         type define how the number of milliseconds are interpreted. An
-        {{EpochTimeStamp}} is initialized by getting a [=epoch-relative
-        timestamp=] with no arguments, which defaults the epoch to the 01
-        January, 1970 UTC. Specifications that require a different epoch can
-        call [=epoch-relative timestamp=] with a different epoch, if needed.
+        {{EpochTimeStamp}} is initialized by calling [=epoch-relative
+        timestamp=] with no arguments, which defaults to the current time.
+        Specifications that require a different relative time can call
+        [=epoch-relative timestamp=] with a date-time as an argument, if
+        needed.
       </p>
     </section>
     <section id="sec-performance" data-dfn-for="Performance">
