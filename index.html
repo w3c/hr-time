@@ -352,6 +352,20 @@
         The <dfn data-export="">unsafe shared current time</dfn> must return
         the current value of the <a>shared monotonic clock</a>.
       </p>
+      <p>
+        To get an <dfn data-export="">epoch-relative timestamp</dfn>,
+        optionally with a date-time |time|:
+      </p>
+      <ol class="algorithm">
+        <li>If |time| was not passed, set |time| to the current time.
+        </li>
+        <li>
+          Assert: |time| is greater than or equal to 1 January 1970 00:00:00 UTC.
+        </li>
+        <li>Return the number of milliseconds from 1 January 1970 00:00:00 UTC
+        to |time|.
+        </li>
+      </ol>
     </section>
     <section id="sec-domhighrestimestamp">
       <h3>
@@ -370,6 +384,30 @@
         A {{DOMHighResTimeStamp}} SHOULD represent a time in milliseconds
         accurate enough to allow measurement while preventing timing attacks -
         see <a href="#clock-resolution"></a> for additional considerations.
+      </p>
+    </section>
+    <section>
+      <h3>
+        The <dfn>EpochTimeStamp</dfn> typedef
+      </h3>
+      <pre class="idl">
+        typedef unsigned long long EpochTimeStamp;
+      </pre>
+      <aside class="note" title="Legacy platform feature">
+        <p>
+          The use of `EpochTimeStamp`, known previously as `DOMTimeStamp`, is
+          discouraged. Wherever possible use {{DOMHighResTimeStamp}} instead.
+        </p>
+      </aside>
+      <p>
+        A {{EpochTimeStamp}} represents the number of milliseconds from a given
+        time to 01 January, 1970 00:00:00 UTC. Specifications that use this
+        type define how the number of milliseconds are interpreted. An
+        {{EpochTimeStamp}} is initialized by calling [=epoch-relative
+        timestamp=] with no arguments, which defaults to the current time.
+        Specifications that require a different relative time can call
+        [=epoch-relative timestamp=] with a date-time as an argument, if
+        needed.
       </p>
     </section>
     <section id="sec-performance" data-dfn-for="Performance">
