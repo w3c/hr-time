@@ -74,8 +74,7 @@
         representing time in milliseconds since 01 January, 1970 UTC. For most
         purposes, this definition of time is sufficient as these values
         represent time to millisecond precision for any instant that is within
-        approximately 285,616 years from 01 January, 1970 UTC. The
-        {{DOMTimeStamp}} is defined similarly [[WEBIDL]].
+        approximately 285,616 years from 01 January, 1970 UTC.
       </p>
       <p>
         In practice, these definitions of time are subject to both clock skew
@@ -546,7 +545,7 @@
         <p data-tests="timing-attack.html">
           This specification defines an API that provides sub-millisecond time
           resolution, which is more accurate than the previously available
-          millisecond resolution exposed by {{DOMTimeStamp}}. However, even
+          millisecond resolution exposed by {{EpochTimeStamp}}. However, even
           without this new API an attacker may be able to obtain
           high-resolution estimates through repeat execution and statistical
           analysis.
