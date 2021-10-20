@@ -415,7 +415,7 @@
         The <dfn>Performance</dfn> interface
       </h3>
       <pre class="idl">
-      [Exposed=(Window,Worker)]
+      [Exposed=*]
       interface Performance : EventTarget {
           DOMHighResTimeStamp now();
           readonly attribute DOMHighResTimeStamp timeOrigin;
