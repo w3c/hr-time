@@ -236,15 +236,24 @@
         Time Origin
       </h3>
       <p>
-        The <dfn data-export="">time origin</dfn> is the [=Realm/global object=]'s
-        [=relevant settings object=]'s [=environment settings object/time origin=].
+        The <dfn data-export="">time origin</dfn> is the time value from which
+        time is measured:
       </p>
       <p>
         To <dfn>get time origin timestamp</dfn>, given a [=Realm/global
         object=] |global|, runs the following steps:
       </p>
       <ol>
-        <li>Assert: <var>global</var>'s <a>time origin</a> is not undefined.
+        <li>
+          <p>Let <var>timeOrigin</var> be |global|'s [=relevant settings object=]'s
+          [=environment settings object/time origin=].
+
+          <p class="note">
+            In {{Window}} contexts, this value represents the time when
+            [=navigate|navigation has started=]. In {{Worker}} and {{ServiceWorker}} contents, this
+            value represent the time when the [=run a worker|worker is run=].
+            [[service-workers]]
+          </p>
         </li>
         <li>Let <var>t1</var> be the {{DOMHighResTimeStamp}} representing the
         high resolution time at which the <a>shared monotonic clock</a> is
@@ -252,7 +261,7 @@
         </li>
         <li>Let <var>t2</var> be the {{DOMHighResTimeStamp}} representing the
         high resolution time value of the <a>shared monotonic clock</a> at
-        <var>global</var>'s <a>time origin</a>.
+        <var>timeOrigin</var>.
         </li>
         <li>Let |total| be the sum of <var>t1</var> and <var>t2</var>.
         </li>
