@@ -239,39 +239,21 @@
         The <dfn data-export="">time origin</dfn> is the time value from which
         time is measured:
       </p>
-      <ul>
-        <li>If the [=Realm/global object=] is a {{Window}} object, the <a>time
-        origin</a> MUST be equal to:
-          <ul>
-            <li>the time when the <a data-cite=
-            "HTML/browsers.html#creating-a-new-browsing-context">browsing
-            context is first created</a> if there is no previous document;
-            </li>
-            <li>otherwise, the time of the user confirming the navigation
-            during the previous document's <a data-cite=
-            "HTML/browsing-the-web.html#prompt-to-unload-a-document">prompt to
-            unload algorithm</a>, if a previous document exists and if the
-            confirmation dialog was displayed;
-            </li>
-            <li>otherwise, the time of starting the <a data-lt=
-            "navigate">navigation</a> responsible for loading the <a data-lt=
-            "associated document">Window object's newest Document object</a>.
-            </li>
-          </ul>
-        </li>
-        <li>If the [=Realm/global object=] is a {{WorkerGlobalScope}} object,
-        the <a>time origin</a> MUST be equal to the <a>official moment of
-        creation</a> of the worker.
-        </li>
-        <li>Otherwise, the <a>time origin</a> is undefined.
-        </li>
-      </ul>
       <p>
-        To <dfn>get time origin timestamp</dfn>, given a [=Realm/global
+        To <dfn>get time origin timestamp</dfn>, given a [=/global
         object=] |global|, runs the following steps:
       </p>
       <ol>
-        <li>Assert: <var>global</var>'s <a>time origin</a> is not undefined.
+        <li>
+          <p>Let <var>timeOrigin</var> be |global|'s [=relevant settings object=]'s
+          [=environment settings object/time origin=].
+
+          <p class="note">
+            In {{Window}} contexts, this value represents the time when
+            [=navigate|navigation has started=]. In {{Worker}} and {{ServiceWorker}} contents, this
+            value represent the time when the [=run a worker|worker is run=].
+            [[service-workers]]
+          </p>
         </li>
         <li>Let <var>t1</var> be the {{DOMHighResTimeStamp}} representing the
         high resolution time at which the <a>shared monotonic clock</a> is
@@ -279,7 +261,7 @@
         </li>
         <li>Let <var>t2</var> be the {{DOMHighResTimeStamp}} representing the
         high resolution time value of the <a>shared monotonic clock</a> at
-        <var>global</var>'s <a>time origin</a>.
+        <var>timeOrigin</var>.
         </li>
         <li>Let |total| be the sum of <var>t1</var> and <var>t2</var>.
         </li>
