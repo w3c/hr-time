@@ -240,19 +240,20 @@
         time is measured:
       </p>
       <p>
-        To <dfn>get time origin timestamp</dfn>, given a [=/global
-        object=] |global|, runs the following steps:
+        To <dfn>get time origin timestamp</dfn>, given a [=/global object=]
+        |global|, runs the following steps:
       </p>
       <ol>
         <li>
-          <p>Let <var>timeOrigin</var> be |global|'s [=relevant settings object=]'s
-          [=environment settings object/time origin=].
-
+          <p>
+            Let <var>timeOrigin</var> be |global|'s [=relevant settings
+            object=]'s [=environment settings object/time origin=].
+          </p>
           <p class="note">
             In {{Window}} contexts, this value represents the time when
-            [=navigate|navigation has started=]. In {{Worker}} and {{ServiceWorker}} contents, this
-            value represent the time when the [=run a worker|worker is run=].
-            [[service-workers]]
+            [=navigate|navigation has started=]. In {{Worker}} and
+            {{ServiceWorker}} contents, this value represent the time when the
+            [=run a worker|worker is run=]. [[service-workers]]
           </p>
         </li>
         <li>Let <var>t1</var> be the {{DOMHighResTimeStamp}} representing the
