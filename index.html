@@ -477,7 +477,7 @@
         clock adjustments or system clock skew, and whose reference point is
         the [[ECMA-262]] <dfn data-no-export="" data-cite=
         "ECMA-262#sec-time-values-and-time-range">time</dfn> definition - see
-        [[[#sec-privacy-security]]].
+        [[[#sec-security]]].
       </p>
       <p class="note">
         The user agent can reset its <a>shared monotonic clock</a> across
@@ -497,9 +497,9 @@
         clock.
       </p>
     </section>
-    <section id="sec-privacy-security">
+    <section id="sec-security">
       <h3>
-        Privacy and Security
+        Security Considerations
       </h3>
       <section>
         <h3>
@@ -624,6 +624,20 @@
           the user.
         </p>
       </section>
+    </section>
+    <section id="sec-privacy">
+      <h3>
+        Privacy Considerations
+      </h3>
+      <p>
+        The current definition of [=time origin=] for a {{Document}} exposes the total time of
+        cross-origin redirects prior to the request arriving at the document's origin. This exposes
+        cross-origin information, however it's not yet decided how to mitigate this without causing
+        major breakages to performance metrics.
+      </p>
+      <p>To track the discussion, refer to
+        <a href="https://github.com/w3c/navigation-timing/issues/160">Navigation Timing Issue 160</a>.
+      </p>
     </section>
     <section id="conformance">
       <p>
