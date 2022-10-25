@@ -231,17 +231,112 @@
       </pre>
       </section>
     </section>
+    <section id="sec-concepts">
+      <h3>
+        Time Concepts
+      </h3>
+      <section id="sec-clocks">
+        <h4>
+          Clocks
+        </h4>
+        <p>
+          A <dfn>clock</dfn> tracks the passage of time and can report the
+          <dfn>current time</dfn> that an algorithm step is executing. There are
+          many kinds of clocks. All clocks on the web platform attempt to count
+          1 millisecond of clock time per 1 millisecond of real-world time, but
+          they differ in how they handle cases where they can't be exactly
+          correct.
+        </p>
+        <ul>
+          <li>The <dfn data-export>wall clock</dfn>'s <dfn data-dfn-for="wall clock"
+          data-export>current time</dfn>
+          is always as close as possible to a human user's notion of time. Since a
+          computer sometimes runs slow or fast or loses track of time, its [=wall
+          clock=] sometimes needs to be adjusted, which means the [=wall
+          clock/current time=] can decrease, making it unreliable for performance
+          measurement or recording the orders of events. [[ECMA-262]] <dfn
+          data-no-export="" data-cite=
+          "ECMA-262#sec-time-values-and-time-range">time</dfn> is a [=wall
+          clock=].</li>
+
+          <li>A <dfn data-export>monotonic clock</dfn>'s current time never
+          decreases, so it can't be changed by system clock adjustments. There are
+          several kinds of [=monotonic clock=] varying by the point in time they
+          assign to 0, whether they pause while the computer is asleep, and whether
+          their speed adjusts to keep them close to the [=wall clock=].</li>
+
+          <li>
+            <p>
+              The <dfn>shared monotonic clock</dfn> is a [=monotonic clock=]
+              that's shared between all [=browsing contexts=] that can communicate
+              with each other. Its <dfn data-export data-dfn-for="shared monotonic
+              clock">current time</dfn> will advance monotonically and be comparable
+              across all of those browsing contexts.
+            </p>
+            <p class="note">
+              The user agent can reset its <a>shared monotonic clock</a> across
+              browser restarts, or whenever starting an isolated browsing
+              session—e.g. incognito or similar browsing mode. As a result,
+              developers should not use shared timestamps as absolute time that holds
+              its monotonic properties across all past, present, and future contexts;
+              in practice, the monotonic properties only apply for contexts that can
+              reach each other by exchanging messages via one of the provided
+              messaging mechanisms - e.g. `postMessage`, `BroadcastChannel`, etc.
+            </p>
+            <p class="note">
+              In certain scenarios (e.g. when a tab is backgrounded), the user agent
+              may choose to throttle timers and periodic callbacks run in that
+              context or even freeze them entirely. Any such throttling should not
+              affect the resolution or accuracy of the time returned by the monotonic
+              clock.
+            </p>
+          </li>
+        </ul>
+      </section>
+      <section>
+        <h4>
+          Instants and Durations
+        </h4>
+        <p>
+          Each [=clock=]'s [=current time=] returns an <dfn>unsafe
+          instant</dfn>. [=Coarsen time=] converts these [=unsafe instants=] to
+          <dfn data-export data-lt="instant">coarsened instants</dfn> or just
+          [=instants=]. [=Unsafe instants=] and [=instants=] from different
+          clocks are not comparable.
+        </p>
+        <p>
+          A <dfn data-export>duration</dfn> is the distance from one [=instant=]
+          to another [=instant=] from the same [=clock=]. One of the two
+          instants can also be an [=unsafe instant=]. [=Durations=] are measured
+          in milliseconds, seconds, etc. Since all [=clocks=] attempt to count
+          at the same rate, [=durations=] don't have an associated [=clock=],
+          and a [=duration=] calculated from two [=instants=] on one clock can
+          be added to an [=instant=] from a second [=clock=], to produce another
+          [=instant=] on that second [=clock=].
+        </p>
+      </section>
+    </section>
     <section id="sec-time-origin">
       <h3>
         Time Origin
       </h3>
       <p>
-        The <dfn data-export="">time origin</dfn> is the time value from which
-        time is measured:
+        An invocation of the [=user agent=] has a <dfn>shared time origin wall
+        time</dfn> and a <dfn>shared time origin monotonic time</dfn>, whose
+        values are initialized from the [=wall clock=]'s [=wall clock/current
+        time=] and the [=shared monotonic clock=]'s [=shared monotonic
+        clock/current time=], respectively, measured as close together as possible.
+      </p>
+      <p>
+        Performance measurements report a [=duration=] on the [=shared monotonic
+        clock=] from an [=instant=] early in the initialization of a relevant
+        [=environment settings object=]. That [=instant=] is stored in that
+        settings object's [=environment settings object/time origin=].
       </p>
       <p>
         To <dfn>get time origin timestamp</dfn>, given a [=/global object=]
-        |global|, runs the following steps:
+        |global|, run the following steps, which return an [=instant=] on the
+        [=wall clock=]:
       </p>
       <ol>
         <li>
@@ -256,15 +351,11 @@
             [=run a worker|worker is run=]. [[service-workers]]
           </p>
         </li>
-        <li>Let <var>t1</var> be the {{DOMHighResTimeStamp}} representing the
-        high resolution time at which the <a>shared monotonic clock</a> is
-        zero.
+        <li>Let <var>delta</var> be the [=duration=] from the [=shared time
+        origin monotonic time=] to |timeOrigin|.
         </li>
-        <li>Let <var>t2</var> be the {{DOMHighResTimeStamp}} representing the
-        high resolution time value of the <a>shared monotonic clock</a> at
-        <var>timeOrigin</var>.
-        </li>
-        <li>Let |total| be the sum of <var>t1</var> and <var>t2</var>.
+        <li>Let |total| be the sum of the [=shared time origin wall time=] and
+        |delta|.
         </li>
         <li>Return the result of calling [=coarsen time=] with |total| and
         |global|'s [=relevant settings object=]'s [=environment settings
@@ -272,17 +363,16 @@
         </li>
       </ol>
       <p class="note">
-        The value returned by [=get time origin timestamp=] is the high
-        resolution time value at which <a>time origin</a> is zero. It may
-        differ from the value returned by <a>Date.now()</a> executed at "zero
-        time", because the former is recorded with respect to a <a>shared
-        monotonic clock</a> that is not subject to system and user clock
-        adjustments, clock skew, and so on — see <a href=
-        "#sec-monotonic-clock"></a>.
+        The value returned by [=get time origin timestamp=] is the [=wall
+        clock=] time value at |global|'s [=environment settings object/time
+        origin=]. It may differ from the value returned by <a>Date.now()</a>
+        executed at the time origin, because the former is recorded with respect
+        to a <a>shared monotonic clock</a> that is not subject to system and
+        user clock adjustments, clock skew, and so on.
       </p>
       <div data-algorithm="coarsen time">
-        The <dfn data-export="">coarsen time</dfn> algorithm, given a
-        {{DOMHighResTimeStamp}} |timestamp| and an optional boolean
+        The <dfn data-export="">coarsen time</dfn> algorithm, given an [=unsafe instant=]
+        |timestamp| on some [=clock=] and an optional boolean
         |crossOriginIsolatedCapability| (default false), runs the following
         steps:
         <ol>
@@ -297,7 +387,7 @@
           potentially jitter |timestamp| such that its resolution will not
           exceed |time resolution|.
           </li>
-          <li>Return |timestamp|.
+          <li>Return |timestamp| as an [=instant=].
           </li>
         </ol>
       </div>
@@ -413,6 +503,15 @@
           The <dfn>now()</dfn> method MUST return the <a>current high
           resolution time</a>.
         </p>
+        <p data-tests=
+          "monotonic-clock.any.html, monotonic-clock.any.worker.html">
+          The time values returned when calling the {{Performance/now()}} method
+          on {{Performance}} objects with the same <a>time origin</a> MUST use the
+          same [=monotonic clock=]. The difference between any two chronologically
+          recorded time values returned from the {{Performance/now()}} method MUST
+          never be negative if the two time values have the same <a>time
+          origin</a>.
+        </p>
       </section>
       <section>
         <h3>
@@ -422,6 +521,14 @@
           The <dfn>timeOrigin</dfn> attribute MUST return the value returned by
           [=get time origin timestamp=] for the <a>relevant global object</a>
           of [=this=].
+        </p>
+        <p data-tests="test_cross_frame_start.html">
+          The time values returned when getting
+          {{Performance}}.{{Performance/timeOrigin}} MUST use the same [=shared
+          monotonic clock=] that is shared by <a>time origin</a>s, and whose
+          reference point is the [[ECMA-262]] <a data-cite=
+          "ECMA-262#sec-time-values-and-time-range">time</a> definition - see
+          [[[#sec-security]]].
         </p>
       </section>
       <section>
@@ -453,49 +560,6 @@
       };
   </pre>
       </section>
-    </section>
-    <section id="sec-monotonic-clock">
-      <h3>
-        Monotonic Clock
-      </h3>
-      <p data-tests=
-      "monotonic-clock.any.html, monotonic-clock.any.worker.html">
-        The time values returned when calling the {{Performance/now()}} method
-        on {{Performance}} objects with the same <a>time origin</a> MUST use
-        the same <dfn data-export="">monotonic clock</dfn> that is
-        monotonically increasing and not subject to system clock adjustments or
-        system clock skew. The difference between any two chronologically
-        recorded time values returned from the {{Performance/now()}} method
-        MUST never be negative if the two time values have the same <a>time
-        origin</a>.
-      </p>
-      <p data-tests="test_cross_frame_start.html">
-        The time values returned when getting
-        {{Performance}}.{{Performance/timeOrigin}} MUST use the same
-        <dfn>shared monotonic clock</dfn> that is shared by <a>time
-        origin</a>s, is monotonically increasing and not subject to system
-        clock adjustments or system clock skew, and whose reference point is
-        the [[ECMA-262]] <dfn data-no-export="" data-cite=
-        "ECMA-262#sec-time-values-and-time-range">time</dfn> definition - see
-        [[[#sec-security]]].
-      </p>
-      <p class="note">
-        The user agent can reset its <a>shared monotonic clock</a> across
-        browser restarts, or whenever starting an isolated browsing
-        session—e.g. incognito or similar browsing mode. As a result,
-        developers should not use shared timestamps as absolute time that holds
-        its monotonic properties across all past, present, and future contexts;
-        in practice, the monotonic properties only apply for contexts that can
-        reach each other by exchanging messages via one of the provided
-        messaging mechanisms - e.g. `postMessage`, `BroadcastChannel`, etc.
-      </p>
-      <p class="note">
-        In certain scenarios (e.g. when a tab is backgrounded), the user agent
-        may choose to throttle timers and periodic callbacks run in that
-        context or even freeze them entirely. Any such throttling should not
-        affect the resolution or accuracy of the time returned by the monotonic
-        clock.
-      </p>
     </section>
     <section id="sec-security">
       <h3>
