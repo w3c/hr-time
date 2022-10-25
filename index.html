@@ -178,9 +178,9 @@
         <p>
           A developer may wish to construct a timeline of their entire
           application, including events from {{Worker}} or {{SharedWorker}},
-          which have different <a>time origin</a>s. To display such events on
-          the same timeline, the application can translate the
-          {{DOMHighResTimeStamp}}s with the help of the
+          which have different [=environment settings object/time origins=]. To
+          display such events on the same timeline, the application can
+          translate the {{DOMHighResTimeStamp}}s with the help of the
           {{Performance}}.{{Performance/timeOrigin}} attribute.
         </p>
         <pre class="example js">
@@ -250,31 +250,27 @@
         <ul>
           <li>The <dfn data-export>wall clock</dfn>'s <dfn data-dfn-for="wall clock"
           data-export>current time</dfn>
-          is always as close as possible to a human user's notion of time. Since a
-          computer sometimes runs slow or fast or loses track of time, its [=wall
-          clock=] sometimes needs to be adjusted, which means the [=wall
-          clock/current time=] can decrease, making it unreliable for performance
-          measurement or recording the orders of events. [[ECMA-262]] <dfn
+          is always as close as possible to a human user's notion of time. Since
+          a computer sometimes runs slow or fast or loses track of time, its
+          [=wall clock=] sometimes needs to be adjusted, which means the [=wall
+          clock/current time=] can decrease, making it unreliable for
+          performance measurement or recording the orders of events. The web
+          platform shares a [=wall clock=] with [[ECMA-262]] <dfn
           data-no-export="" data-cite=
-          "ECMA-262#sec-time-values-and-time-range">time</dfn> is a [=wall
-          clock=].</li>
-
-          <li>A <dfn data-export>monotonic clock</dfn>'s current time never
-          decreases, so it can't be changed by system clock adjustments. There are
-          several kinds of [=monotonic clock=] varying by the point in time they
-          assign to 0, whether they pause while the computer is asleep, and whether
-          their speed adjusts to keep them close to the [=wall clock=].</li>
+          "ECMA-262#sec-time-values-and-time-range">time</dfn>.</li>
 
           <li>
             <p>
-              The <dfn>shared monotonic clock</dfn> is a [=monotonic clock=]
-              that's shared between all [=browsing contexts=] that can communicate
-              with each other. Its <dfn data-export data-dfn-for="shared monotonic
-              clock">current time</dfn> will advance monotonically and be comparable
-              across all of those browsing contexts.
+              The <dfn data-export>monotonic clock</dfn>'s <dfn data-export
+              data-dfn-for="monotonic clock">current time</dfn> never decreases,
+              so it can't be changed by system clock adjustments. It only exists
+              within a single execution of the [=user agent=], so it can't be
+              used to compare events that might happen in different executions.
+              Since it can't be adjusted to match the user's notion of time,
+              it's also not appropriate for communicating with the user.
             </p>
             <p class="note">
-              The user agent can reset its <a>shared monotonic clock</a> across
+              The user agent can reset its <a>monotonic clock</a> across
               browser restarts, or whenever starting an isolated browsing
               session—e.g. incognito or similar browsing mode. As a result,
               developers should not use shared timestamps as absolute time that holds
@@ -321,14 +317,18 @@
         Time Origin
       </h3>
       <p>
-        An invocation of the [=user agent=] has a <dfn>shared time origin wall
-        time</dfn> and a <dfn>shared time origin monotonic time</dfn>, whose
-        values are initialized from the [=wall clock=]'s [=wall clock/current
-        time=] and the [=shared monotonic clock=]'s [=shared monotonic
-        clock/current time=], respectively, measured as close together as possible.
+        Each group of [=environment settings objects=] that could possibly
+        communicate in any way has a <dfn>shared time origin wall time</dfn> and
+        a <dfn>shared time origin monotonic time</dfn>, whose values are
+        initialized from the [=wall clock=]'s [=wall clock/current time=] and
+        the [=monotonic clock=]'s [=monotonic clock/current time=],
+        respectively, measured as close together as possible. <span
+        class="issue">This set of settings objects needs to be specified better.
+        It's similar to <a data-cite="html/browsers.html#familiar-with">familiar
+        with</a> but includes {{Worker}}s.</span>
       </p>
       <p>
-        Performance measurements report a [=duration=] on the [=shared monotonic
+        Performance measurements report a [=duration=] on the [=monotonic
         clock=] from an [=instant=] early in the initialization of a relevant
         [=environment settings object=]. That [=instant=] is stored in that
         settings object's [=environment settings object/time origin=].
@@ -367,8 +367,8 @@
         clock=] time value at |global|'s [=environment settings object/time
         origin=]. It may differ from the value returned by <a>Date.now()</a>
         executed at the time origin, because the former is recorded with respect
-        to a <a>shared monotonic clock</a> that is not subject to system and
-        user clock adjustments, clock skew, and so on.
+        to a <a>monotonic clock</a> that is not subject to system and user clock
+        adjustments, clock skew, and so on.
       </p>
       <div data-algorithm="coarsen time">
         The <dfn data-export="">coarsen time</dfn> algorithm, given an [=unsafe instant=]
@@ -422,7 +422,7 @@
       </p>
       <p>
         The <dfn data-export="">unsafe shared current time</dfn> must return
-        the current value of the <a>shared monotonic clock</a>.
+        the current value of the <a>monotonic clock</a>.
       </p>
       <p>
         To get an <dfn data-export="">epoch-relative timestamp</dfn>,
@@ -446,9 +446,10 @@
       </h3>
       <p>
         The {{DOMHighResTimeStamp}} type is used to store a time value in
-        milliseconds, measured relative from the <a>time origin</a>, <a>shared
-        monotonic clock</a>, or a time value that represents a duration between
-        two {{DOMHighResTimeStamp}}s.
+        milliseconds, measured relative from a [=environment settings
+        object/time origin=],
+        <a>monotonic clock</a>, or a time value that represents a duration
+        between two {{DOMHighResTimeStamp}}s.
       </p>
       <pre class="idl">
       typedef double DOMHighResTimeStamp;
@@ -506,11 +507,12 @@
         <p data-tests=
           "monotonic-clock.any.html, monotonic-clock.any.worker.html">
           The time values returned when calling the {{Performance/now()}} method
-          on {{Performance}} objects with the same <a>time origin</a> MUST use the
-          same [=monotonic clock=]. The difference between any two chronologically
-          recorded time values returned from the {{Performance/now()}} method MUST
-          never be negative if the two time values have the same <a>time
-          origin</a>.
+          on {{Performance}} objects with the same [=environment settings
+          object/time origin=] MUST use the same [=monotonic clock=]. The
+          difference between any two chronologically recorded time values
+          returned from the {{Performance/now()}} method MUST never be negative
+          if the two time values have the same [=environment settings
+          object/time origin=].
         </p>
       </section>
       <section>
@@ -524,11 +526,11 @@
         </p>
         <p data-tests="test_cross_frame_start.html">
           The time values returned when getting
-          {{Performance}}.{{Performance/timeOrigin}} MUST use the same [=shared
-          monotonic clock=] that is shared by <a>time origin</a>s, and whose
-          reference point is the [[ECMA-262]] <a data-cite=
-          "ECMA-262#sec-time-values-and-time-range">time</a> definition - see
-          [[[#sec-security]]].
+          {{Performance}}.{{Performance/timeOrigin}} MUST use the same
+          [=monotonic clock=] that is shared by [=environment settings
+          object/time origins=], and whose reference point is the [[ECMA-262]]
+          <a data-cite= "ECMA-262#sec-time-values-and-time-range">time</a>
+          definition - see [[[#sec-security]]].
         </p>
       </section>
       <section>
@@ -652,29 +654,29 @@
         <p>
           This specification also defines an API that provides sub-millisecond
           time resolution of the zero time of the time origin, which requires
-          and exposes a <a>shared monotonic clock</a> to the application, and
-          that must be shared across all the browser contexts. The <a>shared
-          monotonic clock</a> does not need to be tied to physical time, but is
-          recommended to be set with respect to the [[ECMA-262]] definition of
+          and exposes a <a>monotonic clock</a> to the application, and that must
+          be shared across all the browser contexts. The <a>monotonic clock</a>
+          does not need to be tied to physical time, but is recommended to be
+          set with respect to the [[ECMA-262]] definition of
           <a>time</a> to avoid exposing new fingerprint entropy about the user
           — e.g. this time can already be easily obtained by the application,
           whereas exposing a new logical clock provides new information.
         </p>
         <p>
-          However, even with the above mechanism in place, the <a>shared
-          monotonic clock</a> may provide additional <a href=
+          However, even with the above mechanism in place, the <a>monotonic
+          clock</a> may provide additional <a href=
           "https://en.wikipedia.org/wiki/Clock_drift">clock drift</a>
           resolution. Today, the application can timestamp the time-of-day and
           monotonic time values (via <a>Date.now()</a> and
           {{Performance/now()}}) at multiple points within the same context and
           observe drift between them—e.g. due to automatic or user clock
           adjustments. With the {{Performance/timeOrigin}} attribute, the
-          attacker can also compare the time at which <a>time origin</a> is
-          zero, as reported by the <a>shared monotonic clock</a>, against the
-          current time-of-day estimate of when it is zero (i.e. the difference
-          between `Date.now() - performance.now()` and
-          `performance.timeOrigin`) and potentially observe clock drift between
-          these clocks over a longer time period.
+          attacker can also compare the [=environment settings object/time
+          origin=], as reported by the <a>monotonic clock</a>, against the
+          current time-of-day estimate of the [=environment settings object/time
+          origin=] (i.e. the difference between `performance.timeOrigin` and
+          `Date.now() - performance.now()`) and potentially observe clock drift
+          between these clocks over a longer time period.
         </p>
         <p>
           In practice, the same time drift can be observed by an application
@@ -694,7 +696,8 @@
         Privacy Considerations
       </h3>
       <p>
-        The current definition of [=time origin=] for a {{Document}} exposes
+        The current definition of [=environment settings object/time origin=]
+        for a {{Document}} exposes
         the total time of cross-origin redirects prior to the request arriving
         at the document's origin. This exposes cross-origin information,
         however it's not yet decided how to mitigate this without causing major
