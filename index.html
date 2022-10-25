@@ -73,7 +73,7 @@
         "ECMA-262#sec-date-objects">Date</dfn></code> object as a time value
         representing time in milliseconds since 01 January, 1970 UTC. For most
         purposes, this definition of time is sufficient as these values
-        represent time to millisecond precision for any instant that is within
+        represent time to millisecond precision for any moment that is within
         approximately 285,616 years from 01 January, 1970 UTC.
       </p>
       <p>
@@ -291,24 +291,24 @@
       </section>
       <section>
         <h4>
-          Instants and Durations
+          Moments and Durations
         </h4>
         <p>
           Each [=clock=]'s [=current time=] returns an <dfn>unsafe
-          instant</dfn>. [=Coarsen time=] converts these [=unsafe instants=] to
-          <dfn data-export data-lt="instant">coarsened instants</dfn> or just
-          [=instants=]. [=Unsafe instants=] and [=instants=] from different
+          moment</dfn>. [=Coarsen time=] converts these [=unsafe moments=] to
+          <dfn data-export data-lt="moment">coarsened moments</dfn> or just
+          [=moments=]. [=Unsafe moments=] and [=moments=] from different
           clocks are not comparable.
         </p>
         <p>
-          A <dfn data-export>duration</dfn> is the distance from one [=instant=]
-          to another [=instant=] from the same [=clock=]. One of the two
-          instants can also be an [=unsafe instant=]. [=Durations=] are measured
+          A <dfn data-export>duration</dfn> is the distance from one [=moment=]
+          to another [=moment=] from the same [=clock=]. One of the two
+          moments can also be an [=unsafe moment=]. [=Durations=] are measured
           in milliseconds, seconds, etc. Since all [=clocks=] attempt to count
           at the same rate, [=durations=] don't have an associated [=clock=],
-          and a [=duration=] calculated from two [=instants=] on one clock can
-          be added to an [=instant=] from a second [=clock=], to produce another
-          [=instant=] on that second [=clock=].
+          and a [=duration=] calculated from two [=moments=] on one clock can
+          be added to an [=moment=] from a second [=clock=], to produce another
+          [=moment=] on that second [=clock=].
         </p>
       </section>
     </section>
@@ -329,13 +329,13 @@
       </p>
       <p>
         Performance measurements report a [=duration=] on the [=monotonic
-        clock=] from an [=instant=] early in the initialization of a relevant
-        [=environment settings object=]. That [=instant=] is stored in that
+        clock=] from an [=moment=] early in the initialization of a relevant
+        [=environment settings object=]. That [=moment=] is stored in that
         settings object's [=environment settings object/time origin=].
       </p>
       <p>
         To <dfn>get time origin timestamp</dfn>, given a [=/global object=]
-        |global|, run the following steps, which return an [=instant=] on the
+        |global|, run the following steps, which return an [=moment=] on the
         [=wall clock=]:
       </p>
       <ol>
@@ -371,7 +371,7 @@
         adjustments, clock skew, and so on.
       </p>
       <div data-algorithm="coarsen time">
-        The <dfn data-export="">coarsen time</dfn> algorithm, given an [=unsafe instant=]
+        The <dfn data-export="">coarsen time</dfn> algorithm, given an [=unsafe moment=]
         |timestamp| on some [=clock=] and an optional boolean
         |crossOriginIsolatedCapability| (default false), runs the following
         steps:
@@ -387,7 +387,7 @@
           potentially jitter |timestamp| such that its resolution will not
           exceed |time resolution|.
           </li>
-          <li>Return |timestamp| as an [=instant=].
+          <li>Return |timestamp| as an [=moment=].
           </li>
         </ol>
       </div>
