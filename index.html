@@ -258,7 +258,7 @@
         <ul>
           <li>The <dfn data-export>wall clock</dfn>'s <dfn data-dfn-for="wall clock"
           data-export>unsafe current time</dfn>
-          is always as close as possible to a human user's notion of time. Since
+          is always as close as possible to a user's notion of time. Since
           a computer sometimes runs slow or fast or loses track of time, its
           [=wall clock=] sometimes needs to be adjusted, which means the [=wall
           clock/unsafe current time=] can decrease, making it unreliable for
@@ -279,14 +279,17 @@
               it's also not appropriate for communicating with the user.
             </p>
             <p class="note">
-              The user agent can reset its <a>monotonic clock</a> across
-              browser restarts, or whenever starting an isolated browsing
-              session—e.g. incognito or similar browsing mode. As a result,
+              The user agent can pick a new [=estimated monotonic time of the
+              Unix epoch=] when the browser restarts, when it starts an isolated
+              browsing session—e.g. incognito or a similar browsing mode—or when
+              it creates an [=environment settings object=] that can't
+              communicate with any existing settings objects. As a result,
               developers should not use shared timestamps as absolute time that holds
               its monotonic properties across all past, present, and future contexts;
               in practice, the monotonic properties only apply for contexts that can
               reach each other by exchanging messages via one of the provided
-              messaging mechanisms - e.g. `postMessage`, `BroadcastChannel`, etc.
+              messaging mechanisms - e.g. {{Window/postMessage(message,
+              options)}}, {{BroadcastChannel}}, etc.
             </p>
             <p class="note">
               In certain scenarios (e.g. when a tab is backgrounded), the user agent
@@ -337,40 +340,61 @@
         timestamp</dfn>, defined as the [=duration=] from |settingsObject|'s
         [=environment settings object/time origin=] to the |settingsObject|'s
         [=environment settings object/current monotonic time=]. This value can
-        be exposed directly to Javascript using the [=duration=]'s [=implicitly
+        be exposed directly to JavaScript using the [=duration=]'s [=implicitly
         convert a duration to a timestamp|implicit conversion=] to
         {{DOMHighResTimeStamp}}.
       </p>
       <p>
         For measuring time within a single UA execution when an [=environment
         settings object=]'s [=environment settings object/time origin=] isn't
-        an appropriate base for comparison, create [=moments=] using a |settings
-        object|'s <dfn data-dfn-for="environment settings object">current
-        monotonic time</dfn>, defined as [=coarsen time=] applied to the
-        [=monotonic clock=]'s [=monotonic clock/unsafe current time=] and the
-        |settings object|'s [=environment settings object/cross-origin isolated
-        capability=].
+        an appropriate base for comparison, create [=moments=] using an
+        [=environment settings object=]'s [=environment settings object/current
+        monotonic time=]. An [=environment settings object=] |settingsObject|'s
+        <dfn data-export data-dfn-for="environment settings object">current
+        monotonic time</dfn> is the result of the following steps:
       </p>
+      <ol>
+        <li>
+          Let |unsafeMonotonicTime| be the [=monotonic clock=]'s [=monotonic
+          clock/unsafe current time=].
+        </li>
+        <li>
+          Return the result of calling [=coarsen time=] with
+          |unsafeMonotonicTime| and |settingsObject|'s [=environment settings
+          object/cross-origin isolated capability=].
+        </li>
+      </ol>
       <p>
         [=Moments=] from the [=monotonic clock=] can't be directly represented
-        in Javascript or HTTP. Instead, expose a [=duration=] between two such
+        in JavaScript or HTTP. Instead, expose a [=duration=] between two such
         [=moments=].
       </p>
       <p>
         For measuring time across multiple UA executions, create [=moments=]
-        using a |settingsObject|'s <dfn data-export
-        data-dfn-for="environment settings object">current wall time</dfn>,
-        defined as [=coarsen time=] applied to the [=wall clock=]'s [=wall
-        clock/unsafe current time=] and |settingsObject|'s [=environment
-        settings object/cross-origin isolated capability=].
+        using an [=environment settings object=]'s [=environment settings
+        object/current wall time=]. An [=environment settings object=]
+        |settingsObject|'s <dfn data-export
+        data-dfn-for="environment settings object">current wall time</dfn> is
+        the result of the following steps:
       </p>
+      <ol>
+        <li>
+          Let |unsafeWallTime| be the [=wall clock=]'s [=wall clock/unsafe
+          current time=].
+        </li>
+        <li>
+          Return the result of calling [=coarsen time=] with |unsafeWallTime|
+          and |settingsObject|'s [=environment settings object/cross-origin
+          isolated capability=].
+        </li>
+      </ol>
       <p class="advisement">
         When using [=moments=] from the [=wall clock=], be sure that your design
-        does something reasonable when the user adjusts their clock either
-        forward or backward.
+        accounts for situations when the user adjusts their clock either forward
+        or backward.
       </p>
       <p>
-        [=Moments=] from the [=wall clock=] can be represented in Javascript by
+        [=Moments=] from the [=wall clock=] can be represented in JavaScript by
         passing the number of milliseconds from the [=Unix epoch=] to that
         [=moment=] into the {{Date}} constructor, or by passing the number of
         nanoseconds from the [=Unix epoch=] to that [=moment=] into the
