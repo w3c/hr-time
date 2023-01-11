@@ -314,14 +314,27 @@
         </p>
         <p>
           A <dfn data-export>duration</dfn> is the distance from one [=moment=]
-          to another [=moment=] from the same [=clock=]. One of the two
-          moments can also be an [=unsafe moment=]. [=Durations=] are measured
+          or [=unsafe moment=] to another from the same [=clock=]. At most one
+          of the endpoints can be an [=unsafe moment=] in order to ensure that
+          all [=durations=] mitigate the concerns in [[[#clock-resolution]]].
+          [=Durations=] are measured
           in milliseconds, seconds, etc. Since all [=clocks=] attempt to count
           at the same rate, [=durations=] don't have an associated [=clock=],
           and a [=duration=] calculated from two [=moments=] on one clock can
           be added to a [=moment=] from a second [=clock=], to produce another
           [=moment=] on that second [=clock=].
         </p>
+        <p>
+          The <dfn data-export>duration from</dfn> |a:moment| to |b:moment| is the result of
+          the following algorithm:
+        </p>
+        <ol class="algorithm">
+          <li>Assert: |a| was created by the same [=clock=] as |b|.</li>
+          <li>Assert: At least one of |a| or |b| is a [=coarsened moment=].
+          Equivalently, at most one is an [=unsafe moment=].</li>
+          <li>Return the amount of time from |a| to |b| as a [=duration=]. If
+          |b| came before |a|, this will be a negative [=duration=].</li>
+        </ol>
         <p>
           [=Durations=] can be used implicitly as {{DOMHighResTimeStamp}}s. To
           <dfn>implicitly convert a duration to a timestamp</dfn>, given a
