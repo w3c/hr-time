@@ -272,11 +272,12 @@
             <p>
               The <dfn data-export>monotonic clock</dfn>'s <dfn data-export
               data-dfn-for="monotonic clock">unsafe current time</dfn> never decreases,
-              so it can't be changed by system clock adjustments. It only exists
-              within a single execution of the [=user agent=], so it can't be
-              used to compare events that might happen in different executions.
-              Since it can't be adjusted to match the user's notion of time,
-              it's also not appropriate for communicating with the user.
+              so it can't be changed by system clock adjustments. The
+              [=monotonic clock=] only exists within a single execution of the
+              [=user agent=], so it can't be used to compare events that might
+              happen in different executions. Since it can't be adjusted to
+              match the user's notion of time, it's also not appropriate for
+              communicating with the user.
             </p>
             <p class="note">
               The user agent can pick a new [=estimated monotonic time of the
