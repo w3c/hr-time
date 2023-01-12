@@ -275,9 +275,13 @@
               so it can't be changed by system clock adjustments. The
               [=monotonic clock=] only exists within a single execution of the
               [=user agent=], so it can't be used to compare events that might
-              happen in different executions. Since it can't be adjusted to
-              match the user's notion of time, it's also not appropriate for
-              communicating with the user.
+              happen in different executions.
+            </p>
+            <p class="note">
+              Since the [=monotonic clock=] can't be adjusted to match the
+              user's notion of time, it should be used for measurement, rather
+              than user-visible times. For any time communication with the user,
+              use the wall clock.
             </p>
             <p class="note">
               The user agent can pick a new [=estimated monotonic time of the
