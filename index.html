@@ -249,59 +249,59 @@
         </h4>
         <p>
           A <dfn>clock</dfn> tracks the passage of time and can report the
-          <dfn>unsafe current time</dfn> that an algorithm step is executing. There are
-          many kinds of clocks. All clocks on the web platform attempt to count
-          1 millisecond of clock time per 1 millisecond of real-world time, but
-          they differ in how they handle cases where they can't be exactly
-          correct.
+          <dfn>unsafe current time</dfn> that an algorithm step is executing.
+          There are many kinds of clocks. All clocks on the web platform
+          attempt to count 1 millisecond of clock time per 1 millisecond of
+          real-world time, but they differ in how they handle cases where they
+          can't be exactly correct.
         </p>
         <ul>
-          <li>The <dfn data-export>wall clock</dfn>'s <dfn data-dfn-for="wall clock"
-          data-export>unsafe current time</dfn>
-          is always as close as possible to a user's notion of time. Since
-          a computer sometimes runs slow or fast or loses track of time, its
-          [=wall clock=] sometimes needs to be adjusted, which means the [=wall
+          <li>The <dfn data-export="">wall clock</dfn>'s <dfn data-dfn-for=
+          "wall clock" data-export="">unsafe current time</dfn> is always as
+          close as possible to a user's notion of time. Since a computer
+          sometimes runs slow or fast or loses track of time, its [=wall
+          clock=] sometimes needs to be adjusted, which means the [=wall
           clock/unsafe current time=] can decrease, making it unreliable for
           performance measurement or recording the orders of events. The web
-          platform shares a [=wall clock=] with [[ECMA-262]] <dfn
-          data-no-export="" data-cite=
+          platform shares a [=wall clock=] with [[ECMA-262]]
+          <dfn data-no-export="" data-cite=
           "ECMA-262#sec-time-values-and-time-range">time</dfn>.
           </li>
-
           <li>
             <p>
-              The <dfn data-export>monotonic clock</dfn>'s <dfn data-export
-              data-dfn-for="monotonic clock">unsafe current time</dfn> never decreases,
-              so it can't be changed by system clock adjustments. The
-              [=monotonic clock=] only exists within a single execution of the
-              [=user agent=], so it can't be used to compare events that might
-              happen in different executions.
+              The <dfn data-export="">monotonic clock</dfn>'s <dfn data-export=
+              "" data-dfn-for="monotonic clock">unsafe current time</dfn> never
+              decreases, so it can't be changed by system clock adjustments.
+              The [=monotonic clock=] only exists within a single execution of
+              the [=user agent=], so it can't be used to compare events that
+              might happen in different executions.
             </p>
             <p class="note">
               Since the [=monotonic clock=] can't be adjusted to match the
               user's notion of time, it should be used for measurement, rather
-              than user-visible times. For any time communication with the user,
-              use the wall clock.
+              than user-visible times. For any time communication with the
+              user, use the wall clock.
             </p>
             <p class="note">
               The user agent can pick a new [=estimated monotonic time of the
-              Unix epoch=] when the browser restarts, when it starts an isolated
-              browsing session—e.g. incognito or a similar browsing mode—or when
-              it creates an [=environment settings object=] that can't
-              communicate with any existing settings objects. As a result,
-              developers should not use shared timestamps as absolute time that holds
-              its monotonic properties across all past, present, and future contexts;
-              in practice, the monotonic properties only apply for contexts that can
-              reach each other by exchanging messages via one of the provided
-              messaging mechanisms - e.g. {{Window/postMessage(message,
-              options)}}, {{BroadcastChannel}}, etc.
+              Unix epoch=] when the browser restarts, when it starts an
+              isolated browsing session—e.g. incognito or a similar browsing
+              mode—or when it creates an [=environment settings object=] that
+              can't communicate with any existing settings objects. As a
+              result, developers should not use shared timestamps as absolute
+              time that holds its monotonic properties across all past,
+              present, and future contexts; in practice, the monotonic
+              properties only apply for contexts that can reach each other by
+              exchanging messages via one of the provided messaging mechanisms
+              - e.g. {{Window/postMessage(message, options)}},
+              {{BroadcastChannel}}, etc.
             </p>
             <p class="note">
-              In certain scenarios (e.g. when a tab is backgrounded), the user agent
-              may choose to throttle timers and periodic callbacks run in that
-              context or even freeze them entirely. Any such throttling should not
-              affect the resolution or accuracy of the time returned by the monotonic
-              clock.
+              In certain scenarios (e.g. when a tab is backgrounded), the user
+              agent may choose to throttle timers and periodic callbacks run in
+              that context or even freeze them entirely. Any such throttling
+              should not affect the resolution or accuracy of the time returned
+              by the monotonic clock.
             </p>
           </li>
         </ul>
@@ -313,32 +313,35 @@
         <p>
           Each [=clock=]'s [=unsafe current time=] returns an <dfn>unsafe
           moment</dfn>. [=Coarsen time=] converts these [=unsafe moments=] to
-          <dfn data-export data-lt="moment">coarsened moments</dfn> or just
-          [=moments=]. [=Unsafe moments=] and [=moments=] from different
-          clocks are not comparable.
+          <dfn data-export="" data-lt="moment">coarsened moments</dfn> or just
+          [=moments=]. [=Unsafe moments=] and [=moments=] from different clocks
+          are not comparable.
         </p>
         <p>
-          A <dfn data-export>duration</dfn> is the distance from one [=moment=]
-          or [=unsafe moment=] to another from the same [=clock=]. At most one
-          of the endpoints can be an [=unsafe moment=] in order to ensure that
-          all [=durations=] mitigate the concerns in [[[#clock-resolution]]].
-          [=Durations=] are measured
-          in milliseconds, seconds, etc. Since all [=clocks=] attempt to count
-          at the same rate, [=durations=] don't have an associated [=clock=],
-          and a [=duration=] calculated from two [=moments=] on one clock can
-          be added to a [=moment=] from a second [=clock=], to produce another
-          [=moment=] on that second [=clock=].
+          A <dfn data-export="">duration</dfn> is the distance from one
+          [=moment=] or [=unsafe moment=] to another from the same [=clock=].
+          At most one of the endpoints can be an [=unsafe moment=] in order to
+          ensure that all [=durations=] mitigate the concerns in
+          [[[#clock-resolution]]]. [=Durations=] are measured in milliseconds,
+          seconds, etc. Since all [=clocks=] attempt to count at the same rate,
+          [=durations=] don't have an associated [=clock=], and a [=duration=]
+          calculated from two [=moments=] on one clock can be added to a
+          [=moment=] from a second [=clock=], to produce another [=moment=] on
+          that second [=clock=].
         </p>
         <p>
-          The <dfn data-export>duration from</dfn> |a:moment| to |b:moment| is the result of
-          the following algorithm:
+          The <dfn data-export="">duration from</dfn> |a:moment| to |b:moment|
+          is the result of the following algorithm:
         </p>
         <ol class="algorithm">
-          <li>Assert: |a| was created by the same [=clock=] as |b|.</li>
+          <li>Assert: |a| was created by the same [=clock=] as |b|.
+          </li>
           <li>Assert: At least one of |a| or |b| is a [=coarsened moment=].
-          Equivalently, at most one is an [=unsafe moment=].</li>
+          Equivalently, at most one is an [=unsafe moment=].
+          </li>
           <li>Return the amount of time from |a| to |b| as a [=duration=]. If
-          |b| came before |a|, this will be a negative [=duration=].</li>
+          |b| came before |a|, this will be a negative [=duration=].
+          </li>
         </ol>
         <p>
           [=Durations=] can be used implicitly as {{DOMHighResTimeStamp}}s. To
@@ -353,14 +356,14 @@
       </h3>
       <p>
         For measuring time within a single page (within the context of a single
-        [=environment settings object=]), use the |settingsObject|'s <dfn
-        data-export data-dfn-for="environment settings object">current relative
-        timestamp</dfn>, defined as the [=duration=] from |settingsObject|'s
-        [=environment settings object/time origin=] to the |settingsObject|'s
-        [=environment settings object/current monotonic time=]. This value can
-        be exposed directly to JavaScript using the [=duration=]'s [=implicitly
-        convert a duration to a timestamp|implicit conversion=] to
-        {{DOMHighResTimeStamp}}.
+        [=environment settings object=]), use the |settingsObject|'s
+        <dfn data-export="" data-dfn-for="environment settings object">current
+        relative timestamp</dfn>, defined as the [=duration=] from
+        |settingsObject|'s [=environment settings object/time origin=] to the
+        |settingsObject|'s [=environment settings object/current monotonic
+        time=]. This value can be exposed directly to JavaScript using the
+        [=duration=]'s [=implicitly convert a duration to a timestamp|implicit
+        conversion=] to {{DOMHighResTimeStamp}}.
       </p>
       <p>
         For measuring time within a single UA execution when an [=environment
@@ -368,18 +371,16 @@
         an appropriate base for comparison, create [=moments=] using an
         [=environment settings object=]'s [=environment settings object/current
         monotonic time=]. An [=environment settings object=] |settingsObject|'s
-        <dfn data-export data-dfn-for="environment settings object">current
+        <dfn data-export="" data-dfn-for="environment settings object">current
         monotonic time</dfn> is the result of the following steps:
       </p>
       <ol>
-        <li>
-          Let |unsafeMonotonicTime| be the [=monotonic clock=]'s [=monotonic
-          clock/unsafe current time=].
+        <li>Let |unsafeMonotonicTime| be the [=monotonic clock=]'s [=monotonic
+        clock/unsafe current time=].
         </li>
-        <li>
-          Return the result of calling [=coarsen time=] with
-          |unsafeMonotonicTime| and |settingsObject|'s [=environment settings
-          object/cross-origin isolated capability=].
+        <li>Return the result of calling [=coarsen time=] with
+        |unsafeMonotonicTime| and |settingsObject|'s [=environment settings
+        object/cross-origin isolated capability=].
         </li>
       </ol>
       <p>
@@ -391,33 +392,31 @@
         For measuring time across multiple UA executions, create [=moments=]
         using an [=environment settings object=]'s [=environment settings
         object/current wall time=]. An [=environment settings object=]
-        |settingsObject|'s <dfn data-export
-        data-dfn-for="environment settings object">current wall time</dfn> is
-        the result of the following steps:
+        |settingsObject|'s <dfn data-export="" data-dfn-for=
+        "environment settings object">current wall time</dfn> is the result of
+        the following steps:
       </p>
       <ol>
-        <li>
-          Let |unsafeWallTime| be the [=wall clock=]'s [=wall clock/unsafe
-          current time=].
+        <li>Let |unsafeWallTime| be the [=wall clock=]'s [=wall clock/unsafe
+        current time=].
         </li>
-        <li>
-          Return the result of calling [=coarsen time=] with |unsafeWallTime|
-          and |settingsObject|'s [=environment settings object/cross-origin
-          isolated capability=].
+        <li>Return the result of calling [=coarsen time=] with |unsafeWallTime|
+        and |settingsObject|'s [=environment settings object/cross-origin
+        isolated capability=].
         </li>
       </ol>
       <p class="advisement">
-        When using [=moments=] from the [=wall clock=], be sure that your design
-        accounts for situations when the user adjusts their clock either forward
-        or backward.
+        When using [=moments=] from the [=wall clock=], be sure that your
+        design accounts for situations when the user adjusts their clock either
+        forward or backward.
       </p>
       <p>
         [=Moments=] from the [=wall clock=] can be represented in JavaScript by
         passing the number of milliseconds from the [=Unix epoch=] to that
         [=moment=] into the {{Date}} constructor, or by passing the number of
         nanoseconds from the [=Unix epoch=] to that [=moment=] into the
-        <a data-link-type="idl"
-        data-cite="Temporal#sec-temporal-instant-constructor">Temporal.Instant</a>
+        <a data-link-type="idl" data-cite=
+        "Temporal#sec-temporal-instant-constructor">Temporal.Instant</a>
         constructor.
       </p>
       <p class="advisement tracking-vector">
@@ -435,10 +434,9 @@
             The time a DOM event happens can be reported using:
           </p>
           <ol start="7">
-            <li>
-              Initialize |event|'s {{Event/timeStamp}} attribute to [=this=]'s
-              [=relevant settings object=]'s [=environment settings
-              object/current relative timestamp=].
+            <li>Initialize |event|'s {{Event/timeStamp}} attribute to
+            [=this=]'s [=relevant settings object=]'s [=environment settings
+            object/current relative timestamp=].
             </li>
           </ol>
         </div>
@@ -447,28 +445,30 @@
             The age of an error report can be computed using:
           </p>
           <ol start="7">
-            <li>
-              Initialize |report|'s <a
-              data-cite="reporting#report-timestamp">generation time</a> to
-              |settings|' [=environment settings object/current monotonic
-              time=].
+            <li>Initialize |report|'s <a data-cite=
+            "reporting#report-timestamp">generation time</a> to |settings|'
+            [=environment settings object/current monotonic time=].
             </li>
           </ol>
           <p>
             Later:
           </p>
           <ol start="2">
-            <li>
-              Let |data| be a map with the following key/value pairs:
+            <li>Let |data| be a map with the following key/value pairs:
               <dl>
-                <dt>age</dt>
+                <dt>
+                  age
+                </dt>
                 <dd>
-                  The number of milliseconds between |report|'s <a
-                  data-cite="reporting#report-timestamp">generation time</a> and
+                  The number of milliseconds between |report|'s <a data-cite=
+                  "reporting#report-timestamp">generation time</a> and
                   |context|'s [=relevant settings object=]'s [=environment
-                  settings object/current monotonic time=], rounded to the nearest integer.
+                  settings object/current monotonic time=], rounded to the
+                  nearest integer.
                 </dd>
-                <dd>...</dd>
+                <dd>
+                  ...
+                </dd>
               </dl>
             </li>
           </ol>
@@ -478,15 +478,25 @@
             Multi-day attribution report expirations can be handled as:
           </p>
           <ol start="2">
-            <li>
-              Let |source| be a new attribution
-              source struct whose items are:
+            <li>Let |source| be a new attribution source struct whose items
+            are:
               <dl>
-                <dt>...</dt>
-                <dt>source time</dt>
-                <dd>|context|'s [=environment settings object/current wall time=]</dd>
-                <dt>expiry</dt>
-                <dd><a data-cite="html#parse-a-duration-string">parse a duration string</a> from <code>|value|["expiry"]</code></dd>
+                <dt>
+                  ...
+                </dt>
+                <dt>
+                  source time
+                </dt>
+                <dd>
+                  |context|'s [=environment settings object/current wall time=]
+                </dd>
+                <dt>
+                  expiry
+                </dt>
+                <dd>
+                  <a data-cite="html#parse-a-duration-string">parse a duration
+                  string</a> from <code>|value|["expiry"]</code>
+                </dd>
               </dl>
             </li>
           </ol>
@@ -494,10 +504,9 @@
             Days later:
           </p>
           <ol start="2">
-            <li>
-              If |context|'s [=environment settings object/current wall time=]
-              is less than |source|'s source time + |source|'s expiry, send a
-              report.
+            <li>If |context|'s [=environment settings object/current wall
+            time=] is less than |source|'s source time + |source|'s expiry,
+            send a report.
             </li>
           </ol>
         </div>
@@ -508,8 +517,8 @@
         Time Origin
       </h3>
       <p>
-        The <dfn data-export>Unix epoch</dfn> is the [=moment=] on the [=wall
-        clock=] corresponding to 1 January 1970 00:00:00 UTC.
+        The <dfn data-export="">Unix epoch</dfn> is the [=moment=] on the
+        [=wall clock=] corresponding to 1 January 1970 00:00:00 UTC.
       </p>
       <p>
         Each group of [=environment settings objects=] that could possibly
@@ -531,9 +540,9 @@
       </ol>
       <div class="issue">
         The above set of settings-objects-that-could-possibly-communicate needs
-        to be specified better. It's similar to <a
-        data-cite="html/browsers.html#familiar-with">familiar with</a> but
-        includes {{Worker}}s.
+        to be specified better. It's similar to <a data-cite=
+        "html/browsers.html#familiar-with">familiar with</a> but includes
+        {{Worker}}s.
       </div>
       <p>
         Performance measurements report a [=duration=] from a [=moment=] early
@@ -563,17 +572,16 @@
         </li>
       </ol>
       <p class="note">
-        The value returned by [=get time origin timestamp=] is approximately the
-        time after the [=Unix epoch=] that |global|'s [=environment settings
-        object/time origin=] happened. It may differ from the value returned by
-        <a>Date.now()</a>
-        executed at the time origin, because the former is recorded with respect
-        to a <a>monotonic clock</a> that is not subject to system and user clock
-        adjustments, clock skew, and so on.
+        The value returned by [=get time origin timestamp=] is approximately
+        the time after the [=Unix epoch=] that |global|'s [=environment
+        settings object/time origin=] happened. It may differ from the value
+        returned by <a>Date.now()</a> executed at the time origin, because the
+        former is recorded with respect to a <a>monotonic clock</a> that is not
+        subject to system and user clock adjustments, clock skew, and so on.
       </p>
       <div data-algorithm="coarsen time">
-        The <dfn data-export="">coarsen time</dfn> algorithm, given an [=unsafe moment=]
-        |timestamp| on some [=clock=] and an optional boolean
+        The <dfn data-export="">coarsen time</dfn> algorithm, given an [=unsafe
+        moment=] |timestamp| on some [=clock=] and an optional boolean
         |crossOriginIsolatedCapability| (default false), runs the following
         steps:
         <ol>
@@ -625,7 +633,8 @@
       </p>
       <p>
         The <dfn data-export="">unsafe shared current time</dfn> must return
-        the [=monotonic clock/unsafe current time=] of the <a>monotonic clock</a>.
+        the [=monotonic clock/unsafe current time=] of the <a>monotonic
+        clock</a>.
       </p>
       <p>
         To get an <dfn data-export="">epoch-relative timestamp</dfn>,
@@ -638,9 +647,9 @@
         <li>Assert: |time| is greater than or equal to 1 January 1970 00:00:00
         UTC.
         </li>
-        <li>Return the number of milliseconds from the [=Unix epoch=] to |time|:
-        where each day is comprised of 86,400 seconds, each of which is 1000
-        milliseconds long (i.e., don't account for leap seconds).
+        <li>Return the number of milliseconds from the [=Unix epoch=] to
+        |time|: where each day is comprised of 86,400 seconds, each of which is
+        1000 milliseconds long (i.e., don't account for leap seconds).
         </li>
       </ol>
     </section>
@@ -651,8 +660,8 @@
       <p>
         The {{DOMHighResTimeStamp}} type is used to store a [=duration=] in
         milliseconds. Depending on its context, it may represent the [=moment=]
-        that is this [=duration=] after a base [=moment=] like a
-        [=environment settings object/time origin=] or the [=Unix epoch=].
+        that is this [=duration=] after a base [=moment=] like a [=environment
+        settings object/time origin=] or the [=Unix epoch=].
       </p>
       <pre class="idl">
       typedef double DOMHighResTimeStamp;
@@ -708,11 +717,11 @@
           the <a>current high resolution time</a> (a [=duration=]).
         </p>
         <p data-tests=
-          "monotonic-clock.any.html, monotonic-clock.any.worker.html">
-          The time values returned when calling the {{Performance/now()}} method
-          on {{Performance}} objects with the same [=environment settings
-          object/time origin=] MUST use the same [=monotonic clock=]. The
-          difference between any two chronologically recorded time values
+        "monotonic-clock.any.html, monotonic-clock.any.worker.html">
+          The time values returned when calling the {{Performance/now()}}
+          method on {{Performance}} objects with the same [=environment
+          settings object/time origin=] MUST use the same [=monotonic clock=].
+          The difference between any two chronologically recorded time values
           returned from the {{Performance/now()}} method MUST never be negative
           if the two time values have the same [=environment settings
           object/time origin=].
@@ -725,15 +734,14 @@
         <p data-tests="timeOrigin.html, window-worker-timeOrigin.window.html">
           The <dfn>timeOrigin</dfn> attribute MUST return the number of
           milliseconds in the [=duration=] returned by [=get time origin
-          timestamp=] for the <a>relevant global object</a>
-          of [=this=].
+          timestamp=] for the <a>relevant global object</a> of [=this=].
         </p>
         <p data-tests="test_cross_frame_start.html">
           The time values returned when getting
           {{Performance}}.{{Performance/timeOrigin}} MUST use the same
           [=monotonic clock=] that is shared by [=environment settings
           object/time origins=], and whose reference point is the [[ECMA-262]]
-          <a data-cite= "ECMA-262#sec-time-values-and-time-range">time</a>
+          <a data-cite="ECMA-262#sec-time-values-and-time-range">time</a>
           definition - see [[[#sec-security]]].
         </p>
       </section>
@@ -858,10 +866,10 @@
         <p>
           This specification also defines an API that provides sub-millisecond
           time resolution of the zero time of the time origin, which requires
-          and exposes a <a>monotonic clock</a> to the application, and that must
-          be shared across all the browser contexts. The <a>monotonic clock</a>
-          does not need to be tied to physical time, but is recommended to be
-          set with respect to the [[ECMA-262]] definition of
+          and exposes a <a>monotonic clock</a> to the application, and that
+          must be shared across all the browser contexts. The <a>monotonic
+          clock</a> does not need to be tied to physical time, but is
+          recommended to be set with respect to the [[ECMA-262]] definition of
           <a>time</a> to avoid exposing new fingerprint entropy about the user
           — e.g. this time can already be easily obtained by the application,
           whereas exposing a new logical clock provides new information.
@@ -877,10 +885,11 @@
           adjustments. With the {{Performance/timeOrigin}} attribute, the
           attacker can also compare the [=environment settings object/time
           origin=], as reported by the <a>monotonic clock</a>, against the
-          current time-of-day estimate of the [=environment settings object/time
-          origin=] (i.e. the difference between `performance.timeOrigin` and
-          `Date.now() - performance.now()`) and potentially observe clock drift
-          between these clocks over a longer time period.
+          current time-of-day estimate of the [=environment settings
+          object/time origin=] (i.e. the difference between
+          `performance.timeOrigin` and `Date.now() - performance.now()`) and
+          potentially observe clock drift between these clocks over a longer
+          time period.
         </p>
         <p>
           In practice, the same time drift can be observed by an application
@@ -901,11 +910,10 @@
       </h3>
       <p>
         The current definition of [=environment settings object/time origin=]
-        for a {{Document}} exposes
-        the total time of cross-origin redirects prior to the request arriving
-        at the document's origin. This exposes cross-origin information,
-        however it's not yet decided how to mitigate this without causing major
-        breakages to performance metrics.
+        for a {{Document}} exposes the total time of cross-origin redirects
+        prior to the request arriving at the document's origin. This exposes
+        cross-origin information, however it's not yet decided how to mitigate
+        this without causing major breakages to performance metrics.
       </p>
       <p>
         To track the discussion, refer to <a href=
