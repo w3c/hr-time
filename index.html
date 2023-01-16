@@ -319,15 +319,14 @@
         </p>
         <p>
           A <dfn data-export="">duration</dfn> is the distance from one
-          [=moment=] to another from the same [=clock=]. Neither endpoint can be
-          an [=unsafe moment=] so that both [=durations=] and differences of
-          [=durations=] mitigate the concerns in
-          [[[#clock-resolution]]]. [=Durations=] are measured in milliseconds,
-          seconds, etc. Since all [=clocks=] attempt to count at the same rate,
-          [=durations=] don't have an associated [=clock=], and a [=duration=]
-          calculated from two [=moments=] on one clock can be added to a
-          [=moment=] from a second [=clock=], to produce another [=moment=] on
-          that second [=clock=].
+          [=moment=] to another from the same [=clock=]. Neither endpoint can
+          be an [=unsafe moment=] so that both [=durations=] and differences of
+          [=durations=] mitigate the concerns in [[[#clock-resolution]]].
+          [=Durations=] are measured in milliseconds, seconds, etc. Since all
+          [=clocks=] attempt to count at the same rate, [=durations=] don't
+          have an associated [=clock=], and a [=duration=] calculated from two
+          [=moments=] on one clock can be added to a [=moment=] from a second
+          [=clock=], to produce another [=moment=] on that second [=clock=].
         </p>
         <p>
           The <dfn data-export="">duration from</dfn> |a:moment| to |b:moment|
@@ -336,7 +335,8 @@
         <ol class="algorithm">
           <li>Assert: |a| was created by the same [=clock=] as |b|.
           </li>
-          <li>Assert: Both |a| and |b| are [=coarsened moments=].</li>
+          <li>Assert: Both |a| and |b| are [=coarsened moments=].
+          </li>
           <li>Return the amount of time from |a| to |b| as a [=duration=]. If
           |b| came before |a|, this will be a negative [=duration=].
           </li>
@@ -521,8 +521,8 @@
       <p>
         Each group of [=environment settings objects=] that could possibly
         communicate in any way has an <dfn>estimated monotonic time of the Unix
-        epoch</dfn>, a [=moment=] on the [=monotonic clock=], whose
-        value is initialized by the following steps:
+        epoch</dfn>, a [=moment=] on the [=monotonic clock=], whose value is
+        initialized by the following steps:
       </p>
       <ol data-algorithm=
       "initialize the estimated monotonic time of the Unix epoch">
@@ -535,8 +535,8 @@
         <li>Let |epoch time:unsafe moment on the monotonic clock| be
         <code>|monotonic time| - (|wall time| - [=Unix epoch=])</code>
         </li>
-        <li>Initialize the [=estimated monotonic time of the Unix epoch=] to the
-        result of calling [=coarsen time=] with |epoch time|.
+        <li>Initialize the [=estimated monotonic time of the Unix epoch=] to
+        the result of calling [=coarsen time=] with |epoch time|.
         </li>
       </ol>
       <div class="issue">
