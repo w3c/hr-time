@@ -319,9 +319,9 @@
         </p>
         <p>
           A <dfn data-export="">duration</dfn> is the distance from one
-          [=moment=] or [=unsafe moment=] to another from the same [=clock=].
-          At most one of the endpoints can be an [=unsafe moment=] in order to
-          ensure that all [=durations=] mitigate the concerns in
+          [=moment=] to another from the same [=clock=]. Neither endpoint can be
+          an [=unsafe moment=] so that both [=durations=] and differences of
+          [=durations=] mitigate the concerns in
           [[[#clock-resolution]]]. [=Durations=] are measured in milliseconds,
           seconds, etc. Since all [=clocks=] attempt to count at the same rate,
           [=durations=] don't have an associated [=clock=], and a [=duration=]
@@ -336,9 +336,7 @@
         <ol class="algorithm">
           <li>Assert: |a| was created by the same [=clock=] as |b|.
           </li>
-          <li>Assert: At least one of |a| or |b| is a [=coarsened moment=].
-          Equivalently, at most one is an [=unsafe moment=].
-          </li>
+          <li>Assert: Both |a| and |b| are [=coarsened moments=].</li>
           <li>Return the amount of time from |a| to |b| as a [=duration=]. If
           |b| came before |a|, this will be a negative [=duration=].
           </li>
@@ -523,7 +521,7 @@
       <p>
         Each group of [=environment settings objects=] that could possibly
         communicate in any way has an <dfn>estimated monotonic time of the Unix
-        epoch</dfn>, an [=unsafe moment=] on the [=monotonic clock=], whose
+        epoch</dfn>, a [=moment=] on the [=monotonic clock=], whose
         value is initialized by the following steps:
       </p>
       <ol data-algorithm=
@@ -534,8 +532,11 @@
         <li>Let |monotonic time| be the [=monotonic clock=]'s [=monotonic
         clock/unsafe current time=].
         </li>
-        <li>Initialize the [=estimated monotonic time of the Unix epoch=] to
-        <code>|monotonic time| - (|wall time| - [=Unix epoch=])</code>.
+        <li>Let |epoch time:unsafe moment on the monotonic clock| be
+        <code>|monotonic time| - (|wall time| - [=Unix epoch=])</code>
+        </li>
+        <li>Initialize the [=estimated monotonic time of the Unix epoch=] to the
+        result of calling [=coarsen time=] with |epoch time|.
         </li>
       </ol>
       <div class="issue">
