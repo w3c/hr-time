@@ -354,27 +354,28 @@
       </h3>
       <p>
         For measuring time within a single page (within the context of a single
-        [=environment settings object=]), use the |settingsObject:environment settings object|'s
-        <dfn data-export="" data-dfn-for="environment settings object">current
-        relative timestamp</dfn>, defined as the [=duration from=]
-        |settingsObject|'s [=environment settings object/time origin=] to the
-        |settingsObject|'s [=environment settings object/current monotonic
-        time=]. This value can be exposed directly to JavaScript using the
-        [=duration=]'s [=implicitly convert a duration to a timestamp|implicit
-        conversion=] to {{DOMHighResTimeStamp}}.
+        [=environment settings object=]), use the |settingsObject:environment
+        settings object|'s <dfn data-export="" data-dfn-for=
+        "environment settings object">current relative timestamp</dfn>, defined
+        as the [=duration from=] |settingsObject|'s [=environment settings
+        object/time origin=] to the |settingsObject|'s [=environment settings
+        object/current monotonic time=]. This value can be exposed directly to
+        JavaScript using the [=duration=]'s [=implicitly convert a duration to
+        a timestamp|implicit conversion=] to {{DOMHighResTimeStamp}}.
       </p>
       <p>
         For measuring time within a single UA execution when an [=environment
         settings object=]'s [=environment settings object/time origin=] isn't
         an appropriate base for comparison, create [=moments=] using an
         [=environment settings object=]'s [=environment settings object/current
-        monotonic time=]. An [=environment settings object=] |settingsObject:environment settings object|'s
-        <dfn data-export="" data-dfn-for="environment settings object">current
-        monotonic time</dfn> is the result of the following steps:
+        monotonic time=]. An [=environment settings object=]
+        |settingsObject:environment settings object|'s <dfn data-export=""
+        data-dfn-for="environment settings object">current monotonic time</dfn>
+        is the result of the following steps:
       </p>
       <ol>
-        <li>Let |unsafeMonotonicTime:unsafe moment on the monotonic clock| be the [=monotonic clock=]'s [=monotonic
-        clock/unsafe current time=].
+        <li>Let |unsafeMonotonicTime:unsafe moment on the monotonic clock| be
+        the [=monotonic clock=]'s [=monotonic clock/unsafe current time=].
         </li>
         <li>Return the result of calling [=coarsen time=] with
         |unsafeMonotonicTime| and |settingsObject|'s [=environment settings
@@ -390,13 +391,13 @@
         For measuring time across multiple UA executions, create [=moments=]
         using an [=environment settings object=]'s [=environment settings
         object/current wall time=]. An [=environment settings object=]
-        |settingsObject:environment settings object|'s <dfn data-export="" data-dfn-for=
-        "environment settings object">current wall time</dfn> is the result of
-        the following steps:
+        |settingsObject:environment settings object|'s <dfn data-export=""
+        data-dfn-for="environment settings object">current wall time</dfn> is
+        the result of the following steps:
       </p>
       <ol>
-        <li>Let |unsafeWallTime:unsafe moment on the wall clock| be the [=wall clock=]'s [=wall clock/unsafe
-        current time=].
+        <li>Let |unsafeWallTime:unsafe moment on the wall clock| be the [=wall
+        clock=]'s [=wall clock/unsafe current time=].
         </li>
         <li>Return the result of calling [=coarsen time=] with |unsafeWallTime|
         and |settingsObject|'s [=environment settings object/cross-origin
@@ -526,11 +527,11 @@
       </p>
       <ol data-algorithm=
       "initialize the estimated monotonic time of the Unix epoch">
-        <li>Let |wall time:unsafe moment on the wall clock| be the [=wall clock=]'s [=wall clock/unsafe current
-        time=].
+        <li>Let |wall time:unsafe moment on the wall clock| be the [=wall
+        clock=]'s [=wall clock/unsafe current time=].
         </li>
-        <li>Let |monotonic time:unsafe moment on the monotonic clock| be the [=monotonic clock=]'s [=monotonic
-        clock/unsafe current time=].
+        <li>Let |monotonic time:unsafe moment on the monotonic clock| be the
+        [=monotonic clock=]'s [=monotonic clock/unsafe current time=].
         </li>
         <li>Let |epoch time:unsafe moment on the monotonic clock| be
         <code>|monotonic time| - (|wall time| - [=Unix epoch=])</code>
@@ -553,13 +554,15 @@
       </p>
       <p>
         To <dfn>get time origin timestamp</dfn>, given a [=/global object=]
-        |global:global object|, run the following steps, which return a [=duration=]:
+        |global:global object|, run the following steps, which return a
+        [=duration=]:
       </p>
       <ol>
         <li>
           <p>
-            Let |timeOrigin:moment on the monotonic clock| be |global|'s [=relevant settings
-            object=]'s [=environment settings object/time origin=].
+            Let |timeOrigin:moment on the monotonic clock| be |global|'s
+            [=relevant settings object=]'s [=environment settings object/time
+            origin=].
           </p>
           <p class="note">
             In {{Window}} contexts, this value represents the time when
@@ -582,9 +585,9 @@
       </p>
       <div data-algorithm="coarsen time">
         The <dfn data-export="">coarsen time</dfn> algorithm, given an [=unsafe
-        moment=] |timestamp:unsafe moment| on some [=clock=] and an optional boolean
-        |crossOriginIsolatedCapability:boolean| (default false), runs the following
-        steps:
+        moment=] |timestamp:unsafe moment| on some [=clock=] and an optional
+        boolean |crossOriginIsolatedCapability:boolean| (default false), runs
+        the following steps:
         <ol>
           <li>Let |time resolution:duration| be 100 microseconds, or a higher
           <a>implementation-defined</a> value.
@@ -603,34 +606,35 @@
       </div>
       <div data-algorithm="relative high resolution time">
         The <dfn data-export="">relative high resolution time</dfn> given an
-        [=unsafe moment=] from the [=monotonic clock=] |time:unsafe moment on the monotonic clock| and a
-        [=Realm/global object=] |global:global object|, is the [=duration=] returned from the
-        following steps:
+        [=unsafe moment=] from the [=monotonic clock=] |time:unsafe moment on
+        the monotonic clock| and a [=Realm/global object=] |global:global
+        object|, is the [=duration=] returned from the following steps:
         <ol>
-          <li>Let |coarse time:moment on the monotonic clock| be the result of calling [=coarsen time=] with
-          |time| and |global|'s [=relevant settings object=]'s [=environment
-          settings object/cross-origin isolated capability=].
+          <li>Let |coarse time:moment on the monotonic clock| be the result of
+          calling [=coarsen time=] with |time| and |global|'s [=relevant
+          settings object=]'s [=environment settings object/cross-origin
+          isolated capability=].
           </li>
           <li>Return the [=relative high resolution coarse time=] for |coarse
           time| and |global|.
           </li>
         </ol>The <dfn data-export="">relative high resolution coarse time</dfn>
-        given a [=moment=] from the [=monotonic clock=] |coarseTime:moment on the monotonic clock| and a
-        [=Realm/global object=] |global:global object|, is the [=duration from=] |global|'s
-        [=relevant settings object=]'s [=environment settings object/time
-        origin=] to |coarseTime|.
+        given a [=moment=] from the [=monotonic clock=] |coarseTime:moment on
+        the monotonic clock| and a [=Realm/global object=] |global:global
+        object|, is the [=duration from=] |global|'s [=relevant settings
+        object=]'s [=environment settings object/time origin=] to |coarseTime|.
       </div>
       <p>
         The <dfn data-export="">current high resolution time</dfn> given a
-        [=/global object=] |current global:global object| must return the result of
-        [=relative high resolution time=] given [=unsafe shared current time=]
-        and |current global|.
+        [=/global object=] |current global:global object| must return the
+        result of [=relative high resolution time=] given [=unsafe shared
+        current time=] and |current global|.
       </p>
       <p>
         The <dfn data-export="">coarsened shared current time</dfn> given an
-        optional boolean |crossOriginIsolatedCapability:boolean| (default false), must
-        return the result of calling [=coarsen time=] with the [=unsafe shared
-        current time=] and |crossOriginIsolatedCapability|.
+        optional boolean |crossOriginIsolatedCapability:boolean| (default
+        false), must return the result of calling [=coarsen time=] with the
+        [=unsafe shared current time=] and |crossOriginIsolatedCapability|.
       </p>
       <p>
         The <dfn data-export="">unsafe shared current time</dfn> must return
@@ -639,7 +643,8 @@
       </p>
       <p>
         To get an <dfn data-export="">epoch-relative timestamp</dfn>,
-        optionally with a [=moment=] on the [=wall clock=] |time:moment on the wall clock|:
+        optionally with a [=moment=] on the [=wall clock=] |time:moment on the
+        wall clock|:
       </p>
       <ol class="algorithm">
         <li>If |time| was not passed, set |time| to the [=wall clock=]'s [=wall
