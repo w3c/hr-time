@@ -318,6 +318,13 @@
           are not comparable.
         </p>
         <p>
+          [=Moments=] and [=unsafe moments=] represent points in time, which
+          means they can't be directly stored as numbers. Implementations will
+          usually represent a [=moment=] as a [=duration=] from some other fixed
+          point in time, but specifications should deal in the [=moments=]
+          themselves.
+        </p>
+        <p>
           A <dfn data-export="">duration</dfn> is the distance from one
           [=moment=] to another from the same [=clock=]. Neither endpoint can
           be an [=unsafe moment=] so that both [=durations=] and differences of
