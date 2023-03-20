@@ -648,28 +648,6 @@
         the [=monotonic clock/unsafe current time=] of the <a>monotonic
         clock</a>.
       </p>
-      <p>
-        To get an <dfn data-export="">epoch-relative timestamp</dfn>,
-        optionally with a [=moment=] on the [=wall clock=] |time:moment on the
-        wall clock|:
-      </p>
-      <ol class="algorithm">
-        <li>If |time| was not passed, set |time| to the [=wall clock=]'s [=wall
-        clock/unsafe current time=].
-        </li>
-        <li>Assert: |time| is greater than or equal to 1 January 1970 00:00:00
-        UTC.
-        </li>
-        <li>Return the number of milliseconds from the [=Unix epoch=] to
-        |time|: where each day is comprised of 86,400 seconds, each of which is
-        1000 milliseconds long (i.e., don't account for leap seconds).
-        </li>
-      </ol>
-      <p class="note">
-        A {{DOMHighResTimeStamp}} is a double. Therefore, using it to represent
-        an [=epoch-relative timestamp=], e.g. for the purpose of comparing it
-        with <a>Date.now()</a>, might lose sub-millisecond precision.
-      </p>
     </section>
     <section id="sec-domhighrestimestamp">
       <h3>
@@ -704,14 +682,10 @@
         </p>
       </aside>
       <p>
-        A {{EpochTimeStamp}} represents the number of milliseconds from a given
-        time to 01 January, 1970 00:00:00 UTC, excluding leap seconds.
-        Specifications that use this type define how the number of milliseconds
-        are interpreted. An {{EpochTimeStamp}} is initialized by calling
-        [=epoch-relative timestamp=] with no arguments, which defaults to the
-        current time. Specifications that require a different relative time can
-        call [=epoch-relative timestamp=] with a [=moment=] from the [=wall
-        clock=] as an argument, if needed.
+        A {{EpochTimeStamp}} represents an integral number of milliseconds from
+        the [=Unix epoch=] to a given [=moment=] on the [=wall clock=],
+        excluding leap seconds. Specifications that use this type define how the
+        number of milliseconds are interpreted.
       </p>
     </section>
     <section id="sec-performance" data-dfn-for="Performance">
