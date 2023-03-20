@@ -667,6 +667,12 @@
         accurate enough to allow measurement while preventing timing attacks -
         see <a href="#clock-resolution"></a> for additional considerations.
       </p>
+      <p class="note">
+        A {{DOMHighResTimeStamp}} is a {{double}}, so it can only represent an
+        epoch-relative time&mdash;the number of milliseconds from the [=Unix
+        epoch=] to a [=moment=]&mdash;to a finite resolution. For [=moments=] in
+        2023, that resolution is approximately 0.2µs.
+      </p>
     </section>
     <section>
       <h3>
