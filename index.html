@@ -257,8 +257,8 @@
         </p>
         <ul>
           <li>The <dfn data-export="">wall clock</dfn>'s <dfn data-dfn-for=
-          "wall clock" data-export="">unsafe current time</dfn> is always as
-          close as possible to a user's notion of time. Since a computer
+          "wall clock" data-export="" id="wall-clock-unsafe-current-time">unsafe current time</dfn>
+          is always as close as possible to a user's notion of time. Since a computer
           sometimes runs slow or fast or loses track of time, its [=wall
           clock=] sometimes needs to be adjusted, which means the [=wall
           clock/unsafe current time=] can decrease, making it unreliable for
@@ -269,8 +269,9 @@
           </li>
           <li>
             <p>
-              The <dfn data-export="">monotonic clock</dfn>'s <dfn data-export=
-              "" data-dfn-for="monotonic clock">unsafe current time</dfn> never
+              The <dfn data-export="">monotonic clock</dfn>'s <dfn data-export=""
+              data-dfn-for="monotonic clock"
+              id="monotonic-clock-unsafe-current-time">unsafe current time</dfn> never
               decreases, so it can't be changed by system clock adjustments.
               The [=monotonic clock=] only exists within a single execution of
               the [=user agent=], so it can't be used to compare events that
