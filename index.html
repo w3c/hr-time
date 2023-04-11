@@ -714,7 +714,8 @@
         </h3>
         <p data-tests="basic.any.html, basic.any.worker.html">
           The <dfn>now()</dfn> method MUST return the number of milliseconds in
-          the <a>current high resolution time</a> (a [=duration=]).
+          the <a>current high resolution time</a> given [=this=]'s [=relevant global object=]
+          (a [=duration=]).
         </p>
         <p data-tests=
         "monotonic-clock.any.html, monotonic-clock.any.worker.html">
