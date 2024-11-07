@@ -621,6 +621,21 @@
           </li>
         </ol>
       </div>
+      <div data-algorithm="coarsen render time">
+        The <dfn data-export="">coarsen render time</dfn> algorithm, given an [=unsafe
+        moment=] |timestamp:unsafe moment| on some [=clock=] and an optional
+        boolean |crossOriginIsolatedCapability:boolean| (default false), runs
+        the following steps:
+        <ol>
+          <li>If |crossOriginIsolatedCapability| is true, return |timestamp|.
+          </li>
+          <li>In an <a>implementation-defined</a> manner, coarsen and
+          potentially jitter |timestamp| such that its resolution will not
+          exceed 4 milliseconds. To maintain timestamp order, the resulting [=unsafe moment=] must be greater than  the given |timestamp|.
+          </li>
+          <li>Return timestamp.</li>
+          </ol>
+      </div>
       <div data-algorithm="relative high resolution time">
         The <dfn data-export="">relative high resolution time</dfn> given an
         [=unsafe moment=] from the [=monotonic clock=] |time:unsafe moment on
