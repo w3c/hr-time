@@ -628,8 +628,7 @@
         is the [=duration=] returned from the following steps:
         <ol>
           <li>Let |settings:environment settings object| be the |global|'s
-          [=global object/realm=]'s [=realm/principal realm=]'s
-          [=relevant settings object=].
+          [=relevant principal settings object=].
           </li>
           <li>Let |coarse time:moment on the monotonic clock| be the result of
           calling [=coarsen time=] with |time| and |settings|'s
@@ -647,9 +646,8 @@
         is the [=duration=] returned from the following steps:
         <ol>
           <li>Let |settings:environment settings object| be the |global|'s
-            [=global object/realm=]'s [=realm/principal realm=]'s
-            [=relevant settings object=].
-            </li>
+          [=relevant principal settings object=].
+          </li>
           <li>Return the [=duration from=] |settings|'s
           [=environment settings object/time origin=] to |coarseTime|.
           </li>
