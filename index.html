@@ -624,22 +624,34 @@
       <div data-algorithm="relative high resolution time">
         The <dfn data-export="">relative high resolution time</dfn> given an
         [=unsafe moment=] from the [=monotonic clock=] |time:unsafe moment on
-        the monotonic clock| and a [=Realm/global object=] |global:global
-        object|, is the [=duration=] returned from the following steps:
+        the monotonic clock| and a [=global object=] |global:global object|,
+        is the [=duration=] returned from the following steps:
         <ol>
+          <li>Let |settings:environment settings object| be the |global|'s
+          [=relevant principal settings object=].
+          </li>
           <li>Let |coarse time:moment on the monotonic clock| be the result of
-          calling [=coarsen time=] with |time| and |global|'s [=relevant
-          settings object=]'s [=environment settings object/cross-origin
-          isolated capability=].
+          calling [=coarsen time=] with |time| and |settings|'s
+          [=environment settings object/cross-origin isolated capability=].
           </li>
           <li>Return the [=relative high resolution coarse time=] for |coarse
           time| and |global|.
           </li>
-        </ol>The <dfn data-export="">relative high resolution coarse time</dfn>
+        </ol>
+      </div>
+      <div data-algorithm="relative high resolution coarse time">
+        The <dfn data-export="">relative high resolution coarse time</dfn>
         given a [=moment=] from the [=monotonic clock=] |coarseTime:moment on
-        the monotonic clock| and a [=Realm/global object=] |global:global
-        object|, is the [=duration from=] |global|'s [=relevant settings
-        object=]'s [=environment settings object/time origin=] to |coarseTime|.
+        the monotonic clock| and a [=global object=] |global:global object|,
+        is the [=duration=] returned from the following steps:
+        <ol>
+          <li>Let |settings:environment settings object| be the |global|'s
+          [=relevant principal settings object=].
+          </li>
+          <li>Return the [=duration from=] |settings|'s
+          [=environment settings object/time origin=] to |coarseTime|.
+          </li>
+        </ol>
       </div>
       <p>
         The <dfn data-export="">current high resolution time</dfn> given a
