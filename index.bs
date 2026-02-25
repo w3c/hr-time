@@ -5,7 +5,7 @@ Status: ED
 Group: webperf
 URL: https://w3c.github.io/hr-time/
 TR: https://www.w3.org/TR/hr-time-3/
-Editor: Yoav Weiss, Google LLC https://google.com/, https://blog.yoav.ws/, w3cid 58673
+Editor: Yoav Weiss, Shopify https://shopify.com/, https://blog.yoav.ws/, w3cid 58673
 Former Editor: Ilya Grigorik, Google LLC https://google.com/, igrigorik@gmail.com, w3cid 56102
 Former Editor: James Simonsen, Google LLC https://google.com/, simonjam@google.com, w3cid 45726
 Former Editor: Jatinder Mann, Microsoft Corp. https://microsoft.com/, jmann@microsoft.com, w3cid 44357
