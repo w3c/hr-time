@@ -244,10 +244,10 @@ worker.port.onmessage = function (event) {
 </p>
 <div>
 
-: The <dfn data-export>wall clock</dfn>'s <dfn data-dfn-for="wall clock" data-export id="wall-clock-unsafe-current-time">unsafe current time</dfn>
+: The <dfn data-export id=dfn-wall-clock>wall clock</dfn>'s <dfn data-dfn-for="wall clock" data-export id="wall-clock-unsafe-current-time">unsafe current time</dfn>
 :: is always as close as possible to a user's notion of time. Since a computer sometimes runs slow or fast or loses track of time, its [=wall clock=] sometimes needs to be adjusted, which means the [=wall clock/unsafe current time=] can decrease, making it unreliable for performance measurement or recording the orders of events. The web platform shares a [=wall clock=] with [[ECMA-262]] <a data-link-type="dfn" href="https://tc39.es/ecma262/#sec-time-values-and-time-range">time</a>.
 
-: The <dfn data-export>monotonic clock</dfn>'s <dfn data-export data-dfn-for="monotonic clock" id="monotonic-clock-unsafe-current-time">unsafe current time</dfn>
+: The <dfn data-export id=dfn-monotonic-clock>monotonic clock</dfn>'s <dfn data-export data-dfn-for="monotonic clock" id="monotonic-clock-unsafe-current-time">unsafe current time</dfn>
 :: never decreases, so it can't be changed by system clock adjustments. The [=monotonic clock=] only exists within a single execution of the [=user agent=], so it can't be used to compare events that might happen in different executions.
 
 </div>
@@ -264,7 +264,7 @@ worker.port.onmessage = function (event) {
 <p>
   Each [=clock=]'s <a href="#unsafe-current-time">unsafe current time</a> returns an <dfn>unsafe
   moment</dfn>. [=Coarsen time=] converts these [=unsafe moments=] to
-  <dfn data-export data-lt="moment">coarsened moments</dfn> or just
+  <dfn data-export data-lt="moment" id=dfn-moment>coarsened moments</dfn> or just
   [=moments=]. [=Unsafe moments=] and [=moments=] from different clocks
   are not comparable.
 </p>
@@ -276,7 +276,7 @@ worker.port.onmessage = function (event) {
   [=moments=] themselves.
 </p>
 <p>
-  A <dfn data-export>duration</dfn> is the distance from one
+  A <dfn data-export id=dfn-duration>duration</dfn> is the distance from one
   [=moment=] to another from the same [=clock=]. Neither endpoint can
   be an [=unsafe moment=] so that both [=durations=] and differences of
   [=durations=] mitigate the concerns in [[[#clock-resolution]]].
@@ -287,7 +287,7 @@ worker.port.onmessage = function (event) {
   [=clock=], to produce another [=moment=] on that second [=clock=].
 </p>
 <p>
-  The <dfn data-export>duration from</dfn> |a| to |b|
+  The <dfn data-export id=dfn-duration-from>duration from</dfn> |a| to |b|
   is the result of the following algorithm:
 </p>
 <ol class="algorithm">
@@ -325,7 +325,7 @@ worker.port.onmessage = function (event) {
   [=environment settings object=]'s [=environment settings object/current
   monotonic time=]. An [=environment settings object=]
   |settingsObject|'s <dfn data-export
-  data-dfn-for="environment settings object">current monotonic time</dfn>
+  data-dfn-for="environment settings object" id=dfn-current-monotonic-time>current monotonic time</dfn>
   is the result of the following steps:
 </p>
 <ol>
@@ -473,7 +473,7 @@ worker.port.onmessage = function (event) {
   Time Origin
 </h2>
 <p>
-  The <dfn data-export>Unix epoch</dfn> is the [=moment=] on the
+  The <dfn data-export id=dfn-unix-epoch>Unix epoch</dfn> is the [=moment=] on the
   [=wall clock=] corresponding to 1 January 1970 00:00:00 UTC.
 </p>
 <p>
@@ -543,7 +543,7 @@ worker.port.onmessage = function (event) {
   </span>
 </p>
 <div data-algorithm="coarsen time">
-  The <dfn data-export>coarsen time</dfn> algorithm, given an [=unsafe
+  The <dfn data-export id=dfn-coarsen-time>coarsen time</dfn> algorithm, given an [=unsafe
   moment=] |timestamp| on some [=clock=] and an optional
   boolean <var ignore>crossOriginIsolatedCapability</var> (default false), runs
   the following steps:
@@ -564,7 +564,7 @@ worker.port.onmessage = function (event) {
   </ol>
 </div>
 <div data-algorithm="relative high resolution time">
-  The <dfn data-export>relative high resolution time</dfn> given an
+  The <dfn data-export id=dfn-relative-high-resolution-time>relative high resolution time</dfn> given an
   [=unsafe moment=] from the [=monotonic clock=] <var ignore>time</var>
   and a [=/global object=] |global|, is the [=duration=] returned from the following steps:
   <ol>
@@ -576,31 +576,31 @@ worker.port.onmessage = function (event) {
     <li>Return the [=relative high resolution coarse time=] for <var ignore>coarse
     time</var> and |global|.
     </li>
-  </ol>The <dfn data-export>relative high resolution coarse time</dfn>
+  </ol>The <dfn data-export id=dfn-relative-high-resolution-coarse-time>relative high resolution coarse time</dfn>
   given a [=moment=] from the [=monotonic clock=] <var ignore>coarseTime</var>
   and a [=/global object=] |global|, is the [=duration from=] |global|'s [=relevant settings
   object=]'s [=environment settings object/time origin=] to <var ignore>coarseTime</var>.
 </div>
 <p>
-  The <dfn data-export>current high resolution time</dfn> given a
+  The <dfn data-export id=dfn-current-high-resolution-time>current high resolution time</dfn> given a
   [=/global object=] <var ignore>current global</var> must return the
   result of [=relative high resolution time=] given [=unsafe shared
   current time=] and <var ignore>current global</var>.
 </p>
 <p>
-  The <dfn data-export>coarsened shared current time</dfn> given an
+  The <dfn data-export id=dfn-coarsened-shared-current-time>coarsened shared current time</dfn> given an
   optional boolean <var ignore>crossOriginIsolatedCapability</var> (default
   false), must return the result of calling [=coarsen time=] with the
   [=unsafe shared current time=] and <var ignore>crossOriginIsolatedCapability</var>.
 </p>
 <p>
-  The <dfn data-export>unsafe shared current time</dfn> must return
+  The <dfn data-export id=dfn-unsafe-shared-current-time>unsafe shared current time</dfn> must return
   the [=monotonic clock/unsafe current time=] of the [=monotonic
   clock=].
 </p>
 
 <h2 id="sec-domhighrestimestamp">
-  The <dfn data-export>DOMHighResTimeStamp</dfn> typedef
+  The <dfn data-export id=dom-domhighrestimestamp>DOMHighResTimeStamp</dfn> typedef
 </h2>
 <p>
   The {{DOMHighResTimeStamp}} type is used to store a [=duration=] in
@@ -608,7 +608,7 @@ worker.port.onmessage = function (event) {
   that is this [=duration=] after a base [=moment=] like a [=environment
   settings object/time origin=] or the [=Unix epoch=].
 </p>
-<pre class="idl">
+<pre class="idl" id=idl-def-domhighrestimestamp>
 typedef double DOMHighResTimeStamp;
 </pre>
 <p>
@@ -624,7 +624,7 @@ typedef double DOMHighResTimeStamp;
 </p>
 
 <h2 id="sec-epochtimestamp">
-  The <dfn data-export>EpochTimeStamp</dfn> typedef
+  The <dfn data-export id=dom-epochtimestamp>EpochTimeStamp</dfn> typedef
 </h2>
 <pre class="idl">
 typedef unsigned long long EpochTimeStamp;
@@ -643,7 +643,7 @@ typedef unsigned long long EpochTimeStamp;
 </p>
 
 <h2 id="sec-performance" data-dfn-for="Performance">
-  The <dfn data-export>Performance</dfn> interface
+  The <dfn data-export id=dom-performance>Performance</dfn> interface
 </h2>
 <pre class="idl">
 [Exposed=(Window,Worker)]
