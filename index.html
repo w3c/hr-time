@@ -7,7 +7,7 @@
   <link href="https://www.w3.org/StyleSheets/TR/2021/W3C-ED" rel="stylesheet">
   <meta content="Bikeshed version 3c53a5b02, updated Thu Nov 27 17:03:30 2025 +0000" name="generator">
   <link href="https://www.w3.org/TR/hr-time-3/" rel="canonical">
-  <meta content="7e17bd9e4d07ef94294424fe52ca206aee6e80aa" name="revision">
+  <meta content="7573248f433cee026c1ad5f3208767ae2d59962a" name="revision">
   <meta content="dark light" name="color-scheme">
   <link href="https://www.w3.org/StyleSheets/TR/2021/dark.css" media="(prefers-color-scheme: dark)" rel="stylesheet" type="text/css">
 <style>
@@ -747,7 +747,7 @@ var[data-var-color="6"] { --var-vg: #FFBCF2; }
 </p>
    <h1 class="no-ref p-name" id="title">High Resolution Time</h1>
    <p id="w3c-state"><a href="https://www.w3.org/standards/types/#ED">Editor’s Draft</a>,
-    <time class="dt-updated" datetime="2026-02-25">25 February 2026</time></p>
+    <time class="dt-updated" datetime="2026-03-02">2 March 2026</time></p>
    <details open>
     <summary>More details about this document</summary>
     <div data-fill-with="spec-metadata">
@@ -1093,15 +1093,15 @@ worker<c- p>.</c->port<c- p>.</c->onmessage <c- o>=</c-> <c- a>function</c-> <c-
 </p>
    <div>
     <dl>
-     <dt data-md>The <dfn class="dfn-paneled" data-dfn-type="dfn" data-export id="wall-clock">wall clock</dfn>’s <dfn class="dfn-paneled" data-dfn-for="wall clock" data-dfn-type="dfn" data-export id="wall-clock-unsafe-current-time">unsafe current time</dfn>
+     <dt data-md>The <dfn class="dfn-paneled" data-dfn-type="dfn" data-export id="dfn-wall-clock">wall clock</dfn>’s <dfn class="dfn-paneled" data-dfn-for="wall clock" data-dfn-type="dfn" data-export id="wall-clock-unsafe-current-time">unsafe current time</dfn>
      <dd data-md>
-      <p>is always as close as possible to a user’s notion of time. Since a computer sometimes runs slow or fast or loses track of time, its <a data-link-type="dfn" href="#wall-clock" id="ref-for-wall-clock">wall clock</a> sometimes needs to be adjusted, which means the <a data-link-type="dfn" href="#wall-clock-unsafe-current-time" id="ref-for-wall-clock-unsafe-current-time">unsafe current time</a> can decrease, making it unreliable for performance measurement or recording the orders of events. The web platform shares a <a data-link-type="dfn" href="#wall-clock" id="ref-for-wall-clock①">wall clock</a> with <a data-link-type="biblio" href="#biblio-ecma-262" title="ECMAScript Language Specification">[ECMA-262]</a> <a data-link-type="dfn" href="https://tc39.es/ecma262/#sec-time-values-and-time-range">time</a>.</p>
-     <dt data-md>The <dfn class="dfn-paneled" data-dfn-type="dfn" data-export id="monotonic-clock">monotonic clock</dfn>’s <dfn class="dfn-paneled" data-dfn-for="monotonic clock" data-dfn-type="dfn" data-export id="monotonic-clock-unsafe-current-time">unsafe current time</dfn>
+      <p>is always as close as possible to a user’s notion of time. Since a computer sometimes runs slow or fast or loses track of time, its <a data-link-type="dfn" href="#dfn-wall-clock" id="ref-for-dfn-wall-clock">wall clock</a> sometimes needs to be adjusted, which means the <a data-link-type="dfn" href="#wall-clock-unsafe-current-time" id="ref-for-wall-clock-unsafe-current-time">unsafe current time</a> can decrease, making it unreliable for performance measurement or recording the orders of events. The web platform shares a <a data-link-type="dfn" href="#dfn-wall-clock" id="ref-for-dfn-wall-clock①">wall clock</a> with <a data-link-type="biblio" href="#biblio-ecma-262" title="ECMAScript Language Specification">[ECMA-262]</a> <a data-link-type="dfn" href="https://tc39.es/ecma262/#sec-time-values-and-time-range">time</a>.</p>
+     <dt data-md>The <dfn class="dfn-paneled" data-dfn-type="dfn" data-export id="dfn-monotonic-clock">monotonic clock</dfn>’s <dfn class="dfn-paneled" data-dfn-for="monotonic clock" data-dfn-type="dfn" data-export id="monotonic-clock-unsafe-current-time">unsafe current time</dfn>
      <dd data-md>
-      <p>never decreases, so it can’t be changed by system clock adjustments. The <a data-link-type="dfn" href="#monotonic-clock" id="ref-for-monotonic-clock">monotonic clock</a> only exists within a single execution of the <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#user-agent" id="ref-for-user-agent">user agent</a>, so it can’t be used to compare events that might happen in different executions.</p>
+      <p>never decreases, so it can’t be changed by system clock adjustments. The <a data-link-type="dfn" href="#dfn-monotonic-clock" id="ref-for-dfn-monotonic-clock">monotonic clock</a> only exists within a single execution of the <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#user-agent" id="ref-for-user-agent">user agent</a>, so it can’t be used to compare events that might happen in different executions.</p>
     </dl>
    </div>
-   <p class="note" role="note"><span class="allow-2119">Since the <a data-link-type="dfn" href="#monotonic-clock" id="ref-for-monotonic-clock①">monotonic clock</a> can’t be adjusted to match the user’s notion of time, it should be used for measurement, rather than user-visible times. For any time communication with the user, use the wall clock.</span></p>
+   <p class="note" role="note"><span class="allow-2119">Since the <a data-link-type="dfn" href="#dfn-monotonic-clock" id="ref-for-dfn-monotonic-clock①">monotonic clock</a> can’t be adjusted to match the user’s notion of time, it should be used for measurement, rather than user-visible times. For any time communication with the user, use the wall clock.</span></p>
    <p class="note" role="note"><span class="allow-2119">The user agent can pick a new <a data-link-type="dfn" href="#estimated-monotonic-time-of-the-unix-epoch" id="ref-for-estimated-monotonic-time-of-the-unix-epoch">estimated monotonic time of the Unix epoch</a> when the browser restarts, when it starts an isolated browsing session—e.g. incognito or a similar browsing mode—or when it creates an <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#environment-settings-object" id="ref-for-environment-settings-object">environment settings object</a> that can’t communicate with any existing settings objects. As a result, developers should not use shared timestamps as absolute time that holds its monotonic properties across all past, present, and future contexts; in practice, the monotonic properties only apply for contexts that can reach each other by exchanging messages via one of the provided messaging mechanisms - e.g. <code class="idl"><a data-link-type="idl" href="https://html.spec.whatwg.org/multipage/web-messaging.html#dom-window-postmessage-options" id="ref-for-dom-window-postmessage-options">postMessage(message, options)</a></code>, <code class="idl"><a data-link-type="idl" href="https://html.spec.whatwg.org/multipage/web-messaging.html#broadcastchannel" id="ref-for-broadcastchannel">BroadcastChannel</a></code>, etc.</span></p>
    <p class="note" role="note"><span class="allow-2119">In certain scenarios (e.g. when a tab is backgrounded), the user agent may choose to throttle timers and periodic callbacks run in that context or even freeze them entirely. Any such throttling should not affect the resolution or accuracy of the time returned by the monotonic clock.</span></p>
    <h3 class="heading settled" data-level="2.2" id="sec-moments-and-durations"><span class="secno">2.2. </span><span class="content">
@@ -1109,46 +1109,46 @@ worker<c- p>.</c->port<c- p>.</c->onmessage <c- o>=</c-> <c- a>function</c-> <c-
 </span><a class="self-link" href="#sec-moments-and-durations"></a></h3>
    <p>
   Each <a data-link-type="dfn" href="#clock" id="ref-for-clock">clock</a>’s <a href="#unsafe-current-time" id="ref-for-unsafe-current-time">unsafe current time</a> returns an <dfn class="dfn-paneled" data-dfn-type="dfn" data-lt="unsafe moment" data-noexport id="unsafe-moment">unsafe
-  moment</dfn>. <a data-link-type="dfn" href="#coarsen-time" id="ref-for-coarsen-time">Coarsen time</a> converts these <a data-link-type="dfn" href="#unsafe-moment" id="ref-for-unsafe-moment">unsafe moments</a> to
-  <dfn class="dfn-paneled" data-dfn-type="dfn" data-export data-lt="moment" id="moment">coarsened moments</dfn> or just
-  <a data-link-type="dfn" href="#moment" id="ref-for-moment">moments</a>. <a data-link-type="dfn" href="#unsafe-moment" id="ref-for-unsafe-moment①">Unsafe moments</a> and <a data-link-type="dfn" href="#moment" id="ref-for-moment①">moments</a> from different clocks
+  moment</dfn>. <a data-link-type="dfn" href="#dfn-coarsen-time" id="ref-for-dfn-coarsen-time">Coarsen time</a> converts these <a data-link-type="dfn" href="#unsafe-moment" id="ref-for-unsafe-moment">unsafe moments</a> to
+  <dfn class="dfn-paneled" data-dfn-type="dfn" data-export data-lt="moment" id="dfn-moment">coarsened moments</dfn> or just
+  <a data-link-type="dfn" href="#dfn-moment" id="ref-for-dfn-moment">moments</a>. <a data-link-type="dfn" href="#unsafe-moment" id="ref-for-unsafe-moment①">Unsafe moments</a> and <a data-link-type="dfn" href="#dfn-moment" id="ref-for-dfn-moment①">moments</a> from different clocks
   are not comparable.
 </p>
    <p class="note" role="note">
-  <a data-link-type="dfn" href="#moment" id="ref-for-moment②">Moments</a> and <a data-link-type="dfn" href="#unsafe-moment" id="ref-for-unsafe-moment②">unsafe moments</a> represent points in time, which
+  <a data-link-type="dfn" href="#dfn-moment" id="ref-for-dfn-moment②">Moments</a> and <a data-link-type="dfn" href="#unsafe-moment" id="ref-for-unsafe-moment②">unsafe moments</a> represent points in time, which
   means they can’t be directly stored as numbers. Implementations will
-  usually represent a <a data-link-type="dfn" href="#moment" id="ref-for-moment③">moment</a> as a <a data-link-type="dfn" href="#duration" id="ref-for-duration">duration</a> from some other
+  usually represent a <a data-link-type="dfn" href="#dfn-moment" id="ref-for-dfn-moment③">moment</a> as a <a data-link-type="dfn" href="#dfn-duration" id="ref-for-dfn-duration">duration</a> from some other
   fixed point in time, but specifications ought to deal in the
-  <a data-link-type="dfn" href="#moment" id="ref-for-moment④">moments</a> themselves.
+  <a data-link-type="dfn" href="#dfn-moment" id="ref-for-dfn-moment④">moments</a> themselves.
 </p>
    <p>
-  A <dfn class="dfn-paneled" data-dfn-type="dfn" data-export id="duration">duration</dfn> is the distance from one
-  <a data-link-type="dfn" href="#moment" id="ref-for-moment⑤">moment</a> to another from the same <a data-link-type="dfn" href="#clock" id="ref-for-clock①">clock</a>. Neither endpoint can
-  be an <a data-link-type="dfn" href="#unsafe-moment" id="ref-for-unsafe-moment③">unsafe moment</a> so that both <a data-link-type="dfn" href="#duration" id="ref-for-duration①">durations</a> and differences of
-  <a data-link-type="dfn" href="#duration" id="ref-for-duration②">durations</a> mitigate the concerns in [<a href="#clock-resolution">§ 9.1 Clock resolution</a>].
-  <a data-link-type="dfn" href="#duration" id="ref-for-duration③">Durations</a> are measured in milliseconds, seconds, etc. Since all
-  <a data-link-type="dfn" href="#clock" id="ref-for-clock②">clocks</a> attempt to count at the same rate, <a data-link-type="dfn" href="#duration" id="ref-for-duration④">durations</a> don’t
-  have an associated <a data-link-type="dfn" href="#clock" id="ref-for-clock③">clock</a>, and a <a data-link-type="dfn" href="#duration" id="ref-for-duration⑤">duration</a> calculated from two
-  <a data-link-type="dfn" href="#moment" id="ref-for-moment⑥">moments</a> on one clock can be added to a <a data-link-type="dfn" href="#moment" id="ref-for-moment⑦">moment</a> from a second
-  <a data-link-type="dfn" href="#clock" id="ref-for-clock④">clock</a>, to produce another <a data-link-type="dfn" href="#moment" id="ref-for-moment⑧">moment</a> on that second <a data-link-type="dfn" href="#clock" id="ref-for-clock⑤">clock</a>.
+  A <dfn class="dfn-paneled" data-dfn-type="dfn" data-export id="dfn-duration">duration</dfn> is the distance from one
+  <a data-link-type="dfn" href="#dfn-moment" id="ref-for-dfn-moment⑤">moment</a> to another from the same <a data-link-type="dfn" href="#clock" id="ref-for-clock①">clock</a>. Neither endpoint can
+  be an <a data-link-type="dfn" href="#unsafe-moment" id="ref-for-unsafe-moment③">unsafe moment</a> so that both <a data-link-type="dfn" href="#dfn-duration" id="ref-for-dfn-duration①">durations</a> and differences of
+  <a data-link-type="dfn" href="#dfn-duration" id="ref-for-dfn-duration②">durations</a> mitigate the concerns in [<a href="#clock-resolution">§ 9.1 Clock resolution</a>].
+  <a data-link-type="dfn" href="#dfn-duration" id="ref-for-dfn-duration③">Durations</a> are measured in milliseconds, seconds, etc. Since all
+  <a data-link-type="dfn" href="#clock" id="ref-for-clock②">clocks</a> attempt to count at the same rate, <a data-link-type="dfn" href="#dfn-duration" id="ref-for-dfn-duration④">durations</a> don’t
+  have an associated <a data-link-type="dfn" href="#clock" id="ref-for-clock③">clock</a>, and a <a data-link-type="dfn" href="#dfn-duration" id="ref-for-dfn-duration⑤">duration</a> calculated from two
+  <a data-link-type="dfn" href="#dfn-moment" id="ref-for-dfn-moment⑥">moments</a> on one clock can be added to a <a data-link-type="dfn" href="#dfn-moment" id="ref-for-dfn-moment⑦">moment</a> from a second
+  <a data-link-type="dfn" href="#clock" id="ref-for-clock④">clock</a>, to produce another <a data-link-type="dfn" href="#dfn-moment" id="ref-for-dfn-moment⑧">moment</a> on that second <a data-link-type="dfn" href="#clock" id="ref-for-clock⑤">clock</a>.
 </p>
    <p>
-  The <dfn class="dfn-paneled" data-dfn-type="dfn" data-export id="duration-from">duration from</dfn> <var>a</var> to <var>b</var>
+  The <dfn class="dfn-paneled" data-dfn-type="dfn" data-export id="dfn-duration-from">duration from</dfn> <var>a</var> to <var>b</var>
   is the result of the following algorithm:
 </p>
    <ol class="algorithm">
     <li>Assert: <var>a</var> was created by the same <a data-link-type="dfn" href="#clock" id="ref-for-clock⑥">clock</a> as <var>b</var>.
   
-    <li>Assert: Both <var>a</var> and <var>b</var> are <a data-link-type="dfn" href="https://w3c.github.io/hr-time/#dfn-moment" id="ref-for-dfn-moment">coarsened moments</a>.
+    <li>Assert: Both <var>a</var> and <var>b</var> are <u class="link-error" data-lt="coarsened moments" title="LINK ERROR: No &apos;dfn&apos; refs found for &apos;coarsened moments&apos;.">coarsened moments</u>.
   
-    <li>Return the amount of time from <var>a</var> to <var>b</var> as a <a data-link-type="dfn" href="#duration" id="ref-for-duration⑥">duration</a>. If
-  <var>b</var> came before <var>a</var>, this will be a negative <a data-link-type="dfn" href="#duration" id="ref-for-duration⑦">duration</a>.
+    <li>Return the amount of time from <var>a</var> to <var>b</var> as a <a data-link-type="dfn" href="#dfn-duration" id="ref-for-dfn-duration⑥">duration</a>. If
+  <var>b</var> came before <var>a</var>, this will be a negative <a data-link-type="dfn" href="#dfn-duration" id="ref-for-dfn-duration⑦">duration</a>.
   
    </ol>
    <p>
-  <a data-link-type="dfn" href="#duration" id="ref-for-duration⑧">Durations</a> can be used implicitly as <code class="idl"><a data-link-type="idl" href="#typedefdef-domhighrestimestamp" id="ref-for-typedefdef-domhighrestimestamp②">DOMHighResTimeStamp</a></code>s. To
+  <a data-link-type="dfn" href="#dfn-duration" id="ref-for-dfn-duration⑧">Durations</a> can be used implicitly as <code class="idl"><a data-link-type="idl" href="#typedefdef-domhighrestimestamp" id="ref-for-typedefdef-domhighrestimestamp②">DOMHighResTimeStamp</a></code>s. To
   <dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport id="implicitly-convert-a-duration-to-a-timestamp">implicitly convert a duration to a timestamp</dfn>, given a
-  <a data-link-type="dfn" href="#duration" id="ref-for-duration⑨">duration</a> <var>d</var>, return the number of milliseconds in <var>d</var>.
+  <a data-link-type="dfn" href="#dfn-duration" id="ref-for-dfn-duration⑨">duration</a> <var>d</var>, return the number of milliseconds in <var>d</var>.
 </p>
    <h2 class="heading settled" data-level="3" id="sec-tools"><span class="secno">3. </span><span class="content">
   Tools for Specification Authors
@@ -1156,65 +1156,65 @@ worker<c- p>.</c->port<c- p>.</c->onmessage <c- o>=</c-> <c- a>function</c-> <c-
    <p>
   For measuring time within a single page (within the context of a single
   <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#environment-settings-object" id="ref-for-environment-settings-object①">environment settings object</a>), use the <var>settingsObject</var>’s <dfn class="dfn-paneled" data-dfn-for="environment settings object" data-dfn-type="dfn" data-export id="environment-settings-object-current-relative-timestamp">current relative timestamp</dfn>, defined
-  as the <a data-link-type="dfn" href="#duration-from" id="ref-for-duration-from">duration from</a> <var>settingsObject</var>’s <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#concept-settings-object-time-origin" id="ref-for-concept-settings-object-time-origin①">time origin</a> to the <var>settingsObject</var>’s <a data-link-type="dfn" href="#environment-settings-object-current-monotonic-time" id="ref-for-environment-settings-object-current-monotonic-time">current monotonic time</a>. This value can be exposed directly to
-  JavaScript using the <a data-link-type="dfn" href="#duration" id="ref-for-duration①⓪">duration</a>’s <a data-link-type="dfn" href="#implicitly-convert-a-duration-to-a-timestamp" id="ref-for-implicitly-convert-a-duration-to-a-timestamp">implicit conversion</a> to <code class="idl"><a data-link-type="idl" href="#typedefdef-domhighrestimestamp" id="ref-for-typedefdef-domhighrestimestamp③">DOMHighResTimeStamp</a></code>.
+  as the <a data-link-type="dfn" href="#dfn-duration-from" id="ref-for-dfn-duration-from">duration from</a> <var>settingsObject</var>’s <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#concept-settings-object-time-origin" id="ref-for-concept-settings-object-time-origin①">time origin</a> to the <var>settingsObject</var>’s <a data-link-type="dfn" href="#dfn-current-monotonic-time" id="ref-for-dfn-current-monotonic-time">current monotonic time</a>. This value can be exposed directly to
+  JavaScript using the <a data-link-type="dfn" href="#dfn-duration" id="ref-for-dfn-duration①⓪">duration</a>’s <a data-link-type="dfn" href="#implicitly-convert-a-duration-to-a-timestamp" id="ref-for-implicitly-convert-a-duration-to-a-timestamp">implicit conversion</a> to <code class="idl"><a data-link-type="idl" href="#typedefdef-domhighrestimestamp" id="ref-for-typedefdef-domhighrestimestamp③">DOMHighResTimeStamp</a></code>.
 </p>
    <p>
   For measuring time within a single UA execution when an <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#environment-settings-object" id="ref-for-environment-settings-object②">environment settings object</a>’s <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#concept-settings-object-time-origin" id="ref-for-concept-settings-object-time-origin②">time origin</a> isn’t
-  an appropriate base for comparison, create <a data-link-type="dfn" href="#moment" id="ref-for-moment⑨">moments</a> using an
-  <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#environment-settings-object" id="ref-for-environment-settings-object③">environment settings object</a>’s <a data-link-type="dfn" href="#environment-settings-object-current-monotonic-time" id="ref-for-environment-settings-object-current-monotonic-time①">current monotonic time</a>. An <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#environment-settings-object" id="ref-for-environment-settings-object④">environment settings object</a>
-  <var>settingsObject</var>’s <dfn class="dfn-paneled" data-dfn-for="environment settings object" data-dfn-type="dfn" data-export id="environment-settings-object-current-monotonic-time">current monotonic time</dfn>
+  an appropriate base for comparison, create <a data-link-type="dfn" href="#dfn-moment" id="ref-for-dfn-moment⑨">moments</a> using an
+  <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#environment-settings-object" id="ref-for-environment-settings-object③">environment settings object</a>’s <a data-link-type="dfn" href="#dfn-current-monotonic-time" id="ref-for-dfn-current-monotonic-time①">current monotonic time</a>. An <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#environment-settings-object" id="ref-for-environment-settings-object④">environment settings object</a>
+  <var>settingsObject</var>’s <dfn class="dfn-paneled" data-dfn-for="environment settings object" data-dfn-type="dfn" data-export id="dfn-current-monotonic-time">current monotonic time</dfn>
   is the result of the following steps:
 </p>
    <ol>
     <li>Let <var>unsafeMonotonicTime</var> be
-  the <a data-link-type="dfn" href="#monotonic-clock" id="ref-for-monotonic-clock②">monotonic clock</a>’s <a data-link-type="dfn" href="#monotonic-clock-unsafe-current-time" id="ref-for-monotonic-clock-unsafe-current-time">unsafe current time</a>.
+  the <a data-link-type="dfn" href="#dfn-monotonic-clock" id="ref-for-dfn-monotonic-clock②">monotonic clock</a>’s <a data-link-type="dfn" href="#monotonic-clock-unsafe-current-time" id="ref-for-monotonic-clock-unsafe-current-time">unsafe current time</a>.
   
-    <li>Return the result of calling <a data-link-type="dfn" href="#coarsen-time" id="ref-for-coarsen-time①">coarsen time</a> with
+    <li>Return the result of calling <a data-link-type="dfn" href="#dfn-coarsen-time" id="ref-for-dfn-coarsen-time①">coarsen time</a> with
   <var>unsafeMonotonicTime</var> and <var>settingsObject</var>’s <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#concept-settings-object-cross-origin-isolated-capability" id="ref-for-concept-settings-object-cross-origin-isolated-capability">cross-origin isolated capability</a>.
   
    </ol>
    <p>
-  <a data-link-type="dfn" href="#moment" id="ref-for-moment①⓪">Moments</a> from the <a data-link-type="dfn" href="#monotonic-clock" id="ref-for-monotonic-clock③">monotonic clock</a> can’t be directly represented
-  in JavaScript or HTTP. Instead, expose a <a data-link-type="dfn" href="#duration" id="ref-for-duration①①">duration</a> between two such
-  <a data-link-type="dfn" href="#moment" id="ref-for-moment①①">moments</a>.
+  <a data-link-type="dfn" href="#dfn-moment" id="ref-for-dfn-moment①⓪">Moments</a> from the <a data-link-type="dfn" href="#dfn-monotonic-clock" id="ref-for-dfn-monotonic-clock③">monotonic clock</a> can’t be directly represented
+  in JavaScript or HTTP. Instead, expose a <a data-link-type="dfn" href="#dfn-duration" id="ref-for-dfn-duration①①">duration</a> between two such
+  <a data-link-type="dfn" href="#dfn-moment" id="ref-for-dfn-moment①①">moments</a>.
 </p>
    <p>
-  For measuring time across multiple UA executions, create <a data-link-type="dfn" href="#moment" id="ref-for-moment①②">moments</a>
+  For measuring time across multiple UA executions, create <a data-link-type="dfn" href="#dfn-moment" id="ref-for-dfn-moment①②">moments</a>
   using the <a data-link-type="dfn" href="#dfn-current-wall-time" id="ref-for-dfn-current-wall-time">current coarsened wall time</a> or (if you need higher
   precision in <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#concept-settings-object-cross-origin-isolated-capability" id="ref-for-concept-settings-object-cross-origin-isolated-capability①">cross-origin-isolated contexts</a>) an <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#environment-settings-object" id="ref-for-environment-settings-object⑤">environment settings object</a>’s <a data-link-type="dfn" href="#dfn-eso-current-wall-time" id="ref-for-dfn-eso-current-wall-time">current wall time</a>. The
   <dfn class="dfn-paneled" data-dfn-type="dfn" data-export data-lt="current coarsened wall time" id="dfn-current-wall-time">current coarsened wall
-  time</dfn> is the result of calling <a data-link-type="dfn" href="#coarsen-time" id="ref-for-coarsen-time②">coarsen time</a> with the <a data-link-type="dfn" href="#wall-clock" id="ref-for-wall-clock②">wall clock</a>’s <a data-link-type="dfn" href="#wall-clock-unsafe-current-time" id="ref-for-wall-clock-unsafe-current-time①">unsafe current time</a>.
+  time</dfn> is the result of calling <a data-link-type="dfn" href="#dfn-coarsen-time" id="ref-for-dfn-coarsen-time②">coarsen time</a> with the <a data-link-type="dfn" href="#dfn-wall-clock" id="ref-for-dfn-wall-clock②">wall clock</a>’s <a data-link-type="dfn" href="#wall-clock-unsafe-current-time" id="ref-for-wall-clock-unsafe-current-time①">unsafe current time</a>.
 </p>
    <p>
   An <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#environment-settings-object" id="ref-for-environment-settings-object⑥">environment settings object</a> <var>settingsObject</var>’s <dfn class="dfn-paneled" data-dfn-for="environment settings object" data-dfn-type="dfn" data-export data-lt="current wall time" id="dfn-eso-current-wall-time">current
   wall time</dfn> is the result of the following steps:
 </p>
    <ol>
-    <li>Let <var>unsafeWallTime</var> be the <a data-link-type="dfn" href="#wall-clock" id="ref-for-wall-clock③">wall clock</a>’s <a data-link-type="dfn" href="#wall-clock-unsafe-current-time" id="ref-for-wall-clock-unsafe-current-time②">unsafe current time</a>.
+    <li>Let <var>unsafeWallTime</var> be the <a data-link-type="dfn" href="#dfn-wall-clock" id="ref-for-dfn-wall-clock③">wall clock</a>’s <a data-link-type="dfn" href="#wall-clock-unsafe-current-time" id="ref-for-wall-clock-unsafe-current-time②">unsafe current time</a>.
   
-    <li>Return the result of calling <a data-link-type="dfn" href="#coarsen-time" id="ref-for-coarsen-time③">coarsen time</a> with <var>unsafeWallTime</var>
+    <li>Return the result of calling <a data-link-type="dfn" href="#dfn-coarsen-time" id="ref-for-dfn-coarsen-time③">coarsen time</a> with <var>unsafeWallTime</var>
   and <var>settingsObject</var>’s <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#concept-settings-object-cross-origin-isolated-capability" id="ref-for-concept-settings-object-cross-origin-isolated-capability②">cross-origin isolated capability</a>.
   
    </ol>
    <p class="advisement">
-  When using <a data-link-type="dfn" href="#moment" id="ref-for-moment①③">moments</a> from the <a data-link-type="dfn" href="#wall-clock" id="ref-for-wall-clock④">wall clock</a>, be sure that your
+  When using <a data-link-type="dfn" href="#dfn-moment" id="ref-for-dfn-moment①③">moments</a> from the <a data-link-type="dfn" href="#dfn-wall-clock" id="ref-for-dfn-wall-clock④">wall clock</a>, be sure that your
   design accounts for situations when the user adjusts their clock either
   forward or backward.
 </p>
    <p>
-  <a data-link-type="dfn" href="#moment" id="ref-for-moment①④">Moments</a> from the <a data-link-type="dfn" href="#wall-clock" id="ref-for-wall-clock⑤">wall clock</a> can be represented in JavaScript by
-  passing the number of milliseconds from the <a data-link-type="dfn" href="#unix-epoch" id="ref-for-unix-epoch">Unix epoch</a> to that
-  <a data-link-type="dfn" href="#moment" id="ref-for-moment①⑤">moment</a> into the <code class="idl"><a data-link-type="idl" href="https://tc39.es/ecma262/multipage/numbers-and-dates.html#sec-date-objects" id="ref-for-sec-date-objects">Date</a></code> constructor, or by passing the number of
-  nanoseconds from the <a data-link-type="dfn" href="#unix-epoch" id="ref-for-unix-epoch①">Unix epoch</a> to that <a data-link-type="dfn" href="#moment" id="ref-for-moment①⑥">moment</a> into the
+  <a data-link-type="dfn" href="#dfn-moment" id="ref-for-dfn-moment①④">Moments</a> from the <a data-link-type="dfn" href="#dfn-wall-clock" id="ref-for-dfn-wall-clock⑤">wall clock</a> can be represented in JavaScript by
+  passing the number of milliseconds from the <a data-link-type="dfn" href="#dfn-unix-epoch" id="ref-for-dfn-unix-epoch">Unix epoch</a> to that
+  <a data-link-type="dfn" href="#dfn-moment" id="ref-for-dfn-moment①⑤">moment</a> into the <code class="idl"><a data-link-type="idl" href="https://tc39.es/ecma262/multipage/numbers-and-dates.html#sec-date-objects" id="ref-for-sec-date-objects">Date</a></code> constructor, or by passing the number of
+  nanoseconds from the <a data-link-type="dfn" href="#dfn-unix-epoch" id="ref-for-dfn-unix-epoch①">Unix epoch</a> to that <a data-link-type="dfn" href="#dfn-moment" id="ref-for-dfn-moment①⑥">moment</a> into the
   <a class="idl-code" data-link-type="interface" href="https://tc39.es/proposal-temporal/#sec-temporal-instant-constructor">Temporal.Instant</a>
   constructor. <a data-link-type="biblio" href="#biblio-temporal" title="Temporal">[Temporal]</a>
 </p>
    <p class="advisement tracking-vector">
   Avoid sending similar representations between computers, as doing so
   will expose the user’s clock skew, which is a <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#tracking-vector" id="ref-for-tracking-vector">tracking vector</a>.
-  Instead, use an approach similar to <a data-link-type="dfn" href="#monotonic-clock" id="ref-for-monotonic-clock④">monotonic clock</a> <a data-link-type="dfn" href="#moment" id="ref-for-moment①⑦">moments</a> of
-  sending a duration between two <a data-link-type="dfn" href="#moment" id="ref-for-moment①⑧">moments</a>.
+  Instead, use an approach similar to <a data-link-type="dfn" href="#dfn-monotonic-clock" id="ref-for-dfn-monotonic-clock④">monotonic clock</a> <a data-link-type="dfn" href="#dfn-moment" id="ref-for-dfn-moment①⑦">moments</a> of
+  sending a duration between two <a data-link-type="dfn" href="#dfn-moment" id="ref-for-dfn-moment①⑧">moments</a>.
 </p>
    <h3 class="heading settled" data-level="3.1" id="sec-tools-examples"><span class="secno">3.1. </span><span class="content">
   Examples
@@ -1239,7 +1239,7 @@ worker<c- p>.</c->port<c- p>.</c->onmessage <c- o>=</c-> <c- a>function</c-> <c-
   </p>
     <ol start="7">
      <li>Initialize <var>report</var>’s <a href="https://www.w3.org/TR/reporting/#report-timestamp">generation time</a> to <var>settings</var>’
-    <a data-link-type="dfn" href="#environment-settings-object-current-monotonic-time" id="ref-for-environment-settings-object-current-monotonic-time②">current monotonic time</a>.
+    <a data-link-type="dfn" href="#dfn-current-monotonic-time" id="ref-for-dfn-current-monotonic-time②">current monotonic time</a>.
     
     </ol>
     <p>
@@ -1255,7 +1255,7 @@ worker<c- p>.</c->port<c- p>.</c->onmessage <c- o>=</c-> <c- a>function</c-> <c-
         
        <dd>
           The number of milliseconds between <var>report</var>’s <a href="https://www.w3.org/TR/reporting/#report-timestamp">generation time</a> and
-          <var>context</var>’s <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#relevant-settings-object" id="ref-for-relevant-settings-object①">relevant settings object</a>’s <a data-link-type="dfn" href="#environment-settings-object-current-monotonic-time" id="ref-for-environment-settings-object-current-monotonic-time③">current monotonic time</a>, rounded to the
+          <var>context</var>’s <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#relevant-settings-object" id="ref-for-relevant-settings-object①">relevant settings object</a>’s <a data-link-type="dfn" href="#dfn-current-monotonic-time" id="ref-for-dfn-current-monotonic-time③">current monotonic time</a>, rounded to the
           nearest integer.
         
        <dd>
@@ -1307,26 +1307,26 @@ worker<c- p>.</c->port<c- p>.</c->onmessage <c- o>=</c-> <c- a>function</c-> <c-
   Time Origin
 </span><a class="self-link" href="#sec-time-origin"></a></h2>
    <p>
-  The <dfn class="dfn-paneled" data-dfn-type="dfn" data-export id="unix-epoch">Unix epoch</dfn> is the <a data-link-type="dfn" href="#moment" id="ref-for-moment①⑨">moment</a> on the
-  <a data-link-type="dfn" href="#wall-clock" id="ref-for-wall-clock⑥">wall clock</a> corresponding to 1 January 1970 00:00:00 UTC.
+  The <dfn class="dfn-paneled" data-dfn-type="dfn" data-export id="dfn-unix-epoch">Unix epoch</dfn> is the <a data-link-type="dfn" href="#dfn-moment" id="ref-for-dfn-moment①⑨">moment</a> on the
+  <a data-link-type="dfn" href="#dfn-wall-clock" id="ref-for-dfn-wall-clock⑥">wall clock</a> corresponding to 1 January 1970 00:00:00 UTC.
 </p>
    <p>
   Each group of <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#environment-settings-object" id="ref-for-environment-settings-object⑦">environment settings objects</a> that could possibly
   communicate in any way has an <dfn class="dfn-paneled" data-dfn-type="dfn" data-lt="estimated monotonic time of the Unix epoch" data-noexport id="estimated-monotonic-time-of-the-unix-epoch">estimated monotonic time of the Unix
-  epoch</dfn>, a <a data-link-type="dfn" href="#moment" id="ref-for-moment②⓪">moment</a> on the <a data-link-type="dfn" href="#monotonic-clock" id="ref-for-monotonic-clock⑤">monotonic clock</a>, whose value is
+  epoch</dfn>, a <a data-link-type="dfn" href="#dfn-moment" id="ref-for-dfn-moment②⓪">moment</a> on the <a data-link-type="dfn" href="#dfn-monotonic-clock" id="ref-for-dfn-monotonic-clock⑤">monotonic clock</a>, whose value is
   initialized by the following steps:
 </p>
    <ol class="algorithm" data-algorithm="initialize the estimated monotonic time of the Unix epoch">
-    <li>Let <var>wall time</var> be the <a data-link-type="dfn" href="#wall-clock" id="ref-for-wall-clock⑦">wall clock</a>’s <a data-link-type="dfn" href="#wall-clock-unsafe-current-time" id="ref-for-wall-clock-unsafe-current-time③">unsafe current time</a>.
+    <li>Let <var>wall time</var> be the <a data-link-type="dfn" href="#dfn-wall-clock" id="ref-for-dfn-wall-clock⑦">wall clock</a>’s <a data-link-type="dfn" href="#wall-clock-unsafe-current-time" id="ref-for-wall-clock-unsafe-current-time③">unsafe current time</a>.
   
     <li>Let <var>monotonic time</var> be the
-  <a data-link-type="dfn" href="#monotonic-clock" id="ref-for-monotonic-clock⑥">monotonic clock</a>’s <a data-link-type="dfn" href="#monotonic-clock-unsafe-current-time" id="ref-for-monotonic-clock-unsafe-current-time①">unsafe current time</a>.
+  <a data-link-type="dfn" href="#dfn-monotonic-clock" id="ref-for-dfn-monotonic-clock⑥">monotonic clock</a>’s <a data-link-type="dfn" href="#monotonic-clock-unsafe-current-time" id="ref-for-monotonic-clock-unsafe-current-time①">unsafe current time</a>.
   
     <li>Let <var>epoch time</var> be
-  <code><var>monotonic time</var> - (<var>wall time</var> - <a data-link-type="dfn" href="#unix-epoch" id="ref-for-unix-epoch②">Unix epoch</a>)</code>
+  <code><var>monotonic time</var> - (<var>wall time</var> - <a data-link-type="dfn" href="#dfn-unix-epoch" id="ref-for-dfn-unix-epoch②">Unix epoch</a>)</code>
   
     <li>Initialize the <a data-link-type="dfn" href="#estimated-monotonic-time-of-the-unix-epoch" id="ref-for-estimated-monotonic-time-of-the-unix-epoch①">estimated monotonic time of the Unix epoch</a> to
-  the result of calling <a data-link-type="dfn" href="#coarsen-time" id="ref-for-coarsen-time④">coarsen time</a> with <var>epoch time</var>.
+  the result of calling <a data-link-type="dfn" href="#dfn-coarsen-time" id="ref-for-dfn-coarsen-time④">coarsen time</a> with <var>epoch time</var>.
   
    </ol>
    <div class="issue" id="issue-51f20fed"><a class="self-link" href="#issue-51f20fed"></a>
@@ -1335,14 +1335,14 @@ worker<c- p>.</c->port<c- p>.</c->onmessage <c- o>=</c-> <c- a>function</c-> <c-
   <code class="idl"><a data-link-type="idl" href="https://html.spec.whatwg.org/multipage/workers.html#worker" id="ref-for-worker②">Worker</a></code>s.
 </div>
    <p>
-  Performance measurements report a <a data-link-type="dfn" href="#duration" id="ref-for-duration①②">duration</a> from a <a data-link-type="dfn" href="#moment" id="ref-for-moment②①">moment</a> early
+  Performance measurements report a <a data-link-type="dfn" href="#dfn-duration" id="ref-for-dfn-duration①②">duration</a> from a <a data-link-type="dfn" href="#dfn-moment" id="ref-for-dfn-moment②①">moment</a> early
   in the initialization of a relevant <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#environment-settings-object" id="ref-for-environment-settings-object⑧">environment settings object</a>.
-  That <a data-link-type="dfn" href="#moment" id="ref-for-moment②②">moment</a> is stored in that settings object’s <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#concept-settings-object-time-origin" id="ref-for-concept-settings-object-time-origin③">time origin</a>.
+  That <a data-link-type="dfn" href="#dfn-moment" id="ref-for-dfn-moment②②">moment</a> is stored in that settings object’s <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#concept-settings-object-time-origin" id="ref-for-concept-settings-object-time-origin③">time origin</a>.
 </p>
    <p>
   To <dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport id="get-time-origin-timestamp">get time origin timestamp</dfn>, given a <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#global-object" id="ref-for-global-object">global object</a>
   <var>global</var>, run the following steps, which return a
-  <a data-link-type="dfn" href="#duration" id="ref-for-duration①③">duration</a>:
+  <a data-link-type="dfn" href="#dfn-duration" id="ref-for-dfn-duration①③">duration</a>:
 </p>
    <ol>
     <li>
@@ -1354,23 +1354,23 @@ worker<c- p>.</c->port<c- p>.</c->onmessage <c- o>=</c-> <c- a>function</c-> <c-
       In <code class="idl"><a data-link-type="idl" href="https://html.spec.whatwg.org/multipage/nav-history-apis.html#window" id="ref-for-window">Window</a></code> contexts, this value represents the time when
       <a href="https://html.spec.whatwg.org/multipage/browsing-the-web.html#navigate">navigation has started</a>. In <code class="idl"><a data-link-type="idl" href="https://html.spec.whatwg.org/multipage/workers.html#worker" id="ref-for-worker③">Worker</a></code> and
       <code class="idl"><a data-link-type="idl" href="https://w3c.github.io/ServiceWorker/#serviceworker" id="ref-for-serviceworker">ServiceWorker</a></code> contents, this value represent the time when the
-      <a href="https://html.spec.whatwg.org/multipage/webappapis.html#run-a-worker">worker is run</a>. <a data-link-type="biblio" href="#biblio-service-workers" title="Service Workers Nightly">[SERVICE-WORKERS]</a>
+      <a href="https://html.spec.whatwg.org/multipage/webappapis.html#run-a-worker">worker is run</a>. <a data-link-type="biblio" href="#biblio-service-workers" title="Service Workers">[SERVICE-WORKERS]</a>
     </p>
-    <li>Return the <a data-link-type="dfn" href="#duration-from" id="ref-for-duration-from①">duration from</a> the <a data-link-type="dfn" href="#estimated-monotonic-time-of-the-unix-epoch" id="ref-for-estimated-monotonic-time-of-the-unix-epoch②">estimated monotonic time of the Unix epoch</a> to <var>timeOrigin</var>.
+    <li>Return the <a data-link-type="dfn" href="#dfn-duration-from" id="ref-for-dfn-duration-from①">duration from</a> the <a data-link-type="dfn" href="#estimated-monotonic-time-of-the-unix-epoch" id="ref-for-estimated-monotonic-time-of-the-unix-epoch②">estimated monotonic time of the Unix epoch</a> to <var>timeOrigin</var>.
   
    </ol>
    <p class="note" role="note">
   <span class="allow-2119">
   The value returned by <a data-link-type="dfn" href="#get-time-origin-timestamp" id="ref-for-get-time-origin-timestamp">get time origin timestamp</a> is approximately
-  the time after the <a data-link-type="dfn" href="#unix-epoch" id="ref-for-unix-epoch③">Unix epoch</a> that <var>global</var>’s <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#concept-settings-object-time-origin" id="ref-for-concept-settings-object-time-origin⑤">time origin</a> happened. It may differ from the value
+  the time after the <a data-link-type="dfn" href="#dfn-unix-epoch" id="ref-for-dfn-unix-epoch③">Unix epoch</a> that <var>global</var>’s <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#concept-settings-object-time-origin" id="ref-for-concept-settings-object-time-origin⑤">time origin</a> happened. It may differ from the value
   returned by <a data-link-type="dfn" href="https://tc39.es/ecma262/#sec-date.now">Date.now()</a> executed at the time origin, because the
-  former is recorded with respect to a <a data-link-type="dfn" href="#monotonic-clock" id="ref-for-monotonic-clock⑦">monotonic clock</a> that is not
+  former is recorded with respect to a <a data-link-type="dfn" href="#dfn-monotonic-clock" id="ref-for-dfn-monotonic-clock⑦">monotonic clock</a> that is not
   subject to system and user clock adjustments, clock skew, and so on.
   </span>
 </p>
    <div class="algorithm" data-algorithm="coarsen time">
     
-  The <dfn class="dfn-paneled" data-dfn-type="dfn" data-export id="coarsen-time">coarsen time</dfn> algorithm, given an <a data-link-type="dfn" href="#unsafe-moment" id="ref-for-unsafe-moment④">unsafe moment</a> <var>timestamp</var> on some <a data-link-type="dfn" href="#clock" id="ref-for-clock⑦">clock</a> and an optional
+  The <dfn class="dfn-paneled" data-dfn-type="dfn" data-export id="dfn-coarsen-time">coarsen time</dfn> algorithm, given an <a data-link-type="dfn" href="#unsafe-moment" id="ref-for-unsafe-moment④">unsafe moment</a> <var>timestamp</var> on some <a data-link-type="dfn" href="#clock" id="ref-for-clock⑦">clock</a> and an optional
   boolean <var>crossOriginIsolatedCapability</var> (default false), runs
   the following steps:
   
@@ -1386,53 +1386,53 @@ worker<c- p>.</c->port<c- p>.</c->onmessage <c- o>=</c-> <c- a>function</c-> <c-
     potentially jitter <var>timestamp</var> such that its resolution will not
     exceed <var>time resolution</var>.
     
-     <li>Return <var>timestamp</var> as a <a data-link-type="dfn" href="#moment" id="ref-for-moment②③">moment</a>.
+     <li>Return <var>timestamp</var> as a <a data-link-type="dfn" href="#dfn-moment" id="ref-for-dfn-moment②③">moment</a>.
     
     </ol>
    </div>
    <div class="algorithm" data-algorithm="relative high resolution time">
     
-  The <dfn class="dfn-paneled" data-dfn-type="dfn" data-export id="relative-high-resolution-time">relative high resolution time</dfn> given an
-  <a data-link-type="dfn" href="#unsafe-moment" id="ref-for-unsafe-moment⑤">unsafe moment</a> from the <a data-link-type="dfn" href="#monotonic-clock" id="ref-for-monotonic-clock⑧">monotonic clock</a> <var>time</var>
-  and a <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#global-object" id="ref-for-global-object①">global object</a> <var>global</var>, is the <a data-link-type="dfn" href="#duration" id="ref-for-duration①④">duration</a> returned from the following steps:
+  The <dfn class="dfn-paneled" data-dfn-type="dfn" data-export id="dfn-relative-high-resolution-time">relative high resolution time</dfn> given an
+  <a data-link-type="dfn" href="#unsafe-moment" id="ref-for-unsafe-moment⑤">unsafe moment</a> from the <a data-link-type="dfn" href="#dfn-monotonic-clock" id="ref-for-dfn-monotonic-clock⑧">monotonic clock</a> <var>time</var>
+  and a <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#global-object" id="ref-for-global-object①">global object</a> <var>global</var>, is the <a data-link-type="dfn" href="#dfn-duration" id="ref-for-dfn-duration①④">duration</a> returned from the following steps:
   
     <ol>
      <li>Let <var>coarse time</var> be the result of
-    calling <a data-link-type="dfn" href="#coarsen-time" id="ref-for-coarsen-time⑤">coarsen time</a> with <var>time</var> and <var>global</var>’s <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#relevant-settings-object" id="ref-for-relevant-settings-object③">relevant settings object</a>’s <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#concept-settings-object-cross-origin-isolated-capability" id="ref-for-concept-settings-object-cross-origin-isolated-capability③">cross-origin isolated capability</a>.
+    calling <a data-link-type="dfn" href="#dfn-coarsen-time" id="ref-for-dfn-coarsen-time⑤">coarsen time</a> with <var>time</var> and <var>global</var>’s <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#relevant-settings-object" id="ref-for-relevant-settings-object③">relevant settings object</a>’s <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#concept-settings-object-cross-origin-isolated-capability" id="ref-for-concept-settings-object-cross-origin-isolated-capability③">cross-origin isolated capability</a>.
     
-     <li>Return the <a data-link-type="dfn" href="#relative-high-resolution-coarse-time" id="ref-for-relative-high-resolution-coarse-time">relative high resolution coarse time</a> for <var>coarse
+     <li>Return the <a data-link-type="dfn" href="#dfn-relative-high-resolution-coarse-time" id="ref-for-dfn-relative-high-resolution-coarse-time">relative high resolution coarse time</a> for <var>coarse
     time</var> and <var>global</var>.
     
     </ol>
-    The <dfn class="dfn-paneled" data-dfn-type="dfn" data-export id="relative-high-resolution-coarse-time">relative high resolution coarse time</dfn>
-  given a <a data-link-type="dfn" href="#moment" id="ref-for-moment②④">moment</a> from the <a data-link-type="dfn" href="#monotonic-clock" id="ref-for-monotonic-clock⑨">monotonic clock</a> <var>coarseTime</var>
-  and a <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#global-object" id="ref-for-global-object②">global object</a> <var>global</var>, is the <a data-link-type="dfn" href="#duration-from" id="ref-for-duration-from②">duration from</a> <var>global</var>’s <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#relevant-settings-object" id="ref-for-relevant-settings-object④">relevant settings object</a>’s <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#concept-settings-object-time-origin" id="ref-for-concept-settings-object-time-origin⑥">time origin</a> to <var>coarseTime</var>.
+    The <dfn class="dfn-paneled" data-dfn-type="dfn" data-export id="dfn-relative-high-resolution-coarse-time">relative high resolution coarse time</dfn>
+  given a <a data-link-type="dfn" href="#dfn-moment" id="ref-for-dfn-moment②④">moment</a> from the <a data-link-type="dfn" href="#dfn-monotonic-clock" id="ref-for-dfn-monotonic-clock⑨">monotonic clock</a> <var>coarseTime</var>
+  and a <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#global-object" id="ref-for-global-object②">global object</a> <var>global</var>, is the <a data-link-type="dfn" href="#dfn-duration-from" id="ref-for-dfn-duration-from②">duration from</a> <var>global</var>’s <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#relevant-settings-object" id="ref-for-relevant-settings-object④">relevant settings object</a>’s <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#concept-settings-object-time-origin" id="ref-for-concept-settings-object-time-origin⑥">time origin</a> to <var>coarseTime</var>.
 
    </div>
    <p>
-  The <dfn class="dfn-paneled" data-dfn-type="dfn" data-export id="current-high-resolution-time">current high resolution time</dfn> given a
+  The <dfn class="dfn-paneled" data-dfn-type="dfn" data-export id="dfn-current-high-resolution-time">current high resolution time</dfn> given a
   <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#global-object" id="ref-for-global-object③">global object</a> <var>current global</var> must return the
-  result of <a data-link-type="dfn" href="#relative-high-resolution-time" id="ref-for-relative-high-resolution-time">relative high resolution time</a> given <a data-link-type="dfn" href="#unsafe-shared-current-time" id="ref-for-unsafe-shared-current-time">unsafe shared current time</a> and <var>current global</var>.
+  result of <a data-link-type="dfn" href="#dfn-relative-high-resolution-time" id="ref-for-dfn-relative-high-resolution-time">relative high resolution time</a> given <a data-link-type="dfn" href="#dfn-unsafe-shared-current-time" id="ref-for-dfn-unsafe-shared-current-time">unsafe shared current time</a> and <var>current global</var>.
 </p>
    <p>
-  The <dfn class="dfn-paneled" data-dfn-type="dfn" data-export id="coarsened-shared-current-time">coarsened shared current time</dfn> given an
+  The <dfn class="dfn-paneled" data-dfn-type="dfn" data-export id="dfn-coarsened-shared-current-time">coarsened shared current time</dfn> given an
   optional boolean <var>crossOriginIsolatedCapability</var> (default
-  false), must return the result of calling <a data-link-type="dfn" href="#coarsen-time" id="ref-for-coarsen-time⑥">coarsen time</a> with the
-  <a data-link-type="dfn" href="#unsafe-shared-current-time" id="ref-for-unsafe-shared-current-time①">unsafe shared current time</a> and <var>crossOriginIsolatedCapability</var>.
+  false), must return the result of calling <a data-link-type="dfn" href="#dfn-coarsen-time" id="ref-for-dfn-coarsen-time⑥">coarsen time</a> with the
+  <a data-link-type="dfn" href="#dfn-unsafe-shared-current-time" id="ref-for-dfn-unsafe-shared-current-time①">unsafe shared current time</a> and <var>crossOriginIsolatedCapability</var>.
 </p>
    <p>
-  The <dfn class="dfn-paneled" data-dfn-type="dfn" data-export id="unsafe-shared-current-time">unsafe shared current time</dfn> must return
-  the <a data-link-type="dfn" href="#monotonic-clock-unsafe-current-time" id="ref-for-monotonic-clock-unsafe-current-time②">unsafe current time</a> of the <a data-link-type="dfn" href="#monotonic-clock" id="ref-for-monotonic-clock①⓪">monotonic clock</a>.
+  The <dfn class="dfn-paneled" data-dfn-type="dfn" data-export id="dfn-unsafe-shared-current-time">unsafe shared current time</dfn> must return
+  the <a data-link-type="dfn" href="#monotonic-clock-unsafe-current-time" id="ref-for-monotonic-clock-unsafe-current-time②">unsafe current time</a> of the <a data-link-type="dfn" href="#dfn-monotonic-clock" id="ref-for-dfn-monotonic-clock①⓪">monotonic clock</a>.
 </p>
    <h2 class="heading settled" data-level="5" id="sec-domhighrestimestamp"><span class="secno">5. </span><span class="content">
-  The <dfn class="dfn-paneled" data-dfn-type="dfn" data-export id="domhighrestimestamp">DOMHighResTimeStamp</dfn> typedef
+  The <dfn class="dfn-paneled" data-dfn-type="dfn" data-export id="dom-domhighrestimestamp">DOMHighResTimeStamp</dfn> typedef
 </span><a class="self-link" href="#sec-domhighrestimestamp"></a></h2>
    <p>
-  The <code class="idl"><a data-link-type="idl" href="#typedefdef-domhighrestimestamp" id="ref-for-typedefdef-domhighrestimestamp④">DOMHighResTimeStamp</a></code> type is used to store a <a data-link-type="dfn" href="#duration" id="ref-for-duration①⑤">duration</a> in
-  milliseconds. Depending on its context, it may represent the <a data-link-type="dfn" href="#moment" id="ref-for-moment②⑤">moment</a>
-  that is this <a data-link-type="dfn" href="#duration" id="ref-for-duration①⑥">duration</a> after a base <a data-link-type="dfn" href="#moment" id="ref-for-moment②⑥">moment</a> like a <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#concept-settings-object-time-origin" id="ref-for-concept-settings-object-time-origin⑦">time origin</a> or the <a data-link-type="dfn" href="#unix-epoch" id="ref-for-unix-epoch④">Unix epoch</a>.
+  The <code class="idl"><a data-link-type="idl" href="#typedefdef-domhighrestimestamp" id="ref-for-typedefdef-domhighrestimestamp④">DOMHighResTimeStamp</a></code> type is used to store a <a data-link-type="dfn" href="#dfn-duration" id="ref-for-dfn-duration①⑤">duration</a> in
+  milliseconds. Depending on its context, it may represent the <a data-link-type="dfn" href="#dfn-moment" id="ref-for-dfn-moment②⑤">moment</a>
+  that is this <a data-link-type="dfn" href="#dfn-duration" id="ref-for-dfn-duration①⑥">duration</a> after a base <a data-link-type="dfn" href="#dfn-moment" id="ref-for-dfn-moment②⑥">moment</a> like a <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#concept-settings-object-time-origin" id="ref-for-concept-settings-object-time-origin⑦">time origin</a> or the <a data-link-type="dfn" href="#dfn-unix-epoch" id="ref-for-dfn-unix-epoch④">Unix epoch</a>.
 </p>
-<pre class="def highlight idl"><c- b>typedef</c-> <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-double" id="ref-for-idl-double"><c- b>double</c-></a> <dfn class="dfn-paneled idl-code" data-dfn-type="typedef" data-export id="typedefdef-domhighrestimestamp"><code><c- g>DOMHighResTimeStamp</c-></code></dfn>;
+<pre class="def highlight idl" id="idl-def-domhighrestimestamp"><c- b>typedef</c-> <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-double" id="ref-for-idl-double"><c- b>double</c-></a> <dfn class="dfn-paneled idl-code" data-dfn-type="typedef" data-export id="typedefdef-domhighrestimestamp"><code><c- g>DOMHighResTimeStamp</c-></code></dfn>;
 </pre>
    <p>
   A <code class="idl"><a data-link-type="idl" href="#typedefdef-domhighrestimestamp" id="ref-for-typedefdef-domhighrestimestamp⑤">DOMHighResTimeStamp</a></code> SHOULD represent a time in milliseconds
@@ -1441,12 +1441,12 @@ worker<c- p>.</c->port<c- p>.</c->onmessage <c- o>=</c-> <c- a>function</c-> <c-
 </p>
    <p class="note" role="note">
   A <code class="idl"><a data-link-type="idl" href="#typedefdef-domhighrestimestamp" id="ref-for-typedefdef-domhighrestimestamp⑥">DOMHighResTimeStamp</a></code> is a <code class="idl"><a data-link-type="idl" href="https://webidl.spec.whatwg.org/#idl-double" id="ref-for-idl-double①">double</a></code>, so it can only represent an
-  epoch-relative time—the number of milliseconds from the <a data-link-type="dfn" href="#unix-epoch" id="ref-for-unix-epoch⑤">Unix epoch</a>
-  to a <a data-link-type="dfn" href="#moment" id="ref-for-moment②⑦">moment</a>—to a finite resolution. For <a data-link-type="dfn" href="#moment" id="ref-for-moment②⑧">moments</a> in 2023, that
+  epoch-relative time—the number of milliseconds from the <a data-link-type="dfn" href="#dfn-unix-epoch" id="ref-for-dfn-unix-epoch⑤">Unix epoch</a>
+  to a <a data-link-type="dfn" href="#dfn-moment" id="ref-for-dfn-moment②⑦">moment</a>—to a finite resolution. For <a data-link-type="dfn" href="#dfn-moment" id="ref-for-dfn-moment②⑧">moments</a> in 2023, that
   resolution is approximately 0.2 microseconds.
 </p>
    <h2 class="heading settled" data-level="6" id="sec-epochtimestamp"><span class="secno">6. </span><span class="content">
-  The <dfn class="dfn-paneled" data-dfn-type="dfn" data-export id="epochtimestamp">EpochTimeStamp</dfn> typedef
+  The <dfn class="dfn-paneled" data-dfn-type="dfn" data-export id="dom-epochtimestamp">EpochTimeStamp</dfn> typedef
 </span><a class="self-link" href="#sec-epochtimestamp"></a></h2>
 <pre class="def highlight idl"><c- b>typedef</c-> <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-unsigned-long-long" id="ref-for-idl-unsigned-long-long"><c- b>unsigned</c-> <c- b>long</c-> <c- b>long</c-></a> <dfn class="dfn-paneled idl-code" data-dfn-type="typedef" data-export id="typedefdef-epochtimestamp"><code><c- g>EpochTimeStamp</c-></code></dfn>;
 </pre>
@@ -1458,12 +1458,12 @@ worker<c- p>.</c->port<c- p>.</c->onmessage <c- o>=</c-> <c- a>function</c-> <c-
    </aside>
    <p>
   A <code class="idl"><a data-link-type="idl" href="#typedefdef-epochtimestamp" id="ref-for-typedefdef-epochtimestamp">EpochTimeStamp</a></code> represents an integral number of milliseconds from
-  the <a data-link-type="dfn" href="#unix-epoch" id="ref-for-unix-epoch⑥">Unix epoch</a> to a given <a data-link-type="dfn" href="#moment" id="ref-for-moment②⑨">moment</a> on the <a data-link-type="dfn" href="#wall-clock" id="ref-for-wall-clock⑧">wall clock</a>,
+  the <a data-link-type="dfn" href="#dfn-unix-epoch" id="ref-for-dfn-unix-epoch⑥">Unix epoch</a> to a given <a data-link-type="dfn" href="#dfn-moment" id="ref-for-dfn-moment②⑨">moment</a> on the <a data-link-type="dfn" href="#dfn-wall-clock" id="ref-for-dfn-wall-clock⑧">wall clock</a>,
   excluding leap seconds. Specifications that use this type define how
   the number of milliseconds are interpreted.
 </p>
    <h2 class="heading settled" data-dfn-for="Performance" data-level="7" id="sec-performance"><span class="secno">7. </span><span class="content">
-  The <dfn class="dfn-paneled" data-dfn-for="Performance" data-dfn-type="dfn" data-export id="performance-performance">Performance</dfn> interface
+  The <dfn class="dfn-paneled" data-dfn-for="Performance" data-dfn-type="dfn" data-export id="dom-performance">Performance</dfn> interface
 </span><a class="self-link" href="#sec-performance"></a></h2>
 <pre class="def highlight idl">[<a class="idl-code" data-link-type="extended-attribute" href="https://webidl.spec.whatwg.org/#Exposed" id="ref-for-Exposed"><c- g>Exposed</c-></a>=(<c- n>Window</c->,<c- n>Worker</c->)]
 <c- b>interface</c-> <dfn class="dfn-paneled idl-code" data-dfn-type="interface" data-export id="performance"><code><c- g>Performance</c-></code></dfn> : <a data-link-type="idl-name" href="https://dom.spec.whatwg.org/#eventtarget" id="ref-for-eventtarget"><c- n>EventTarget</c-></a> {
@@ -1477,11 +1477,11 @@ worker<c- p>.</c->port<c- p>.</c->onmessage <c- o>=</c-> <c- a>function</c-> <c-
 </span><a class="self-link" href="#now-method"></a></h3>
    <p data-tests="basic.any.html, basic.any.worker.html">
   The <dfn class="dfn-paneled" data-dfn-type="dfn" data-export id="now">now()</dfn> method MUST return the number of milliseconds in
-  the <a data-link-type="dfn" href="#current-high-resolution-time" id="ref-for-current-high-resolution-time">current high resolution time</a> given <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#this" id="ref-for-this①">this</a>’s <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#concept-relevant-global" id="ref-for-concept-relevant-global">relevant global object</a> (a <a data-link-type="dfn" href="#duration" id="ref-for-duration①⑦">duration</a>).
+  the <a data-link-type="dfn" href="#dfn-current-high-resolution-time" id="ref-for-dfn-current-high-resolution-time">current high resolution time</a> given <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#this" id="ref-for-this①">this</a>’s <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#concept-relevant-global" id="ref-for-concept-relevant-global">relevant global object</a> (a <a data-link-type="dfn" href="#dfn-duration" id="ref-for-dfn-duration①⑦">duration</a>).
 </p>
    <p data-tests="monotonic-clock.any.html, monotonic-clock.any.worker.html">
   The time values returned when calling the <code class="idl"><a data-link-type="idl" href="#dom-performance-now" id="ref-for-dom-performance-now①">now()</a></code>
-  method on <code class="idl"><a data-link-type="idl" href="#performance" id="ref-for-performance④">Performance</a></code> objects with the same <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#concept-settings-object-time-origin" id="ref-for-concept-settings-object-time-origin⑧">time origin</a> MUST use the same <a data-link-type="dfn" href="#monotonic-clock" id="ref-for-monotonic-clock①①">monotonic clock</a>.
+  method on <code class="idl"><a data-link-type="idl" href="#performance" id="ref-for-performance④">Performance</a></code> objects with the same <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#concept-settings-object-time-origin" id="ref-for-concept-settings-object-time-origin⑧">time origin</a> MUST use the same <a data-link-type="dfn" href="#dfn-monotonic-clock" id="ref-for-dfn-monotonic-clock①①">monotonic clock</a>.
   The difference between any two chronologically recorded time values
   returned from the <code class="idl"><a data-link-type="idl" href="#dom-performance-now" id="ref-for-dom-performance-now②">now()</a></code> method MUST never be negative
   if the two time values have the same <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#concept-settings-object-time-origin" id="ref-for-concept-settings-object-time-origin⑨">time origin</a>.
@@ -1491,12 +1491,12 @@ worker<c- p>.</c->port<c- p>.</c->onmessage <c- o>=</c-> <c- a>function</c-> <c-
 </span><a class="self-link" href="#timeorigin-attribute"></a></h3>
    <p data-tests="timeOrigin.html, window-worker-timeOrigin.window.html">
   The <dfn class="dfn-paneled" data-dfn-type="dfn" data-export id="timeorigin">timeOrigin</dfn> attribute MUST return the number of
-  milliseconds in the <a data-link-type="dfn" href="#duration" id="ref-for-duration①⑧">duration</a> returned by <a data-link-type="dfn" href="#get-time-origin-timestamp" id="ref-for-get-time-origin-timestamp①">get time origin timestamp</a> for the <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#concept-relevant-global" id="ref-for-concept-relevant-global①">relevant global object</a> of <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#this" id="ref-for-this②">this</a>.
+  milliseconds in the <a data-link-type="dfn" href="#dfn-duration" id="ref-for-dfn-duration①⑧">duration</a> returned by <a data-link-type="dfn" href="#get-time-origin-timestamp" id="ref-for-get-time-origin-timestamp①">get time origin timestamp</a> for the <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#concept-relevant-global" id="ref-for-concept-relevant-global①">relevant global object</a> of <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#this" id="ref-for-this②">this</a>.
 </p>
    <p data-tests="test_cross_frame_start.html">
   The time values returned when getting
   <code class="idl"><a data-link-type="idl" href="#performance" id="ref-for-performance⑤">Performance</a></code>.<code class="idl"><a data-link-type="idl" href="#dom-performance-timeorigin" id="ref-for-dom-performance-timeorigin②">timeOrigin</a></code> MUST use the same
-  <a data-link-type="dfn" href="#monotonic-clock" id="ref-for-monotonic-clock①②">monotonic clock</a> that is shared by <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#concept-settings-object-time-origin" id="ref-for-concept-settings-object-time-origin①⓪">time origins</a>, and whose reference point is the <a data-link-type="biblio" href="#biblio-ecma-262" title="ECMAScript Language Specification">[ECMA-262]</a>
+  <a data-link-type="dfn" href="#dfn-monotonic-clock" id="ref-for-dfn-monotonic-clock①②">monotonic clock</a> that is shared by <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#concept-settings-object-time-origin" id="ref-for-concept-settings-object-time-origin①⓪">time origins</a>, and whose reference point is the <a data-link-type="biblio" href="#biblio-ecma-262" title="ECMAScript Language Specification">[ECMA-262]</a>
   <a data-link-type="dfn" href="https://tc39.es/ecma262/#sec-time-values-and-time-range">time</a>
   definition - see [<a href="#sec-security">§ 9 Security Considerations</a>].
 </p>
@@ -1568,7 +1568,7 @@ worker<c- p>.</c->port<c- p>.</c->onmessage <c- o>=</c-> <c- a>function</c-> <c-
 </p>
    <p>
   Where necessary, the user agent should set higher resolution values
-  to <var>time resolution</var> in <a data-link-type="dfn" href="#coarsen-time" id="ref-for-coarsen-time⑦">coarsen time</a>’s processing model, to
+  to <var>time resolution</var> in <a data-link-type="dfn" href="#dfn-coarsen-time" id="ref-for-dfn-coarsen-time⑦">coarsen time</a>’s processing model, to
   address privacy and security concerns due to architecture or software
   constraints, or other considerations.
 </p>
@@ -1612,21 +1612,21 @@ worker<c- p>.</c->port<c- p>.</c->onmessage <c- o>=</c-> <c- a>function</c-> <c-
    <p>
   This specification also defines an API that provides sub-millisecond
   time resolution of the zero time of the time origin, which requires
-  and exposes a <a data-link-type="dfn" href="#monotonic-clock" id="ref-for-monotonic-clock①③">monotonic clock</a> to the application, and that
-  must be shared across all the browser contexts. The <a data-link-type="dfn" href="#monotonic-clock" id="ref-for-monotonic-clock①④">monotonic clock</a> does not need to be tied to physical time, but is
+  and exposes a <a data-link-type="dfn" href="#dfn-monotonic-clock" id="ref-for-dfn-monotonic-clock①③">monotonic clock</a> to the application, and that
+  must be shared across all the browser contexts. The <a data-link-type="dfn" href="#dfn-monotonic-clock" id="ref-for-dfn-monotonic-clock①④">monotonic clock</a> does not need to be tied to physical time, but is
   recommended to be set with respect to the <a data-link-type="biblio" href="#biblio-ecma-262" title="ECMAScript Language Specification">[ECMA-262]</a> definition of
   <a data-link-type="dfn" href="https://tc39.es/ecma262/#sec-time-values-and-time-range">time</a> to avoid exposing new fingerprint entropy about the user
   — e.g. this time can already be easily obtained by the application,
   whereas exposing a new logical clock provides new information.
 </p>
    <p>
-  However, even with the above mechanism in place, the <a data-link-type="dfn" href="#monotonic-clock" id="ref-for-monotonic-clock①⑤">monotonic clock</a> may provide additional <a href="https://en.wikipedia.org/wiki/Clock_drift">clock drift</a>
+  However, even with the above mechanism in place, the <a data-link-type="dfn" href="#dfn-monotonic-clock" id="ref-for-dfn-monotonic-clock①⑤">monotonic clock</a> may provide additional <a href="https://en.wikipedia.org/wiki/Clock_drift">clock drift</a>
   resolution. Today, the application can timestamp the time-of-day and
   monotonic time values (via <a data-link-type="dfn" href="https://tc39.es/ecma262/#sec-date.now">Date.now()</a> and
   <code class="idl"><a data-link-type="idl" href="#dom-performance-now" id="ref-for-dom-performance-now③">now()</a></code>) at multiple points within the same context and
   observe drift between them—e.g. due to automatic or user clock
   adjustments. With the <code class="idl"><a data-link-type="idl" href="#dom-performance-timeorigin" id="ref-for-dom-performance-timeorigin③">timeOrigin</a></code> attribute, the
-  attacker can also compare the <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#concept-settings-object-time-origin" id="ref-for-concept-settings-object-time-origin①①">time origin</a>, as reported by the <a data-link-type="dfn" href="#monotonic-clock" id="ref-for-monotonic-clock①⑥">monotonic clock</a>, against the
+  attacker can also compare the <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#concept-settings-object-time-origin" id="ref-for-concept-settings-object-time-origin①①">time origin</a>, as reported by the <a data-link-type="dfn" href="#dfn-monotonic-clock" id="ref-for-dfn-monotonic-clock①⑥">monotonic clock</a>, against the
   current time-of-day estimate of the <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#concept-settings-object-time-origin" id="ref-for-concept-settings-object-time-origin①②">time origin</a> (i.e. the difference between
   `performance.timeOrigin` and `Date.now() - performance.now()`) and
   potentially observe clock drift between these clocks over a longer
@@ -1732,32 +1732,32 @@ worker<c- p>.</c->port<c- p>.</c->onmessage <c- o>=</c-> <c- a>function</c-> <c-
   <h3 class="heading no-num no-ref settled" id="index-defined-here"><span class="content">Terms defined by this specification</span><a class="self-link" href="#index-defined-here"></a></h3>
   <ul class="index">
    <li><a href="#clock">clock</a><span>, in § 2.1</span>
-   <li><a href="#coarsened-shared-current-time">coarsened shared current time</a><span>, in § 4</span>
-   <li><a href="#coarsen-time">coarsen time</a><span>, in § 4</span>
+   <li><a href="#dfn-coarsened-shared-current-time">coarsened shared current time</a><span>, in § 4</span>
+   <li><a href="#dfn-coarsen-time">coarsen time</a><span>, in § 4</span>
    <li><a href="#dfn-current-wall-time">current coarsened wall time</a><span>, in § 3</span>
-   <li><a href="#current-high-resolution-time">current high resolution time</a><span>, in § 4</span>
-   <li><a href="#environment-settings-object-current-monotonic-time">current monotonic time</a><span>, in § 3</span>
+   <li><a href="#dfn-current-high-resolution-time">current high resolution time</a><span>, in § 4</span>
+   <li><a href="#dfn-current-monotonic-time">current monotonic time</a><span>, in § 3</span>
    <li><a href="#environment-settings-object-current-relative-timestamp">current relative timestamp</a><span>, in § 3</span>
    <li><a href="#dfn-eso-current-wall-time">current wall time</a><span>, in § 3</span>
    <li>
     DOMHighResTimeStamp
     <ul>
      <li><a href="#typedefdef-domhighrestimestamp">(typedef)</a><span>, in § 5</span>
-     <li><a href="#domhighrestimestamp">definition of</a><span>, in § 5</span>
+     <li><a href="#dom-domhighrestimestamp">definition of</a><span>, in § 5</span>
     </ul>
-   <li><a href="#duration">duration</a><span>, in § 2.2</span>
-   <li><a href="#duration-from">duration from</a><span>, in § 2.2</span>
+   <li><a href="#dfn-duration">duration</a><span>, in § 2.2</span>
+   <li><a href="#dfn-duration-from">duration from</a><span>, in § 2.2</span>
    <li>
     EpochTimeStamp
     <ul>
      <li><a href="#typedefdef-epochtimestamp">(typedef)</a><span>, in § 6</span>
-     <li><a href="#epochtimestamp">definition of</a><span>, in § 6</span>
+     <li><a href="#dom-epochtimestamp">definition of</a><span>, in § 6</span>
     </ul>
    <li><a href="#estimated-monotonic-time-of-the-unix-epoch">estimated monotonic time of the Unix epoch</a><span>, in § 4</span>
    <li><a href="#get-time-origin-timestamp">get time origin timestamp</a><span>, in § 4</span>
    <li><a href="#implicitly-convert-a-duration-to-a-timestamp">implicitly convert a duration to a timestamp</a><span>, in § 2.2</span>
-   <li><a href="#moment">moment</a><span>, in § 2.2</span>
-   <li><a href="#monotonic-clock">monotonic clock</a><span>, in § 2.1</span>
+   <li><a href="#dfn-moment">moment</a><span>, in § 2.2</span>
+   <li><a href="#dfn-monotonic-clock">monotonic clock</a><span>, in § 2.1</span>
    <li>
     now()
     <ul>
@@ -1768,7 +1768,7 @@ worker<c- p>.</c->port<c- p>.</c->onmessage <c- o>=</c-> <c- a>function</c-> <c-
     Performance
     <ul>
      <li><a href="#performance">(interface)</a><span>, in § 7</span>
-     <li><a href="#performance-performance">dfn for Performance</a><span>, in § 7</span>
+     <li><a href="#dom-performance">dfn for Performance</a><span>, in § 7</span>
     </ul>
    <li>
     performance
@@ -1776,8 +1776,8 @@ worker<c- p>.</c->port<c- p>.</c->onmessage <c- o>=</c-> <c- a>function</c-> <c-
      <li><a href="#dom-windoworworkerglobalscope-performance">attribute for WindowOrWorkerGlobalScope</a><span>, in § 8.1</span>
      <li><a href="#the-performance-attr">definition of</a><span>, in § 8.1</span>
     </ul>
-   <li><a href="#relative-high-resolution-coarse-time">relative high resolution coarse time</a><span>, in § 4</span>
-   <li><a href="#relative-high-resolution-time">relative high resolution time</a><span>, in § 4</span>
+   <li><a href="#dfn-relative-high-resolution-coarse-time">relative high resolution coarse time</a><span>, in § 4</span>
+   <li><a href="#dfn-relative-high-resolution-time">relative high resolution time</a><span>, in § 4</span>
    <li>
     timeOrigin
     <ul>
@@ -1790,7 +1790,7 @@ worker<c- p>.</c->port<c- p>.</c->onmessage <c- o>=</c-> <c- a>function</c-> <c-
      <li><a href="#tojson">definition of</a><span>, in § 7.3</span>
      <li><a href="#dom-performance-tojson">method for Performance</a><span>, in § 7</span>
     </ul>
-   <li><a href="#unix-epoch">Unix epoch</a><span>, in § 4</span>
+   <li><a href="#dfn-unix-epoch">Unix epoch</a><span>, in § 4</span>
    <li>
     unsafe current time
     <ul>
@@ -1799,8 +1799,8 @@ worker<c- p>.</c->port<c- p>.</c->onmessage <c- o>=</c-> <c- a>function</c-> <c-
      <li><a href="#wall-clock-unsafe-current-time">dfn for wall clock</a><span>, in § 2.1</span>
     </ul>
    <li><a href="#unsafe-moment">unsafe moment</a><span>, in § 2.2</span>
-   <li><a href="#unsafe-shared-current-time">unsafe shared current time</a><span>, in § 4</span>
-   <li><a href="#wall-clock">wall clock</a><span>, in § 2.1</span>
+   <li><a href="#dfn-unsafe-shared-current-time">unsafe shared current time</a><span>, in § 4</span>
+   <li><a href="#dfn-wall-clock">wall clock</a><span>, in § 2.1</span>
   </ul>
   <h3 class="heading no-num no-ref settled" id="index-defined-elsewhere"><span class="content">Terms defined by reference</span><a class="self-link" href="#index-defined-elsewhere"></a></h3>
   <ul class="index">
@@ -1815,11 +1815,6 @@ worker<c- p>.</c->port<c- p>.</c->onmessage <c- o>=</c-> <c- a>function</c-> <c-
     <a data-link-type="biblio">[ECMA-262]</a> defines the following terms:
     <ul>
      <li><span class="dfn-paneled" id="8c8cc336">Date</span>
-    </ul>
-   <li>
-    <a data-link-type="biblio">[HR-TIME-3]</a> defines the following terms:
-    <ul>
-     <li><span class="dfn-paneled" id="1d8f7431">coarsened moments</span>
     </ul>
    <li>
     <a data-link-type="biblio">[HTML]</a> defines the following terms:
@@ -1869,8 +1864,6 @@ worker<c- p>.</c->port<c- p>.</c->onmessage <c- o>=</c-> <c- a>function</c-> <c-
    <dd>Anne van Kesteren. <a href="https://dom.spec.whatwg.org/"><cite>DOM Standard</cite></a>. Living Standard. URL: <a href="https://dom.spec.whatwg.org/">https://dom.spec.whatwg.org/</a>
    <dt id="biblio-ecma-262">[ECMA-262]
    <dd><a href="https://tc39.es/ecma262/multipage/"><cite>ECMAScript Language Specification</cite></a>. URL: <a href="https://tc39.es/ecma262/multipage/">https://tc39.es/ecma262/multipage/</a>
-   <dt id="biblio-hr-time-3">[HR-TIME-3]
-   <dd>Yoav Weiss. <a href="https://w3c.github.io/hr-time/"><cite>High Resolution Time</cite></a>. URL: <a href="https://w3c.github.io/hr-time/">https://w3c.github.io/hr-time/</a>
    <dt id="biblio-html">[HTML]
    <dd>Anne van Kesteren; et al. <a href="https://html.spec.whatwg.org/multipage/"><cite>HTML Standard</cite></a>. Living Standard. URL: <a href="https://html.spec.whatwg.org/multipage/">https://html.spec.whatwg.org/multipage/</a>
    <dt id="biblio-infra">[INFRA]
@@ -1885,7 +1878,7 @@ worker<c- p>.</c->port<c- p>.</c->onmessage <c- o>=</c-> <c- a>function</c-> <c-
    <dt id="biblio-cache-attacks">[CACHE-ATTACKS]
    <dd>Yossef Oren; et al. <a href="https://arxiv.org/abs/1502.07373"><cite>The Spy in the Sandbox - Practical Cache Attacks in Javascript</cite></a>. 1 March 2015. URL: <a href="https://arxiv.org/abs/1502.07373">https://arxiv.org/abs/1502.07373</a>
    <dt id="biblio-service-workers">[SERVICE-WORKERS]
-   <dd>Monica CHINTALA; Yoshisato Yanagisawa. <a href="https://w3c.github.io/ServiceWorker/"><cite>Service Workers Nightly</cite></a>. URL: <a href="https://w3c.github.io/ServiceWorker/">https://w3c.github.io/ServiceWorker/</a>
+   <dd>Jake Archibald; Marijn Kruisselbrink. <a href="https://w3c.github.io/ServiceWorker/"><cite>Service Workers</cite></a>. URL: <a href="https://w3c.github.io/ServiceWorker/">https://w3c.github.io/ServiceWorker/</a>
    <dt id="biblio-spectre">[SPECTRE]
    <dd>Paul Kocher; et al. <a href="https://spectreattack.com/spectre.pdf"><cite>Spectre Attacks: Exploiting Speculative Execution</cite></a>. January 2018. URL: <a href="https://spectreattack.com/spectre.pdf">https://spectreattack.com/spectre.pdf</a>
    <dt id="biblio-temporal">[Temporal]
@@ -2118,7 +2111,6 @@ function parseHTML(markup) {
 let dfnPanelData = {
 "01d5a451": {"dfnID":"01d5a451","dfnText":"Replaceable","external":true,"refSections":[{"refs":[{"id":"ref-for-Replaceable"}],"title":"8.1. \n  The performance attribute\n"}],"url":"https://webidl.spec.whatwg.org/#Replaceable"},
 "1968aaab": {"dfnID":"1968aaab","dfnText":"ServiceWorker","external":true,"refSections":[{"refs":[{"id":"ref-for-serviceworker"}],"title":"4. \n  Time Origin\n"}],"url":"https://w3c.github.io/ServiceWorker/#serviceworker"},
-"1d8f7431": {"dfnID":"1d8f7431","dfnText":"coarsened moments","external":true,"refSections":[{"refs":[{"id":"ref-for-dfn-moment"}],"title":"2.2. \n  Moments and Durations\n"}],"url":"https://w3c.github.io/hr-time/#dfn-moment"},
 "2bc0cdf4": {"dfnID":"2bc0cdf4","dfnText":"EventTarget","external":true,"refSections":[{"refs":[{"id":"ref-for-eventtarget"}],"title":"7. \n  The Performance interface\n"}],"url":"https://dom.spec.whatwg.org/#eventtarget"},
 "3e12e042": {"dfnID":"3e12e042","dfnText":"environment settings object","external":true,"refSections":[{"refs":[{"id":"ref-for-environment-settings-object"}],"title":"2.1. \n  Clocks\n"},{"refs":[{"id":"ref-for-environment-settings-object\u2460"},{"id":"ref-for-environment-settings-object\u2461"},{"id":"ref-for-environment-settings-object\u2462"},{"id":"ref-for-environment-settings-object\u2463"},{"id":"ref-for-environment-settings-object\u2464"},{"id":"ref-for-environment-settings-object\u2465"}],"title":"3. \n  Tools for Specification Authors\n"},{"refs":[{"id":"ref-for-environment-settings-object\u2466"},{"id":"ref-for-environment-settings-object\u2467"}],"title":"4. \n  Time Origin\n"}],"url":"https://html.spec.whatwg.org/multipage/webappapis.html#environment-settings-object"},
 "4013a022": {"dfnID":"4013a022","dfnText":"this","external":true,"refSections":[{"refs":[{"id":"ref-for-this"}],"title":"3.1. \n  Examples\n"},{"refs":[{"id":"ref-for-this\u2460"}],"title":"7.1. \n  now() method\n"},{"refs":[{"id":"ref-for-this\u2461"}],"title":"7.2. \n  timeOrigin attribute\n"}],"url":"https://webidl.spec.whatwg.org/#this"},
@@ -2138,50 +2130,50 @@ let dfnPanelData = {
 "a13a702f": {"dfnID":"a13a702f","dfnText":"SharedWorker","external":true,"refSections":[{"refs":[{"id":"ref-for-sharedworker"}],"title":"1.2. \n  Examples\n"}],"url":"https://html.spec.whatwg.org/multipage/workers.html#sharedworker"},
 "bfc1c271": {"dfnID":"bfc1c271","dfnText":"Worker","external":true,"refSections":[{"refs":[{"id":"ref-for-worker"}],"title":"1.1. \n  Use-cases\n"},{"refs":[{"id":"ref-for-worker\u2460"}],"title":"1.2. \n  Examples\n"},{"refs":[{"id":"ref-for-worker\u2461"},{"id":"ref-for-worker\u2462"}],"title":"4. \n  Time Origin\n"}],"url":"https://html.spec.whatwg.org/multipage/workers.html#worker"},
 "clock": {"dfnID":"clock","dfnText":"clock","external":false,"refSections":[{"refs":[{"id":"ref-for-clock"},{"id":"ref-for-clock\u2460"},{"id":"ref-for-clock\u2461"},{"id":"ref-for-clock\u2462"},{"id":"ref-for-clock\u2463"},{"id":"ref-for-clock\u2464"},{"id":"ref-for-clock\u2465"}],"title":"2.2. \n  Moments and Durations\n"},{"refs":[{"id":"ref-for-clock\u2466"}],"title":"4. \n  Time Origin\n"}],"url":"#clock"},
-"coarsen-time": {"dfnID":"coarsen-time","dfnText":"coarsen time","external":false,"refSections":[{"refs":[{"id":"ref-for-coarsen-time"}],"title":"2.2. \n  Moments and Durations\n"},{"refs":[{"id":"ref-for-coarsen-time\u2460"},{"id":"ref-for-coarsen-time\u2461"},{"id":"ref-for-coarsen-time\u2462"}],"title":"3. \n  Tools for Specification Authors\n"},{"refs":[{"id":"ref-for-coarsen-time\u2463"},{"id":"ref-for-coarsen-time\u2464"},{"id":"ref-for-coarsen-time\u2465"}],"title":"4. \n  Time Origin\n"},{"refs":[{"id":"ref-for-coarsen-time\u2466"}],"title":"9.1. \n  Clock resolution\n"}],"url":"#coarsen-time"},
-"coarsened-shared-current-time": {"dfnID":"coarsened-shared-current-time","dfnText":"coarsened shared current time","external":false,"refSections":[],"url":"#coarsened-shared-current-time"},
-"current-high-resolution-time": {"dfnID":"current-high-resolution-time","dfnText":"current high resolution time","external":false,"refSections":[{"refs":[{"id":"ref-for-current-high-resolution-time"}],"title":"7.1. \n  now() method\n"}],"url":"#current-high-resolution-time"},
 "d4ec1548": {"dfnID":"d4ec1548","dfnText":"timeStamp","external":true,"refSections":[{"refs":[{"id":"ref-for-dom-event-timestamp"}],"title":"3.1. \n  Examples\n"}],"url":"https://dom.spec.whatwg.org/#dom-event-timestamp"},
 "d7384c6e": {"dfnID":"d7384c6e","dfnText":"tracking vector","external":true,"refSections":[{"refs":[{"id":"ref-for-tracking-vector"}],"title":"3. \n  Tools for Specification Authors\n"}],"url":"https://infra.spec.whatwg.org/#tracking-vector"},
 "dc7feabb": {"dfnID":"dc7feabb","dfnText":"default toJSON steps","external":true,"refSections":[{"refs":[{"id":"ref-for-default-tojson-steps"}],"title":"7.3. \n  toJSON() method\n"}],"url":"https://webidl.spec.whatwg.org/#default-tojson-steps"},
+"dfn-coarsen-time": {"dfnID":"dfn-coarsen-time","dfnText":"coarsen time","external":false,"refSections":[{"refs":[{"id":"ref-for-dfn-coarsen-time"}],"title":"2.2. \n  Moments and Durations\n"},{"refs":[{"id":"ref-for-dfn-coarsen-time\u2460"},{"id":"ref-for-dfn-coarsen-time\u2461"},{"id":"ref-for-dfn-coarsen-time\u2462"}],"title":"3. \n  Tools for Specification Authors\n"},{"refs":[{"id":"ref-for-dfn-coarsen-time\u2463"},{"id":"ref-for-dfn-coarsen-time\u2464"},{"id":"ref-for-dfn-coarsen-time\u2465"}],"title":"4. \n  Time Origin\n"},{"refs":[{"id":"ref-for-dfn-coarsen-time\u2466"}],"title":"9.1. \n  Clock resolution\n"}],"url":"#dfn-coarsen-time"},
+"dfn-coarsened-shared-current-time": {"dfnID":"dfn-coarsened-shared-current-time","dfnText":"coarsened shared current time","external":false,"refSections":[],"url":"#dfn-coarsened-shared-current-time"},
+"dfn-current-high-resolution-time": {"dfnID":"dfn-current-high-resolution-time","dfnText":"current high resolution time","external":false,"refSections":[{"refs":[{"id":"ref-for-dfn-current-high-resolution-time"}],"title":"7.1. \n  now() method\n"}],"url":"#dfn-current-high-resolution-time"},
+"dfn-current-monotonic-time": {"dfnID":"dfn-current-monotonic-time","dfnText":"current monotonic time","external":false,"refSections":[{"refs":[{"id":"ref-for-dfn-current-monotonic-time"},{"id":"ref-for-dfn-current-monotonic-time\u2460"}],"title":"3. \n  Tools for Specification Authors\n"},{"refs":[{"id":"ref-for-dfn-current-monotonic-time\u2461"},{"id":"ref-for-dfn-current-monotonic-time\u2462"}],"title":"3.1. \n  Examples\n"}],"url":"#dfn-current-monotonic-time"},
 "dfn-current-wall-time": {"dfnID":"dfn-current-wall-time","dfnText":"current coarsened wall\n  time","external":false,"refSections":[{"refs":[{"id":"ref-for-dfn-current-wall-time"}],"title":"3. \n  Tools for Specification Authors\n"}],"url":"#dfn-current-wall-time"},
+"dfn-duration": {"dfnID":"dfn-duration","dfnText":"duration","external":false,"refSections":[{"refs":[{"id":"ref-for-dfn-duration"},{"id":"ref-for-dfn-duration\u2460"},{"id":"ref-for-dfn-duration\u2461"},{"id":"ref-for-dfn-duration\u2462"},{"id":"ref-for-dfn-duration\u2463"},{"id":"ref-for-dfn-duration\u2464"},{"id":"ref-for-dfn-duration\u2465"},{"id":"ref-for-dfn-duration\u2466"},{"id":"ref-for-dfn-duration\u2467"},{"id":"ref-for-dfn-duration\u2468"}],"title":"2.2. \n  Moments and Durations\n"},{"refs":[{"id":"ref-for-dfn-duration\u2460\u24ea"},{"id":"ref-for-dfn-duration\u2460\u2460"}],"title":"3. \n  Tools for Specification Authors\n"},{"refs":[{"id":"ref-for-dfn-duration\u2460\u2461"},{"id":"ref-for-dfn-duration\u2460\u2462"},{"id":"ref-for-dfn-duration\u2460\u2463"}],"title":"4. \n  Time Origin\n"},{"refs":[{"id":"ref-for-dfn-duration\u2460\u2464"},{"id":"ref-for-dfn-duration\u2460\u2465"}],"title":"5. \n  The DOMHighResTimeStamp typedef\n"},{"refs":[{"id":"ref-for-dfn-duration\u2460\u2466"}],"title":"7.1. \n  now() method\n"},{"refs":[{"id":"ref-for-dfn-duration\u2460\u2467"}],"title":"7.2. \n  timeOrigin attribute\n"}],"url":"#dfn-duration"},
+"dfn-duration-from": {"dfnID":"dfn-duration-from","dfnText":"duration from","external":false,"refSections":[{"refs":[{"id":"ref-for-dfn-duration-from"}],"title":"3. \n  Tools for Specification Authors\n"},{"refs":[{"id":"ref-for-dfn-duration-from\u2460"},{"id":"ref-for-dfn-duration-from\u2461"}],"title":"4. \n  Time Origin\n"}],"url":"#dfn-duration-from"},
 "dfn-eso-current-wall-time": {"dfnID":"dfn-eso-current-wall-time","dfnText":"current\n  wall time","external":false,"refSections":[{"refs":[{"id":"ref-for-dfn-eso-current-wall-time"}],"title":"3. \n  Tools for Specification Authors\n"},{"refs":[{"id":"ref-for-dfn-eso-current-wall-time\u2460"},{"id":"ref-for-dfn-eso-current-wall-time\u2461"}],"title":"3.1. \n  Examples\n"}],"url":"#dfn-eso-current-wall-time"},
+"dfn-moment": {"dfnID":"dfn-moment","dfnText":"coarsened moments","external":false,"refSections":[{"refs":[{"id":"ref-for-dfn-moment"},{"id":"ref-for-dfn-moment\u2460"},{"id":"ref-for-dfn-moment\u2461"},{"id":"ref-for-dfn-moment\u2462"},{"id":"ref-for-dfn-moment\u2463"},{"id":"ref-for-dfn-moment\u2464"},{"id":"ref-for-dfn-moment\u2465"},{"id":"ref-for-dfn-moment\u2466"},{"id":"ref-for-dfn-moment\u2467"}],"title":"2.2. \n  Moments and Durations\n"},{"refs":[{"id":"ref-for-dfn-moment\u2468"},{"id":"ref-for-dfn-moment\u2460\u24ea"},{"id":"ref-for-dfn-moment\u2460\u2460"},{"id":"ref-for-dfn-moment\u2460\u2461"},{"id":"ref-for-dfn-moment\u2460\u2462"},{"id":"ref-for-dfn-moment\u2460\u2463"},{"id":"ref-for-dfn-moment\u2460\u2464"},{"id":"ref-for-dfn-moment\u2460\u2465"},{"id":"ref-for-dfn-moment\u2460\u2466"},{"id":"ref-for-dfn-moment\u2460\u2467"}],"title":"3. \n  Tools for Specification Authors\n"},{"refs":[{"id":"ref-for-dfn-moment\u2460\u2468"},{"id":"ref-for-dfn-moment\u2461\u24ea"},{"id":"ref-for-dfn-moment\u2461\u2460"},{"id":"ref-for-dfn-moment\u2461\u2461"},{"id":"ref-for-dfn-moment\u2461\u2462"},{"id":"ref-for-dfn-moment\u2461\u2463"}],"title":"4. \n  Time Origin\n"},{"refs":[{"id":"ref-for-dfn-moment\u2461\u2464"},{"id":"ref-for-dfn-moment\u2461\u2465"},{"id":"ref-for-dfn-moment\u2461\u2466"},{"id":"ref-for-dfn-moment\u2461\u2467"}],"title":"5. \n  The DOMHighResTimeStamp typedef\n"},{"refs":[{"id":"ref-for-dfn-moment\u2461\u2468"}],"title":"6. \n  The EpochTimeStamp typedef\n"}],"url":"#dfn-moment"},
+"dfn-monotonic-clock": {"dfnID":"dfn-monotonic-clock","dfnText":"monotonic clock","external":false,"refSections":[{"refs":[{"id":"ref-for-dfn-monotonic-clock"},{"id":"ref-for-dfn-monotonic-clock\u2460"}],"title":"2.1. \n  Clocks\n"},{"refs":[{"id":"ref-for-dfn-monotonic-clock\u2461"},{"id":"ref-for-dfn-monotonic-clock\u2462"},{"id":"ref-for-dfn-monotonic-clock\u2463"}],"title":"3. \n  Tools for Specification Authors\n"},{"refs":[{"id":"ref-for-dfn-monotonic-clock\u2464"},{"id":"ref-for-dfn-monotonic-clock\u2465"},{"id":"ref-for-dfn-monotonic-clock\u2466"},{"id":"ref-for-dfn-monotonic-clock\u2467"},{"id":"ref-for-dfn-monotonic-clock\u2468"},{"id":"ref-for-dfn-monotonic-clock\u2460\u24ea"}],"title":"4. \n  Time Origin\n"},{"refs":[{"id":"ref-for-dfn-monotonic-clock\u2460\u2460"}],"title":"7.1. \n  now() method\n"},{"refs":[{"id":"ref-for-dfn-monotonic-clock\u2460\u2461"}],"title":"7.2. \n  timeOrigin attribute\n"},{"refs":[{"id":"ref-for-dfn-monotonic-clock\u2460\u2462"},{"id":"ref-for-dfn-monotonic-clock\u2460\u2463"},{"id":"ref-for-dfn-monotonic-clock\u2460\u2464"},{"id":"ref-for-dfn-monotonic-clock\u2460\u2465"}],"title":"9.2. \n  Clock drift\n"}],"url":"#dfn-monotonic-clock"},
+"dfn-relative-high-resolution-coarse-time": {"dfnID":"dfn-relative-high-resolution-coarse-time","dfnText":"relative high resolution coarse time","external":false,"refSections":[{"refs":[{"id":"ref-for-dfn-relative-high-resolution-coarse-time"}],"title":"4. \n  Time Origin\n"}],"url":"#dfn-relative-high-resolution-coarse-time"},
+"dfn-relative-high-resolution-time": {"dfnID":"dfn-relative-high-resolution-time","dfnText":"relative high resolution time","external":false,"refSections":[{"refs":[{"id":"ref-for-dfn-relative-high-resolution-time"}],"title":"4. \n  Time Origin\n"}],"url":"#dfn-relative-high-resolution-time"},
+"dfn-unix-epoch": {"dfnID":"dfn-unix-epoch","dfnText":"Unix epoch","external":false,"refSections":[{"refs":[{"id":"ref-for-dfn-unix-epoch"},{"id":"ref-for-dfn-unix-epoch\u2460"}],"title":"3. \n  Tools for Specification Authors\n"},{"refs":[{"id":"ref-for-dfn-unix-epoch\u2461"},{"id":"ref-for-dfn-unix-epoch\u2462"}],"title":"4. \n  Time Origin\n"},{"refs":[{"id":"ref-for-dfn-unix-epoch\u2463"},{"id":"ref-for-dfn-unix-epoch\u2464"}],"title":"5. \n  The DOMHighResTimeStamp typedef\n"},{"refs":[{"id":"ref-for-dfn-unix-epoch\u2465"}],"title":"6. \n  The EpochTimeStamp typedef\n"}],"url":"#dfn-unix-epoch"},
+"dfn-unsafe-shared-current-time": {"dfnID":"dfn-unsafe-shared-current-time","dfnText":"unsafe shared current time","external":false,"refSections":[{"refs":[{"id":"ref-for-dfn-unsafe-shared-current-time"},{"id":"ref-for-dfn-unsafe-shared-current-time\u2460"}],"title":"4. \n  Time Origin\n"}],"url":"#dfn-unsafe-shared-current-time"},
+"dfn-wall-clock": {"dfnID":"dfn-wall-clock","dfnText":"wall clock","external":false,"refSections":[{"refs":[{"id":"ref-for-dfn-wall-clock"},{"id":"ref-for-dfn-wall-clock\u2460"}],"title":"2.1. \n  Clocks\n"},{"refs":[{"id":"ref-for-dfn-wall-clock\u2461"},{"id":"ref-for-dfn-wall-clock\u2462"},{"id":"ref-for-dfn-wall-clock\u2463"},{"id":"ref-for-dfn-wall-clock\u2464"}],"title":"3. \n  Tools for Specification Authors\n"},{"refs":[{"id":"ref-for-dfn-wall-clock\u2465"},{"id":"ref-for-dfn-wall-clock\u2466"}],"title":"4. \n  Time Origin\n"},{"refs":[{"id":"ref-for-dfn-wall-clock\u2467"}],"title":"6. \n  The EpochTimeStamp typedef\n"}],"url":"#dfn-wall-clock"},
+"dom-domhighrestimestamp": {"dfnID":"dom-domhighrestimestamp","dfnText":"DOMHighResTimeStamp","external":false,"refSections":[],"url":"#dom-domhighrestimestamp"},
+"dom-epochtimestamp": {"dfnID":"dom-epochtimestamp","dfnText":"EpochTimeStamp","external":false,"refSections":[],"url":"#dom-epochtimestamp"},
+"dom-performance": {"dfnID":"dom-performance","dfnText":"Performance","external":false,"refSections":[],"url":"#dom-performance"},
 "dom-performance-now": {"dfnID":"dom-performance-now","dfnText":"now","external":false,"refSections":[{"refs":[{"id":"ref-for-dom-performance-now"}],"title":"1. \n  Introduction\n"},{"refs":[{"id":"ref-for-dom-performance-now\u2460"},{"id":"ref-for-dom-performance-now\u2461"}],"title":"7.1. \n  now() method\n"},{"refs":[{"id":"ref-for-dom-performance-now\u2462"}],"title":"9.2. \n  Clock drift\n"}],"url":"#dom-performance-now"},
 "dom-performance-timeorigin": {"dfnID":"dom-performance-timeorigin","dfnText":"timeOrigin","external":false,"refSections":[{"refs":[{"id":"ref-for-dom-performance-timeorigin"}],"title":"1. \n  Introduction\n"},{"refs":[{"id":"ref-for-dom-performance-timeorigin\u2460"}],"title":"1.2. \n  Examples\n"},{"refs":[{"id":"ref-for-dom-performance-timeorigin\u2461"}],"title":"7.2. \n  timeOrigin attribute\n"},{"refs":[{"id":"ref-for-dom-performance-timeorigin\u2462"}],"title":"9.2. \n  Clock drift\n"}],"url":"#dom-performance-timeorigin"},
 "dom-performance-tojson": {"dfnID":"dom-performance-tojson","dfnText":"toJSON","external":false,"refSections":[],"url":"#dom-performance-tojson"},
 "dom-windoworworkerglobalscope-performance": {"dfnID":"dom-windoworworkerglobalscope-performance","dfnText":"performance","external":false,"refSections":[],"url":"#dom-windoworworkerglobalscope-performance"},
-"domhighrestimestamp": {"dfnID":"domhighrestimestamp","dfnText":"DOMHighResTimeStamp","external":false,"refSections":[],"url":"#domhighrestimestamp"},
-"duration": {"dfnID":"duration","dfnText":"duration","external":false,"refSections":[{"refs":[{"id":"ref-for-duration"},{"id":"ref-for-duration\u2460"},{"id":"ref-for-duration\u2461"},{"id":"ref-for-duration\u2462"},{"id":"ref-for-duration\u2463"},{"id":"ref-for-duration\u2464"},{"id":"ref-for-duration\u2465"},{"id":"ref-for-duration\u2466"},{"id":"ref-for-duration\u2467"},{"id":"ref-for-duration\u2468"}],"title":"2.2. \n  Moments and Durations\n"},{"refs":[{"id":"ref-for-duration\u2460\u24ea"},{"id":"ref-for-duration\u2460\u2460"}],"title":"3. \n  Tools for Specification Authors\n"},{"refs":[{"id":"ref-for-duration\u2460\u2461"},{"id":"ref-for-duration\u2460\u2462"},{"id":"ref-for-duration\u2460\u2463"}],"title":"4. \n  Time Origin\n"},{"refs":[{"id":"ref-for-duration\u2460\u2464"},{"id":"ref-for-duration\u2460\u2465"}],"title":"5. \n  The DOMHighResTimeStamp typedef\n"},{"refs":[{"id":"ref-for-duration\u2460\u2466"}],"title":"7.1. \n  now() method\n"},{"refs":[{"id":"ref-for-duration\u2460\u2467"}],"title":"7.2. \n  timeOrigin attribute\n"}],"url":"#duration"},
-"duration-from": {"dfnID":"duration-from","dfnText":"duration from","external":false,"refSections":[{"refs":[{"id":"ref-for-duration-from"}],"title":"3. \n  Tools for Specification Authors\n"},{"refs":[{"id":"ref-for-duration-from\u2460"},{"id":"ref-for-duration-from\u2461"}],"title":"4. \n  Time Origin\n"}],"url":"#duration-from"},
 "e99bd18e": {"dfnID":"e99bd18e","dfnText":"relevant global object","external":true,"refSections":[{"refs":[{"id":"ref-for-concept-relevant-global"}],"title":"7.1. \n  now() method\n"},{"refs":[{"id":"ref-for-concept-relevant-global\u2460"}],"title":"7.2. \n  timeOrigin attribute\n"}],"url":"https://html.spec.whatwg.org/multipage/webappapis.html#concept-relevant-global"},
 "e9c58cef": {"dfnID":"e9c58cef","dfnText":"time origin","external":true,"refSections":[{"refs":[{"id":"ref-for-concept-settings-object-time-origin"}],"title":"1.2. \n  Examples\n"},{"refs":[{"id":"ref-for-concept-settings-object-time-origin\u2460"},{"id":"ref-for-concept-settings-object-time-origin\u2461"}],"title":"3. \n  Tools for Specification Authors\n"},{"refs":[{"id":"ref-for-concept-settings-object-time-origin\u2462"},{"id":"ref-for-concept-settings-object-time-origin\u2463"},{"id":"ref-for-concept-settings-object-time-origin\u2464"},{"id":"ref-for-concept-settings-object-time-origin\u2465"}],"title":"4. \n  Time Origin\n"},{"refs":[{"id":"ref-for-concept-settings-object-time-origin\u2466"}],"title":"5. \n  The DOMHighResTimeStamp typedef\n"},{"refs":[{"id":"ref-for-concept-settings-object-time-origin\u2467"},{"id":"ref-for-concept-settings-object-time-origin\u2468"}],"title":"7.1. \n  now() method\n"},{"refs":[{"id":"ref-for-concept-settings-object-time-origin\u2460\u24ea"}],"title":"7.2. \n  timeOrigin attribute\n"},{"refs":[{"id":"ref-for-concept-settings-object-time-origin\u2460\u2460"},{"id":"ref-for-concept-settings-object-time-origin\u2460\u2461"}],"title":"9.2. \n  Clock drift\n"},{"refs":[{"id":"ref-for-concept-settings-object-time-origin\u2460\u2462"}],"title":"10. \n  Privacy Considerations\n"}],"url":"https://html.spec.whatwg.org/multipage/webappapis.html#concept-settings-object-time-origin"},
 "efd1ec5d": {"dfnID":"efd1ec5d","dfnText":"object","external":true,"refSections":[{"refs":[{"id":"ref-for-idl-object"}],"title":"7. \n  The Performance interface\n"}],"url":"https://webidl.spec.whatwg.org/#idl-object"},
-"environment-settings-object-current-monotonic-time": {"dfnID":"environment-settings-object-current-monotonic-time","dfnText":"current monotonic time","external":false,"refSections":[{"refs":[{"id":"ref-for-environment-settings-object-current-monotonic-time"},{"id":"ref-for-environment-settings-object-current-monotonic-time\u2460"}],"title":"3. \n  Tools for Specification Authors\n"},{"refs":[{"id":"ref-for-environment-settings-object-current-monotonic-time\u2461"},{"id":"ref-for-environment-settings-object-current-monotonic-time\u2462"}],"title":"3.1. \n  Examples\n"}],"url":"#environment-settings-object-current-monotonic-time"},
 "environment-settings-object-current-relative-timestamp": {"dfnID":"environment-settings-object-current-relative-timestamp","dfnText":"current relative timestamp","external":false,"refSections":[{"refs":[{"id":"ref-for-environment-settings-object-current-relative-timestamp"}],"title":"3.1. \n  Examples\n"}],"url":"#environment-settings-object-current-relative-timestamp"},
-"epochtimestamp": {"dfnID":"epochtimestamp","dfnText":"EpochTimeStamp","external":false,"refSections":[],"url":"#epochtimestamp"},
 "estimated-monotonic-time-of-the-unix-epoch": {"dfnID":"estimated-monotonic-time-of-the-unix-epoch","dfnText":"estimated monotonic time of the Unix\n  epoch","external":false,"refSections":[{"refs":[{"id":"ref-for-estimated-monotonic-time-of-the-unix-epoch"}],"title":"2.1. \n  Clocks\n"},{"refs":[{"id":"ref-for-estimated-monotonic-time-of-the-unix-epoch\u2460"},{"id":"ref-for-estimated-monotonic-time-of-the-unix-epoch\u2461"}],"title":"4. \n  Time Origin\n"}],"url":"#estimated-monotonic-time-of-the-unix-epoch"},
 "f14b47b8": {"dfnID":"f14b47b8","dfnText":"unsigned long long","external":true,"refSections":[{"refs":[{"id":"ref-for-idl-unsigned-long-long"}],"title":"6. \n  The EpochTimeStamp typedef\n"}],"url":"https://webidl.spec.whatwg.org/#idl-unsigned-long-long"},
 "f4531911": {"dfnID":"f4531911","dfnText":"Default","external":true,"refSections":[{"refs":[{"id":"ref-for-Default"}],"title":"7. \n  The Performance interface\n"}],"url":"https://webidl.spec.whatwg.org/#Default"},
 "get-time-origin-timestamp": {"dfnID":"get-time-origin-timestamp","dfnText":"get time origin timestamp","external":false,"refSections":[{"refs":[{"id":"ref-for-get-time-origin-timestamp"}],"title":"4. \n  Time Origin\n"},{"refs":[{"id":"ref-for-get-time-origin-timestamp\u2460"}],"title":"7.2. \n  timeOrigin attribute\n"}],"url":"#get-time-origin-timestamp"},
 "implicitly-convert-a-duration-to-a-timestamp": {"dfnID":"implicitly-convert-a-duration-to-a-timestamp","dfnText":"implicitly convert a duration to a timestamp","external":false,"refSections":[{"refs":[{"id":"ref-for-implicitly-convert-a-duration-to-a-timestamp"}],"title":"3. \n  Tools for Specification Authors\n"}],"url":"#implicitly-convert-a-duration-to-a-timestamp"},
-"moment": {"dfnID":"moment","dfnText":"coarsened moments","external":false,"refSections":[{"refs":[{"id":"ref-for-moment"},{"id":"ref-for-moment\u2460"},{"id":"ref-for-moment\u2461"},{"id":"ref-for-moment\u2462"},{"id":"ref-for-moment\u2463"},{"id":"ref-for-moment\u2464"},{"id":"ref-for-moment\u2465"},{"id":"ref-for-moment\u2466"},{"id":"ref-for-moment\u2467"}],"title":"2.2. \n  Moments and Durations\n"},{"refs":[{"id":"ref-for-moment\u2468"},{"id":"ref-for-moment\u2460\u24ea"},{"id":"ref-for-moment\u2460\u2460"},{"id":"ref-for-moment\u2460\u2461"},{"id":"ref-for-moment\u2460\u2462"},{"id":"ref-for-moment\u2460\u2463"},{"id":"ref-for-moment\u2460\u2464"},{"id":"ref-for-moment\u2460\u2465"},{"id":"ref-for-moment\u2460\u2466"},{"id":"ref-for-moment\u2460\u2467"}],"title":"3. \n  Tools for Specification Authors\n"},{"refs":[{"id":"ref-for-moment\u2460\u2468"},{"id":"ref-for-moment\u2461\u24ea"},{"id":"ref-for-moment\u2461\u2460"},{"id":"ref-for-moment\u2461\u2461"},{"id":"ref-for-moment\u2461\u2462"},{"id":"ref-for-moment\u2461\u2463"}],"title":"4. \n  Time Origin\n"},{"refs":[{"id":"ref-for-moment\u2461\u2464"},{"id":"ref-for-moment\u2461\u2465"},{"id":"ref-for-moment\u2461\u2466"},{"id":"ref-for-moment\u2461\u2467"}],"title":"5. \n  The DOMHighResTimeStamp typedef\n"},{"refs":[{"id":"ref-for-moment\u2461\u2468"}],"title":"6. \n  The EpochTimeStamp typedef\n"}],"url":"#moment"},
-"monotonic-clock": {"dfnID":"monotonic-clock","dfnText":"monotonic clock","external":false,"refSections":[{"refs":[{"id":"ref-for-monotonic-clock"},{"id":"ref-for-monotonic-clock\u2460"}],"title":"2.1. \n  Clocks\n"},{"refs":[{"id":"ref-for-monotonic-clock\u2461"},{"id":"ref-for-monotonic-clock\u2462"},{"id":"ref-for-monotonic-clock\u2463"}],"title":"3. \n  Tools for Specification Authors\n"},{"refs":[{"id":"ref-for-monotonic-clock\u2464"},{"id":"ref-for-monotonic-clock\u2465"},{"id":"ref-for-monotonic-clock\u2466"},{"id":"ref-for-monotonic-clock\u2467"},{"id":"ref-for-monotonic-clock\u2468"},{"id":"ref-for-monotonic-clock\u2460\u24ea"}],"title":"4. \n  Time Origin\n"},{"refs":[{"id":"ref-for-monotonic-clock\u2460\u2460"}],"title":"7.1. \n  now() method\n"},{"refs":[{"id":"ref-for-monotonic-clock\u2460\u2461"}],"title":"7.2. \n  timeOrigin attribute\n"},{"refs":[{"id":"ref-for-monotonic-clock\u2460\u2462"},{"id":"ref-for-monotonic-clock\u2460\u2463"},{"id":"ref-for-monotonic-clock\u2460\u2464"},{"id":"ref-for-monotonic-clock\u2460\u2465"}],"title":"9.2. \n  Clock drift\n"}],"url":"#monotonic-clock"},
 "monotonic-clock-unsafe-current-time": {"dfnID":"monotonic-clock-unsafe-current-time","dfnText":"unsafe current time","external":false,"refSections":[{"refs":[{"id":"ref-for-monotonic-clock-unsafe-current-time"}],"title":"3. \n  Tools for Specification Authors\n"},{"refs":[{"id":"ref-for-monotonic-clock-unsafe-current-time\u2460"},{"id":"ref-for-monotonic-clock-unsafe-current-time\u2461"}],"title":"4. \n  Time Origin\n"}],"url":"#monotonic-clock-unsafe-current-time"},
 "now": {"dfnID":"now","dfnText":"now()","external":false,"refSections":[],"url":"#now"},
 "performance": {"dfnID":"performance","dfnText":"Performance","external":false,"refSections":[{"refs":[{"id":"ref-for-performance"},{"id":"ref-for-performance\u2460"},{"id":"ref-for-performance\u2461"}],"title":"1. \n  Introduction\n"},{"refs":[{"id":"ref-for-performance\u2462"}],"title":"1.2. \n  Examples\n"},{"refs":[{"id":"ref-for-performance\u2463"}],"title":"7.1. \n  now() method\n"},{"refs":[{"id":"ref-for-performance\u2464"}],"title":"7.2. \n  timeOrigin attribute\n"},{"refs":[{"id":"ref-for-performance\u2465"}],"title":"8.1. \n  The performance attribute\n"}],"url":"#performance"},
-"performance-performance": {"dfnID":"performance-performance","dfnText":"Performance","external":false,"refSections":[],"url":"#performance-performance"},
-"relative-high-resolution-coarse-time": {"dfnID":"relative-high-resolution-coarse-time","dfnText":"relative high resolution coarse time","external":false,"refSections":[{"refs":[{"id":"ref-for-relative-high-resolution-coarse-time"}],"title":"4. \n  Time Origin\n"}],"url":"#relative-high-resolution-coarse-time"},
-"relative-high-resolution-time": {"dfnID":"relative-high-resolution-time","dfnText":"relative high resolution time","external":false,"refSections":[{"refs":[{"id":"ref-for-relative-high-resolution-time"}],"title":"4. \n  Time Origin\n"}],"url":"#relative-high-resolution-time"},
 "the-performance-attr": {"dfnID":"the-performance-attr","dfnText":"performance","external":false,"refSections":[],"url":"#the-performance-attr"},
 "timeorigin": {"dfnID":"timeorigin","dfnText":"timeOrigin","external":false,"refSections":[],"url":"#timeorigin"},
 "tojson": {"dfnID":"tojson","dfnText":"toJSON()","external":false,"refSections":[],"url":"#tojson"},
 "typedefdef-domhighrestimestamp": {"dfnID":"typedefdef-domhighrestimestamp","dfnText":"DOMHighResTimeStamp","external":false,"refSections":[{"refs":[{"id":"ref-for-typedefdef-domhighrestimestamp"}],"title":"1. \n  Introduction\n"},{"refs":[{"id":"ref-for-typedefdef-domhighrestimestamp\u2460"}],"title":"1.2. \n  Examples\n"},{"refs":[{"id":"ref-for-typedefdef-domhighrestimestamp\u2461"}],"title":"2.2. \n  Moments and Durations\n"},{"refs":[{"id":"ref-for-typedefdef-domhighrestimestamp\u2462"}],"title":"3. \n  Tools for Specification Authors\n"},{"refs":[{"id":"ref-for-typedefdef-domhighrestimestamp\u2463"},{"id":"ref-for-typedefdef-domhighrestimestamp\u2464"},{"id":"ref-for-typedefdef-domhighrestimestamp\u2465"}],"title":"5. \n  The DOMHighResTimeStamp typedef\n"},{"refs":[{"id":"ref-for-typedefdef-domhighrestimestamp\u2466"}],"title":"6. \n  The EpochTimeStamp typedef\n"},{"refs":[{"id":"ref-for-typedefdef-domhighrestimestamp\u2467"},{"id":"ref-for-typedefdef-domhighrestimestamp\u2468"}],"title":"7. \n  The Performance interface\n"},{"refs":[{"id":"ref-for-typedefdef-domhighrestimestamp\u2460\u24ea"}],"title":"9.1. \n  Clock resolution\n"}],"url":"#typedefdef-domhighrestimestamp"},
 "typedefdef-epochtimestamp": {"dfnID":"typedefdef-epochtimestamp","dfnText":"EpochTimeStamp","external":false,"refSections":[{"refs":[{"id":"ref-for-typedefdef-epochtimestamp"}],"title":"6. \n  The EpochTimeStamp typedef\n"},{"refs":[{"id":"ref-for-typedefdef-epochtimestamp\u2460"}],"title":"9.1. \n  Clock resolution\n"}],"url":"#typedefdef-epochtimestamp"},
-"unix-epoch": {"dfnID":"unix-epoch","dfnText":"Unix epoch","external":false,"refSections":[{"refs":[{"id":"ref-for-unix-epoch"},{"id":"ref-for-unix-epoch\u2460"}],"title":"3. \n  Tools for Specification Authors\n"},{"refs":[{"id":"ref-for-unix-epoch\u2461"},{"id":"ref-for-unix-epoch\u2462"}],"title":"4. \n  Time Origin\n"},{"refs":[{"id":"ref-for-unix-epoch\u2463"},{"id":"ref-for-unix-epoch\u2464"}],"title":"5. \n  The DOMHighResTimeStamp typedef\n"},{"refs":[{"id":"ref-for-unix-epoch\u2465"}],"title":"6. \n  The EpochTimeStamp typedef\n"}],"url":"#unix-epoch"},
 "unsafe-current-time": {"dfnID":"unsafe-current-time","dfnText":"unsafe current time","external":false,"refSections":[{"refs":[{"id":"ref-for-unsafe-current-time"}],"title":"2.2. \n  Moments and Durations\n"}],"url":"#unsafe-current-time"},
 "unsafe-moment": {"dfnID":"unsafe-moment","dfnText":"unsafe\n  moment","external":false,"refSections":[{"refs":[{"id":"ref-for-unsafe-moment"},{"id":"ref-for-unsafe-moment\u2460"},{"id":"ref-for-unsafe-moment\u2461"},{"id":"ref-for-unsafe-moment\u2462"}],"title":"2.2. \n  Moments and Durations\n"},{"refs":[{"id":"ref-for-unsafe-moment\u2463"},{"id":"ref-for-unsafe-moment\u2464"}],"title":"4. \n  Time Origin\n"}],"url":"#unsafe-moment"},
-"unsafe-shared-current-time": {"dfnID":"unsafe-shared-current-time","dfnText":"unsafe shared current time","external":false,"refSections":[{"refs":[{"id":"ref-for-unsafe-shared-current-time"},{"id":"ref-for-unsafe-shared-current-time\u2460"}],"title":"4. \n  Time Origin\n"}],"url":"#unsafe-shared-current-time"},
-"wall-clock": {"dfnID":"wall-clock","dfnText":"wall clock","external":false,"refSections":[{"refs":[{"id":"ref-for-wall-clock"},{"id":"ref-for-wall-clock\u2460"}],"title":"2.1. \n  Clocks\n"},{"refs":[{"id":"ref-for-wall-clock\u2461"},{"id":"ref-for-wall-clock\u2462"},{"id":"ref-for-wall-clock\u2463"},{"id":"ref-for-wall-clock\u2464"}],"title":"3. \n  Tools for Specification Authors\n"},{"refs":[{"id":"ref-for-wall-clock\u2465"},{"id":"ref-for-wall-clock\u2466"}],"title":"4. \n  Time Origin\n"},{"refs":[{"id":"ref-for-wall-clock\u2467"}],"title":"6. \n  The EpochTimeStamp typedef\n"}],"url":"#wall-clock"},
 "wall-clock-unsafe-current-time": {"dfnID":"wall-clock-unsafe-current-time","dfnText":"unsafe current time","external":false,"refSections":[{"refs":[{"id":"ref-for-wall-clock-unsafe-current-time"}],"title":"2.1. \n  Clocks\n"},{"refs":[{"id":"ref-for-wall-clock-unsafe-current-time\u2460"},{"id":"ref-for-wall-clock-unsafe-current-time\u2461"}],"title":"3. \n  Tools for Specification Authors\n"},{"refs":[{"id":"ref-for-wall-clock-unsafe-current-time\u2462"}],"title":"4. \n  Time Origin\n"}],"url":"#wall-clock-unsafe-current-time"},
 };
 
@@ -2572,31 +2564,31 @@ function genLinkingSyntaxes(dfn) {
 {
 let refsData = {
 "#clock": {"displayText":"clock","export":true,"for_":[],"level":"","normative":true,"shortname":"hr-time-3","spec":"hr-time-3","status":"local","text":"clock","type":"dfn","url":"#clock"},
-"#coarsen-time": {"displayText":"coarsen time","export":true,"for_":[],"level":"","normative":true,"shortname":"hr-time-3","spec":"hr-time-3","status":"local","text":"coarsen time","type":"dfn","url":"#coarsen-time"},
-"#current-high-resolution-time": {"displayText":"current high resolution time","export":true,"for_":[],"level":"","normative":true,"shortname":"hr-time-3","spec":"hr-time-3","status":"local","text":"current high resolution time","type":"dfn","url":"#current-high-resolution-time"},
+"#dfn-coarsen-time": {"displayText":"coarsen time","export":true,"for_":[],"level":"","normative":true,"shortname":"hr-time-3","spec":"hr-time-3","status":"local","text":"coarsen time","type":"dfn","url":"#dfn-coarsen-time"},
+"#dfn-current-high-resolution-time": {"displayText":"current high resolution time","export":true,"for_":[],"level":"","normative":true,"shortname":"hr-time-3","spec":"hr-time-3","status":"local","text":"current high resolution time","type":"dfn","url":"#dfn-current-high-resolution-time"},
+"#dfn-current-monotonic-time": {"displayText":"current monotonic time","export":true,"for_":["environment settings object"],"level":"","normative":true,"shortname":"hr-time-3","spec":"hr-time-3","status":"local","text":"current monotonic time","type":"dfn","url":"#dfn-current-monotonic-time"},
 "#dfn-current-wall-time": {"displayText":"current coarsened wall time","export":true,"for_":[],"level":"","normative":true,"shortname":"hr-time-3","spec":"hr-time-3","status":"local","text":"current coarsened wall time","type":"dfn","url":"#dfn-current-wall-time"},
+"#dfn-duration": {"displayText":"duration","export":true,"for_":[],"level":"","normative":true,"shortname":"hr-time-3","spec":"hr-time-3","status":"local","text":"duration","type":"dfn","url":"#dfn-duration"},
+"#dfn-duration-from": {"displayText":"duration from","export":true,"for_":[],"level":"","normative":true,"shortname":"hr-time-3","spec":"hr-time-3","status":"local","text":"duration from","type":"dfn","url":"#dfn-duration-from"},
 "#dfn-eso-current-wall-time": {"displayText":"current wall time","export":true,"for_":["environment settings object"],"level":"","normative":true,"shortname":"hr-time-3","spec":"hr-time-3","status":"local","text":"current wall time","type":"dfn","url":"#dfn-eso-current-wall-time"},
+"#dfn-moment": {"displayText":"moment","export":true,"for_":[],"level":"","normative":true,"shortname":"hr-time-3","spec":"hr-time-3","status":"local","text":"moment","type":"dfn","url":"#dfn-moment"},
+"#dfn-monotonic-clock": {"displayText":"monotonic clock","export":true,"for_":[],"level":"","normative":true,"shortname":"hr-time-3","spec":"hr-time-3","status":"local","text":"monotonic clock","type":"dfn","url":"#dfn-monotonic-clock"},
+"#dfn-relative-high-resolution-coarse-time": {"displayText":"relative high resolution coarse time","export":true,"for_":[],"level":"","normative":true,"shortname":"hr-time-3","spec":"hr-time-3","status":"local","text":"relative high resolution coarse time","type":"dfn","url":"#dfn-relative-high-resolution-coarse-time"},
+"#dfn-relative-high-resolution-time": {"displayText":"relative high resolution time","export":true,"for_":[],"level":"","normative":true,"shortname":"hr-time-3","spec":"hr-time-3","status":"local","text":"relative high resolution time","type":"dfn","url":"#dfn-relative-high-resolution-time"},
+"#dfn-unix-epoch": {"displayText":"unix epoch","export":true,"for_":[],"level":"","normative":true,"shortname":"hr-time-3","spec":"hr-time-3","status":"local","text":"unix epoch","type":"dfn","url":"#dfn-unix-epoch"},
+"#dfn-unsafe-shared-current-time": {"displayText":"unsafe shared current time","export":true,"for_":[],"level":"","normative":true,"shortname":"hr-time-3","spec":"hr-time-3","status":"local","text":"unsafe shared current time","type":"dfn","url":"#dfn-unsafe-shared-current-time"},
+"#dfn-wall-clock": {"displayText":"wall clock","export":true,"for_":[],"level":"","normative":true,"shortname":"hr-time-3","spec":"hr-time-3","status":"local","text":"wall clock","type":"dfn","url":"#dfn-wall-clock"},
 "#dom-performance-now": {"displayText":"now()","export":true,"for_":["Performance"],"level":"","normative":true,"shortname":"hr-time-3","spec":"hr-time-3","status":"local","text":"now()","type":"method","url":"#dom-performance-now"},
 "#dom-performance-timeorigin": {"displayText":"timeOrigin","export":true,"for_":["Performance"],"level":"","normative":true,"shortname":"hr-time-3","spec":"hr-time-3","status":"local","text":"timeOrigin","type":"attribute","url":"#dom-performance-timeorigin"},
-"#duration": {"displayText":"duration","export":true,"for_":[],"level":"","normative":true,"shortname":"hr-time-3","spec":"hr-time-3","status":"local","text":"duration","type":"dfn","url":"#duration"},
-"#duration-from": {"displayText":"duration from","export":true,"for_":[],"level":"","normative":true,"shortname":"hr-time-3","spec":"hr-time-3","status":"local","text":"duration from","type":"dfn","url":"#duration-from"},
-"#environment-settings-object-current-monotonic-time": {"displayText":"current monotonic time","export":true,"for_":["environment settings object"],"level":"","normative":true,"shortname":"hr-time-3","spec":"hr-time-3","status":"local","text":"current monotonic time","type":"dfn","url":"#environment-settings-object-current-monotonic-time"},
 "#environment-settings-object-current-relative-timestamp": {"displayText":"current relative timestamp","export":true,"for_":["environment settings object"],"level":"","normative":true,"shortname":"hr-time-3","spec":"hr-time-3","status":"local","text":"current relative timestamp","type":"dfn","url":"#environment-settings-object-current-relative-timestamp"},
 "#estimated-monotonic-time-of-the-unix-epoch": {"displayText":"estimated monotonic time of the unix epoch","export":true,"for_":[],"level":"","normative":true,"shortname":"hr-time-3","spec":"hr-time-3","status":"local","text":"estimated monotonic time of the unix epoch","type":"dfn","url":"#estimated-monotonic-time-of-the-unix-epoch"},
 "#get-time-origin-timestamp": {"displayText":"get time origin timestamp","export":true,"for_":[],"level":"","normative":true,"shortname":"hr-time-3","spec":"hr-time-3","status":"local","text":"get time origin timestamp","type":"dfn","url":"#get-time-origin-timestamp"},
 "#implicitly-convert-a-duration-to-a-timestamp": {"displayText":"implicitly convert a duration to a timestamp","export":true,"for_":[],"level":"","normative":true,"shortname":"hr-time-3","spec":"hr-time-3","status":"local","text":"implicitly convert a duration to a timestamp","type":"dfn","url":"#implicitly-convert-a-duration-to-a-timestamp"},
-"#moment": {"displayText":"moment","export":true,"for_":[],"level":"","normative":true,"shortname":"hr-time-3","spec":"hr-time-3","status":"local","text":"moment","type":"dfn","url":"#moment"},
-"#monotonic-clock": {"displayText":"monotonic clock","export":true,"for_":[],"level":"","normative":true,"shortname":"hr-time-3","spec":"hr-time-3","status":"local","text":"monotonic clock","type":"dfn","url":"#monotonic-clock"},
 "#monotonic-clock-unsafe-current-time": {"displayText":"unsafe current time","export":true,"for_":["monotonic clock"],"level":"","normative":true,"shortname":"hr-time-3","spec":"hr-time-3","status":"local","text":"unsafe current time","type":"dfn","url":"#monotonic-clock-unsafe-current-time"},
 "#performance": {"displayText":"Performance","export":true,"for_":[],"level":"","normative":true,"shortname":"hr-time-3","spec":"hr-time-3","status":"local","text":"Performance","type":"interface","url":"#performance"},
-"#relative-high-resolution-coarse-time": {"displayText":"relative high resolution coarse time","export":true,"for_":[],"level":"","normative":true,"shortname":"hr-time-3","spec":"hr-time-3","status":"local","text":"relative high resolution coarse time","type":"dfn","url":"#relative-high-resolution-coarse-time"},
-"#relative-high-resolution-time": {"displayText":"relative high resolution time","export":true,"for_":[],"level":"","normative":true,"shortname":"hr-time-3","spec":"hr-time-3","status":"local","text":"relative high resolution time","type":"dfn","url":"#relative-high-resolution-time"},
 "#typedefdef-domhighrestimestamp": {"displayText":"DOMHighResTimeStamp","export":true,"for_":[],"level":"","normative":true,"shortname":"hr-time-3","spec":"hr-time-3","status":"local","text":"DOMHighResTimeStamp","type":"typedef","url":"#typedefdef-domhighrestimestamp"},
 "#typedefdef-epochtimestamp": {"displayText":"EpochTimeStamp","export":true,"for_":[],"level":"","normative":true,"shortname":"hr-time-3","spec":"hr-time-3","status":"local","text":"EpochTimeStamp","type":"typedef","url":"#typedefdef-epochtimestamp"},
-"#unix-epoch": {"displayText":"unix epoch","export":true,"for_":[],"level":"","normative":true,"shortname":"hr-time-3","spec":"hr-time-3","status":"local","text":"unix epoch","type":"dfn","url":"#unix-epoch"},
 "#unsafe-moment": {"displayText":"unsafe moment","export":true,"for_":[],"level":"","normative":true,"shortname":"hr-time-3","spec":"hr-time-3","status":"local","text":"unsafe moment","type":"dfn","url":"#unsafe-moment"},
-"#unsafe-shared-current-time": {"displayText":"unsafe shared current time","export":true,"for_":[],"level":"","normative":true,"shortname":"hr-time-3","spec":"hr-time-3","status":"local","text":"unsafe shared current time","type":"dfn","url":"#unsafe-shared-current-time"},
-"#wall-clock": {"displayText":"wall clock","export":true,"for_":[],"level":"","normative":true,"shortname":"hr-time-3","spec":"hr-time-3","status":"local","text":"wall clock","type":"dfn","url":"#wall-clock"},
 "#wall-clock-unsafe-current-time": {"displayText":"unsafe current time","export":true,"for_":["wall clock"],"level":"","normative":true,"shortname":"hr-time-3","spec":"hr-time-3","status":"local","text":"unsafe current time","type":"dfn","url":"#wall-clock-unsafe-current-time"},
 "https://dom.spec.whatwg.org/#document": {"displayText":"Document","export":true,"for_":[],"level":"1","normative":true,"shortname":"dom","spec":"dom","status":"current","text":"Document","type":"interface","url":"https://dom.spec.whatwg.org/#document"},
 "https://dom.spec.whatwg.org/#dom-event-timestamp": {"displayText":"timeStamp","export":true,"for_":["Event"],"level":"1","normative":true,"shortname":"dom","spec":"dom","status":"current","text":"timeStamp","type":"attribute","url":"https://dom.spec.whatwg.org/#dom-event-timestamp"},
@@ -2618,7 +2610,6 @@ let refsData = {
 "https://infra.spec.whatwg.org/#user-agent": {"displayText":"user agent","export":true,"for_":[],"level":"1","normative":true,"shortname":"infra","spec":"infra","status":"current","text":"user agent","type":"dfn","url":"https://infra.spec.whatwg.org/#user-agent"},
 "https://tc39.es/ecma262/multipage/numbers-and-dates.html#sec-date-objects": {"displayText":"Date","export":true,"for_":[],"level":"1","normative":true,"shortname":"ecmascript","spec":"ecmascript","status":"current","text":"Date","type":"interface","url":"https://tc39.es/ecma262/multipage/numbers-and-dates.html#sec-date-objects"},
 "https://w3c.github.io/ServiceWorker/#serviceworker": {"displayText":"ServiceWorker","export":true,"for_":[],"level":"1","normative":true,"shortname":"service-workers","spec":"service-workers","status":"current","text":"ServiceWorker","type":"interface","url":"https://w3c.github.io/ServiceWorker/#serviceworker"},
-"https://w3c.github.io/hr-time/#dfn-moment": {"displayText":"coarsened moments","export":true,"for_":[],"level":"3","normative":true,"shortname":"hr-time","spec":"hr-time-3","status":"current","text":"coarsened moments","type":"dfn","url":"https://w3c.github.io/hr-time/#dfn-moment"},
 "https://webidl.spec.whatwg.org/#Default": {"displayText":"Default","export":true,"for_":[],"level":"1","normative":true,"shortname":"webidl","spec":"webidl","status":"current","text":"Default","type":"extended-attribute","url":"https://webidl.spec.whatwg.org/#Default"},
 "https://webidl.spec.whatwg.org/#Exposed": {"displayText":"Exposed","export":true,"for_":[],"level":"1","normative":true,"shortname":"webidl","spec":"webidl","status":"current","text":"Exposed","type":"extended-attribute","url":"https://webidl.spec.whatwg.org/#Exposed"},
 "https://webidl.spec.whatwg.org/#Replaceable": {"displayText":"Replaceable","export":true,"for_":[],"level":"1","normative":true,"shortname":"webidl","spec":"webidl","status":"current","text":"Replaceable","type":"extended-attribute","url":"https://webidl.spec.whatwg.org/#Replaceable"},
