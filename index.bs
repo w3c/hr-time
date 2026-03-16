@@ -264,7 +264,7 @@ worker.port.onmessage = function (event) {
 <p>
   Each [=clock=]'s <a href="#unsafe-current-time">unsafe current time</a> returns an <dfn>unsafe
   moment</dfn>. [=Coarsen time=] converts these [=unsafe moments=] to
-  <dfn data-export data-lt="moment" id=dfn-moment>coarsened moments</dfn> or just
+  <dfn data-export data-lt="moment|coarsened moments" id=dfn-moment>coarsened moments</dfn> or just
   [=moments=]. [=Unsafe moments=] and [=moments=] from different clocks
   are not comparable.
 </p>
@@ -677,7 +677,7 @@ interface Performance : EventTarget {
   <code>timeOrigin</code> attribute
 </h3>
 <p data-tests="timeOrigin.html, window-worker-timeOrigin.window.html">
-  The <dfn data-export>timeOrigin</dfn> attribute MUST return the number of
+  The <dfn attribute for="Performance" data-export>timeOrigin</dfn> attribute MUST return the number of
   milliseconds in the [=duration=] returned by [=get time origin
   timestamp=] for the [=relevant global object=] of [=this=].
 </p>
@@ -706,7 +706,7 @@ interface Performance : EventTarget {
   The <code>performance</code> attribute
 </h3>
 <p>
-  The <dfn data-export id="the-performance-attr">performance</dfn> attribute on the interface mixin
+  The <dfn attribute for="WindowOrWorkerGlobalScope" data-export id="the-performance-attr">performance</dfn> attribute on the interface mixin
   {{WindowOrWorkerGlobalScope}} allows access to performance related
   attributes and methods from the [=/global object=].
 </p>
