@@ -646,11 +646,11 @@ typedef unsigned long long EpochTimeStamp;
   The <dfn data-export id=dom-performance>Performance</dfn> interface
 </h2>
 <pre class="idl">
-[Exposed=(Window,Worker)]
+[Exposed=(Window,Worker,AudioWorklet)]
 interface Performance : EventTarget {
     DOMHighResTimeStamp now();
-    readonly attribute DOMHighResTimeStamp timeOrigin;
-    [Default] object toJSON();
+    [Exposed=(Window,Worker)] readonly attribute DOMHighResTimeStamp timeOrigin;
+    [Exposed=(Window,Worker), Default] object toJSON();
 };
 </pre>
 
@@ -706,12 +706,30 @@ interface Performance : EventTarget {
   The <code>performance</code> attribute
 </h3>
 <p>
-  The <dfn data-export id="the-performance-attr">performance</dfn> attribute on the interface mixin
+  The <dfn data-export data-dfn-for="WindowOrWorkerGlobalScope" id="the-performance-attr">performance</dfn> attribute on the interface mixin
   {{WindowOrWorkerGlobalScope}} allows access to performance related
   attributes and methods from the [=/global object=].
 </p>
 <pre class="idl">
 partial interface mixin WindowOrWorkerGlobalScope {
+  [Replaceable] readonly attribute Performance performance;
+};
+</pre>
+
+<h2 id="sec-audioworkletglobalscope">
+  Extensions to <code>AudioWorkletGlobalScope</code>
+</h2>
+
+<h3 id="the-audioworklet-performance-attribute" data-dfn-for="AudioWorkletGlobalScope">
+  The <code>performance</code> attribute
+</h3>
+<p>
+  The <dfn data-export data-dfn-for="AudioWorkletGlobalScope" id="the-audioworklet-performance-attr">performance</dfn> attribute on
+  {{AudioWorkletGlobalScope}} allows access to performance related
+  attributes and methods from the [=/global object=].
+</p>
+<pre class="idl">
+partial interface AudioWorkletGlobalScope {
   [Replaceable] readonly attribute Performance performance;
 };
 </pre>
