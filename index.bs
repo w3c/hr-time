@@ -65,7 +65,7 @@ urlPrefix: https://tc39.es/proposal-temporal/; spec: Temporal
 <em>This section is non-normative.</em>
 <p>
   The ECMAScript Language specification [[ECMA-262]] defines the
-  <code><a data-link-type="dfn" href="https://tc39.es/ecma262/#sec-date-objects">Date</a></code> object as a time value
+  <code><a data-link-type="dfn" href="https://tc39.es/ecma262/#sec-date-objects" id="dfn-date">Date</a></code> object as a time value
   representing time in milliseconds since 01 January, 1970 UTC. For most
   purposes, this definition of time is sufficient as these values
   represent time to millisecond precision for any moment that is within
@@ -81,7 +81,7 @@ urlPrefix: https://tc39.es/proposal-temporal/; spec: Temporal
   For example, the following script may record a positive number,
   negative number, or zero for computed <code>duration</code>:
 </p>
-<pre class="example" id="example-date-now" highlight="js">
+<pre class="example" id="example-date-now" oldids="example-1" highlight="js">
 var mark_start = Date.now();
 doTask(); // Some task
 var duration = Date.now() - mark_start;
@@ -98,7 +98,7 @@ var duration = Date.now() - mark_start;
 </ul>
 <p>
   This specification does not propose changing the behavior of
-  <code><a data-link-type="dfn" href="https://tc39.es/ecma262/#sec-date.now">Date.now()</a></code> [[ECMA-262]] as it is
+  <code><a data-link-type="dfn" href="https://tc39.es/ecma262/#sec-date.now" id="dfn-date-now">Date.now()</a></code> [[ECMA-262]] as it is
   genuinely useful in determining the current value of the calendar time
   and has a long history of usage. The {{DOMHighResTimeStamp}} type,
   {{Performance}}.{{Performance/now()}} method, and
@@ -180,7 +180,7 @@ var duration = Date.now() - mark_start;
   translate the {{DOMHighResTimeStamp}}s with the help of the
   {{Performance}}.{{Performance/timeOrigin}} attribute.
 </p>
-<pre class="example" id="example-worker-timeline" highlight="js">
+<pre class="example" id="example-worker-timeline" oldids="example-2" highlight="js">
 // ---- worker.js -----------------------------
 // Shared worker script
 onconnect = function(e) {
@@ -235,8 +235,8 @@ worker.port.onmessage = function (event) {
   Clocks
 </h3>
 <p>
-  A <dfn>clock</dfn> tracks the passage of time and can report the
-  <dfn data-export>unsafe current time</dfn> that an algorithm step is executing.
+  A <dfn oldids="dfn-clock">clock</dfn> tracks the passage of time and can report the
+  <dfn data-export oldids="dfn-unsafe-current-time">unsafe current time</dfn> that an algorithm step is executing.
   There are many kinds of clocks. All clocks on the web platform
   attempt to count 1 millisecond of clock time per 1 millisecond of
   real-world time, but they differ in how they handle cases where they
@@ -245,7 +245,7 @@ worker.port.onmessage = function (event) {
 <div>
 
 : The <dfn data-export id=dfn-wall-clock>wall clock</dfn>'s <dfn data-dfn-for="wall clock" data-export id="wall-clock-unsafe-current-time">unsafe current time</dfn>
-:: is always as close as possible to a user's notion of time. Since a computer sometimes runs slow or fast or loses track of time, its [=wall clock=] sometimes needs to be adjusted, which means the [=wall clock/unsafe current time=] can decrease, making it unreliable for performance measurement or recording the orders of events. The web platform shares a [=wall clock=] with [[ECMA-262]] <a data-link-type="dfn" href="https://tc39.es/ecma262/#sec-time-values-and-time-range">time</a>.
+:: is always as close as possible to a user's notion of time. Since a computer sometimes runs slow or fast or loses track of time, its [=wall clock=] sometimes needs to be adjusted, which means the [=wall clock/unsafe current time=] can decrease, making it unreliable for performance measurement or recording the orders of events. The web platform shares a [=wall clock=] with [[ECMA-262]] <a data-link-type="dfn" href="https://tc39.es/ecma262/#sec-time-values-and-time-range" id="dfn-time">time</a>.
 
 : The <dfn data-export id=dfn-monotonic-clock>monotonic clock</dfn>'s <dfn data-export data-dfn-for="monotonic clock" id="monotonic-clock-unsafe-current-time">unsafe current time</dfn>
 :: never decreases, so it can't be changed by system clock adjustments. The [=monotonic clock=] only exists within a single execution of the [=user agent=], so it can't be used to compare events that might happen in different executions.
@@ -258,13 +258,13 @@ worker.port.onmessage = function (event) {
 
 <p class="note"><span class="allow-2119">In certain scenarios (e.g. when a tab is backgrounded), the user agent may choose to throttle timers and periodic callbacks run in that context or even freeze them entirely. Any such throttling should not affect the resolution or accuracy of the time returned by the monotonic clock.</span></p>
 
-<h3 id="sec-moments-and-durations">
+<h3 id="sec-moments-and-durations" oldids="moments-and-durations">
   Moments and Durations
 </h3>
 <p>
-  Each [=clock=]'s <a href="#unsafe-current-time">unsafe current time</a> returns an <dfn>unsafe
+  Each [=clock=]'s <a href="#unsafe-current-time">unsafe current time</a> returns an <dfn oldids="dfn-unsafe-moment">unsafe
   moment</dfn>. [=Coarsen time=] converts these [=unsafe moments=] to
-  <dfn data-export data-lt="moment|coarsened moment" id=dfn-moment>coarsened moments</dfn> or just
+  <dfn data-export data-lt="moment|coarsened moment|coarsened moments" id=dfn-moment>coarsened moments</dfn> or just
   [=moments=]. [=Unsafe moments=] and [=moments=] from different clocks
   are not comparable.
 </p>
@@ -301,7 +301,7 @@ worker.port.onmessage = function (event) {
 </ol>
 <p>
   [=Durations=] can be used implicitly as {{DOMHighResTimeStamp}}s. To
-  <dfn>implicitly convert a duration to a timestamp</dfn>, given a
+  <dfn oldids="dfn-implicitly-convert-a-duration-to-a-timestamp">implicitly convert a duration to a timestamp</dfn>, given a
   [=duration=] <var ignore>d</var>, return the number of milliseconds in <var ignore>d</var>.
 </p>
 
@@ -310,7 +310,7 @@ worker.port.onmessage = function (event) {
 </h2>
 <p>
   For measuring time within a single page (within the context of a single
-  [=environment settings object=]), use the |settingsObject|'s <dfn data-export data-dfn-for=
+  [=environment settings object=]), use the |settingsObject|'s <dfn data-export oldids="dfn-current-relative-timestamp" data-dfn-for=
   "environment settings object">current relative timestamp</dfn>, defined
   as the [=duration from=] |settingsObject|'s [=environment settings
   object/time origin=] to the |settingsObject|'s [=environment settings
@@ -478,7 +478,7 @@ worker.port.onmessage = function (event) {
 </p>
 <p>
   Each group of [=environment settings objects=] that could possibly
-  communicate in any way has an <dfn>estimated monotonic time of the Unix
+  communicate in any way has an <dfn oldids="dfn-estimated-monotonic-time-of-the-unix-epoch">estimated monotonic time of the Unix
   epoch</dfn>, a [=moment=] on the [=monotonic clock=], whose value is
   initialized by the following steps:
 </p>
@@ -510,7 +510,7 @@ worker.port.onmessage = function (event) {
   settings object/time origin=].
 </p>
 <p>
-  To <dfn>get time origin timestamp</dfn>, given a [=/global object=]
+  To <dfn oldids="dfn-get-time-origin-timestamp">get time origin timestamp</dfn>, given a [=/global object=]
   |global|, run the following steps, which return a
   [=duration=]:
 </p>
@@ -623,10 +623,10 @@ typedef double DOMHighResTimeStamp;
   resolution is approximately 0.2 microseconds.
 </p>
 
-<h2 id="sec-epochtimestamp">
+<h2 id="sec-epochtimestamp" oldids="the-epochtimestamp-typedef">
   The <dfn data-export id=dom-epochtimestamp>EpochTimeStamp</dfn> typedef
 </h2>
-<pre class="idl">
+<pre class="idl" id=idl-def-epochtimestamp>
 typedef unsigned long long EpochTimeStamp;
 </pre>
 <aside class="note" title="Legacy platform feature">
@@ -645,7 +645,7 @@ typedef unsigned long long EpochTimeStamp;
 <h2 id="sec-performance" data-dfn-for="Performance">
   The <dfn data-export id=dom-performance>Performance</dfn> interface
 </h2>
-<pre class="idl">
+<pre class="idl" id=idl-def-performance>
 [Exposed=(Window,Worker)]
 interface Performance : EventTarget {
     DOMHighResTimeStamp now();
@@ -658,7 +658,7 @@ interface Performance : EventTarget {
   <code>now()</code> method
 </h3>
 <p data-tests="basic.any.html, basic.any.worker.html">
-  The <dfn data-export>now()</dfn> method MUST return the number of milliseconds in
+  The <dfn data-export oldids="idl-def-performance-now">now()</dfn> method MUST return the number of milliseconds in
   the [=current high resolution time=] given [=this=]'s [=relevant
   global object=] (a [=duration=]).
 </p>
@@ -677,7 +677,7 @@ interface Performance : EventTarget {
   <code>timeOrigin</code> attribute
 </h3>
 <p data-tests="timeOrigin.html, window-worker-timeOrigin.window.html">
-  The <dfn attribute for="Performance" data-export>timeOrigin</dfn> attribute MUST return the number of
+  The <dfn attribute for="Performance" data-export oldids="idl-def-performance-timeorigin">timeOrigin</dfn> attribute MUST return the number of
   milliseconds in the [=duration=] returned by [=get time origin
   timestamp=] for the [=relevant global object=] of [=this=].
 </p>
@@ -694,11 +694,11 @@ interface Performance : EventTarget {
   <code>toJSON()</code> method
 </h3>
 <p data-tests="performance-tojson.html">
-  When <dfn data-export>toJSON()</dfn> is called, run [[WEBIDL]]'s [=default
+  When <dfn data-export oldids="idl-def-performance-tojson">toJSON()</dfn> is called, run [[WEBIDL]]'s [=default
   toJSON steps=].
 </p>
 
-<h2 id="sec-windoworworkerglobalscope">
+<h2 id="sec-windoworworkerglobalscope" oldids="extensions-to-windoworworkerglobalscope-mixin">
   Extensions to <code>WindowOrWorkerGlobalScope</code> mixin
 </h2>
 
@@ -706,11 +706,11 @@ interface Performance : EventTarget {
   The <code>performance</code> attribute
 </h3>
 <p>
-  The <dfn attribute for="WindowOrWorkerGlobalScope" data-export id="the-performance-attr">performance</dfn> attribute on the interface mixin
+  The <dfn attribute for="WindowOrWorkerGlobalScope" data-export id="the-performance-attr" oldids="dom-windoworworkerglobalscope-performance,idl-def-windoworworkerglobalscope-performance">performance</dfn> attribute on the interface mixin
   {{WindowOrWorkerGlobalScope}} allows access to performance related
   attributes and methods from the [=/global object=].
 </p>
-<pre class="idl">
+<pre class="idl" id=idl-def-windoworworkerglobalscope-partial-1>
 partial interface mixin WindowOrWorkerGlobalScope {
   [Replaceable] readonly attribute Performance performance;
 };
@@ -870,3 +870,5 @@ partial interface mixin WindowOrWorkerGlobalScope {
   Kemerlis, Yoav Weiss, and Yossef Oren for their contributions to this
   work.
 </p>
+<!-- Keeps ReSpec's #conformance anchor working; Bikeshed's Conformance section is #w3c-conformance. -->
+<div id=conformance></div>
