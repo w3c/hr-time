@@ -5,9 +5,9 @@
   <title>High Resolution Time</title>
   <meta content="ED" name="w3c-status">
   <link href="https://www.w3.org/StyleSheets/TR/2021/W3C-ED" rel="stylesheet">
-  <meta content="Bikeshed version ac92c2f0d, updated Fri Aug 21 16:01:29 2026 -0700" name="generator">
+  <meta content="Bikeshed version 49e9fdd4f, updated Tue Oct 13 14:27:53 2026 -0700" name="generator">
   <link href="https://www.w3.org/TR/hr-time-3/" rel="canonical">
-  <meta content="1f0b9faf793db3b06c8e85462448e8a812d00fb9" name="revision">
+  <meta content="2b2371c9f92e319fc76488cd8144d954a1122913" name="revision">
   <meta content="dark light" name="color-scheme">
   <link href="https://www.w3.org/StyleSheets/TR/2021/dark.css" media="(prefers-color-scheme: dark)" rel="stylesheet" type="text/css">
 <style>
@@ -778,7 +778,7 @@ var[data-var-color="6"] { --var-vg: #FFBCF2; }
 </p>
    <h1 class="no-ref p-name" id="title">High Resolution Time</h1>
    <p id="w3c-state"><a href="https://www.w3.org/standards/types/#ED">Editor’s Draft</a>,
-    <time class="dt-updated" datetime="2026-09-01">1 September 2026</time></p>
+    <time class="dt-updated" datetime="2026-11-02">2 November 2026</time></p>
    <details open>
     <summary>More details about this document</summary>
     <div data-fill-with="spec-metadata">
@@ -947,7 +947,7 @@ var[data-var-color="6"] { --var-vg: #FFBCF2; }
 
    <p>
   The ECMAScript Language specification <a data-link-type="biblio" href="#biblio-ecma-262" title="ECMAScript Language Specification">[ECMA-262]</a> defines the
-  <code><a data-link-type="dfn" href="https://tc39.es/ecma262/#sec-date-objects">Date</a></code> object as a time value
+  <code><a data-link-type="dfn" href="https://tc39.es/ecma262/#sec-date-objects" id="dfn-date">Date</a></code> object as a time value
   representing time in milliseconds since 01 January, 1970 UTC. For most
   purposes, this definition of time is sufficient as these values
   represent time to millisecond precision for any moment that is within
@@ -963,7 +963,7 @@ var[data-var-color="6"] { --var-vg: #FFBCF2; }
   For example, the following script may record a positive number,
   negative number, or zero for computed <code>duration</code>:
 </p>
-<pre class="example highlight" id="example-date-now"><a class="self-link" href="#example-date-now"></a><c- a>var</c-> mark_start <c- o>=</c-> Date<c- p>.</c->now<c- p>();</c->
+<pre class="example highlight" id="example-date-now"><a class="self-link" href="#example-date-now"></a><span class="bs-old-id" id="example-1"></span><c- a>var</c-> mark_start <c- o>=</c-> Date<c- p>.</c->now<c- p>();</c->
 doTask<c- p>();</c-> <c- c1>// Some task</c->
 <c- a>var</c-> duration <c- o>=</c-> Date<c- p>.</c->now<c- p>()</c-> <c- o>-</c-> mark_start<c- p>;</c->
 </pre>
@@ -979,7 +979,7 @@ doTask<c- p>();</c-> <c- c1>// Some task</c->
    </ul>
    <p>
   This specification does not propose changing the behavior of
-  <code><a data-link-type="dfn" href="https://tc39.es/ecma262/#sec-date.now">Date.now()</a></code> <a data-link-type="biblio" href="#biblio-ecma-262" title="ECMAScript Language Specification">[ECMA-262]</a> as it is
+  <code><a data-link-type="dfn" href="https://tc39.es/ecma262/#sec-date.now" id="dfn-date-now">Date.now()</a></code> <a data-link-type="biblio" href="#biblio-ecma-262" title="ECMAScript Language Specification">[ECMA-262]</a> as it is
   genuinely useful in determining the current value of the calendar time
   and has a long history of usage. The <code class="idl"><a data-link-type="idl" href="#typedefdef-domhighrestimestamp" id="ref-for-typedefdef-domhighrestimestamp">DOMHighResTimeStamp</a></code> type,
   <code class="idl"><a data-link-type="idl" href="#performance" id="ref-for-performance">Performance</a></code>.<code class="idl"><a data-link-type="idl" href="#dom-performance-now" id="ref-for-dom-performance-now">now()</a></code> method, and
@@ -1063,7 +1063,7 @@ doTask<c- p>();</c-> <c- c1>// Some task</c->
   translate the <code class="idl"><a data-link-type="idl" href="#typedefdef-domhighrestimestamp" id="ref-for-typedefdef-domhighrestimestamp①">DOMHighResTimeStamp</a></code>s with the help of the
   <code class="idl"><a data-link-type="idl" href="#performance" id="ref-for-performance③">Performance</a></code>.<code class="idl"><a data-link-type="idl" href="#dom-performance-timeorigin" id="ref-for-dom-performance-timeorigin①">timeOrigin</a></code> attribute.
 </p>
-<pre class="example highlight" id="example-worker-timeline"><a class="self-link" href="#example-worker-timeline"></a><c- c1>// ---- worker.js -----------------------------</c->
+<pre class="example highlight" id="example-worker-timeline"><a class="self-link" href="#example-worker-timeline"></a><span class="bs-old-id" id="example-2"></span><c- c1>// ---- worker.js -----------------------------</c->
 <c- c1>// Shared worker script</c->
 onconnect <c- o>=</c-> <c- a>function</c-><c- p>(</c->e<c- p>)</c-> <c- p>{</c->
   <c- a>var</c-> port <c- o>=</c-> e<c- p>.</c->ports<c- p>[</c-><c- mf>0</c-><c- p>];</c->
@@ -1115,8 +1115,8 @@ worker<c- p>.</c->port<c- p>.</c->onmessage <c- o>=</c-> <c- a>function</c-> <c-
   Clocks
 </span><a class="self-link" href="#sec-clocks"></a></h3>
    <p>
-  A <dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport id="clock">clock</dfn> tracks the passage of time and can report the
-  <dfn class="dfn-paneled" data-dfn-type="dfn" data-export id="unsafe-current-time">unsafe current time</dfn> that an algorithm step is executing.
+  A <dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport id="clock"><span class="bs-old-id" id="dfn-clock"></span>clock</dfn> tracks the passage of time and can report the
+  <dfn class="dfn-paneled" data-dfn-type="dfn" data-export id="unsafe-current-time"><span class="bs-old-id" id="dfn-unsafe-current-time"></span>unsafe current time</dfn> that an algorithm step is executing.
   There are many kinds of clocks. All clocks on the web platform
   attempt to count 1 millisecond of clock time per 1 millisecond of
   real-world time, but they differ in how they handle cases where they
@@ -1126,7 +1126,7 @@ worker<c- p>.</c->port<c- p>.</c->onmessage <c- o>=</c-> <c- a>function</c-> <c-
     <dl>
      <dt data-md>The <dfn class="dfn-paneled" data-dfn-type="dfn" data-export id="dfn-wall-clock">wall clock</dfn>’s <dfn class="dfn-paneled" data-dfn-for="wall clock" data-dfn-type="dfn" data-export id="wall-clock-unsafe-current-time">unsafe current time</dfn>
      <dd data-md>
-      <p>is always as close as possible to a user’s notion of time. Since a computer sometimes runs slow or fast or loses track of time, its <a data-link-type="dfn" href="#dfn-wall-clock" id="ref-for-dfn-wall-clock">wall clock</a> sometimes needs to be adjusted, which means the <a data-link-type="dfn" href="#wall-clock-unsafe-current-time" id="ref-for-wall-clock-unsafe-current-time">unsafe current time</a> can decrease, making it unreliable for performance measurement or recording the orders of events. The web platform shares a <a data-link-type="dfn" href="#dfn-wall-clock" id="ref-for-dfn-wall-clock①">wall clock</a> with <a data-link-type="biblio" href="#biblio-ecma-262" title="ECMAScript Language Specification">[ECMA-262]</a> <a data-link-type="dfn" href="https://tc39.es/ecma262/#sec-time-values-and-time-range">time</a>.</p>
+      <p>is always as close as possible to a user’s notion of time. Since a computer sometimes runs slow or fast or loses track of time, its <a data-link-type="dfn" href="#dfn-wall-clock" id="ref-for-dfn-wall-clock">wall clock</a> sometimes needs to be adjusted, which means the <a data-link-type="dfn" href="#wall-clock-unsafe-current-time" id="ref-for-wall-clock-unsafe-current-time">unsafe current time</a> can decrease, making it unreliable for performance measurement or recording the orders of events. The web platform shares a <a data-link-type="dfn" href="#dfn-wall-clock" id="ref-for-dfn-wall-clock①">wall clock</a> with <a data-link-type="biblio" href="#biblio-ecma-262" title="ECMAScript Language Specification">[ECMA-262]</a> <a data-link-type="dfn" href="https://tc39.es/ecma262/#sec-time-values-and-time-range" id="dfn-time">time</a>.</p>
      <dt data-md>The <dfn class="dfn-paneled" data-dfn-type="dfn" data-export id="dfn-monotonic-clock">monotonic clock</dfn>’s <dfn class="dfn-paneled" data-dfn-for="monotonic clock" data-dfn-type="dfn" data-export id="monotonic-clock-unsafe-current-time">unsafe current time</dfn>
      <dd data-md>
       <p>never decreases, so it can’t be changed by system clock adjustments. The <a data-link-type="dfn" href="#dfn-monotonic-clock" id="ref-for-dfn-monotonic-clock">monotonic clock</a> only exists within a single execution of the <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#user-agent" id="ref-for-user-agent">user agent</a>, so it can’t be used to compare events that might happen in different executions.</p>
@@ -1135,13 +1135,13 @@ worker<c- p>.</c->port<c- p>.</c->onmessage <c- o>=</c-> <c- a>function</c-> <c-
    <p class="note" role="note"><span class="allow-2119">Since the <a data-link-type="dfn" href="#dfn-monotonic-clock" id="ref-for-dfn-monotonic-clock①">monotonic clock</a> can’t be adjusted to match the user’s notion of time, it should be used for measurement, rather than user-visible times. For any time communication with the user, use the wall clock.</span></p>
    <p class="note" role="note"><span class="allow-2119">The user agent can pick a new <a data-link-type="dfn" href="#estimated-monotonic-time-of-the-unix-epoch" id="ref-for-estimated-monotonic-time-of-the-unix-epoch">estimated monotonic time of the Unix epoch</a> when the browser restarts, when it starts an isolated browsing session—e.g. incognito or a similar browsing mode—or when it creates an <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#environment-settings-object" id="ref-for-environment-settings-object">environment settings object</a> that can’t communicate with any existing settings objects. As a result, developers should not use shared timestamps as absolute time that holds its monotonic properties across all past, present, and future contexts; in practice, the monotonic properties only apply for contexts that can reach each other by exchanging messages via one of the provided messaging mechanisms - e.g. <code class="idl"><a data-link-type="idl" href="https://html.spec.whatwg.org/multipage/web-messaging.html#dom-window-postmessage-options" id="ref-for-dom-window-postmessage-options">postMessage(message, options)</a></code>, <code class="idl"><a data-link-type="idl" href="https://html.spec.whatwg.org/multipage/web-messaging.html#broadcastchannel" id="ref-for-broadcastchannel">BroadcastChannel</a></code>, etc.</span></p>
    <p class="note" role="note"><span class="allow-2119">In certain scenarios (e.g. when a tab is backgrounded), the user agent may choose to throttle timers and periodic callbacks run in that context or even freeze them entirely. Any such throttling should not affect the resolution or accuracy of the time returned by the monotonic clock.</span></p>
-   <h3 class="heading settled" data-level="2.2" id="sec-moments-and-durations"><span class="secno">2.2. </span><span class="content">
+   <h3 class="heading settled" data-level="2.2" id="sec-moments-and-durations"><span class="secno">2.2. </span><span class="bs-old-id" id="moments-and-durations"></span><span class="content">
   Moments and Durations
 </span><a class="self-link" href="#sec-moments-and-durations"></a></h3>
    <p>
-  Each <a data-link-type="dfn" href="#clock" id="ref-for-clock">clock</a>’s <a href="#unsafe-current-time" id="ref-for-unsafe-current-time">unsafe current time</a> returns an <dfn class="dfn-paneled" data-dfn-type="dfn" data-lt="unsafe moment" data-noexport id="unsafe-moment">unsafe
+  Each <a data-link-type="dfn" href="#clock" id="ref-for-clock">clock</a>’s <a href="#unsafe-current-time" id="ref-for-unsafe-current-time">unsafe current time</a> returns an <dfn class="dfn-paneled" data-dfn-type="dfn" data-lt="unsafe moment" data-noexport id="unsafe-moment"><span class="bs-old-id" id="dfn-unsafe-moment"></span>unsafe
   moment</dfn>. <a data-link-type="dfn" href="#dfn-coarsen-time" id="ref-for-dfn-coarsen-time">Coarsen time</a> converts these <a data-link-type="dfn" href="#unsafe-moment" id="ref-for-unsafe-moment">unsafe moments</a> to
-  <dfn class="dfn-paneled" data-dfn-type="dfn" data-export data-lt="moment|coarsened moment" id="dfn-moment">coarsened moments</dfn> or just
+  <dfn class="dfn-paneled" data-dfn-type="dfn" data-export data-lt="moment|coarsened moment|coarsened moments" id="dfn-moment">coarsened moments</dfn> or just
   <a data-link-type="dfn" href="#dfn-moment" id="ref-for-dfn-moment">moments</a>. <a data-link-type="dfn" href="#unsafe-moment" id="ref-for-unsafe-moment①">Unsafe moments</a> and <a data-link-type="dfn" href="#dfn-moment" id="ref-for-dfn-moment①">moments</a> from different clocks
   are not comparable.
 </p>
@@ -1178,7 +1178,7 @@ worker<c- p>.</c->port<c- p>.</c->onmessage <c- o>=</c-> <c- a>function</c-> <c-
    </ol>
    <p>
   <a data-link-type="dfn" href="#dfn-duration" id="ref-for-dfn-duration⑧">Durations</a> can be used implicitly as <code class="idl"><a data-link-type="idl" href="#typedefdef-domhighrestimestamp" id="ref-for-typedefdef-domhighrestimestamp②">DOMHighResTimeStamp</a></code>s. To
-  <dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport id="implicitly-convert-a-duration-to-a-timestamp">implicitly convert a duration to a timestamp</dfn>, given a
+  <dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport id="implicitly-convert-a-duration-to-a-timestamp"><span class="bs-old-id" id="dfn-implicitly-convert-a-duration-to-a-timestamp"></span>implicitly convert a duration to a timestamp</dfn>, given a
   <a data-link-type="dfn" href="#dfn-duration" id="ref-for-dfn-duration⑨">duration</a> <var>d</var>, return the number of milliseconds in <var>d</var>.
 </p>
    <h2 class="heading settled" data-level="3" id="sec-tools"><span class="secno">3. </span><span class="content">
@@ -1186,7 +1186,7 @@ worker<c- p>.</c->port<c- p>.</c->onmessage <c- o>=</c-> <c- a>function</c-> <c-
 </span><a class="self-link" href="#sec-tools"></a></h2>
    <p>
   For measuring time within a single page (within the context of a single
-  <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#environment-settings-object" id="ref-for-environment-settings-object①">environment settings object</a>), use the <var>settingsObject</var>’s <dfn class="dfn-paneled" data-dfn-for="environment settings object" data-dfn-type="dfn" data-export id="environment-settings-object-current-relative-timestamp">current relative timestamp</dfn>, defined
+  <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#environment-settings-object" id="ref-for-environment-settings-object①">environment settings object</a>), use the <var>settingsObject</var>’s <dfn class="dfn-paneled" data-dfn-for="environment settings object" data-dfn-type="dfn" data-export id="environment-settings-object-current-relative-timestamp"><span class="bs-old-id" id="dfn-current-relative-timestamp"></span>current relative timestamp</dfn>, defined
   as the <a data-link-type="dfn" href="#dfn-duration-from" id="ref-for-dfn-duration-from">duration from</a> <var>settingsObject</var>’s <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#concept-settings-object-time-origin" id="ref-for-concept-settings-object-time-origin①">time origin</a> to the <var>settingsObject</var>’s <a data-link-type="dfn" href="#dfn-current-monotonic-time" id="ref-for-dfn-current-monotonic-time">current monotonic time</a>. This value can be exposed directly to
   JavaScript using the <a data-link-type="dfn" href="#dfn-duration" id="ref-for-dfn-duration①⓪">duration</a>’s <a data-link-type="dfn" href="#implicitly-convert-a-duration-to-a-timestamp" id="ref-for-implicitly-convert-a-duration-to-a-timestamp">implicit conversion</a> to <code class="idl"><a data-link-type="idl" href="#typedefdef-domhighrestimestamp" id="ref-for-typedefdef-domhighrestimestamp③">DOMHighResTimeStamp</a></code>.
 </p>
@@ -1343,7 +1343,7 @@ worker<c- p>.</c->port<c- p>.</c->onmessage <c- o>=</c-> <c- a>function</c-> <c-
 </p>
    <p>
   Each group of <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#environment-settings-object" id="ref-for-environment-settings-object⑦">environment settings objects</a> that could possibly
-  communicate in any way has an <dfn class="dfn-paneled" data-dfn-type="dfn" data-lt="estimated monotonic time of the Unix epoch" data-noexport id="estimated-monotonic-time-of-the-unix-epoch">estimated monotonic time of the Unix
+  communicate in any way has an <dfn class="dfn-paneled" data-dfn-type="dfn" data-lt="estimated monotonic time of the Unix epoch" data-noexport id="estimated-monotonic-time-of-the-unix-epoch"><span class="bs-old-id" id="dfn-estimated-monotonic-time-of-the-unix-epoch"></span>estimated monotonic time of the Unix
   epoch</dfn>, a <a data-link-type="dfn" href="#dfn-moment" id="ref-for-dfn-moment②①">moment</a> on the <a data-link-type="dfn" href="#dfn-monotonic-clock" id="ref-for-dfn-monotonic-clock⑤">monotonic clock</a>, whose value is
   initialized by the following steps:
 </p>
@@ -1371,7 +1371,7 @@ worker<c- p>.</c->port<c- p>.</c->onmessage <c- o>=</c-> <c- a>function</c-> <c-
   That <a data-link-type="dfn" href="#dfn-moment" id="ref-for-dfn-moment②③">moment</a> is stored in that settings object’s <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#concept-settings-object-time-origin" id="ref-for-concept-settings-object-time-origin③">time origin</a>.
 </p>
    <p>
-  To <dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport id="get-time-origin-timestamp">get time origin timestamp</dfn>, given a <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#global-object" id="ref-for-global-object">global object</a>
+  To <dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport id="get-time-origin-timestamp"><span class="bs-old-id" id="dfn-get-time-origin-timestamp"></span>get time origin timestamp</dfn>, given a <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#global-object" id="ref-for-global-object">global object</a>
   <var>global</var>, run the following steps, which return a
   <a data-link-type="dfn" href="#dfn-duration" id="ref-for-dfn-duration①③">duration</a>:
 </p>
@@ -1476,10 +1476,10 @@ worker<c- p>.</c->port<c- p>.</c->onmessage <c- o>=</c-> <c- a>function</c-> <c-
   to a <a data-link-type="dfn" href="#dfn-moment" id="ref-for-dfn-moment②⑧">moment</a>—to a finite resolution. For <a data-link-type="dfn" href="#dfn-moment" id="ref-for-dfn-moment②⑨">moments</a> in 2023, that
   resolution is approximately 0.2 microseconds.
 </p>
-   <h2 class="heading settled" data-level="6" id="sec-epochtimestamp"><span class="secno">6. </span><span class="content">
+   <h2 class="heading settled" data-level="6" id="sec-epochtimestamp"><span class="secno">6. </span><span class="bs-old-id" id="the-epochtimestamp-typedef"></span><span class="content">
   The <dfn class="dfn-paneled" data-dfn-type="dfn" data-export id="dom-epochtimestamp">EpochTimeStamp</dfn> typedef
 </span><a class="self-link" href="#sec-epochtimestamp"></a></h2>
-<pre class="def highlight idl"><c- b>typedef</c-> <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-unsigned-long-long" id="ref-for-idl-unsigned-long-long"><c- b>unsigned</c-> <c- b>long</c-> <c- b>long</c-></a> <dfn class="dfn-paneled idl-code" data-dfn-type="typedef" data-export id="typedefdef-epochtimestamp"><code><c- g>EpochTimeStamp</c-></code></dfn>;
+<pre class="def highlight idl" id="idl-def-epochtimestamp"><c- b>typedef</c-> <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-unsigned-long-long" id="ref-for-idl-unsigned-long-long"><c- b>unsigned</c-> <c- b>long</c-> <c- b>long</c-></a> <dfn class="dfn-paneled idl-code" data-dfn-type="typedef" data-export id="typedefdef-epochtimestamp"><code><c- g>EpochTimeStamp</c-></code></dfn>;
 </pre>
    <aside class="note" title="Legacy platform feature">
     <p>
@@ -1496,7 +1496,7 @@ worker<c- p>.</c->port<c- p>.</c->onmessage <c- o>=</c-> <c- a>function</c-> <c-
    <h2 class="heading settled" data-dfn-for="Performance" data-level="7" id="sec-performance"><span class="secno">7. </span><span class="content">
   The <dfn class="dfn-paneled" data-dfn-for="Performance" data-dfn-type="dfn" data-export id="dom-performance">Performance</dfn> interface
 </span><a class="self-link" href="#sec-performance"></a></h2>
-<pre class="def highlight idl">[<a class="idl-code" data-link-type="extended-attribute" href="https://webidl.spec.whatwg.org/#Exposed" id="ref-for-Exposed"><c- g>Exposed</c-></a>=(<c- n>Window</c->,<c- n>Worker</c->)]
+<pre class="def highlight idl" id="idl-def-performance">[<a class="idl-code" data-link-type="extended-attribute" href="https://webidl.spec.whatwg.org/#Exposed" id="ref-for-Exposed"><c- g>Exposed</c-></a>=(<c- n>Window</c->,<c- n>Worker</c->)]
 <c- b>interface</c-> <dfn class="dfn-paneled idl-code" data-dfn-type="interface" data-export id="performance"><code><c- g>Performance</c-></code></dfn> : <a data-link-type="idl-name" href="https://dom.spec.whatwg.org/#eventtarget" id="ref-for-eventtarget"><c- n>EventTarget</c-></a> {
     <a data-link-type="idl-name" href="#typedefdef-domhighrestimestamp" id="ref-for-typedefdef-domhighrestimestamp⑧"><c- n>DOMHighResTimeStamp</c-></a> <dfn class="dfn-paneled idl-code" data-dfn-for="Performance" data-dfn-type="method" data-export data-lt="now()" id="dom-performance-now"><code><c- g>now</c-></code></dfn>();
     <c- b>readonly</c-> <c- b>attribute</c-> <a data-link-type="idl-name" href="#typedefdef-domhighrestimestamp" id="ref-for-typedefdef-domhighrestimestamp⑨"><c- n>DOMHighResTimeStamp</c-></a> <a class="idl-code" data-link-type="attribute" data-readonly data-type="DOMHighResTimeStamp" href="#dom-performance-timeorigin" id="ref-for-dom-performance-timeorigin②"><c- g>timeOrigin</c-></a>;
@@ -1507,7 +1507,7 @@ worker<c- p>.</c->port<c- p>.</c->onmessage <c- o>=</c-> <c- a>function</c-> <c-
   <code>now()</code> method
 </span><a class="self-link" href="#now-method"></a></h3>
    <p data-tests="basic.any.html, basic.any.worker.html">
-  The <dfn class="dfn-paneled" data-dfn-type="dfn" data-export id="now">now()</dfn> method MUST return the number of milliseconds in
+  The <dfn class="dfn-paneled" data-dfn-type="dfn" data-export id="now"><span class="bs-old-id" id="idl-def-performance-now"></span>now()</dfn> method MUST return the number of milliseconds in
   the <a data-link-type="dfn" href="#dfn-current-high-resolution-time" id="ref-for-dfn-current-high-resolution-time">current high resolution time</a> given <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#this" id="ref-for-this①">this</a>’s <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#concept-relevant-global" id="ref-for-concept-relevant-global">relevant global object</a> (a <a data-link-type="dfn" href="#dfn-duration" id="ref-for-dfn-duration①⑦">duration</a>).
 </p>
    <p data-tests="monotonic-clock.any.html, monotonic-clock.any.worker.html">
@@ -1521,7 +1521,7 @@ worker<c- p>.</c->port<c- p>.</c->onmessage <c- o>=</c-> <c- a>function</c-> <c-
   <code>timeOrigin</code> attribute
 </span><a class="self-link" href="#timeorigin-attribute"></a></h3>
    <p data-tests="timeOrigin.html, window-worker-timeOrigin.window.html">
-  The <dfn class="dfn-paneled idl-code" data-dfn-for="Performance" data-dfn-type="attribute" data-export id="dom-performance-timeorigin"><code>timeOrigin</code></dfn> attribute MUST return the number of
+  The <dfn class="dfn-paneled idl-code" data-dfn-for="Performance" data-dfn-type="attribute" data-export id="dom-performance-timeorigin"><code><span class="bs-old-id" id="idl-def-performance-timeorigin"></span><code>timeOrigin</code></code></dfn> attribute MUST return the number of
   milliseconds in the <a data-link-type="dfn" href="#dfn-duration" id="ref-for-dfn-duration①⑧">duration</a> returned by <a data-link-type="dfn" href="#get-time-origin-timestamp" id="ref-for-get-time-origin-timestamp①">get time origin timestamp</a> for the <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#concept-relevant-global" id="ref-for-concept-relevant-global①">relevant global object</a> of <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#this" id="ref-for-this②">this</a>.
 </p>
    <p data-tests="test_cross_frame_start.html">
@@ -1535,20 +1535,20 @@ worker<c- p>.</c->port<c- p>.</c->onmessage <c- o>=</c-> <c- a>function</c-> <c-
   <code>toJSON()</code> method
 </span><a class="self-link" href="#tojson-method"></a></h3>
    <p data-tests="performance-tojson.html">
-  When <dfn class="dfn-paneled" data-dfn-type="dfn" data-export id="tojson">toJSON()</dfn> is called, run <a data-link-type="biblio" href="#biblio-webidl" title="Web IDL Standard">[WEBIDL]</a>’s <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#default-tojson-steps" id="ref-for-default-tojson-steps">default toJSON steps</a>.
+  When <dfn class="dfn-paneled" data-dfn-type="dfn" data-export id="tojson"><span class="bs-old-id" id="idl-def-performance-tojson"></span>toJSON()</dfn> is called, run <a data-link-type="biblio" href="#biblio-webidl" title="Web IDL Standard">[WEBIDL]</a>’s <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#default-tojson-steps" id="ref-for-default-tojson-steps">default toJSON steps</a>.
 </p>
-   <h2 class="heading settled" data-level="8" id="sec-windoworworkerglobalscope"><span class="secno">8. </span><span class="content">
+   <h2 class="heading settled" data-level="8" id="sec-windoworworkerglobalscope"><span class="secno">8. </span><span class="bs-old-id" id="extensions-to-windoworworkerglobalscope-mixin"></span><span class="content">
   Extensions to <code>WindowOrWorkerGlobalScope</code> mixin
 </span><a class="self-link" href="#sec-windoworworkerglobalscope"></a></h2>
    <h3 class="heading settled" data-dfn-for="WindowOrWorkerGlobalScope" data-level="8.1" id="the-performance-attribute"><span class="secno">8.1. </span><span class="content">
   The <code>performance</code> attribute
 </span><a class="self-link" href="#the-performance-attribute"></a></h3>
    <p>
-  The <dfn class="dfn-paneled idl-code" data-dfn-for="WindowOrWorkerGlobalScope" data-dfn-type="attribute" data-export id="the-performance-attr"><code>performance</code></dfn> attribute on the interface mixin
+  The <dfn class="dfn-paneled idl-code" data-dfn-for="WindowOrWorkerGlobalScope" data-dfn-type="attribute" data-export id="the-performance-attr"><code><span class="bs-old-id" id="idl-def-windoworworkerglobalscope-performance"></span><span class="bs-old-id" id="dom-windoworworkerglobalscope-performance"></span><code>performance</code></code></dfn> attribute on the interface mixin
   <code class="idl"><a data-link-type="idl" href="https://html.spec.whatwg.org/multipage/webappapis.html#windoworworkerglobalscope" id="ref-for-windoworworkerglobalscope">WindowOrWorkerGlobalScope</a></code> allows access to performance related
   attributes and methods from the <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#global-object" id="ref-for-global-object④">global object</a>.
 </p>
-<pre class="def highlight idl"><c- b>partial</c-> <c- b>interface</c-> <c- b>mixin</c-> <a class="idl-code" data-link-type="interface" href="https://html.spec.whatwg.org/multipage/webappapis.html#windoworworkerglobalscope" id="ref-for-windoworworkerglobalscope①"><c- g>WindowOrWorkerGlobalScope</c-></a> {
+<pre class="def highlight idl" id="idl-def-windoworworkerglobalscope-partial-1"><c- b>partial</c-> <c- b>interface</c-> <c- b>mixin</c-> <a class="idl-code" data-link-type="interface" href="https://html.spec.whatwg.org/multipage/webappapis.html#windoworworkerglobalscope" id="ref-for-windoworworkerglobalscope①"><c- g>WindowOrWorkerGlobalScope</c-></a> {
   [<a class="idl-code" data-link-type="extended-attribute" href="https://webidl.spec.whatwg.org/#Replaceable" id="ref-for-Replaceable"><c- g>Replaceable</c-></a>] <c- b>readonly</c-> <c- b>attribute</c-> <a data-link-type="idl-name" href="#performance" id="ref-for-performance⑥"><c- n>Performance</c-></a> <a class="idl-code" data-link-type="attribute" data-readonly data-type="Performance" href="#the-performance-attr" id="ref-for-the-performance-attr"><c- g>performance</c-></a>;
 };
 </pre>
@@ -1701,6 +1701,7 @@ worker<c- p>.</c->port<c- p>.</c->onmessage <c- o>=</c-> <c- a>function</c-> <c-
   Kemerlis, Yoav Weiss, and Yossef Oren for their contributions to this
   work.
 </p>
+   <div id="conformance"></div>
   </main>
   <div data-fill-with="conformance">
    <h2 class="heading no-num no-ref settled" id="w3c-conformance"><span class="content">Conformance</span><a class="self-link" href="#w3c-conformance"></a></h2>
@@ -1764,6 +1765,7 @@ worker<c- p>.</c->port<c- p>.</c->onmessage <c- o>=</c-> <c- a>function</c-> <c-
   <ul class="index">
    <li><a href="#clock">clock</a><span>, in § 2.1</span>
    <li><a href="#dfn-moment">coarsened moment</a><span>, in § 2.2</span>
+   <li><a href="#dfn-moment">coarsened moments</a><span>, in § 2.2</span>
    <li><a href="#dfn-coarsened-shared-current-time">coarsened shared current time</a><span>, in § 4</span>
    <li><a href="#dfn-coarsen-time">coarsen time</a><span>, in § 4</span>
    <li><a href="#dfn-current-wall-time">current coarsened wall time</a><span>, in § 3</span>
