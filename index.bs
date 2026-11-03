@@ -28,6 +28,7 @@ spec:html; type:dfn; text:run a worker
 spec:html; type:interface; text:SharedWorker
 spec:html; type:interface; text:BroadcastChannel
 spec:infra; type:dfn; text:user agent
+spec:webaudio-1.1; type:interface; text:AudioWorkletGlobalScope
 </pre>
 
 <pre class=anchors>
@@ -658,19 +659,19 @@ interface Performance : EventTarget {
   <code>now()</code> method
 </h3>
 <p data-tests="basic.any.html, basic.any.worker.html">
-  The <dfn data-export oldids="idl-def-performance-now">now()</dfn> method MUST return the number of milliseconds in
+  The <dfn method for="Performance, WorkletPerformance" data-export oldids="idl-def-performance-now">now()</dfn> method MUST return the number of milliseconds in
   the [=current high resolution time=] given [=this=]'s [=relevant
   global object=] (a [=duration=]).
 </p>
 <p data-tests=
 "monotonic-clock.any.html, monotonic-clock.any.worker.html">
   The time values returned when calling the {{Performance/now()}}
-  method on {{Performance}} objects with the same [=environment
-  settings object/time origin=] MUST use the same [=monotonic clock=].
-  The difference between any two chronologically recorded time values
-  returned from the {{Performance/now()}} method MUST never be negative
-  if the two time values have the same [=environment settings
-  object/time origin=].
+  method on {{Performance}} or {{WorkletPerformance}} objects with the
+  same [=environment settings object/time origin=] MUST use the same
+  [=monotonic clock=]. The difference between any two chronologically
+  recorded time values returned from the {{Performance/now()}} method
+  MUST never be negative if the two time values have the same
+  [=environment settings object/time origin=].
 </p>
 
 <h3 id="timeorigin-attribute">
@@ -698,6 +699,16 @@ interface Performance : EventTarget {
   toJSON steps=].
 </p>
 
+<h2 id="sec-workletperformance">
+  The <code>WorkletPerformance</code> interface
+</h2>
+<pre class="idl">
+[Exposed=AudioWorklet]
+interface WorkletPerformance {
+    DOMHighResTimeStamp now();
+};
+</pre>
+
 <h2 id="sec-windoworworkerglobalscope" oldids="extensions-to-windoworworkerglobalscope-mixin">
   Extensions to <code>WindowOrWorkerGlobalScope</code> mixin
 </h2>
@@ -713,6 +724,32 @@ interface Performance : EventTarget {
 <pre class="idl" id=idl-def-windoworworkerglobalscope-partial-1>
 partial interface mixin WindowOrWorkerGlobalScope {
   [Replaceable] readonly attribute Performance performance;
+};
+</pre>
+
+<h2 id="sec-audioworkletglobalscope">
+  Extensions to <code>AudioWorkletGlobalScope</code>
+</h2>
+
+<h3 id="the-audioworklet-performance-attribute" data-dfn-for="AudioWorkletGlobalScope">
+  The <code>performance</code> attribute
+</h3>
+<p>
+  Each {{AudioWorkletGlobalScope}} has an associated <dfn for="AudioWorkletGlobalScope">WorkletPerformance object</dfn>, which
+  is a {{WorkletPerformance}} object. Upon creation of the
+  {{AudioWorkletGlobalScope}} object, its
+  [=AudioWorkletGlobalScope/WorkletPerformance object=] must be set to a
+  [=new=] {{WorkletPerformance}} object created in the
+  {{AudioWorkletGlobalScope}} object's [=relevant realm=].
+</p>
+<p>
+  The <dfn attribute for="AudioWorkletGlobalScope" data-export id="the-audioworklet-performance-attr">performance</dfn>
+  getter steps are to return [=this=]'s
+  [=AudioWorkletGlobalScope/WorkletPerformance object=].
+</p>
+<pre class="idl">
+partial interface AudioWorkletGlobalScope {
+  [Replaceable] readonly attribute WorkletPerformance performance;
 };
 </pre>
 
