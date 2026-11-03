@@ -717,9 +717,15 @@ interface WorkletPerformance {
   The <code>performance</code> attribute
 </h3>
 <p>
-  The <dfn attribute for="WindowOrWorkerGlobalScope" data-export id="the-performance-attr" oldids="dom-windoworworkerglobalscope-performance,idl-def-windoworworkerglobalscope-performance">performance</dfn> attribute on the interface mixin
-  {{WindowOrWorkerGlobalScope}} allows access to performance related
-  attributes and methods from the [=/global object=].
+  Each object implementing the {{WindowOrWorkerGlobalScope}} mixin has an associated
+  <dfn for="WindowOrWorkerGlobalScope" data-export>Performance object</dfn>, which is a
+  {{Performance}} object. Upon creation of such an object, its
+  [=WindowOrWorkerGlobalScope/Performance object=] must be set to a [=new=] {{Performance}}
+  object created in that object's [=relevant realm=].
+</p>
+<p>
+  The <dfn attribute for="WindowOrWorkerGlobalScope" data-export id="the-performance-attr" oldids="dom-windoworworkerglobalscope-performance,idl-def-windoworworkerglobalscope-performance">performance</dfn>
+  getter steps are to return [=this=]'s [=WindowOrWorkerGlobalScope/Performance object=].
 </p>
 <pre class="idl" id=idl-def-windoworworkerglobalscope-partial-1>
 partial interface mixin WindowOrWorkerGlobalScope {
