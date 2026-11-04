@@ -718,14 +718,14 @@ interface WorkletPerformance {
 </h3>
 <p>
   Each object implementing the {{WindowOrWorkerGlobalScope}} mixin has an associated
-  <dfn for="WindowOrWorkerGlobalScope" data-export>Performance object</dfn>, which is a
+  <dfn for="WindowOrWorkerGlobalScope" data-export>performance object</dfn>, which is a
   {{Performance}} object. Upon creation of such an object, its
-  [=WindowOrWorkerGlobalScope/Performance object=] must be set to a [=new=] {{Performance}}
+  [=WindowOrWorkerGlobalScope/performance object=] must be set to a [=new=] {{Performance}}
   object created in that object's [=relevant realm=].
 </p>
 <p>
   The <dfn attribute for="WindowOrWorkerGlobalScope" data-export id="the-performance-attr" oldids="dom-windoworworkerglobalscope-performance,idl-def-windoworworkerglobalscope-performance">performance</dfn>
-  getter steps are to return [=this=]'s [=WindowOrWorkerGlobalScope/Performance object=].
+  getter steps are to return [=this=]'s [=WindowOrWorkerGlobalScope/performance object=].
 </p>
 <pre class="idl" id=idl-def-windoworworkerglobalscope-partial-1>
 partial interface mixin WindowOrWorkerGlobalScope {
@@ -741,17 +741,17 @@ partial interface mixin WindowOrWorkerGlobalScope {
   The <code>performance</code> attribute
 </h3>
 <p>
-  Each {{AudioWorkletGlobalScope}} has an associated <dfn for="AudioWorkletGlobalScope">WorkletPerformance object</dfn>, which
+  Each {{AudioWorkletGlobalScope}} has an associated <dfn for="AudioWorkletGlobalScope">performance object</dfn>, which
   is a {{WorkletPerformance}} object. Upon creation of the
   {{AudioWorkletGlobalScope}} object, its
-  [=AudioWorkletGlobalScope/WorkletPerformance object=] must be set to a
+  [=AudioWorkletGlobalScope/performance object=] must be set to a
   [=new=] {{WorkletPerformance}} object created in the
   {{AudioWorkletGlobalScope}} object's [=relevant realm=].
 </p>
 <p>
   The <dfn attribute for="AudioWorkletGlobalScope" data-export id="the-audioworklet-performance-attr">performance</dfn>
   getter steps are to return [=this=]'s
-  [=AudioWorkletGlobalScope/WorkletPerformance object=].
+  [=AudioWorkletGlobalScope/performance object=].
 </p>
 <pre class="idl">
 partial interface AudioWorkletGlobalScope {
