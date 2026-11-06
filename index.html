@@ -7,7 +7,7 @@
   <link href="https://www.w3.org/StyleSheets/TR/2021/W3C-ED" rel="stylesheet">
   <meta content="Bikeshed version e0b165ae4, updated Mon Nov 2 15:16:49 2026 -0800" name="generator">
   <link href="https://www.w3.org/TR/hr-time-3/" rel="canonical">
-  <meta content="223875330dcccb4e25bd56fc0efae4c4ba465046" name="revision">
+  <meta content="76c362ed3194d99d8563608be0bb6a73e06935b8" name="revision">
   <meta content="dark light" name="color-scheme">
   <link href="https://www.w3.org/StyleSheets/TR/2021/dark.css" media="(prefers-color-scheme: dark)" rel="stylesheet" type="text/css">
 <style>
@@ -785,7 +785,7 @@ var[data-var-color="6"] { --var-vg: #FFBCF2; }
 </p>
    <h1 class="no-ref p-name" id="title">High Resolution Time</h1>
    <p id="w3c-state"><a href="https://www.w3.org/standards/types/#ED">Editor’s Draft</a>,
-    <time class="dt-updated" datetime="2026-11-04">4 November 2026</time></p>
+    <time class="dt-updated" datetime="2026-11-06">6 November 2026</time></p>
    <details open>
     <summary>More details about this document</summary>
     <div data-fill-with="spec-metadata">
@@ -1573,12 +1573,18 @@ worker<c- p>.</c->port<c- p>.</c->onmessage <c- o>=</c-> <c- a>function</c-> <c-
   The <code>performance</code> attribute
 </span><a class="self-link" href="#the-performance-attribute"></a></h3>
    <p>
-  The <dfn class="dfn-paneled idl-code" data-dfn-for="WindowOrWorkerGlobalScope" data-dfn-type="attribute" data-export id="the-performance-attr"><code><span class="bs-old-id" id="idl-def-windoworworkerglobalscope-performance"></span><span class="bs-old-id" id="dom-windoworworkerglobalscope-performance"></span><code>performance</code></code></dfn> attribute on the interface mixin
-  <code class="idl"><a data-link-type="idl" href="https://html.spec.whatwg.org/multipage/webappapis.html#windoworworkerglobalscope" id="ref-for-windoworworkerglobalscope">WindowOrWorkerGlobalScope</a></code> allows access to performance related
-  attributes and methods from the <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#global-object" id="ref-for-global-object④">global object</a>.
+  Each object implementing the <code class="idl"><a data-link-type="idl" href="https://html.spec.whatwg.org/multipage/webappapis.html#windoworworkerglobalscope" id="ref-for-windoworworkerglobalscope">WindowOrWorkerGlobalScope</a></code> mixin has an associated
+  <dfn class="dfn-paneled" data-dfn-for="WindowOrWorkerGlobalScope" data-dfn-type="dfn" data-export id="windoworworkerglobalscope-performance-object">performance object</dfn>, which is a
+  <code class="idl"><a data-link-type="idl" href="#performance" id="ref-for-performance⑥">Performance</a></code> object. Upon creation of such an object, its
+  <a data-link-type="dfn" href="#windoworworkerglobalscope-performance-object" id="ref-for-windoworworkerglobalscope-performance-object">performance object</a> must be set to a <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#new" id="ref-for-new">new</a> <code class="idl"><a data-link-type="idl" href="#performance" id="ref-for-performance⑦">Performance</a></code>
+  object created in that object’s <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#concept-relevant-realm" id="ref-for-concept-relevant-realm">relevant realm</a>.
+</p>
+   <p>
+  The <dfn class="dfn-paneled idl-code" data-dfn-for="WindowOrWorkerGlobalScope" data-dfn-type="attribute" data-export id="the-performance-attr"><code><span class="bs-old-id" id="idl-def-windoworworkerglobalscope-performance"></span><span class="bs-old-id" id="dom-windoworworkerglobalscope-performance"></span><code>performance</code></code></dfn>
+  getter steps are to return <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#this" id="ref-for-this③">this</a>’s <a data-link-type="dfn" href="#windoworworkerglobalscope-performance-object" id="ref-for-windoworworkerglobalscope-performance-object①">performance object</a>.
 </p>
 <pre class="def highlight idl" id="idl-def-windoworworkerglobalscope-partial-1"><c- b>partial</c-> <c- b>interface</c-> <c- b>mixin</c-> <a class="idl-code" data-link-type="interface" href="https://html.spec.whatwg.org/multipage/webappapis.html#windoworworkerglobalscope" id="ref-for-windoworworkerglobalscope①"><c- g>WindowOrWorkerGlobalScope</c-></a> {
-  [<a class="idl-code" data-link-type="extended-attribute" href="https://webidl.spec.whatwg.org/#Replaceable" id="ref-for-Replaceable"><c- g>Replaceable</c-></a>] <c- b>readonly</c-> <c- b>attribute</c-> <a data-link-type="idl-name" href="#performance" id="ref-for-performance⑥"><c- n>Performance</c-></a> <a class="idl-code" data-link-type="attribute" data-readonly data-type="Performance" href="#the-performance-attr" id="ref-for-the-performance-attr"><c- g>performance</c-></a>;
+  [<a class="idl-code" data-link-type="extended-attribute" href="https://webidl.spec.whatwg.org/#Replaceable" id="ref-for-Replaceable"><c- g>Replaceable</c-></a>] <c- b>readonly</c-> <c- b>attribute</c-> <a data-link-type="idl-name" href="#performance" id="ref-for-performance⑧"><c- n>Performance</c-></a> <a class="idl-code" data-link-type="attribute" data-readonly data-type="Performance" href="#the-performance-attr" id="ref-for-the-performance-attr"><c- g>performance</c-></a>;
 };
 </pre>
    <h2 class="heading settled" data-level="10" id="sec-audioworkletglobalscope"><span class="secno">10. </span><span class="content">
@@ -1588,17 +1594,17 @@ worker<c- p>.</c->port<c- p>.</c->onmessage <c- o>=</c-> <c- a>function</c-> <c-
   The <code>performance</code> attribute
 </span><a class="self-link" href="#the-audioworklet-performance-attribute"></a></h3>
    <p>
-  Each <code class="idl"><a data-link-type="idl" href="https://webaudio.github.io/web-audio-api/#AudioWorkletGlobalScope" id="ref-for-AudioWorkletGlobalScope">AudioWorkletGlobalScope</a></code> has an associated <dfn class="dfn-paneled" data-dfn-for="AudioWorkletGlobalScope" data-dfn-type="dfn" data-noexport id="audioworkletglobalscope-workletperformance-object">WorkletPerformance object</dfn>, which
+  Each <code class="idl"><a data-link-type="idl" href="https://webaudio.github.io/web-audio-api/#AudioWorkletGlobalScope" id="ref-for-AudioWorkletGlobalScope">AudioWorkletGlobalScope</a></code> has an associated <dfn class="dfn-paneled" data-dfn-for="AudioWorkletGlobalScope" data-dfn-type="dfn" data-noexport id="audioworkletglobalscope-performance-object">performance object</dfn>, which
   is a <code class="idl"><a data-link-type="idl" href="#workletperformance" id="ref-for-workletperformance①">WorkletPerformance</a></code> object. Upon creation of the
   <code class="idl"><a data-link-type="idl" href="https://webaudio.github.io/web-audio-api/#AudioWorkletGlobalScope" id="ref-for-AudioWorkletGlobalScope①">AudioWorkletGlobalScope</a></code> object, its
-  <a data-link-type="dfn" href="#audioworkletglobalscope-workletperformance-object" id="ref-for-audioworkletglobalscope-workletperformance-object">WorkletPerformance object</a> must be set to a
-  <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#new" id="ref-for-new">new</a> <code class="idl"><a data-link-type="idl" href="#workletperformance" id="ref-for-workletperformance②">WorkletPerformance</a></code> object created in the
-  <code class="idl"><a data-link-type="idl" href="https://webaudio.github.io/web-audio-api/#AudioWorkletGlobalScope" id="ref-for-AudioWorkletGlobalScope②">AudioWorkletGlobalScope</a></code> object’s <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#concept-relevant-realm" id="ref-for-concept-relevant-realm">relevant realm</a>.
+  <a data-link-type="dfn" href="#audioworkletglobalscope-performance-object" id="ref-for-audioworkletglobalscope-performance-object">performance object</a> must be set to a
+  <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#new" id="ref-for-new①">new</a> <code class="idl"><a data-link-type="idl" href="#workletperformance" id="ref-for-workletperformance②">WorkletPerformance</a></code> object created in the
+  <code class="idl"><a data-link-type="idl" href="https://webaudio.github.io/web-audio-api/#AudioWorkletGlobalScope" id="ref-for-AudioWorkletGlobalScope②">AudioWorkletGlobalScope</a></code> object’s <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#concept-relevant-realm" id="ref-for-concept-relevant-realm①">relevant realm</a>.
 </p>
    <p>
   The <dfn class="dfn-paneled idl-code" data-dfn-for="AudioWorkletGlobalScope" data-dfn-type="attribute" data-export id="the-audioworklet-performance-attr"><code>performance</code></dfn>
-  getter steps are to return <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#this" id="ref-for-this③">this</a>’s
-  <a data-link-type="dfn" href="#audioworkletglobalscope-workletperformance-object" id="ref-for-audioworkletglobalscope-workletperformance-object①">WorkletPerformance object</a>.
+  getter steps are to return <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#this" id="ref-for-this④">this</a>’s
+  <a data-link-type="dfn" href="#audioworkletglobalscope-performance-object" id="ref-for-audioworkletglobalscope-performance-object①">performance object</a>.
 </p>
 <pre class="def highlight idl"><c- b>partial</c-> <c- b>interface</c-> <a class="idl-code" data-link-type="interface" href="https://webaudio.github.io/web-audio-api/#AudioWorkletGlobalScope" id="ref-for-AudioWorkletGlobalScope③"><c- g>AudioWorkletGlobalScope</c-></a> {
   [<a class="idl-code" data-link-type="extended-attribute" href="https://webidl.spec.whatwg.org/#Replaceable" id="ref-for-Replaceable①"><c- g>Replaceable</c-></a>] <c- b>readonly</c-> <c- b>attribute</c-> <a data-link-type="idl-name" href="#workletperformance" id="ref-for-workletperformance③"><c- n>WorkletPerformance</c-></a> <a class="idl-code" data-link-type="attribute" data-readonly data-type="WorkletPerformance" href="#the-audioworklet-performance-attr" id="ref-for-the-audioworklet-performance-attr"><c- g>performance</c-></a>;
@@ -1857,6 +1863,12 @@ worker<c- p>.</c->port<c- p>.</c->onmessage <c- o>=</c-> <c- a>function</c-> <c-
      <li><a href="#the-audioworklet-performance-attr">attribute for AudioWorkletGlobalScope</a><span>, in § 10.1</span>
      <li><a href="#the-performance-attr">attribute for WindowOrWorkerGlobalScope</a><span>, in § 9.1</span>
     </ul>
+   <li>
+    performance object
+    <ul>
+     <li><a href="#audioworkletglobalscope-performance-object">dfn for AudioWorkletGlobalScope</a><span>, in § 10.1</span>
+     <li><a href="#windoworworkerglobalscope-performance-object">dfn for WindowOrWorkerGlobalScope</a><span>, in § 9.1</span>
+    </ul>
    <li><a href="#dfn-relative-high-resolution-coarse-time">relative high resolution coarse time</a><span>, in § 4</span>
    <li><a href="#dfn-relative-high-resolution-time">relative high resolution time</a><span>, in § 4</span>
    <li><a href="#dom-performance-timeorigin">timeOrigin</a><span>, in § 7.2</span>
@@ -1878,7 +1890,6 @@ worker<c- p>.</c->port<c- p>.</c->onmessage <c- o>=</c-> <c- a>function</c-> <c-
    <li><a href="#dfn-unsafe-shared-current-time">unsafe shared current time</a><span>, in § 4</span>
    <li><a href="#dfn-wall-clock">wall clock</a><span>, in § 2.1</span>
    <li><a href="#workletperformance">WorkletPerformance</a><span>, in § 8</span>
-   <li><a href="#audioworkletglobalscope-workletperformance-object">WorkletPerformance object</a><span>, in § 10.1</span>
   </ul>
   <h3 class="heading no-num no-ref settled" id="index-defined-elsewhere"><span class="content">Terms defined by reference</span><a class="self-link" href="#index-defined-elsewhere"></a></h3>
   <ul class="index">
@@ -2209,11 +2220,11 @@ let dfnPanelData = {
 "1968aaab": {"dfnID":"1968aaab","dfnText":"ServiceWorker","external":true,"refSections":[{"refs":[{"id":"ref-for-serviceworker"}],"title":"4. \n  Time Origin\n"}],"url":"https://w3c.github.io/ServiceWorker/#serviceworker"},
 "2bc0cdf4": {"dfnID":"2bc0cdf4","dfnText":"EventTarget","external":true,"refSections":[{"refs":[{"id":"ref-for-eventtarget"}],"title":"7. \n  The Performance interface\n"}],"url":"https://dom.spec.whatwg.org/#eventtarget"},
 "3e12e042": {"dfnID":"3e12e042","dfnText":"environment settings object","external":true,"refSections":[{"refs":[{"id":"ref-for-environment-settings-object"}],"title":"2.1. \n  Clocks\n"},{"refs":[{"id":"ref-for-environment-settings-object\u2460"},{"id":"ref-for-environment-settings-object\u2461"},{"id":"ref-for-environment-settings-object\u2462"},{"id":"ref-for-environment-settings-object\u2463"},{"id":"ref-for-environment-settings-object\u2464"},{"id":"ref-for-environment-settings-object\u2465"}],"title":"3. \n  Tools for Specification Authors\n"},{"refs":[{"id":"ref-for-environment-settings-object\u2466"},{"id":"ref-for-environment-settings-object\u2467"}],"title":"4. \n  Time Origin\n"}],"url":"https://html.spec.whatwg.org/multipage/webappapis.html#environment-settings-object"},
-"4013a022": {"dfnID":"4013a022","dfnText":"this","external":true,"refSections":[{"refs":[{"id":"ref-for-this"}],"title":"3.1. \n  Examples\n"},{"refs":[{"id":"ref-for-this\u2460"}],"title":"7.1. \n  now() method\n"},{"refs":[{"id":"ref-for-this\u2461"}],"title":"7.2. \n  timeOrigin attribute\n"},{"refs":[{"id":"ref-for-this\u2462"}],"title":"10.1. \n  The performance attribute\n"}],"url":"https://webidl.spec.whatwg.org/#this"},
+"4013a022": {"dfnID":"4013a022","dfnText":"this","external":true,"refSections":[{"refs":[{"id":"ref-for-this"}],"title":"3.1. \n  Examples\n"},{"refs":[{"id":"ref-for-this\u2460"}],"title":"7.1. \n  now() method\n"},{"refs":[{"id":"ref-for-this\u2461"}],"title":"7.2. \n  timeOrigin attribute\n"},{"refs":[{"id":"ref-for-this\u2462"}],"title":"9.1. \n  The performance attribute\n"},{"refs":[{"id":"ref-for-this\u2463"}],"title":"10.1. \n  The performance attribute\n"}],"url":"https://webidl.spec.whatwg.org/#this"},
 "473036cd": {"dfnID":"473036cd","dfnText":"cross-origin isolated capability","external":true,"refSections":[{"refs":[{"id":"ref-for-concept-settings-object-cross-origin-isolated-capability"},{"id":"ref-for-concept-settings-object-cross-origin-isolated-capability\u2460"},{"id":"ref-for-concept-settings-object-cross-origin-isolated-capability\u2461"}],"title":"3. \n  Tools for Specification Authors\n"},{"refs":[{"id":"ref-for-concept-settings-object-cross-origin-isolated-capability\u2462"}],"title":"4. \n  Time Origin\n"}],"url":"https://html.spec.whatwg.org/multipage/webappapis.html#concept-settings-object-cross-origin-isolated-capability"},
-"4b6086d7": {"dfnID":"4b6086d7","dfnText":"global object","external":true,"refSections":[{"refs":[{"id":"ref-for-global-object"},{"id":"ref-for-global-object\u2460"},{"id":"ref-for-global-object\u2461"},{"id":"ref-for-global-object\u2462"}],"title":"4. \n  Time Origin\n"},{"refs":[{"id":"ref-for-global-object\u2463"}],"title":"9.1. \n  The performance attribute\n"}],"url":"https://html.spec.whatwg.org/multipage/webappapis.html#global-object"},
-"56f81a8e": {"dfnID":"56f81a8e","dfnText":"new","external":true,"refSections":[{"refs":[{"id":"ref-for-new"}],"title":"10.1. \n  The performance attribute\n"}],"url":"https://webidl.spec.whatwg.org/#new"},
-"5991ccfb": {"dfnID":"5991ccfb","dfnText":"relevant realm","external":true,"refSections":[{"refs":[{"id":"ref-for-concept-relevant-realm"}],"title":"10.1. \n  The performance attribute\n"}],"url":"https://html.spec.whatwg.org/multipage/webappapis.html#concept-relevant-realm"},
+"4b6086d7": {"dfnID":"4b6086d7","dfnText":"global object","external":true,"refSections":[{"refs":[{"id":"ref-for-global-object"},{"id":"ref-for-global-object\u2460"},{"id":"ref-for-global-object\u2461"},{"id":"ref-for-global-object\u2462"}],"title":"4. \n  Time Origin\n"}],"url":"https://html.spec.whatwg.org/multipage/webappapis.html#global-object"},
+"56f81a8e": {"dfnID":"56f81a8e","dfnText":"new","external":true,"refSections":[{"refs":[{"id":"ref-for-new"}],"title":"9.1. \n  The performance attribute\n"},{"refs":[{"id":"ref-for-new\u2460"}],"title":"10.1. \n  The performance attribute\n"}],"url":"https://webidl.spec.whatwg.org/#new"},
+"5991ccfb": {"dfnID":"5991ccfb","dfnText":"relevant realm","external":true,"refSections":[{"refs":[{"id":"ref-for-concept-relevant-realm"}],"title":"9.1. \n  The performance attribute\n"},{"refs":[{"id":"ref-for-concept-relevant-realm\u2460"}],"title":"10.1. \n  The performance attribute\n"}],"url":"https://html.spec.whatwg.org/multipage/webappapis.html#concept-relevant-realm"},
 "5d7209e9": {"dfnID":"5d7209e9","dfnText":"Window","external":true,"refSections":[{"refs":[{"id":"ref-for-window"}],"title":"4. \n  Time Origin\n"}],"url":"https://html.spec.whatwg.org/multipage/nav-history-apis.html#window"},
 "5f6d392d": {"dfnID":"5f6d392d","dfnText":"WindowOrWorkerGlobalScope","external":true,"refSections":[{"refs":[{"id":"ref-for-windoworworkerglobalscope"},{"id":"ref-for-windoworworkerglobalscope\u2460"}],"title":"9.1. \n  The performance attribute\n"}],"url":"https://html.spec.whatwg.org/multipage/webappapis.html#windoworworkerglobalscope"},
 "6d19ac93": {"dfnID":"6d19ac93","dfnText":"user agent","external":true,"refSections":[{"refs":[{"id":"ref-for-user-agent"}],"title":"2.1. \n  Clocks\n"}],"url":"https://infra.spec.whatwg.org/#user-agent"},
@@ -2227,7 +2238,7 @@ let dfnPanelData = {
 "9c4c1e66": {"dfnID":"9c4c1e66","dfnText":"relevant settings object","external":true,"refSections":[{"refs":[{"id":"ref-for-relevant-settings-object"},{"id":"ref-for-relevant-settings-object\u2460"}],"title":"3.1. \n  Examples\n"},{"refs":[{"id":"ref-for-relevant-settings-object\u2461"},{"id":"ref-for-relevant-settings-object\u2462"},{"id":"ref-for-relevant-settings-object\u2463"}],"title":"4. \n  Time Origin\n"}],"url":"https://html.spec.whatwg.org/multipage/webappapis.html#relevant-settings-object"},
 "a0c4f72a": {"dfnID":"a0c4f72a","dfnText":"BroadcastChannel","external":true,"refSections":[{"refs":[{"id":"ref-for-broadcastchannel"}],"title":"2.1. \n  Clocks\n"}],"url":"https://html.spec.whatwg.org/multipage/web-messaging.html#broadcastchannel"},
 "a13a702f": {"dfnID":"a13a702f","dfnText":"SharedWorker","external":true,"refSections":[{"refs":[{"id":"ref-for-sharedworker"}],"title":"1.2. \n  Examples\n"}],"url":"https://html.spec.whatwg.org/multipage/workers.html#sharedworker"},
-"audioworkletglobalscope-workletperformance-object": {"dfnID":"audioworkletglobalscope-workletperformance-object","dfnText":"WorkletPerformance object","external":false,"refSections":[{"refs":[{"id":"ref-for-audioworkletglobalscope-workletperformance-object"},{"id":"ref-for-audioworkletglobalscope-workletperformance-object\u2460"}],"title":"10.1. The performance attribute"}],"url":"#audioworkletglobalscope-workletperformance-object"},
+"audioworkletglobalscope-performance-object": {"dfnID":"audioworkletglobalscope-performance-object","dfnText":"performance object","external":false,"refSections":[{"refs":[{"id":"ref-for-audioworkletglobalscope-performance-object"},{"id":"ref-for-audioworkletglobalscope-performance-object\u2460"}],"title":"10.1. The performance attribute"}],"url":"#audioworkletglobalscope-performance-object"},
 "bfc1c271": {"dfnID":"bfc1c271","dfnText":"Worker","external":true,"refSections":[{"refs":[{"id":"ref-for-worker"}],"title":"1.1. \n  Use-cases\n"},{"refs":[{"id":"ref-for-worker\u2460"}],"title":"1.2. \n  Examples\n"},{"refs":[{"id":"ref-for-worker\u2461"},{"id":"ref-for-worker\u2462"}],"title":"4. \n  Time Origin\n"}],"url":"https://html.spec.whatwg.org/multipage/workers.html#worker"},
 "clock": {"dfnID":"clock","dfnText":"clock","external":false,"refSections":[{"refs":[{"id":"ref-for-clock"},{"id":"ref-for-clock\u2460"},{"id":"ref-for-clock\u2461"},{"id":"ref-for-clock\u2462"},{"id":"ref-for-clock\u2463"},{"id":"ref-for-clock\u2464"},{"id":"ref-for-clock\u2465"}],"title":"2.2. Moments and Durations"},{"refs":[{"id":"ref-for-clock\u2466"}],"title":"4. Time Origin"}],"url":"#clock"},
 "d4ec1548": {"dfnID":"d4ec1548","dfnText":"timeStamp","external":true,"refSections":[{"refs":[{"id":"ref-for-dom-event-timestamp"}],"title":"3.1. \n  Examples\n"}],"url":"https://dom.spec.whatwg.org/#dom-event-timestamp"},
@@ -2264,7 +2275,7 @@ let dfnPanelData = {
 "get-time-origin-timestamp": {"dfnID":"get-time-origin-timestamp","dfnText":"get time origin timestamp","external":false,"refSections":[{"refs":[{"id":"ref-for-get-time-origin-timestamp"}],"title":"4. Time Origin"},{"refs":[{"id":"ref-for-get-time-origin-timestamp\u2460"}],"title":"7.2. timeOrigin attribute"}],"url":"#get-time-origin-timestamp"},
 "implicitly-convert-a-duration-to-a-timestamp": {"dfnID":"implicitly-convert-a-duration-to-a-timestamp","dfnText":"implicitly convert a duration to a timestamp","external":false,"refSections":[{"refs":[{"id":"ref-for-implicitly-convert-a-duration-to-a-timestamp"}],"title":"3. Tools for Specification Authors"}],"url":"#implicitly-convert-a-duration-to-a-timestamp"},
 "monotonic-clock-unsafe-current-time": {"dfnID":"monotonic-clock-unsafe-current-time","dfnText":"unsafe current time","external":false,"refSections":[{"refs":[{"id":"ref-for-monotonic-clock-unsafe-current-time"}],"title":"3. Tools for Specification Authors"},{"refs":[{"id":"ref-for-monotonic-clock-unsafe-current-time\u2460"},{"id":"ref-for-monotonic-clock-unsafe-current-time\u2461"}],"title":"4. Time Origin"}],"url":"#monotonic-clock-unsafe-current-time"},
-"performance": {"dfnID":"performance","dfnText":"Performance","external":false,"refSections":[{"refs":[{"id":"ref-for-performance"},{"id":"ref-for-performance\u2460"},{"id":"ref-for-performance\u2461"}],"title":"1. Introduction"},{"refs":[{"id":"ref-for-performance\u2462"}],"title":"1.2. Examples"},{"refs":[{"id":"ref-for-performance\u2463"}],"title":"7.1. now() method"},{"refs":[{"id":"ref-for-performance\u2464"}],"title":"7.2. timeOrigin attribute"},{"refs":[{"id":"ref-for-performance\u2465"}],"title":"9.1. The performance attribute"}],"url":"#performance"},
+"performance": {"dfnID":"performance","dfnText":"Performance","external":false,"refSections":[{"refs":[{"id":"ref-for-performance"},{"id":"ref-for-performance\u2460"},{"id":"ref-for-performance\u2461"}],"title":"1. Introduction"},{"refs":[{"id":"ref-for-performance\u2462"}],"title":"1.2. Examples"},{"refs":[{"id":"ref-for-performance\u2463"}],"title":"7.1. now() method"},{"refs":[{"id":"ref-for-performance\u2464"}],"title":"7.2. timeOrigin attribute"},{"refs":[{"id":"ref-for-performance\u2465"},{"id":"ref-for-performance\u2466"},{"id":"ref-for-performance\u2467"}],"title":"9.1. The performance attribute"}],"url":"#performance"},
 "the-audioworklet-performance-attr": {"dfnID":"the-audioworklet-performance-attr","dfnText":"performance","external":false,"refSections":[{"refs":[{"id":"ref-for-the-audioworklet-performance-attr"}],"title":"10.1. The performance attribute"}],"url":"#the-audioworklet-performance-attr"},
 "the-performance-attr": {"dfnID":"the-performance-attr","dfnText":"performance","external":false,"refSections":[{"refs":[{"id":"ref-for-the-performance-attr"}],"title":"9.1. The performance attribute"}],"url":"#the-performance-attr"},
 "tojson": {"dfnID":"tojson","dfnText":"toJSON()","external":false,"refSections":[],"url":"#tojson"},
@@ -2273,6 +2284,7 @@ let dfnPanelData = {
 "unsafe-current-time": {"dfnID":"unsafe-current-time","dfnText":"unsafe current time","external":false,"refSections":[{"refs":[{"id":"ref-for-unsafe-current-time"}],"title":"2.2. Moments and Durations"}],"url":"#unsafe-current-time"},
 "unsafe-moment": {"dfnID":"unsafe-moment","dfnText":"unsafe\n  moment","external":false,"refSections":[{"refs":[{"id":"ref-for-unsafe-moment"},{"id":"ref-for-unsafe-moment\u2460"},{"id":"ref-for-unsafe-moment\u2461"},{"id":"ref-for-unsafe-moment\u2462"}],"title":"2.2. Moments and Durations"},{"refs":[{"id":"ref-for-unsafe-moment\u2463"},{"id":"ref-for-unsafe-moment\u2464"}],"title":"4. Time Origin"}],"url":"#unsafe-moment"},
 "wall-clock-unsafe-current-time": {"dfnID":"wall-clock-unsafe-current-time","dfnText":"unsafe current time","external":false,"refSections":[{"refs":[{"id":"ref-for-wall-clock-unsafe-current-time"}],"title":"2.1. Clocks"},{"refs":[{"id":"ref-for-wall-clock-unsafe-current-time\u2460"},{"id":"ref-for-wall-clock-unsafe-current-time\u2461"}],"title":"3. Tools for Specification Authors"},{"refs":[{"id":"ref-for-wall-clock-unsafe-current-time\u2462"}],"title":"4. Time Origin"}],"url":"#wall-clock-unsafe-current-time"},
+"windoworworkerglobalscope-performance-object": {"dfnID":"windoworworkerglobalscope-performance-object","dfnText":"performance object","external":false,"refSections":[{"refs":[{"id":"ref-for-windoworworkerglobalscope-performance-object"},{"id":"ref-for-windoworworkerglobalscope-performance-object\u2460"}],"title":"9.1. The performance attribute"}],"url":"#windoworworkerglobalscope-performance-object"},
 "workletperformance": {"dfnID":"workletperformance","dfnText":"WorkletPerformance","external":false,"refSections":[{"refs":[{"id":"ref-for-workletperformance"}],"title":"7.1. now() method"},{"refs":[{"id":"ref-for-workletperformance\u2460"},{"id":"ref-for-workletperformance\u2461"},{"id":"ref-for-workletperformance\u2462"}],"title":"10.1. The performance attribute"}],"url":"#workletperformance"},
 };
 
@@ -2566,7 +2578,7 @@ function genLinkingSyntaxes(dfn) {
 "use strict";
 {
 let refsData = {
-"#audioworkletglobalscope-workletperformance-object": {"displayText":"workletperformance object","export":true,"for_":["AudioWorkletGlobalScope"],"level":"","normative":true,"shortname":"hr-time-3","spec":"hr-time-3","status":"local","text":"workletperformance object","type":"dfn","url":"#audioworkletglobalscope-workletperformance-object"},
+"#audioworkletglobalscope-performance-object": {"displayText":"performance object","export":true,"for_":["AudioWorkletGlobalScope"],"level":"","normative":true,"shortname":"hr-time-3","spec":"hr-time-3","status":"local","text":"performance object","type":"dfn","url":"#audioworkletglobalscope-performance-object"},
 "#clock": {"displayText":"clock","export":true,"for_":[],"level":"","normative":true,"shortname":"hr-time-3","spec":"hr-time-3","status":"local","text":"clock","type":"dfn","url":"#clock"},
 "#dfn-coarsen-time": {"displayText":"coarsen time","export":true,"for_":[],"level":"","normative":true,"shortname":"hr-time-3","spec":"hr-time-3","status":"local","text":"coarsen time","type":"dfn","url":"#dfn-coarsen-time"},
 "#dfn-current-high-resolution-time": {"displayText":"current high resolution time","export":true,"for_":[],"level":"","normative":true,"shortname":"hr-time-3","spec":"hr-time-3","status":"local","text":"current high resolution time","type":"dfn","url":"#dfn-current-high-resolution-time"},
@@ -2596,6 +2608,7 @@ let refsData = {
 "#typedefdef-epochtimestamp": {"displayText":"EpochTimeStamp","export":true,"for_":[],"level":"","normative":true,"shortname":"hr-time-3","spec":"hr-time-3","status":"local","text":"EpochTimeStamp","type":"typedef","url":"#typedefdef-epochtimestamp"},
 "#unsafe-moment": {"displayText":"unsafe moment","export":true,"for_":[],"level":"","normative":true,"shortname":"hr-time-3","spec":"hr-time-3","status":"local","text":"unsafe moment","type":"dfn","url":"#unsafe-moment"},
 "#wall-clock-unsafe-current-time": {"displayText":"unsafe current time","export":true,"for_":["wall clock"],"level":"","normative":true,"shortname":"hr-time-3","spec":"hr-time-3","status":"local","text":"unsafe current time","type":"dfn","url":"#wall-clock-unsafe-current-time"},
+"#windoworworkerglobalscope-performance-object": {"displayText":"performance object","export":true,"for_":["WindowOrWorkerGlobalScope"],"level":"","normative":true,"shortname":"hr-time-3","spec":"hr-time-3","status":"local","text":"performance object","type":"dfn","url":"#windoworworkerglobalscope-performance-object"},
 "#workletperformance": {"displayText":"WorkletPerformance","export":true,"for_":[],"level":"","normative":true,"shortname":"hr-time-3","spec":"hr-time-3","status":"local","text":"WorkletPerformance","type":"interface","url":"#workletperformance"},
 "https://dom.spec.whatwg.org/#document": {"displayText":"Document","export":true,"for_":[],"level":"1","normative":true,"shortname":"dom","spec":"dom","status":"current","text":"Document","type":"interface","url":"https://dom.spec.whatwg.org/#document"},
 "https://dom.spec.whatwg.org/#dom-event-timestamp": {"displayText":"timeStamp","export":true,"for_":["Event"],"level":"1","normative":true,"shortname":"dom","spec":"dom","status":"current","text":"timeStamp","type":"attribute","url":"https://dom.spec.whatwg.org/#dom-event-timestamp"},
