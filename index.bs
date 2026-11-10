@@ -155,7 +155,7 @@ var duration = Date.now() - mark_start;
   developers will need sub-millisecond resolution in order to determine
   if an animation is drawing at 60 FPS. Without sub-millisecond
   resolution, a developer can only determine if an animation is drawing
-  at 58.8 FPS (1000ms / 16) or 62.5 FPS (1000ms / 17).
+  at 58.8 FPS (1000ms / 17) or 62.5 FPS (1000ms / 16).
   </li>
   <li>When collecting in-the-wild measurements of JS code (e.g. using
   User-Timing), developers may be interested in gathering
